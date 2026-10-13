@@ -1,0 +1,10 @@
+{
+  "state": "CA",
+  "name": "California",
+  "publisher": "California EMS Authority (EMSA)",
+  "report_type": "APOT Exceedance Report to the Commission on EMS",
+  "landing_page": "https://emsa.ca.gov/apot/",
+  "metric": "p90_exceedance_only",
+  "min_offloads": 60,
+  "note": "File names are offset: the file titled with month M holds data for month M-1. The data month is read from the SUBJECT line inside each PDF."
+}
