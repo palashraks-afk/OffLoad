@@ -2,8 +2,9 @@
 (function () {
   'use strict';
   var D = window.OW_DATA;
-  var appEl = document.getElementById('app');
-  if (!D) { appEl.textContent = 'The data files did not load. Please reload. In an emergency, call 911.'; return; }
+  var mainEl = document.getElementById('app');
+  var appEl = mainEl;
+  if (!D) { mainEl.textContent = 'The data files did not load. Please reload. In an emergency, call 911.'; return; }
 
   var META = D.meta, HOSP = D.hospitals, CLINICS = D.clinics, FC = D.forecast;
   var BYID = {};
@@ -71,7 +72,7 @@
     green: { icon: '●', svg: '<circle cx="12" cy="12" r="10"/>' },
     gray: { icon: '○', svg: '<circle cx="12" cy="12" r="9" fill-opacity=".15"/>' }
   };
-  var COLORS = { red: '#a4161a', yellow: '#b07a00', green: '#14633a', gray: '#46525d' };
+  var COLORS = { red: '#b42318', yellow: '#b45f06', green: '#166534', gray: '#4a5360' };
   function badge(b) {
     return '<span class="badge b-' + b + '"><span aria-hidden="true">' + SHAPES[b].icon + '</span> ' + esc(t('band.' + b)) + '</span>';
   }
@@ -114,23 +115,21 @@
     document.documentElement.lang = lang;
     $('#skip').textContent = t('skip');
     $('#e911').setAttribute('aria-label', t('e911.label'));
-    $('#e911').innerHTML = '<strong>' + esc(t('e911.title')) + '</strong><span>' + esc(t('e911.body')) + '</span>';
+    $('#e911').innerHTML = '<strong>' + esc(t('e911.title')) + '</strong> <span>' + esc(t('e911.body')) + '</span>';
     var nav = ROUTES.map(function (r) {
       var on = current.base === r[0].split('/').slice(0, 2).join('/') || (r[0] === '#/' && current.base === '#/') || (r[0].indexOf('#/district') === 0 && current.base === '#/district');
       return '<li><a href="' + r[0] + '"' + (on ? ' aria-current="page"' : '') + '>' + esc(t(r[1])) + '</a></li>';
     }).join('');
-    $('#top').innerHTML =
-      '<a class="brand" href="#/"><svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor"/><path d="M16 7v18M7 16h18" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>' + esc(t('app.title')) + '</a>' +
-      '<span class="tag">' + esc(t('app.tagline')) + '</span>' +
+    $('#top').innerHTML = '<div class="top-in">' +
+      '<a class="brand" href="#/"><svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M16 8v16M8 16h16" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>' + esc(t('app.title')) + '</a>' +
       '<nav aria-label="' + esc(t('nav.label')) + '"><ul>' + nav + '</ul></nav>' +
-      '<button type="button" class="langbtn" id="lang" lang="' + (lang === 'en' ? 'es' : 'en') + '" aria-label="' + esc(t('lang.toggle.label')) + '">' + esc(t('lang.toggle')) + '</button>';
+      '<button type="button" class="langbtn" id="lang" lang="' + (lang === 'en' ? 'es' : 'en') + '" aria-label="' + esc(t('lang.toggle.label')) + '">' + esc(t('lang.toggle')) + '</button></div>';
     $('#lang').onclick = function () {
       lang = lang === 'en' ? 'es' : 'en';
       try { localStorage.setItem('ow-lang', lang); } catch (e) { /* ignore */ }
       chrome(); route(true);
     };
-    $('#fresh').innerHTML = esc(t('fresh', { month: monthLabel(LATEST) })) + ' ' + esc(t('fresh.built', { built: builtLabel() })) + ' ' + esc(t('info.only'));
-    $('#foot').innerHTML = '<p>' + esc(t('footer.data')) + ' <a href="' + REPO + '/issues" rel="noopener">' + esc(t('footer.error')) + '</a> &middot; <a href="' + REPO + '" rel="noopener">GitHub</a></p>';
+    $('#foot').innerHTML = '<p>' + esc(t('info.only')) + '</p><p>' + esc(t('footer.data')) + ' ' + esc(t('fresh.built', { built: builtLabel() })) + ' <a href="' + REPO + '/issues" rel="noopener">' + esc(t('footer.error')) + '</a> &middot; <a href="' + REPO + '" rel="noopener">GitHub</a></p>';
   }
 
   /* ---------- maps ---------- */
@@ -165,7 +164,7 @@
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
     } catch (e) { /* offline: points and outline still draw */ }
     var f = opts.district ? featureFor(opts.district) : null;
-    if (f) L.geoJSON(f, { style: { color: '#0a4fa8', weight: 3, fillColor: '#0a4fa8', fillOpacity: 0.07 }, interactive: false }).addTo(map);
+    if (f) L.geoJSON(f, { style: { color: '#0a5c7a', weight: 3, fillColor: '#0a5c7a', fillOpacity: 0.08 }, interactive: false }).addTo(map);
     opts.hospitals.forEach(function (h) {
       if (h.lat == null) return;
       var m = L.marker([h.lat, h.lon], { icon: markerIcon(h), title: hospLabel(h), alt: hospLabel(h), keyboard: true });
@@ -188,20 +187,24 @@
 
   /* ---------- hospital card ---------- */
   function cardHtml(h, dist) {
-    var s = status(h), body;
+    var s = status(h), body, where = [];
+    if (h.city) where.push(esc(h.city));
+    if (dist != null) where.push(esc(distText(dist)));
+    var std;
     if (s.listed) {
-      var vars = { month: monthLabel(LATEST), p90: aboutMin(s.m.p90_min), std: Math.round(s.m.standard_min), pct: s.m.pct_compliant == null ? '' : Math.round(s.m.pct_compliant) };
-      body = esc(t(s.m.pct_compliant == null ? 'card.listed.nopct' : 'card.listed', vars)) +
+      std = Math.round(s.m.standard_min);
+      body = '<p class="big">' + Math.round(s.m.p90_min) + ' <small>' + esc(t('minutes.unit')) + '</small></p><p class="cap">' + esc(t('card.big.label')) + '</p>' +
+        (s.m.pct_compliant == null ? '<p class="cap">' + esc(t('card.listed.nopct', { month: monthLabel(LATEST), p90: aboutMin(s.m.p90_min), std: std })) + '</p>'
+          : '<div class="meter" role="img" aria-label="' + esc(t('card.meter', { pct: Math.round(s.m.pct_compliant), std: std })) + '"><span style="width:' + Math.max(2, Math.round(s.m.pct_compliant)) + '%"></span></div><p class="cap">' + esc(t('card.meter', { pct: Math.round(s.m.pct_compliant), std: std })) + '</p>') +
         '<details><summary>' + esc(t('card.exact')) + '</summary><p>' + esc(t('card.exact.body', { mmss: mmss(s.m.p90_min), n: num(s.m.offloads), pct: pctText(s.m.pct_compliant) })) + '</p></details>';
     } else {
       var lm = listedMonths(h);
-      body = '<p>' + esc(t('card.notlisted', { month: monthLabel(LATEST) })) + '</p>' +
-        (lm.length ? '<p class="small">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '<p class="small">' + esc(t('card.never', { first: monthLabel(META.months[0]), last: monthLabel(LATEST) })) + '</p>') +
-        '<p class="small">' + esc(t('band.gray.desc')) + '</p>';
+      body = '<p class="cap"><strong>' + esc(t('card.notlisted.short', { month: monthLabel(LATEST) })) + '</strong></p>' +
+        (lm.length ? '<p class="cap">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '') +
+        '<p class="cap">' + esc(t('band.gray.desc')) + '</p>';
     }
-    return '<li class="card"><h3>' + esc(h.name) + '</h3><p>' + badge(s.band) +
-      (dist != null ? ' <span class="small">' + esc(distText(dist)) + (h.city ? ' &middot; ' + esc(h.city) : '') + '</span>' : (h.city ? ' <span class="small">' + esc(h.city) + '</span>' : '')) + '</p><p>' + body + '</p>' +
-      '<p><a href="#/hospital/' + encodeURIComponent(h.id) + '" aria-label="' + esc(t('card.detail', { name: h.name })) + '">' + esc(t('card.more')) + '</a></p></li>';
+    return '<li class="card hc"><h3>' + esc(h.name) + '</h3><p class="where">' + where.join(' &middot; ') + '</p><p>' + badge(s.band) + '</p>' + body +
+      '<a class="more" href="#/hospital/' + encodeURIComponent(h.id) + '" aria-label="' + esc(t('card.detail', { name: h.name })) + '">' + esc(t('card.more')) + ' &rarr;</a></li>';
   }
 
   /* ---------- search ---------- */
@@ -212,7 +215,13 @@
     return '<form class="search" id="sf" role="search" novalidate><div class="field"><label for="q">' + esc(t('search.label')) + '</label>' +
       '<input type="search" id="q" name="q" autocomplete="street-address" placeholder="' + esc(t('search.placeholder')) + '" value="' + esc(q || '') + '"></div>' +
       '<button class="primary" type="submit">' + esc(t('search.button')) + '</button></form>' +
-      '<p class="small">' + esc(t('search.hint')) + '</p><div id="msg" role="status" aria-live="polite"></div>';
+      '<div id="msg" role="status" aria-live="polite"></div><p class="small">' + esc(t('search.hint')) + '</p>';
+  }
+  function tryChips() {
+    return '<div class="tryrow"><span>' + esc(t('search.try')) + '</span>' + ['92404', 'San Bernardino', 'Redlands', '92335'].map(function (x) { return '<button type="button" class="chip" data-q="' + x + '">' + x + '</button>'; }).join('') + '</div>';
+  }
+  function wireChips() {
+    $all('[data-q]').forEach(function (b) { b.onclick = function () { $('#q').value = b.getAttribute('data-q'); $('#sf').requestSubmit(); }; });
   }
   function wireSearch() {
     var form = $('#sf'); if (!form) return;
@@ -227,7 +236,7 @@
       if (zip) {
         var z = D.places.zips[zip[1]];
         if (z) { toNear(z[0], z[1], zip[1]); return; }
-        say(esc(t('search.nothing'))); return;
+        say(emptySearchHtml()); wireTry(); return;
       }
       var cityKey = q.replace(/,?\s*(ca|california)\.?$/i, '').trim().toLowerCase();
       var hit = Object.keys(D.places.cities).filter(function (c) { return c.toLowerCase() === cityKey; })[0];
@@ -239,14 +248,18 @@
       fetch(url, ctl ? { signal: ctl.signal } : {}).then(function (r) { if (!r.ok) throw new Error('bad'); return r.json(); }).then(function (j) {
         clearTimeout(timer);
         if (j && j[0]) toNear(parseFloat(j[0].lat), parseFloat(j[0].lon), q);
-        else say(esc(t('search.nothing')) + fallbackHtml());
-        wireFallback();
+        else say(emptySearchHtml() + fallbackHtml());
+        wireFallback(); wireTry();
       }).catch(function () {
         clearTimeout(timer);
-        say(esc(t('search.fail')) + fallbackHtml());
+        say('<p><strong>' + esc(t('search.fail')) + '</strong></p>' + fallbackHtml());
         wireFallback();
       });
     };
+    function emptySearchHtml() {
+      return '<div class="card empty"><h3>' + esc(t('empty.search.h')) + '</h3><p>' + esc(t('empty.search.p')) + '</p>' + tryChips() + '</div>';
+    }
+    function wireTry() { wireChips(); }
     function fallbackHtml() {
       return '<div><label for="cityfb">' + esc(t('search.city')) + '</label> <select id="cityfb">' + cityOptions() + '</select></div>';
     }
@@ -282,23 +295,38 @@
   }
 
   function viewHome() {
-    var d = HOME;
+    var d = HOME, cur = (D.districts[d] || { months: {} }).months[LATEST];
+    var worst = null;
+    HOSP.forEach(function (h) { if (h.district === d && h.months[LATEST] && (!worst || h.months[LATEST].p90_min > worst.p90_min)) worst = h.months[LATEST]; });
     appEl.innerHTML =
-      '<h1 id="h1" tabindex="-1">' + esc(t('home.h1')) + '</h1><p class="lead">' + esc(t('home.lead')) + '</p>' +
-      searchFormHtml('') +
+      '<section class="hero"><h1 id="h1" tabindex="-1">' + esc(t('hero.h1')) + '</h1><p class="lead">' + esc(t('hero.sub')) + '</p>' +
+      searchFormHtml('') + tryChips() + '</section>' +
+      '<div class="grid c3" style="margin-top:2rem">' +
+      '<a class="card door" href="#/" id="d1"><span class="who">' + esc(t('door.res.who')) + '</span><h2 class="h3">' + esc(t('door.res.h')) + '</h2><p>' + esc(t('door.res.p')) + '</p><span class="go">' + esc(t('door.res.go')) + ' &rarr;</span></a>' +
+      '<a class="card door" href="#/district/' + d + '"><span class="who">' + esc(t('door.off.who')) + '</span><h2 class="h3">' + esc(t('door.off.h')) + '</h2><p>' + esc(t('door.off.p')) + '</p><span class="go">' + esc(t('door.off.go')) + ' &rarr;</span></a>' +
+      '<a class="card door" href="#/forecast"><span class="who">' + esc(t('door.ana.who')) + '</span><h2 class="h3">' + esc(t('door.ana.h')) + '</h2><p>' + esc(t('door.ana.p')) + '</p><span class="go">' + esc(t('door.ana.go')) + ' &rarr;</span></a></div>' +
+      '<div class="grid c2 ps" style="margin-top:1rem"><div class="card"><h2 class="h3">' + esc(t('ps.problem.h')) + '</h2><p>' + esc(t('ps.problem')) + '</p></div>' +
+      '<div class="card"><h2 class="h3">' + esc(t('ps.solution.h')) + '</h2><p>' + esc(t('ps.solution')) + '</p></div></div>' +
+      '<h2>' + esc(t('stats.h', { d: d })) + ' <span class="small">&middot; ' + esc(monthLabel(LATEST)) + '</span></h2>' +
+      '<div class="grid c3"><div class="card stat-tile"><p class="label">' + esc(t('stat.hospitals')) + '</p><p class="stat">' + (cur ? cur.listed : 0) + '</p><p class="sub">' + esc(t('stat.hospitals.sub', { month: monthLabel(LATEST) })) + '</p></div>' +
+      '<div class="card stat-tile"><p class="label">' + esc(t('stat.hours')) + '</p><p class="stat">' + num(cur ? cur.hours_min : 0, 1) + ' <small>h</small></p><p class="sub">' + esc(t('stat.hours.sub', { month: monthLabel(LATEST) })) + '</p></div>' +
+      '<div class="card stat-tile"><p class="label">' + esc(t('stat.wait')) + '</p><p class="stat">' + (worst ? Math.round(worst.p90_min) : '\u2014') + ' <small>' + esc(t('minutes.unit')) + '</small></p><p class="sub">' + esc(worst ? t('stat.wait.sub', { std: Math.round(worst.standard_min) }) : '') + '</p></div></div>' +
+      '<h2>' + esc(t('map.h')) + '</h2>' +
       '<div class="row"><div><label for="dsel">' + esc(t('district.pick')) + '</label><br><select id="dsel">' +
       districtList().map(function (x) { return '<option value="' + x + '"' + (x === d ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select></div></div>' +
-      '<div id="map" role="region" aria-label="' + esc(t('map.label')) + '"></div><p class="small">' + esc(t('map.note')) + '</p>' +
+      '<div id="map" class="map" role="region" aria-label="' + esc(t('map.label')) + '"></div><p class="small">' + esc(t('map.note')) + '</p>' +
       legendHtml() +
-      '<h2>' + esc(t('map.list')) + '</h2><p class="small">' + esc(t('map.list.help')) + '</p><ul class="cards" id="hl"></ul>';
-    wireSearch();
+      '<h2>' + esc(t('map.list')) + '</h2><p class="small">' + esc(t('map.list.help')) + '</p><ul class="cards three" id="hl"></ul>';
+    wireSearch(); wireChips();
+    $('#d1').onclick = function (ev) { ev.preventDefault(); var q = $('#q'); window.scrollTo(0, 0); q.focus(); };
     function show(dist) {
       var f = featureFor(dist), b = f ? featureBounds(f) : null;
       drawMap($('#map'), { district: dist, hospitals: HOSP, bounds: b });
       var list = HOSP.filter(function (h) { return h.lat != null && inDistrictArea(h, dist, 6); });
       var c = b ? [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2] : [34.1, -117.3];
       list.sort(function (a, z) { return miles(c[0], c[1], a.lat, a.lon) - miles(c[0], c[1], z.lat, z.lon); });
-      $('#hl').innerHTML = list.map(function (h) { return cardHtml(h, null); }).join('');
+      $('#hl').innerHTML = list.length ? list.map(function (h) { return cardHtml(h, null); }).join('')
+        : '<li class="card empty"><h3>' + esc(t('empty.district.h', { d: dist })) + '</h3><p>' + esc(t('empty.district.p', { home: HOME })) + '</p></li>';
     }
     $('#dsel').onchange = function () { show(this.value); };
     show(d);
@@ -311,15 +339,15 @@
       .sort(function (a, b) { return a.d - b.d; }).slice(0, 6);
     var cl = CLINICS.map(function (c) { return { c: c, d: miles(lat, lon, c.lat, c.lon) }; }).sort(function (a, b) { return a.d - b.d; }).slice(0, 5);
     appEl.innerHTML =
-      '<p><a href="#/">' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(t('near.h', { place: q })) + '</h1>' +
-      '<p class="note"><strong>' + esc(t('near.emergency')) + '</strong></p>' + searchFormHtml(params.q || '') +
+      '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(t('near.h', { place: q })) + '</h1>' +
+      '<div class="callout caution"><strong>' + esc(t('near.emergency')) + '</strong></div>' + searchFormHtml(params.q || '') +
       '<div id="map" class="map small" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + legendHtml() +
-      (near.length ? '<ul class="cards">' + near.map(function (x) { return cardHtml(x.h, x.d); }).join('') + '</ul>' : '<p>' + esc(t('near.none')) + '</p>') +
+      (near.length ? '<ul class="cards three">' + near.map(function (x) { return cardHtml(x.h, x.d); }).join('') + '</ul>' : '<div class="card empty"><h3>' + esc(t('empty.near.h')) + '</h3><p>' + esc(t('empty.near.p')) + '</p><div class="actions"><a class="btn primary" href="#/">' + esc(t('back.map')) + '</a><a class="btn" href="#/district/' + HOME + '">' + esc(t('nav.district')) + '</a></div></div>') +
       '<h2>' + esc(t('clinics.h')) + '</h2><p class="small">' + esc(t('clinics.note')) + '</p>' +
-      (cl.length ? '<ul class="cards">' + cl.map(function (x) {
-        return '<li class="card"><h3>' + esc(x.c.name) + '</h3><p>' + esc(x.c.address) + '</p><p class="small">' + esc(distText(x.d)) + '</p>' +
+      (cl.length ? '<ul class="cards three">' + cl.map(function (x) {
+        return '<li class="card hc"><h3>' + esc(x.c.name) + '</h3><p class="where">' + esc(x.c.address) + ' &middot; ' + esc(distText(x.d)) + '</p>' +
           (x.c.phone ? '<p>' + esc(t('clinics.call', { phone: x.c.phone })) + '</p>' : '') + '</li>';
-      }).join('') + '</ul>' : '<p>' + esc(t('clinics.none')) + '</p>');
+      }).join('') + '</ul>' : '<div class="card empty"><h3>' + esc(t('empty.clinics.h')) + '</h3><p>' + esc(t('empty.clinics.p')) + '</p></div>');
     wireSearch();
     var pts = near.map(function (x) { return x.h; });
     var south = Math.min(lat, near.length ? Math.min.apply(null, pts.slice(0, 3).map(function (h) { return h.lat; })) : lat);
@@ -343,16 +371,16 @@
     ms.forEach(function (m, i) { g += '<text class="muted" x="' + x(i) + '" y="' + (H - 22) + '" text-anchor="middle">' + esc(monthLabel(m, true)) + '</text>'; });
     var line = '', run = [];
     vals.forEach(function (v2, i) {
-      if (v2 == null) { if (run.length > 1) line += '<polyline fill="none" stroke="#0a4fa8" stroke-width="3" points="' + run.join(' ') + '"/>'; run = []; return; }
+      if (v2 == null) { if (run.length > 1) line += '<polyline fill="none" stroke="#0a5c7a" stroke-width="3" points="' + run.join(' ') + '"/>'; run = []; return; }
       run.push(x(i) + ',' + y(v2));
     });
-    if (run.length > 1) line += '<polyline fill="none" stroke="#0a4fa8" stroke-width="3" points="' + run.join(' ') + '"/>';
+    if (run.length > 1) line += '<polyline fill="none" stroke="#0a5c7a" stroke-width="3" points="' + run.join(' ') + '"/>';
     var pts = '';
     vals.forEach(function (v3, i) {
       if (v3 == null) pts += '<text class="muted" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(t('detail.notlisted.month')) + '</text>';
-      else pts += '<circle cx="' + x(i) + '" cy="' + y(v3) + '" r="5" fill="#0a4fa8" stroke="#fff" stroke-width="2"/><text x="' + x(i) + '" y="' + (y(v3) - 10) + '" text-anchor="middle">' + Math.round(v3) + '</text>';
+      else pts += '<circle cx="' + x(i) + '" cy="' + y(v3) + '" r="5" fill="#0a5c7a" stroke="#fff" stroke-width="2"/><text x="' + x(i) + '" y="' + (y(v3) - 10) + '" text-anchor="middle">' + Math.round(v3) + '</text>';
     });
-    var stdLine = std == null ? '' : '<line x1="' + L0 + '" x2="' + (W - R0) + '" y1="' + y(std) + '" y2="' + y(std) + '" stroke="#a4161a" stroke-width="2" stroke-dasharray="6 5"/><text x="' + (W - R0) + '" y="' + (y(std) - 6) + '" text-anchor="end" fill="#a4161a" style="fill:#a4161a;font-weight:700">' + esc(t('detail.target', { std: Math.round(std) })) + '</text>';
+    var stdLine = std == null ? '' : '<line x1="' + L0 + '" x2="' + (W - R0) + '" y1="' + y(std) + '" y2="' + y(std) + '" stroke="#15191f" stroke-width="2" stroke-dasharray="6 5"/><text x="' + (W - R0) + '" y="' + (y(std) - 6) + '" text-anchor="end" style="font-weight:600">' + esc(t('detail.target', { std: Math.round(std) })) + '</text>';
     return '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(altText) + '">' + g + stdLine + line + pts + '</svg>';
   }
   function barChart(rows, altText) {
@@ -363,7 +391,7 @@
     [0, 0.5, 1].forEach(function (f) { var v = top * f, yy = T0 + (H - T0 - B0) * (1 - f); g += '<line x1="' + L0 + '" x2="' + (W - R0) + '" y1="' + yy + '" y2="' + yy + '" stroke="currentColor" stroke-opacity=".15"/><text class="muted" x="' + (L0 - 6) + '" y="' + (yy + 4) + '" text-anchor="end">' + num(v) + '</text>'; });
     rows.forEach(function (r, i) {
       var hh = (H - T0 - B0) * (r.v / top), xx = L0 + i * bw + bw * 0.18;
-      g += '<rect x="' + xx + '" y="' + (H - B0 - hh) + '" width="' + (bw * 0.64) + '" height="' + hh + '" fill="#0a4fa8"/><text x="' + (xx + bw * 0.32) + '" y="' + (H - B0 - hh - 5) + '" text-anchor="middle">' + num(r.v, 1) + '</text><text class="muted" x="' + (xx + bw * 0.32) + '" y="' + (H - 20) + '" text-anchor="middle">' + esc(monthLabel(r.m, true)) + '</text>';
+      g += '<rect x="' + xx + '" y="' + (H - B0 - hh) + '" width="' + (bw * 0.64) + '" height="' + hh + '" fill="#0a5c7a"/><text x="' + (xx + bw * 0.32) + '" y="' + (H - B0 - hh - 5) + '" text-anchor="middle">' + num(r.v, 1) + '</text><text class="muted" x="' + (xx + bw * 0.32) + '" y="' + (H - 20) + '" text-anchor="middle">' + esc(monthLabel(r.m, true)) + '</text>';
     });
     return '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(altText) + '">' + g + '</svg>';
   }
@@ -382,12 +410,12 @@
     var trauma = h.trauma ? '<p class="small">' + esc(t('detail.trauma', { level: h.trauma.replace(/^LEVEL\s+/i, 'Level ') })) + '</p>' : '';
     var sect = '';
     if (s.listed) {
-      sect += '<div class="grid2"><div class="card"><p class="small">' + esc(t('detail.status', { month: monthLabel(LATEST) })) + '</p><p>' + badge(s.band) + '</p><p>' +
+      sect += '<div class="grid c2"><div class="card stat-tile"><p class="label">' + esc(t('detail.status', { month: monthLabel(LATEST) })) + '</p><p>' + badge(s.band) + '</p><p>' +
         esc(t(s.m.pct_compliant == null ? 'card.listed.nopct' : 'card.listed', { month: monthLabel(LATEST), p90: aboutMin(s.m.p90_min), std: Math.round(s.m.standard_min), pct: s.m.pct_compliant == null ? '' : Math.round(s.m.pct_compliant) })) + '</p>' +
         '<details><summary>' + esc(t('card.exact')) + '</summary><p>' + esc(t('card.exact.body', { mmss: mmss(s.m.p90_min), n: num(s.m.offloads), pct: pctText(s.m.pct_compliant) })) + '</p></details></div>' +
-        '<div class="card"><p class="small">' + esc(t('detail.hours', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(s.m.hours_min, 1) + '</p><p class="small">' + esc(s.m.hours_min > 0 ? t('detail.hours.expl') : t('detail.hours.zero')) + '</p></div></div>';
+        '<div class="card stat-tile"><p class="label">' + esc(t('detail.hours', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(s.m.hours_min, 1) + '</p><p class="small">' + esc(s.m.hours_min > 0 ? t('detail.hours.expl') : t('detail.hours.zero')) + '</p></div></div>';
     } else {
-      sect += '<div class="card"><p>' + badge('gray') + '</p><p>' + esc(t('detail.notlisted.expl', { month: monthLabel(LATEST) })) + '</p>' +
+      sect += '<div class="card empty"><p>' + badge('gray') + '</p><p>' + esc(t('detail.notlisted.expl', { month: monthLabel(LATEST) })) + '</p>' +
         (lm.length ? '<p class="small">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '<p class="small">' + esc(t('card.never', { first: monthLabel(META.months[0]), last: monthLabel(LATEST) })) + '</p>') + '</div>';
     }
     if (lm.length) {
@@ -400,7 +428,7 @@
             : '<tr><th scope="row">' + esc(monthLabel(m)) + '</th><td>' + badge('gray') + '</td><td class="num" colspan="5">' + esc(t('detail.notlisted.month')) + '</td></tr>';
         }).join('') + '</tbody></table></div>';
       var fi = forecastFor(h.id);
-      sect += '<h2>' + esc(t('detail.forecast')) + '</h2><div class="note warn">' + (fi && fi.status === 'forecast'
+      sect += '<h2>' + esc(t('detail.forecast')) + '</h2><div class="callout caution">' + (fi && fi.status === 'forecast'
         ? esc(t('detail.forecast.body', { rate: Math.round(persistRate() * 100) + '%', over: num(s.listed ? s.m.over_min : 0, 1), prob: Math.round(fi.p_stays_listed * 100) + '%' }))
         : esc(t('detail.forecast.none'))) + '</div>';
     }
@@ -409,7 +437,7 @@
     sect += '<p class="small">' + esc(t('detail.location', { src: h.location_source })) + '</p>';
     sect += '<p class="noprint">' + (lm.length ? '<button type="button" id="dl">' + esc(t('detail.download')) + '</button> ' : '') +
       '<a class="btn" href="' + REPO + '/issues/new?title=' + encodeURIComponent('Data error: ' + h.name) + '" rel="noopener">' + esc(t('detail.report')) + '</a></p>';
-    appEl.innerHTML = '<p><a href="#/">' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(h.name) + '</h1>' +
+    appEl.innerHTML = '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(h.name) + '</h1>' +
       '<p class="small">' + esc(h.city ? t('detail.city', { city: h.city }) : '') + ' &middot; ' + esc(h.lemsa) + '</p>' + trauma + sect;
     var dl = $('#dl'); if (dl) dl.onclick = function () { downloadCsv('offloadwatch-' + h.id + '.csv', hospCsvRows([h])); };
     document.title = h.name + ' - OffloadWatch';
@@ -438,7 +466,7 @@
       '<div class="row noprint"><div><label for="dsel">' + esc(t('district.pick')) + '</label><br><select id="dsel">' + dsel.map(function (x) { return '<option' + (x === d ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select></div>' +
       '<button type="button" class="primary" id="pr">' + esc(t('district.print')) + '</button><button type="button" id="dcsv">' + esc(t('district.csv')) + '</button></div>' +
       '<p class="lead">' + esc(t('district.intro', { d: d })) + '</p>' +
-      '<div class="grid2"><div class="card"><p class="small">' + esc(t('district.total', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(tot, 1) + '</p><p class="small">' + esc(t('district.total.expl')) + '</p></div>' +
+      '<div class="grid c2"><div class="card stat-tile"><p class="label">' + esc(t('district.total', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(tot, 1) + '</p><p class="small">' + esc(t('district.total.expl')) + '</p></div>' +
       '<div class="card"><h2 style="margin-top:0">' + esc(t('whatif.h')) + '</h2><label for="wi" id="wl"></label><br><input type="range" id="wi" min="0" max="100" step="5" value="50"> <output id="wo" for="wi"></output><p id="wr" aria-live="polite"></p></div></div>' +
       '<h2>' + esc(t('district.table', { d: d })) + '</h2>' +
       (list.length ? '<div class="tablewrap"><table><thead>' + head + '</thead><tbody>' + list.map(rowFor).join('') + '</tbody></table></div>' : '<p>' + esc(t('district.none')) + '</p>') +
@@ -487,7 +515,7 @@
     function f3(v) { return v == null ? '—' : num(v, 3); }
     function rowsFor(list) {
       list = list.slice().sort(function (a, b) { return BYID[a.facility_id].name.localeCompare(BYID[b.facility_id].name); });
-      if (!list.length) return '<tr><td colspan="4">' + esc(t('forecast.none')) + '</td></tr>';
+      if (!list.length) return '<tr><td colspan="4"><strong>' + esc(t('empty.forecast.h')) + '</strong><br><span class="muted">' + esc(t('empty.forecast.p')) + '</span> <button type="button" class="chip" id="fall">' + esc(t('empty.forecast.go')) + '</button></td></tr>';
       return list.map(function (i) {
         var h = BYID[i.facility_id], m = h.months[LATEST];
         return '<tr><th scope="row"><a href="#/hospital/' + encodeURIComponent(h.id) + '">' + esc(h.name) + '</a></th><td class="num">' + (m ? num(m.over_min, 1) : '—') + '</td><td class="num">' + Math.round(i.p_stays_listed * 100) + '%</td><td>' +
@@ -495,7 +523,7 @@
       }).join('');
     }
     appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('forecast.h')) + '</h1><p class="lead">' + esc(t('forecast.lead')) + '</p>' +
-      '<div class="note warn"><strong>' + esc(t(verdict)) + '</strong></div>' +
+      '<div class="callout caution"><strong>' + esc(t(verdict)) + '</strong></div>' +
       '<h2>' + esc(t('forecast.question')) + '</h2><p>' + esc(t('forecast.question.body')) + '</p>' +
       '<div class="tablewrap"><table><caption>' + esc(t('forecast.table', { test: FC.test_months.map(function (m) { return monthLabel(m); }).join(', ') })) + '</caption><thead><tr><th scope="col">' + esc(t('forecast.col.method')) + '</th><th scope="col" class="num">' + esc(t('forecast.col.acc')) + '</th><th scope="col" class="num">' + esc(t('forecast.col.auc')) + '</th><th scope="col" class="num">' + esc(t('forecast.col.brier')) + '</th></tr></thead><tbody>' +
       '<tr><th scope="row">' + esc(t('forecast.m.persist')) + '</th><td class="num">' + f3(c.persistence.accuracy) + '</td><td class="num">' + f3(c.persistence.auc) + '</td><td class="num">' + f3(c.brier_persistence) + '</td></tr>' +
@@ -511,7 +539,9 @@
       '<h2>' + esc(t('forecast.list')) + '</h2><p class="small">' + esc(t('forecast.for', { month: monthLabel(FC.forecast.for_month), based: monthLabel(FC.forecast.based_on) })) + '</p>' +
       '<div class="row"><div><label for="ff">' + esc(t('forecast.filter')) + '</label><br><select id="ff"><option value="home"' + (showAll ? ' disabled' : ' selected') + '>' + esc(t('forecast.filter.home', { d: HOME })) + '</option><option value="all"' + (showAll ? ' selected' : '') + '>' + esc(t('forecast.filter.all')) + '</option></select></div><button type="button" id="fcsv">' + esc(t('forecast.csv')) + '</button></div>' +
       '<div class="tablewrap"><table><caption class="sr">' + esc(t('forecast.list')) + '</caption><thead><tr><th scope="col">' + esc(t('forecast.col.hospital')) + '</th><th scope="col" class="num">' + esc(t('forecast.col.over', { month: monthLabel(LATEST) })) + '</th><th scope="col" class="num">' + esc(t('forecast.col.prob')) + '</th><th scope="col">' + esc(t('forecast.col.drivers')) + '</th></tr></thead><tbody id="ftb">' + rowsFor(showAll ? items : homeItems) + '</tbody></table></div>';
-    $('#ff').onchange = function () { $('#ftb').innerHTML = rowsFor(this.value === 'all' ? items : homeItems); };
+    function paint(all) { $('#ftb').innerHTML = rowsFor(all ? items : homeItems); var b = $('#fall'); if (b) b.onclick = function () { $('#ff').value = 'all'; paint(true); }; }
+    $('#ff').onchange = function () { paint(this.value === 'all'); };
+    paint(showAll);
     $('#fcsv').onclick = function () {
       var rows = [['facility_id', 'hospital', 'district', 'based_on_month', 'forecast_for_month', 'minutes_over_target', 'experimental_p_stays_listed', 'experimental_minutes_over_next_month']];
       items.forEach(function (i) {
@@ -524,23 +554,25 @@
 
   function viewMethods() {
     var secs = raw('methods.sections');
-    appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('methods.h')) + '</h1>' +
+    appEl.innerHTML = '<div class="prose"><h1 id="h1" tabindex="-1">' + esc(t('methods.h')) + '</h1>' +
+      '<div class="callout"><h2 class="h3">' + esc(t('methods.short.h')) + '</h2><ul>' + raw('methods.short').map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
       secs.map(function (s) { return '<h2>' + esc(s.h) + '</h2>' + s.p.map(function (p) { return '<p>' + p + '</p>'; }).join(''); }).join('') +
       '<p><a href="' + REPO + '/issues" rel="noopener">' + esc(t('methods.issues')) + '</a> &middot; <a href="' + META.report_page + '" rel="noopener">' + esc(t('methods.emsa')) + '</a></p>' +
       '<h2>' + esc(t('methods.downloads')) + '</h2><ul>' +
       [['data/offloads.csv', 'methods.dl.offloads'], ['data/forecast.json', 'methods.dl.forecast'], ['data/hospitals.json', 'methods.dl.hospitals'], ['data/districts.json', 'methods.dl.districts'], ['data/clinics.json', 'methods.dl.clinics']].map(function (x) {
         return '<li><a href="' + x[0] + '" download>' + esc(t(x[1])) + '</a></li>';
-      }).join('') + '</ul>';
+      }).join('') + '</ul></div>';
   }
 
   function viewAbout() {
     var story = t('about.story');
     appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('about.h')) + '</h1><p class="lead">' + esc(t('about.lead')) + '</p><p>' + esc(t('about.who')) + '</p>' +
+      '<div class="grid c2 ps"><div class="card"><h2 class="h3">' + esc(t('ps.problem.h')) + '</h2><p>' + esc(t('ps.problem')) + '</p></div><div class="card"><h2 class="h3">' + esc(t('ps.solution.h')) + '</h2><p>' + esc(t('ps.solution')) + '</p></div></div>' +
       (story ? '<h2>' + esc(t('about.story.h')) + '</h2><p>' + esc(story) + '</p>' : '') +
       '<h2>' + esc(t('about.why.h')) + '</h2><p>' + esc(t('about.why')) + '</p>' +
       '<h2>' + esc(t('about.modes.h')) + '</h2><ul>' + raw('about.modes').map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' +
       '<h2>' + esc(t('about.tools.h')) + '</h2><p>' + esc(t('about.tools')) + '</p>' +
-      (lang === 'es' ? '<p class="note warn">' + esc(t('about.translation')) + '</p>' : '') +
+      (lang === 'es' ? '<p class="callout caution">' + esc(t('about.translation')) + '</p>' : '') +
       '<p><a href="' + REPO + '" rel="noopener">' + esc(t('about.code')) + '</a></p>';
   }
 
@@ -558,6 +590,8 @@
     chrome();
     destroyMap();
     var title = t('app.title');
+    mainEl.innerHTML = '<p class="datanote">' + esc(t('fresh.short', { month: monthLabel(LATEST) })) + ' <a href="#/methods">' + esc(t('fresh.about')) + '</a></p>';
+    appEl = document.createElement('div'); appEl.className = 'view'; mainEl.appendChild(appEl);
     try {
       if (r.name === 'near') viewNear(r.qs);
       else if (r.name === 'hospital') viewHospital(r.arg);
@@ -572,6 +606,10 @@
       appEl.innerHTML = '<p>' + esc(t('error.data')) + '</p>';
       if (window.console) console.error(e);
     }
+    $all('.chartdata').forEach(function (w) {
+      var d = document.createElement('details'), sm = document.createElement('summary');
+      sm.textContent = t('details.table'); w.parentNode.insertBefore(d, w); d.appendChild(sm); d.appendChild(w);
+    });
     $all('.tablewrap').forEach(function (w) {
       var cap = $('caption', w), prev = w.previousElementSibling;
       w.tabIndex = 0; w.setAttribute('role', 'region');
@@ -581,6 +619,7 @@
     if (r.name !== 'hospital' && r.name !== 'district') document.title = (h1 ? h1.textContent + ' - ' : '') + title;
     if (!keepScroll) { window.scrollTo(0, 0); if (h1) h1.focus({ preventScroll: true }); }
   }
+  window.addEventListener('beforeprint', function () { $all('details').forEach(function (d) { d.open = true; }); });
   window.addEventListener('hashchange', function () { route(); });
   route();
 })();

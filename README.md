@@ -18,6 +18,10 @@ It is a static site. No server, no accounts, no analytics. Open `site/index.html
 - District membership uses the Census 119th-Congress boundary. **Redlands Community Hospital and Loma Linda University Medical Center are in CA-23, not CA-33.** Only Community Hospital of San Bernardino, St. Bernardine and Arrowhead (not listed in any report) are inside CA-33. The report card lists hospitals within about 6 miles of the boundary separately.
 - Hospital map locations come from the CDPH facility list, matched by name inside the agency's county. Matches that were not clearly the same hospital are left unplaced (see the `unplaced` rows of `data/config/hospital_crosswalk.csv`) rather than guessed.
 
+## Design rules
+
+One typeface (Inter, two weights), one accent color, greys for everything else. Red/amber/green appear only as crowding data colors (always with a shape and a word) and red for the 911 notice. One animation (a short fade when a screen appears, off for reduced-motion). Mobile-first. Every list has a real empty state with a next step.
+
 ## Run it
 
 ```bash
@@ -43,6 +47,6 @@ docs/       SUBMISSION_NOTES.md, sample report card
 
 ## Credits and notes
 
-Data: California EMS Authority, California Department of Public Health facility list, U.S. Census Bureau boundaries and ZCTA gazetteer. Map: Leaflet, OpenStreetMap contributors (tiles load only online; markers and the district outline work offline). Street-address lookup uses OpenStreetMap Nominatim from the visitor's browser (disclosed on the Methods page); ZIP and city lookups are bundled.
+Data: California EMS Authority, California Department of Public Health facility list, U.S. Census Bureau boundaries and ZCTA gazetteer. Typeface: Inter (SIL Open Font License), bundled. Map: Leaflet, OpenStreetMap contributors (tiles load only online; markers and the district outline work offline). Street-address lookup uses OpenStreetMap Nominatim from the visitor's browser (disclosed on the Methods page); ZIP and city lookups are bundled.
 
 The Spanish translation has **not** been reviewed by a native speaker yet. This project was built with an AI coding assistant (Claude Code); check the contest rulebook's rules on AI-assisted code.
