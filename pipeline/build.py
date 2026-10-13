@@ -1,5 +1,6 @@
 """Run the whole pipeline: PDFs -> tidy table -> JSON the static site reads."""
 import glob
+from datetime import date
 import json
 import re
 import sys
@@ -66,6 +67,22 @@ def clinics(find):
                     "phone": r.CONTACT_PHONE_NUMBER if isinstance(r.CONTACT_PHONE_NUMBER, str) else "",
                     "lat": lat, "lon": lon, "county": r.COUNTY_NAME.title(), "district": find(lat, lon)})
     return out
+
+
+def places():
+    """Bundled ZIP + city centroids so address lookup has an offline fallback."""
+    z = pd.read_csv(ROOT / "data/raw/geo/zcta/2024_Gaz_zcta_national.txt", sep="	", dtype={"GEOID": str})
+    z.columns = [c.strip() for c in z.columns]
+    z = z[z.GEOID.str[:2].isin(["90", "91", "92", "93", "94", "95"]) & z.INTPTLAT.between(32.4, 42.1)
+          & z.INTPTLONG.between(-124.7, -114.0)]
+    zips = {r.GEOID: [round(r.INTPTLAT, 4), round(r.INTPTLONG, 4)] for r in z.itertuples()}
+    d = pd.read_csv(ROOT / "data/raw/geo/facilities.csv", dtype=str)
+    d = d[d.LATITUDE.notna() & d.CITY.notna()].copy()
+    d["lat"], d["lon"] = d.LATITUDE.astype(float), d.LONGITUDE.astype(float)
+    d = d[d.lat.between(32.4, 42.1) & d.lon.between(-124.7, -114.0)]
+    d["city_clean"] = d.CITY.str.replace(r",\s*CA\.?$", "", regex=True, flags=re.I).str.strip().str.title()
+    cities = {c: [round(g.lat.median(), 4), round(g.lon.median(), 4)] for c, g in d.groupby("city_clean") if c}
+    return {"zips": zips, "cities": cities}
 
 
 def main():
@@ -136,12 +153,15 @@ def main():
         "home_district": HOME_DISTRICT,
         "unplaced_hospitals": [h["name"] for h in hlist if h["lat"] is None],
         "report_page": "https://emsa.ca.gov/apot/",
+        "built": date.today().isoformat(),
     }
     payload = {"hospitals": hlist, "districts": dist, "meta": meta, "clinics": clinics(find)}
     for name in ("hospitals", "districts", "meta", "clinics"):
         text = json.dumps(payload[name], separators=(",", ":"))
         (OUT / f"{name}.json").write_text(text, encoding="utf-8")
         (SITE / f"{name}.json").write_text(text, encoding="utf-8")
+    pl = json.dumps(places(), separators=(",", ":"))
+    (SITE / "places.json").write_text(pl, encoding="utf-8")
     tidy = df.drop(columns=["band"]).sort_values(["month", "hospital"])
     tidy.to_csv(OUT / "offloads.csv", index=False)
     tidy.to_csv(SITE / "offloads.csv", index=False)

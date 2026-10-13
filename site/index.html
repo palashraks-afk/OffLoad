@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OffloadWatch</title>
+<meta name="description" content="OffloadWatch shows where ambulances get stuck waiting at hospitals and where it may get worse. Free, no sign-in, English and Spanish.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b4f6c'/%3E%3Cpath d='M16 7v18M7 16h18' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" id="skip" href="#app">Skip to main content</a>
+<div id="e911" class="e911" role="region" aria-label="Emergency notice"></div>
+<header id="top" class="top"></header>
+<div id="fresh" class="fresh" role="status"></div>
+<main id="app" tabindex="-1"><p>Loading...</p></main>
+<footer id="foot" class="foot"></footer>
+<noscript><p class="noscript">OffloadWatch needs JavaScript. In an emergency, call 911.</p></noscript>
+<script src="vendor/leaflet.js"></script>
+<script src="data/bundle.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 data/raw/geo/cd119/
 data/raw/geo/cd119.zip
+data/raw/geo/zcta/
+data/raw/geo/zcta.zip
