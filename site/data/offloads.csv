@@ -1,0 +1,940 @@
+month,lemsa,facility_id,hospital,offloads,p90_min,standard_min,over_min,over_derived,pct_compliant,source_file,lower_bound_hours
+2025-09,Central California EMS Agency,20001,Adventist Health Hanford,1032,41.6333,30.0,11.6333,True,,file-2025-10.pdf,20.01
+2025-09,San Joaquin County EMS Agency,20247,Adventist Health Lodi Memorial,746,36.4333,20.0,16.4333,True,,file-2025-10.pdf,20.43
+2025-09,Central California EMS Agency,20427,Adventist Health Reedley,215,30.2667,30.0,0.2667,True,,file-2025-10.pdf,0.1
+2025-09,Los Angeles County EMS Agency,20531,Adventist Health White Memorial,198,80.2,30.0,50.2,True,,file-2025-10.pdf,16.57
+2025-09,Alameda County EMS Agency,20004,"Alameda County Medical Center, Highland",1061,49.8,30.0,19.8,True,,file-2025-10.pdf,35.01
+2025-09,Alameda County EMS Agency,20008,"Alta Bates Summit Medical Center, Alta Bates Campus",363,48.0667,30.0,18.0667,True,,file-2025-10.pdf,10.93
+2025-09,Alameda County EMS Agency,20011,"Alta Bates Summit Medical Center, Summit Campus",1173,43.6333,30.0,13.6333,True,,file-2025-10.pdf,26.65
+2025-09,Los Angeles County EMS Agency,20018,Antelope Valley Hospital,1654,39.9167,30.0,9.9167,True,,file-2025-10.pdf,27.34
+2025-09,Los Angeles County EMS Agency,20038,Beverly Hospital,304,69.1667,30.0,39.1667,True,,file-2025-10.pdf,19.84
+2025-09,San Francisco County EMS Agency,20050,CPMC Mission Bernal Campus,674,33.5167,30.0,3.5167,True,,file-2025-10.pdf,3.95
+2025-09,San Francisco County EMS Agency,62636,CPMC-Van Ness,844,37.7667,30.0,7.7667,True,,file-2025-10.pdf,10.93
+2025-09,Los Angeles County EMS Agency,20045,California Hospital Medical Center,615,49.7833,30.0,19.7833,True,,file-2025-10.pdf,20.28
+2025-09,San Francisco County EMS Agency,20048,"California Pacific Medical Center, Davies Campus Hospital",329,33.2167,30.0,3.2167,True,,file-2025-10.pdf,1.76
+2025-09,Los Angeles County EMS Agency,20054,Cedars-Sinai Medical Center,1026,49.4833,30.0,19.4833,True,,file-2025-10.pdf,33.32
+2025-09,Los Angeles County EMS Agency,20055,Centinela Hospital Medical Center,1991,40.7167,30.0,10.7167,True,,file-2025-10.pdf,35.56
+2025-09,Alameda County EMS Agency,20059,Children's Hospital & Research Center Oakland,142,33.75,30.0,3.75,True,,file-2025-10.pdf,0.89
+2025-09,Los Angeles County EMS Agency,20068,"Citrus Valley Medical Center, Queen of the Valley Campus",618,50.0,30.0,20.0,True,,file-2025-10.pdf,20.6
+2025-09,Central California EMS Agency,20070,Clovis Community Medical Center,2137,33.0,30.0,3.0,True,,file-2025-10.pdf,10.69
+2025-09,Los Angeles County EMS Agency,20328,College Medical Center,167,82.4,30.0,52.4,True,,file-2025-10.pdf,14.58
+2025-09,Los Angeles County EMS Agency,20081,Community Hospital of Huntington Park,342,85.8833,30.0,55.8833,True,,file-2025-10.pdf,31.85
+2025-09,Ventura County EMS Agency,20084,"Community Memorial Hospital, San Buenaventura",799,22.2333,20.0,2.2333,True,,file-2025-10.pdf,2.97
+2025-09,Central California EMS Agency,20085,"Community Regional Medical Center, Fresno",4359,40.5,30.0,10.5,True,,file-2025-10.pdf,76.28
+2025-09,Contra Costa County EMS Agency,20087,Contra Costa Regional Medical Center,442,43.9833,20.0,23.9833,True,,file-2025-10.pdf,17.67
+2025-09,Riverside County EMS Agency,20090,Corona Regional Medical Center,904,35.15,30.0,5.15,True,,file-2025-10.pdf,7.76
+2025-09,San Joaquin County EMS Agency,20094,Dameron Hospital,637,30.85,20.0,10.85,True,,file-2025-10.pdf,11.52
+2025-09,Inland Counties EMS Agency,20098,Desert Valley Hospital,148,42.0667,25.0,17.0667,True,,file-2025-10.pdf,4.21
+2025-09,San Joaquin County EMS Agency,20099,Doctors Hospital of Manteca,380,26.6333,20.0,6.6333,True,,file-2025-10.pdf,4.2
+2025-09,Stanislaus County EMS Agency,20101,Doctors Medical Center,1543,35.6667,30.0,5.6667,True,,file-2025-10.pdf,14.57
+2025-09,Los Angeles County EMS Agency,20108,East Los Angeles Doctors Hospital,229,42.1667,30.0,12.1667,True,,file-2025-10.pdf,4.64
+2025-09,Alameda County EMS Agency,20112,Eden Medical Center,989,41.75,30.0,11.75,True,,file-2025-10.pdf,19.37
+2025-09,Santa Clara County EMS Agency,20115,El Camino Hospital,853,20.8,20.0,0.8,True,,file-2025-10.pdf,1.14
+2025-09,Santa Clara County EMS Agency,20116,El Camino Hospital Los Gatos,127,20.25,20.0,0.25,True,,file-2025-10.pdf,0.05
+2025-09,Imperial County EMS Agency,20117,El Centro Regional Medical Center,615,45.4667,20.0,25.4667,True,,file-2025-10.pdf,26.1
+2025-09,Los Angeles County EMS Agency,20067,Emanate Health- InterCommunity Hospital,343,51.0167,30.0,21.0167,True,,file-2025-10.pdf,12.01
+2025-09,Stanislaus County EMS Agency,20119,Emanuel Medical Center,549,37.4,30.0,7.4,True,,file-2025-10.pdf,6.77
+2025-09,Los Angeles County EMS Agency,20129,Foothill Presbyterian Hospital,313,52.5167,30.0,22.5167,True,,file-2025-10.pdf,11.75
+2025-09,Orange County EMS Agency,20308,Foothill Regional Medical Center,103,37.9667,30.0,7.9667,True,,file-2025-10.pdf,1.37
+2025-09,Orange County EMS Agency,20139,Garden Grove Hospital and Medical Center,341,40.6667,30.0,10.6667,True,,file-2025-10.pdf,6.06
+2025-09,Los Angeles County EMS Agency,20149,"Good Samaritan Hospital, Los Angeles",788,40.75,30.0,10.75,True,,file-2025-10.pdf,14.12
+2025-09,Santa Clara County EMS Agency,20150,"Good Samaritan Hospital, San Jose",1008,26.95,20.0,6.95,True,,file-2025-10.pdf,11.68
+2025-09,Los Angeles County EMS Agency,20152,Greater El Monte Community Hospital,223,51.9167,30.0,21.9167,True,,file-2025-10.pdf,8.15
+2025-09,Los Angeles County EMS Agency,20240,Harbor UCLA Medical Center,885,61.6667,30.0,31.6667,True,,file-2025-10.pdf,46.71
+2025-09,Riverside County EMS Agency,20162,Hemet Valley Medical Center,1257,69.9667,30.0,39.9667,True,,file-2025-10.pdf,83.73
+2025-09,Los Angeles County EMS Agency,20171,Hollywood Presbyterian Medical Center,517,43.5167,30.0,13.5167,True,,file-2025-10.pdf,11.65
+2025-09,Orange County EMS Agency,20172,Huntington Beach Hospital,247,36.1667,30.0,6.1667,True,,file-2025-10.pdf,2.54
+2025-09,Riverside County EMS Agency,20442,Inland Valley Medical Center,1114,40.3333,30.0,10.3333,True,,file-2025-10.pdf,19.19
+2025-09,Contra Costa County EMS Agency,20179,"John Muir Medical Center, Concord",1076,29.2333,20.0,9.2333,True,,file-2025-10.pdf,16.56
+2025-09,Contra Costa County EMS Agency,20180,"John Muir Medical Center, Walnut Creek",1082,35.9333,20.0,15.9333,True,,file-2025-10.pdf,28.73
+2025-09,Orange County EMS Agency,20560,"Kaiser Permanente, Anaheim",245,31.6,30.0,1.6,True,,file-2025-10.pdf,0.65
+2025-09,Contra Costa County EMS Agency,20214,"Kaiser Permanente, Antioch",856,33.4833,20.0,13.4833,True,,file-2025-10.pdf,19.24
+2025-09,Los Angeles County EMS Agency,20183,"Kaiser Permanente, Baldwin Park",268,46.65,30.0,16.65,True,,file-2025-10.pdf,7.44
+2025-09,Los Angeles County EMS Agency,20215,"Kaiser Permanente, Downey",468,71.8833,30.0,41.8833,True,,file-2025-10.pdf,32.67
+2025-09,Alameda County EMS Agency,20185,"Kaiser Permanente, Fremont",468,51.2333,30.0,21.2333,True,,file-2025-10.pdf,16.56
+2025-09,Central California EMS Agency,20186,"Kaiser Permanente, Fresno",931,50.2167,30.0,20.2167,True,,file-2025-10.pdf,31.37
+2025-09,Los Angeles County EMS Agency,20207,"Kaiser Permanente, Los Angeles",518,41.3167,30.0,11.3167,True,,file-2025-10.pdf,9.77
+2025-09,San Joaquin County EMS Agency,20212,"Kaiser Permanente, Manteca",377,26.6667,20.0,6.6667,True,,file-2025-10.pdf,4.19
+2025-09,Stanislaus County EMS Agency,20213,"Kaiser Permanente, Modesto",491,36.0167,30.0,6.0167,True,,file-2025-10.pdf,4.92
+2025-09,Riverside County EMS Agency,20211,"Kaiser Permanente, Moreno Valley",394,42.0667,30.0,12.0667,True,,file-2025-10.pdf,7.92
+2025-09,Alameda County EMS Agency,20190,"Kaiser Permanente, Oakland Medical Center",652,50.1,30.0,20.1,True,,file-2025-10.pdf,21.84
+2025-09,Contra Costa County EMS Agency,20194,"Kaiser Permanente, Richmond",955,49.9167,20.0,29.9167,True,,file-2025-10.pdf,47.62
+2025-09,Riverside County EMS Agency,20195,"Kaiser Permanente, Riverside",551,32.8,30.0,2.8,True,,file-2025-10.pdf,2.57
+2025-09,San Diego County EMS Agency,62393,"Kaiser Permanente, San Diego Medical Center",352,30.5667,30.0,0.5667,True,,file-2025-10.pdf,0.33
+2025-09,San Francisco County EMS Agency,20199,"Kaiser Permanente, San Francisco",387,48.2167,30.0,18.2167,True,,file-2025-10.pdf,11.75
+2025-09,Santa Clara County EMS Agency,20200,"Kaiser Permanente, San Jose",835,23.2,20.0,3.2,True,,file-2025-10.pdf,4.45
+2025-09,Alameda County EMS Agency,62356,"Kaiser Permanente, San Leandro Medical Center",653,62.7333,30.0,32.7333,True,,file-2025-10.pdf,35.62
+2025-09,Santa Clara County EMS Agency,20202,"Kaiser Permanente, Santa Clara Medical Center and Medical Offices",772,27.1667,20.0,7.1667,True,,file-2025-10.pdf,9.22
+2025-09,Los Angeles County EMS Agency,20204,"Kaiser Permanente, South Bay",439,52.15,30.0,22.15,True,,file-2025-10.pdf,16.21
+2025-09,Sacramento County EMS Agency,20205,"Kaiser Permanente, South Sacramento Medical Center",1324,26.1,25.0,1.1,True,,file-2025-10.pdf,2.43
+2025-09,Contra Costa County EMS Agency,20208,"Kaiser Permanente, Walnut Creek",815,35.15,20.0,15.15,True,,file-2025-10.pdf,20.58
+2025-09,Los Angeles County EMS Agency,20209,"Kaiser Permanente, West Los Angeles",487,51.1333,30.0,21.1333,True,,file-2025-10.pdf,17.15
+2025-09,Los Angeles County EMS Agency,20210,"Kaiser Permanente, Woodland Hills",187,32.6833,30.0,2.6833,True,,file-2025-10.pdf,0.84
+2025-09,San Diego County EMS Agency,62989,Kaiser San Marcos Medical Center,267,31.8,30.0,1.8,True,,file-2025-10.pdf,0.8
+2025-09,Central California EMS Agency,20219,Kaweah Delta Medical Center,2186,44.85,30.0,14.85,True,,file-2025-10.pdf,54.1
+2025-09,Orange County EMS Agency,20239,La Palma Intercommunity Hospital,117,39.6,30.0,9.6,True,,file-2025-10.pdf,1.87
+2025-09,Los Angeles County EMS Agency,20244,Lakewood Regional Medical Center,400,65.9,30.0,35.9,True,,file-2025-10.pdf,23.93
+2025-09,Riverside County EMS Agency,20535,"Loma Linda University Medical Center, Murrieta",842,33.6333,30.0,3.6333,True,,file-2025-10.pdf,5.1
+2025-09,Ventura County EMS Agency,20261,Los Robles Hospital & Medical Center,962,26.6167,20.0,6.6167,True,,file-2025-10.pdf,10.61
+2025-09,Central California EMS Agency,20265,Madera Community Hospital,428,44.9833,30.0,14.9833,True,,file-2025-10.pdf,10.69
+2025-09,Los Angeles County EMS Agency,20270,Marina Del Rey Hospital,495,56.7833,30.0,26.7833,True,,file-2025-10.pdf,22.1
+2025-09,Los Angeles County EMS Agency,60988,"Martin Luther King, Jr. Community Hospital",967,30.1167,30.0,0.1167,True,,file-2025-10.pdf,0.19
+2025-09,Merced County EMS Agency,20274,Memorial Hospital Los Banos,252,34.0,30.0,4.0,True,,file-2025-10.pdf,1.68
+2025-09,Los Angeles County EMS Agency,20276,Memorial Hospital Of Gardena,886,38.9667,30.0,8.9667,True,,file-2025-10.pdf,13.24
+2025-09,Los Angeles County EMS Agency,20255,MemorialCare Long Beach Medical Center,821,49.0,30.0,19.0,True,,file-2025-10.pdf,26.0
+2025-09,Riverside County EMS Agency,20278,Menifee Valley Medical Center,322,42.9333,30.0,12.9333,True,,file-2025-10.pdf,6.94
+2025-09,Sacramento County EMS Agency,20280,Mercy General Hospital,716,40.9333,25.0,15.9333,True,,file-2025-10.pdf,19.01
+2025-09,Sacramento County EMS Agency,20282,Mercy Hospital of Folsom,297,30.65,25.0,5.65,True,,file-2025-10.pdf,2.8
+2025-09,Merced County EMS Agency,20283,"Mercy Medical Center, Merced",1235,46.9333,30.0,16.9333,True,,file-2025-10.pdf,34.85
+2025-09,Sierra-Sacramento Valley EMS Agency,20284,"Mercy Medical Center, Redding",1200,45.2833,30.0,15.2833,True,,file-2025-10.pdf,30.57
+2025-09,Sacramento County EMS Agency,20288,Methodist Hospital of Sacramento,713,29.9,25.0,4.9,True,,file-2025-10.pdf,5.82
+2025-09,Los Angeles County EMS Agency,20289,Methodist Hospital of Southern California,827,49.9833,30.0,19.9833,True,,file-2025-10.pdf,27.54
+2025-09,San Mateo County EMS Agency,20342,Mills-Peninsula Medical Center,1088,20.6667,20.0,0.6667,True,,file-2025-10.pdf,1.21
+2025-09,Los Angeles County EMS Agency,20316,Norwalk Community Hospital,72,35.6167,30.0,5.6167,True,,file-2025-10.pdf,0.67
+2025-09,Santa Clara County EMS Agency,20321,"O'Connor Hospital, San Jose",1063,36.9,20.0,16.9,True,,file-2025-10.pdf,29.94
+2025-09,Los Angeles County EMS Agency,20106,"PIH Health Hospital, Downey",467,60.8,30.0,30.8,True,,file-2025-10.pdf,23.97
+2025-09,Los Angeles County EMS Agency,20350,"PIH Health Hospital, Whittier",621,55.5167,30.0,25.5167,True,,file-2025-10.pdf,26.41
+2025-09,Los Angeles County EMS Agency,20333,Palmdale Regional Medical Center,873,37.5833,30.0,7.5833,True,,file-2025-10.pdf,11.03
+2025-09,San Diego County EMS Agency,20561,Palomar Medical Center,1424,33.0333,30.0,3.0333,True,,file-2025-10.pdf,7.2
+2025-09,San Diego County EMS Agency,20337,Paradise Valley Hospital,154,84.4333,30.0,54.4333,True,,file-2025-10.pdf,13.97
+2025-09,Imperial County EMS Agency,20344,Pioneers Memorial Hospital,340,25.6833,20.0,5.6833,True,,file-2025-10.pdf,3.22
+2025-09,San Diego County EMS Agency,20347,Pomerado Hospital,148,40.4333,30.0,10.4333,True,,file-2025-10.pdf,2.57
+2025-09,Los Angeles County EMS Agency,20348,Pomona Valley Hospital Medical Center,991,39.1833,30.0,9.1833,True,,file-2025-10.pdf,15.17
+2025-09,Los Angeles County EMS Agency,20356,"Providence Little Company of Mary Medical Center, San Pedro",242,41.7667,30.0,11.7667,True,,file-2025-10.pdf,4.75
+2025-09,Los Angeles County EMS Agency,20357,"Providence Little Company of Mary Medical Center, Torrance",863,48.5833,30.0,18.5833,True,,file-2025-10.pdf,26.73
+2025-09,Los Angeles County EMS Agency,20451,Providence Saint John's Health Center,674,73.2,30.0,43.2,True,,file-2025-10.pdf,48.53
+2025-09,Los Angeles County EMS Agency,20360,Providence Saint Joseph Medical Center,1191,33.8,30.0,3.8,True,,file-2025-10.pdf,7.54
+2025-09,Riverside County EMS Agency,20441,Rancho Springs Medical Center,656,43.1167,30.0,13.1167,True,,file-2025-10.pdf,14.34
+2025-09,Santa Clara County EMS Agency,20368,Regional Medical Center of San Jose,1360,23.8333,20.0,3.8333,True,,file-2025-10.pdf,8.69
+2025-09,Riverside County EMS Agency,20374,Riverside Community Hospital,2130,43.7333,30.0,13.7333,True,,file-2025-10.pdf,48.75
+2025-09,Riverside County EMS Agency,20375,Riverside University Health System Medical Center,1766,30.15,30.0,0.15,True,,file-2025-10.pdf,0.44
+2025-09,Los Angeles County EMS Agency,20377,Ronald Reagan UCLA Medical Center,453,33.95,30.0,3.95,True,,file-2025-10.pdf,2.98
+2025-09,Central California EMS Agency,20443,Saint Agnes Medical Center,2716,36.9667,30.0,6.9667,True,,file-2025-10.pdf,31.54
+2025-09,Los Angeles County EMS Agency,20446,Saint Francis Medical Center,1081,81.4,30.0,51.4,True,,file-2025-10.pdf,92.61
+2025-09,San Francisco County EMS Agency,20447,Saint Francis Memorial Hospital,713,40.9167,30.0,10.9167,True,,file-2025-10.pdf,12.97
+2025-09,Ventura County EMS Agency,20453,Saint John's Regional Medical Center,1083,32.3333,20.0,12.3333,True,,file-2025-10.pdf,22.26
+2025-09,Alameda County EMS Agency,20463,Saint Rose Hospital,403,35.9667,30.0,5.9667,True,,file-2025-10.pdf,4.01
+2025-09,Los Angeles County EMS Agency,20385,San Dimas Community Hospital,148,37.35,30.0,7.35,True,,file-2025-10.pdf,1.81
+2025-09,Riverside County EMS Agency,20388,San Gorgonio Memorial Hospital,794,40.95,30.0,10.95,True,,file-2025-10.pdf,14.49
+2025-09,San Joaquin County EMS Agency,20391,San Joaquin General Hospital,1188,23.6167,20.0,3.6167,True,,file-2025-10.pdf,7.16
+2025-09,Alameda County EMS Agency,20393,San Leandro Hospital,466,46.2833,30.0,16.2833,True,,file-2025-10.pdf,12.65
+2025-09,Santa Clara County EMS Agency,20400,Santa Clara Valley Medical Center,1036,42.1333,20.0,22.1333,True,,file-2025-10.pdf,38.22
+2025-09,Los Angeles County EMS Agency,20401,Santa Monica - UCLA Medical Center and Orthopaedic Hospital,394,66.0,30.0,36.0,True,,file-2025-10.pdf,23.64
+2025-09,San Diego County EMS Agency,20406,"Scripps Memorial Hospital, Encinitas",466,40.8833,30.0,10.8833,True,,file-2025-10.pdf,8.45
+2025-09,San Diego County EMS Agency,20407,"Scripps Memorial Hospital, La Jolla",336,31.1833,30.0,1.1833,True,,file-2025-10.pdf,0.66
+2025-09,San Diego County EMS Agency,20408,Scripps Mercy Hospital,278,37.7,30.0,7.7,True,,file-2025-10.pdf,3.57
+2025-09,San Diego County EMS Agency,20409,"Scripps Mercy Hospital, Chula Vista",753,40.55,30.0,10.55,True,,file-2025-10.pdf,13.24
+2025-09,San Diego County EMS Agency,20416,Sharp Chula Vista Medical Center,815,46.2,30.0,16.2,True,,file-2025-10.pdf,22.01
+2025-09,San Diego County EMS Agency,20417,Sharp Coronado Hospital and Healthcare Center,88,39.2,30.0,9.2,True,,file-2025-10.pdf,1.35
+2025-09,San Diego County EMS Agency,20153,Sharp Grossmont Hospital,2128,37.2,30.0,7.2,True,,file-2025-10.pdf,25.54
+2025-09,San Diego County EMS Agency,20419,Sharp Memorial Hospital,568,55.0333,30.0,25.0333,True,,file-2025-10.pdf,23.7
+2025-09,Central California EMS Agency,20429,Sierra View Medical Center,609,44.7,30.0,14.7,True,,file-2025-10.pdf,14.92
+2025-09,Los Angeles County EMS Agency,20042,Southern California Hospital at Culver City,164,49.9667,30.0,19.9667,True,,file-2025-10.pdf,5.46
+2025-09,San Joaquin County EMS Agency,20457,St. Joseph's Medical Center of Stockton,2155,34.6333,20.0,14.6333,True,,file-2025-10.pdf,52.56
+2025-09,Los Angeles County EMS Agency,20460,"St. Mary Medical Center, Long Beach",897,35.0,30.0,5.0,True,,file-2025-10.pdf,7.47
+2025-09,San Francisco County EMS Agency,20462,"St. Mary's Medical Center, San Francisco",575,33.7333,30.0,3.7333,True,,file-2025-10.pdf,3.58
+2025-09,Alameda County EMS Agency,20515,Stanford Health Care - ValleyCare,637,47.9833,30.0,17.9833,True,,file-2025-10.pdf,19.09
+2025-09,Contra Costa County EMS Agency,20474,Sutter Delta Medical Center,1064,36.2333,20.0,16.2333,True,,file-2025-10.pdf,28.79
+2025-09,Sacramento County EMS Agency,20475,Sutter Medical Center - Sacramento,1507,35.25,25.0,10.25,True,,file-2025-10.pdf,25.74
+2025-09,San Joaquin County EMS Agency,20484,Sutter Tracy Community Hospital,328,31.2,20.0,11.2,True,,file-2025-10.pdf,6.12
+2025-09,Riverside County EMS Agency,20559,Temecula Valley Hospital,672,44.3167,30.0,14.3167,True,,file-2025-10.pdf,16.03
+2025-09,Los Angeles County EMS Agency,20496,Torrance Memorial Medical Center,738,49.75,30.0,19.75,True,,file-2025-10.pdf,24.29
+2025-09,Central California EMS Agency,20500,Tulare Regional Medical Center,173,35.95,30.0,5.95,True,,file-2025-10.pdf,1.72
+2025-09,Sacramento County EMS Agency,20508,UC Davis Medical Center,1458,33.55,25.0,8.55,True,,file-2025-10.pdf,20.78
+2025-09,San Diego County EMS Agency,62998,UC San Diego Health East Campus Medical Center,183,41.0,30.0,11.0,True,,file-2025-10.pdf,3.35
+2025-09,Orange County EMS Agency,20256,UCI Health - Los Alamitos,469,33.05,30.0,3.05,True,,file-2025-10.pdf,2.38
+2025-09,San Francisco County EMS Agency,20504,UCSF Medical Center at Parnassus,711,50.5167,30.0,20.5167,True,,file-2025-10.pdf,24.31
+2025-09,San Diego County EMS Agency,20510,"University of California, San Diego Medical Center",224,55.7,30.0,25.7,True,,file-2025-10.pdf,9.59
+2025-09,Alameda County EMS Agency,20525,"Washington Hospital, Fremont",1011,40.0167,30.0,10.0167,True,,file-2025-10.pdf,16.88
+2025-09,Orange County EMS Agency,20527,West Anaheim Medical Center,657,33.45,30.0,3.45,True,,file-2025-10.pdf,3.78
+2025-09,Los Angeles County EMS Agency,20528,West Hills Hospital and Medical Center,521,31.3,30.0,1.3,True,,file-2025-10.pdf,1.13
+2025-09,San Francisco County EMS Agency,20386,Zuckerberg San Francisco General Hospital and Trauma Center,1238,32.3167,30.0,2.3167,True,,file-2025-10.pdf,4.78
+2025-10,Kern County EMS Agency,20389,Adventist Health Bakersfield,906,52.0167,30.0,22.0167,True,55.1,file-2025-11.pdf,33.25
+2025-10,Central California EMS Agency,20001,Adventist Health Hanford,1048,37.8167,30.0,7.8167,True,81.0,file-2025-11.pdf,13.65
+2025-10,San Joaquin County EMS Agency,20247,Adventist Health Lodi Memorial,722,28.35,20.0,8.35,True,74.9,file-2025-11.pdf,10.05
+2025-10,Sierra-Sacramento Valley EMS Agency,20371,Adventist Health Rideout,876,30.4167,30.0,0.4167,True,89.8,file-2025-11.pdf,0.61
+2025-10,Kern County EMS Agency,20488,Adventist Health Tehachapi Valley,138,31.7,30.0,1.7,True,87.7,file-2025-11.pdf,0.39
+2025-10,Los Angeles County EMS Agency,20531,Adventist Health White Memorial,210,49.45,30.0,19.45,True,75.7,file-2025-11.pdf,6.81
+2025-10,Alameda County EMS Agency,20004,"Alameda County Medical Center, Highland",1126,49.2333,30.0,19.2333,True,69.4,file-2025-11.pdf,36.09
+2025-10,Alameda County EMS Agency,20008,"Alta Bates Summit Medical Center, Alta Bates Campus",388,38.1833,30.0,8.1833,True,80.7,file-2025-11.pdf,5.29
+2025-10,Alameda County EMS Agency,20011,"Alta Bates Summit Medical Center, Summit Campus",1156,43.4667,30.0,13.4667,True,75.6,file-2025-11.pdf,25.95
+2025-10,Orange County EMS Agency,20530,Anaheim Global Medical Center,185,30.4833,30.0,0.4833,True,89.7,file-2025-11.pdf,0.15
+2025-10,Los Angeles County EMS Agency,20018,Antelope Valley Hospital,1801,37.8667,30.0,7.8667,True,81.0,file-2025-11.pdf,23.61
+2025-10,Kern County EMS Agency,20027,Bakersfield Heart Hospital,254,49.5167,30.0,19.5167,True,61.0,file-2025-11.pdf,8.26
+2025-10,Kern County EMS Agency,20028,Bakersfield Memorial Hospital,834,66.75,30.0,36.75,True,51.3,file-2025-11.pdf,51.08
+2025-10,Los Angeles County EMS Agency,20038,Beverly Hospital,389,70.45,30.0,40.45,True,65.3,file-2025-11.pdf,26.23
+2025-10,San Francisco County EMS Agency,20050,CPMC Mission Bernal Campus,788,33.4,30.0,3.4,True,84.8,file-2025-11.pdf,4.47
+2025-10,San Francisco County EMS Agency,62636,CPMC-Van Ness,881,44.4333,30.0,14.4333,True,75.9,file-2025-11.pdf,21.19
+2025-10,Los Angeles County EMS Agency,20045,California Hospital Medical Center,651,55.4,30.0,25.4,True,71.1,file-2025-11.pdf,27.56
+2025-10,San Francisco County EMS Agency,20048,"California Pacific Medical Center, Davies Campus Hospital",351,31.5333,30.0,1.5333,True,87.5,file-2025-11.pdf,0.9
+2025-10,Los Angeles County EMS Agency,20054,Cedars-Sinai Medical Center,1304,58.7333,30.0,28.7333,True,65.9,file-2025-11.pdf,62.45
+2025-10,Los Angeles County EMS Agency,20055,Centinela Hospital Medical Center,2409,38.6333,30.0,8.6333,True,74.5,file-2025-11.pdf,34.66
+2025-10,Alameda County EMS Agency,20059,Children's Hospital & Research Center Oakland,122,31.1167,30.0,1.1167,True,87.7,file-2025-11.pdf,0.23
+2025-10,Los Angeles County EMS Agency,20068,"Citrus Valley Medical Center, Queen of the Valley Campus",688,54.1,30.0,24.1,True,69.0,file-2025-11.pdf,27.63
+2025-10,Central California EMS Agency,20070,Clovis Community Medical Center,2165,32.7167,30.0,2.7167,True,86.6,file-2025-11.pdf,9.8
+2025-10,Los Angeles County EMS Agency,20073,Coast Plaza Hospital,180,34.0333,30.0,4.0333,True,86.7,file-2025-11.pdf,1.21
+2025-10,Los Angeles County EMS Agency,20328,College Medical Center,192,49.9,30.0,19.9,True,85.4,file-2025-11.pdf,6.37
+2025-10,Los Angeles County EMS Agency,20081,Community Hospital of Huntington Park,324,56.5333,30.0,26.5333,True,74.1,file-2025-11.pdf,14.33
+2025-10,Ventura County EMS Agency,20084,"Community Memorial Hospital, San Buenaventura",789,20.4,20.0,0.4,True,89.5,file-2025-11.pdf,0.53
+2025-10,Central California EMS Agency,20085,"Community Regional Medical Center, Fresno",4286,38.4167,30.0,8.4167,True,78.9,file-2025-11.pdf,60.12
+2025-10,Contra Costa County EMS Agency,20087,Contra Costa Regional Medical Center,489,42.8833,20.0,22.8833,True,57.7,file-2025-11.pdf,18.65
+2025-10,Riverside County EMS Agency,20090,Corona Regional Medical Center,863,37.4167,30.0,7.4167,True,85.5,file-2025-11.pdf,10.67
+2025-10,San Joaquin County EMS Agency,20094,Dameron Hospital,675,31.2,20.0,11.2,True,69.6,file-2025-11.pdf,12.6
+2025-10,Kern County EMS Agency,20096,Delano Regional Medical Center,148,34.2,30.0,4.2,True,81.8,file-2025-11.pdf,1.04
+2025-10,Stanislaus County EMS Agency,20101,Doctors Medical Center,1575,33.05,30.0,3.05,True,87.5,file-2025-11.pdf,8.01
+2025-10,Los Angeles County EMS Agency,20108,East Los Angeles Doctors Hospital,233,37.3,30.0,7.3,True,82.8,file-2025-11.pdf,2.83
+2025-10,Alameda County EMS Agency,20112,Eden Medical Center,993,47.9333,30.0,17.9333,True,72.1,file-2025-11.pdf,29.68
+2025-10,Imperial County EMS Agency,20117,El Centro Regional Medical Center,688,27.7333,20.0,7.7333,True,75.9,file-2025-11.pdf,8.87
+2025-10,Los Angeles County EMS Agency,20067,Emanate Health- InterCommunity Hospital,367,51.5667,30.0,21.5667,True,75.5,file-2025-11.pdf,13.19
+2025-10,Stanislaus County EMS Agency,20119,Emanuel Medical Center,563,34.9333,30.0,4.9333,True,82.8,file-2025-11.pdf,4.63
+2025-10,Los Angeles County EMS Agency,20129,Foothill Presbyterian Hospital,308,48.4667,30.0,18.4667,True,69.2,file-2025-11.pdf,9.48
+2025-10,San Luis Obispo County EMS Agency,20135,French Hospital Medical Center,286,24.2167,20.0,4.2167,True,85.3,file-2025-11.pdf,2.01
+2025-10,Orange County EMS Agency,20139,Garden Grove Hospital and Medical Center,337,30.1667,30.0,0.1667,True,89.9,file-2025-11.pdf,0.09
+2025-10,Los Angeles County EMS Agency,20149,"Good Samaritan Hospital, Los Angeles",877,47.2167,30.0,17.2167,True,75.9,file-2025-11.pdf,25.17
+2025-10,Santa Clara County EMS Agency,20150,"Good Samaritan Hospital, San Jose",1005,25.1333,20.0,5.1333,True,81.0,file-2025-11.pdf,8.6
+2025-10,Los Angeles County EMS Agency,20152,Greater El Monte Community Hospital,188,47.1167,30.0,17.1167,True,72.3,file-2025-11.pdf,5.36
+2025-10,Los Angeles County EMS Agency,20240,Harbor UCLA Medical Center,1125,73.3,30.0,43.3,True,67.7,file-2025-11.pdf,81.19
+2025-10,Riverside County EMS Agency,20162,Hemet Valley Medical Center,1293,71.65,30.0,41.65,True,54.2,file-2025-11.pdf,89.76
+2025-10,Los Angeles County EMS Agency,20171,Hollywood Presbyterian Medical Center,538,40.3833,30.0,10.3833,True,80.7,file-2025-11.pdf,9.31
+2025-10,Orange County EMS Agency,20172,Huntington Beach Hospital,326,31.35,30.0,1.35,True,88.7,file-2025-11.pdf,0.73
+2025-10,Riverside County EMS Agency,20442,Inland Valley Medical Center,1178,40.5333,30.0,10.5333,True,83.6,file-2025-11.pdf,20.68
+2025-10,Contra Costa County EMS Agency,20179,"John Muir Medical Center, Concord",1074,27.55,20.0,7.55,True,78.4,file-2025-11.pdf,13.51
+2025-10,Contra Costa County EMS Agency,20180,"John Muir Medical Center, Walnut Creek",1084,35.8,20.0,15.8,True,65.1,file-2025-11.pdf,28.55
+2025-10,Orange County EMS Agency,20560,"Kaiser Permanente, Anaheim",335,31.5667,30.0,1.5667,True,88.1,file-2025-11.pdf,0.87
+2025-10,Contra Costa County EMS Agency,20214,"Kaiser Permanente, Antioch",893,32.2833,20.0,12.2833,True,63.7,file-2025-11.pdf,18.28
+2025-10,Los Angeles County EMS Agency,20183,"Kaiser Permanente, Baldwin Park",215,50.6667,30.0,20.6667,True,74.9,file-2025-11.pdf,7.41
+2025-10,Los Angeles County EMS Agency,20215,"Kaiser Permanente, Downey",448,64.5167,30.0,34.5167,True,62.1,file-2025-11.pdf,25.77
+2025-10,Alameda County EMS Agency,20185,"Kaiser Permanente, Fremont",457,40.0167,30.0,10.0167,True,79.4,file-2025-11.pdf,7.63
+2025-10,Central California EMS Agency,20186,"Kaiser Permanente, Fresno",1015,47.8167,30.0,17.8167,True,72.7,file-2025-11.pdf,30.14
+2025-10,Los Angeles County EMS Agency,20207,"Kaiser Permanente, Los Angeles",582,38.4833,30.0,8.4833,True,84.5,file-2025-11.pdf,8.23
+2025-10,San Joaquin County EMS Agency,20212,"Kaiser Permanente, Manteca",375,22.8333,20.0,2.8333,True,84.3,file-2025-11.pdf,1.77
+2025-10,Riverside County EMS Agency,20211,"Kaiser Permanente, Moreno Valley",415,43.85,30.0,13.85,True,78.8,file-2025-11.pdf,9.58
+2025-10,Alameda County EMS Agency,20190,"Kaiser Permanente, Oakland Medical Center",749,59.6667,30.0,29.6667,True,56.6,file-2025-11.pdf,37.03
+2025-10,Contra Costa County EMS Agency,20194,"Kaiser Permanente, Richmond",1058,48.95,20.0,28.95,True,38.5,file-2025-11.pdf,51.05
+2025-10,Riverside County EMS Agency,20195,"Kaiser Permanente, Riverside",629,34.6667,30.0,4.6667,True,84.7,file-2025-11.pdf,4.89
+2025-10,San Diego County EMS Agency,20198,"Kaiser Permanente, San Diego",394,40.0667,30.0,10.0667,True,80.2,file-2025-11.pdf,6.61
+2025-10,San Francisco County EMS Agency,20199,"Kaiser Permanente, San Francisco",459,38.3333,30.0,8.3333,True,80.8,file-2025-11.pdf,6.37
+2025-10,Santa Clara County EMS Agency,20200,"Kaiser Permanente, San Jose",831,22.2,20.0,2.2,True,85.0,file-2025-11.pdf,3.05
+2025-10,Alameda County EMS Agency,62356,"Kaiser Permanente, San Leandro Medical Center",754,34.65,30.0,4.65,True,82.2,file-2025-11.pdf,5.84
+2025-10,Santa Clara County EMS Agency,20202,"Kaiser Permanente, Santa Clara Medical Center and Medical Offices",804,27.25,20.0,7.25,True,73.0,file-2025-11.pdf,9.72
+2025-10,Los Angeles County EMS Agency,20204,"Kaiser Permanente, South Bay",450,48.7833,30.0,18.7833,True,72.2,file-2025-11.pdf,14.09
+2025-10,Contra Costa County EMS Agency,20208,"Kaiser Permanente, Walnut Creek",896,34.25,20.0,14.25,True,57.1,file-2025-11.pdf,21.28
+2025-10,Los Angeles County EMS Agency,20209,"Kaiser Permanente, West Los Angeles",547,47.3333,30.0,17.3333,True,76.1,file-2025-11.pdf,15.8
+2025-10,Central California EMS Agency,20219,Kaweah Delta Medical Center,2079,42.8167,30.0,12.8167,True,65.0,file-2025-11.pdf,44.41
+2025-10,Kern County EMS Agency,20224,Kern Medical,726,61.45,30.0,31.45,True,52.3,file-2025-11.pdf,38.05
+2025-10,Los Angeles County EMS Agency,20242,LAC USC Medical Center,1970,30.0333,30.0,0.0333,True,89.9,file-2025-11.pdf,0.11
+2025-10,Orange County EMS Agency,20239,La Palma Intercommunity Hospital,117,50.6,30.0,20.6,True,78.6,file-2025-11.pdf,4.02
+2025-10,Los Angeles County EMS Agency,20244,Lakewood Regional Medical Center,438,63.1833,30.0,33.1833,True,70.5,file-2025-11.pdf,24.22
+2025-10,Riverside County EMS Agency,20535,"Loma Linda University Medical Center, Murrieta",873,40.8333,30.0,10.8333,True,79.6,file-2025-11.pdf,15.76
+2025-10,Ventura County EMS Agency,20261,Los Robles Hospital & Medical Center,1057,24.2167,20.0,4.2167,True,84.8,file-2025-11.pdf,7.43
+2025-10,Central California EMS Agency,20265,Madera Community Hospital,437,40.1833,30.0,10.1833,True,81.2,file-2025-11.pdf,7.42
+2025-10,Los Angeles County EMS Agency,20270,Marina Del Rey Hospital,616,53.3167,30.0,23.3167,True,66.7,file-2025-11.pdf,23.94
+2025-10,Los Angeles County EMS Agency,60988,"Martin Luther King, Jr. Community Hospital",1140,30.8667,30.0,0.8667,True,89.1,file-2025-11.pdf,1.65
+2025-10,Los Angeles County EMS Agency,20276,Memorial Hospital Of Gardena,1036,46.2167,30.0,16.2167,True,75.1,file-2025-11.pdf,28.0
+2025-10,Stanislaus County EMS Agency,20275,"Memorial Medical Center, Modesto",1885,34.1333,30.0,4.1333,True,87.5,file-2025-11.pdf,12.99
+2025-10,Los Angeles County EMS Agency,20255,MemorialCare Long Beach Medical Center,943,42.0,30.0,12.0,True,84.9,file-2025-11.pdf,18.86
+2025-10,Riverside County EMS Agency,20278,Menifee Valley Medical Center,334,51.5,30.0,21.5,True,66.2,file-2025-11.pdf,11.97
+2025-10,Sacramento County EMS Agency,20280,Mercy General Hospital,781,35.7,25.0,10.7,True,75.9,file-2025-11.pdf,13.93
+2025-10,Kern County EMS Agency,20281,Mercy Hospital,537,41.5,30.0,11.5,True,71.5,file-2025-11.pdf,10.29
+2025-10,Kern County EMS Agency,20287,Mercy Hospital SW - Bakersfield,516,50.8,30.0,20.8,True,60.9,file-2025-11.pdf,17.89
+2025-10,Sacramento County EMS Agency,20282,Mercy Hospital of Folsom,344,29.0,25.0,4.0,True,82.8,file-2025-11.pdf,2.29
+2025-10,Merced County EMS Agency,20283,"Mercy Medical Center, Merced",1463,45.1,30.0,15.1,True,76.5,file-2025-11.pdf,36.82
+2025-10,Sierra-Sacramento Valley EMS Agency,20284,"Mercy Medical Center, Redding",1273,48.0833,30.0,18.0833,True,74.7,file-2025-11.pdf,38.37
+2025-10,Sacramento County EMS Agency,20288,Methodist Hospital of Sacramento,755,26.2333,25.0,1.2333,True,87.7,file-2025-11.pdf,1.55
+2025-10,Los Angeles County EMS Agency,20289,Methodist Hospital of Southern California,871,54.9167,30.0,24.9167,True,69.2,file-2025-11.pdf,36.17
+2025-10,San Mateo County EMS Agency,20342,Mills-Peninsula Medical Center,1087,21.7333,20.0,1.7333,True,87.4,file-2025-11.pdf,3.14
+2025-10,Los Angeles County EMS Agency,20315,Northridge Hospital Medical Center,1458,32.35,30.0,2.35,True,87.9,file-2025-11.pdf,5.71
+2025-10,Los Angeles County EMS Agency,20316,Norwalk Community Hospital,95,41.3,30.0,11.3,True,87.4,file-2025-11.pdf,1.79
+2025-10,Santa Clara County EMS Agency,20321,"O'Connor Hospital, San Jose",1124,33.5167,20.0,13.5167,True,69.7,file-2025-11.pdf,25.32
+2025-10,Los Angeles County EMS Agency,20106,"PIH Health Hospital, Downey",558,60.95,30.0,30.95,True,72.4,file-2025-11.pdf,28.78
+2025-10,Los Angeles County EMS Agency,20350,"PIH Health Hospital, Whittier",644,49.25,30.0,19.25,True,67.2,file-2025-11.pdf,20.66
+2025-10,Los Angeles County EMS Agency,20333,Palmdale Regional Medical Center,1025,37.0167,30.0,7.0167,True,83.9,file-2025-11.pdf,11.99
+2025-10,San Diego County EMS Agency,20561,Palomar Medical Center,1186,32.4167,30.0,2.4167,True,87.8,file-2025-11.pdf,4.78
+2025-10,San Diego County EMS Agency,20337,Paradise Valley Hospital,112,60.7,30.0,30.7,True,67.9,file-2025-11.pdf,5.73
+2025-10,Imperial County EMS Agency,20344,Pioneers Memorial Hospital,307,27.3667,20.0,7.3667,True,78.8,file-2025-11.pdf,3.77
+2025-10,San Diego County EMS Agency,20347,Pomerado Hospital,83,47.0333,30.0,17.0333,True,69.9,file-2025-11.pdf,2.36
+2025-10,Los Angeles County EMS Agency,20348,Pomona Valley Hospital Medical Center,1089,49.8,30.0,19.8,True,74.3,file-2025-11.pdf,35.94
+2025-10,Los Angeles County EMS Agency,20356,"Providence Little Company of Mary Medical Center, San Pedro",317,34.15,30.0,4.15,True,83.6,file-2025-11.pdf,2.19
+2025-10,Los Angeles County EMS Agency,20357,"Providence Little Company of Mary Medical Center, Torrance",936,47.4833,30.0,17.4833,True,72.0,file-2025-11.pdf,27.27
+2025-10,Los Angeles County EMS Agency,20451,Providence Saint John's Health Center,715,56.0,30.0,26.0,True,63.6,file-2025-11.pdf,30.98
+2025-10,Los Angeles County EMS Agency,20360,Providence Saint Joseph Medical Center,1379,32.0,30.0,2.0,True,88.3,file-2025-11.pdf,4.6
+2025-10,Los Angeles County EMS Agency,20361,Providence Tarzana Medical Center,341,31.75,30.0,1.75,True,88.9,file-2025-11.pdf,0.99
+2025-10,Riverside County EMS Agency,20441,Rancho Springs Medical Center,614,36.5833,30.0,6.5833,True,84.2,file-2025-11.pdf,6.74
+2025-10,Santa Clara County EMS Agency,20368,Regional Medical Center of San Jose,1398,25.0167,20.0,5.0167,True,83.0,file-2025-11.pdf,11.69
+2025-10,Riverside County EMS Agency,20374,Riverside Community Hospital,2233,46.0,30.0,16.0,True,71.6,file-2025-11.pdf,59.55
+2025-10,Riverside County EMS Agency,20375,Riverside University Health System Medical Center,1846,31.3333,30.0,1.3333,True,88.7,file-2025-11.pdf,4.1
+2025-10,Central California EMS Agency,20443,Saint Agnes Medical Center,2726,33.95,30.0,3.95,True,85.6,file-2025-11.pdf,17.95
+2025-10,Los Angeles County EMS Agency,20446,Saint Francis Medical Center,1110,86.7667,30.0,56.7667,True,41.5,file-2025-11.pdf,105.02
+2025-10,San Francisco County EMS Agency,20447,Saint Francis Memorial Hospital,790,47.1167,30.0,17.1167,True,71.0,file-2025-11.pdf,22.54
+2025-10,Ventura County EMS Agency,20453,Saint John's Regional Medical Center,1111,28.45,20.0,8.45,True,76.7,file-2025-11.pdf,15.65
+2025-10,Alameda County EMS Agency,20463,Saint Rose Hospital,438,35.3,30.0,5.3,True,82.0,file-2025-11.pdf,3.87
+2025-10,Los Angeles County EMS Agency,20385,San Dimas Community Hospital,145,47.3,30.0,17.3,True,84.8,file-2025-11.pdf,4.18
+2025-10,Riverside County EMS Agency,20388,San Gorgonio Memorial Hospital,821,39.65,30.0,9.65,True,77.0,file-2025-11.pdf,13.2
+2025-10,Alameda County EMS Agency,20393,San Leandro Hospital,491,47.2167,30.0,17.2167,True,69.9,file-2025-11.pdf,14.09
+2025-10,Santa Clara County EMS Agency,20400,Santa Clara Valley Medical Center,1092,40.2833,20.0,20.2833,True,72.5,file-2025-11.pdf,36.92
+2025-10,Los Angeles County EMS Agency,20401,Santa Monica - UCLA Medical Center and Orthopaedic Hospital,416,58.8333,30.0,28.8333,True,58.2,file-2025-11.pdf,19.99
+2025-10,San Diego County EMS Agency,20406,"Scripps Memorial Hospital, Encinitas",298,34.65,30.0,4.65,True,87.9,file-2025-11.pdf,2.31
+2025-10,San Diego County EMS Agency,20408,Scripps Mercy Hospital,203,38.4333,30.0,8.4333,True,82.8,file-2025-11.pdf,2.85
+2025-10,San Diego County EMS Agency,20409,"Scripps Mercy Hospital, Chula Vista",558,37.3,30.0,7.3,True,85.5,file-2025-11.pdf,6.79
+2025-10,San Diego County EMS Agency,20416,Sharp Chula Vista Medical Center,649,44.95,30.0,14.95,True,70.4,file-2025-11.pdf,16.17
+2025-10,San Diego County EMS Agency,20153,Sharp Grossmont Hospital,1656,36.1667,30.0,6.1667,True,83.9,file-2025-11.pdf,17.02
+2025-10,San Diego County EMS Agency,20419,Sharp Memorial Hospital,449,53.8,30.0,23.8,True,72.4,file-2025-11.pdf,17.81
+2025-10,Central California EMS Agency,20429,Sierra View Medical Center,596,37.8833,30.0,7.8833,True,80.7,file-2025-11.pdf,7.83
+2025-10,San Luis Obispo County EMS Agency,20431,Sierra Vista Regional Medical Center,378,30.05,20.0,10.05,True,83.6,file-2025-11.pdf,6.33
+2025-10,Los Angeles County EMS Agency,20042,Southern California Hospital at Culver City,200,43.7167,30.0,13.7167,True,75.0,file-2025-11.pdf,4.57
+2025-10,San Joaquin County EMS Agency,20457,St. Joseph's Medical Center of Stockton,2203,30.8667,20.0,10.8667,True,68.6,file-2025-11.pdf,39.9
+2025-10,Los Angeles County EMS Agency,20460,"St. Mary Medical Center, Long Beach",1006,42.5,30.0,12.5,True,81.0,file-2025-11.pdf,20.96
+2025-10,San Francisco County EMS Agency,20462,"St. Mary's Medical Center, San Francisco",557,34.1167,30.0,4.1167,True,83.8,file-2025-11.pdf,3.82
+2025-10,Alameda County EMS Agency,20515,Stanford Health Care - ValleyCare,681,42.0667,30.0,12.0667,True,78.1,file-2025-11.pdf,13.7
+2025-10,Yolo County EMS Agency,20473,Sutter Davis Hospital,351,25.9333,20.0,5.9333,True,82.6,file-2025-11.pdf,3.47
+2025-10,Contra Costa County EMS Agency,20474,Sutter Delta Medical Center,1025,33.7667,20.0,13.7667,True,66.0,file-2025-11.pdf,23.52
+2025-10,Sacramento County EMS Agency,20475,Sutter Medical Center - Sacramento,1635,39.15,25.0,14.15,True,63.4,file-2025-11.pdf,38.56
+2025-10,Coastal Valleys EMS Agency,20478,Sutter Santa Rosa Regional Hospital,608,22.9,20.0,2.9,True,83.1,file-2025-11.pdf,2.94
+2025-10,San Joaquin County EMS Agency,20484,Sutter Tracy Community Hospital,373,28.4,20.0,8.4,True,78.8,file-2025-11.pdf,5.22
+2025-10,Riverside County EMS Agency,20559,Temecula Valley Hospital,648,36.8,30.0,6.8,True,81.5,file-2025-11.pdf,7.34
+2025-10,Los Angeles County EMS Agency,20496,Torrance Memorial Medical Center,868,48.8,30.0,18.8,True,69.7,file-2025-11.pdf,27.2
+2025-10,Central California EMS Agency,20500,Tulare Regional Medical Center,106,35.65,30.0,5.65,True,81.1,file-2025-11.pdf,1.0
+2025-10,Sacramento County EMS Agency,20508,UC Davis Medical Center,1690,34.55,25.0,9.55,True,79.1,file-2025-11.pdf,26.9
+2025-10,San Diego County EMS Agency,62998,UC San Diego Health East Campus Medical Center,170,46.0333,30.0,16.0333,True,81.2,file-2025-11.pdf,4.54
+2025-10,Orange County EMS Agency,20256,UCI Health - Los Alamitos,530,32.8167,30.0,2.8167,True,88.1,file-2025-11.pdf,2.49
+2025-10,San Francisco County EMS Agency,20504,UCSF Medical Center at Parnassus,750,45.8167,30.0,15.8167,True,72.0,file-2025-11.pdf,19.77
+2025-10,Orange County EMS Agency,20509,"University of California, Irvine Medical Center",720,30.0333,30.0,0.0333,True,89.9,file-2025-11.pdf,0.04
+2025-10,San Diego County EMS Agency,20510,"University of California, San Diego Medical Center",164,66.6167,30.0,36.6167,True,66.5,file-2025-11.pdf,10.01
+2025-10,Alameda County EMS Agency,20525,"Washington Hospital, Fremont",1014,41.3833,30.0,11.3833,True,77.3,file-2025-11.pdf,19.24
+2025-10,Los Angeles County EMS Agency,20528,West Hills Hospital and Medical Center,696,34.1667,30.0,4.1667,True,85.3,file-2025-11.pdf,4.83
+2025-10,Yolo County EMS Agency,20533,Woodland Memorial Hospital,350,20.95,20.0,0.95,True,88.9,file-2025-11.pdf,0.55
+2025-10,San Francisco County EMS Agency,20386,Zuckerberg San Francisco General Hospital and Trauma Center,1246,32.3667,30.0,2.3667,True,87.9,file-2025-11.pdf,4.91
+2025-11,Kern County EMS Agency,20389,Adventist Health Bakersfield,1411,48.05,30.0,18.05,True,56.1,file-2025-12.pdf,42.45
+2025-11,Central California EMS Agency,20001,Adventist Health Hanford,945,35.3333,30.0,5.3333,True,84.1,file-2025-12.pdf,8.4
+2025-11,San Joaquin County EMS Agency,20247,Adventist Health Lodi Memorial,730,29.7667,20.0,9.7667,True,74.7,file-2025-12.pdf,11.88
+2025-11,Los Angeles County EMS Agency,20531,Adventist Health White Memorial,164,40.1333,30.0,10.1333,True,83.5,file-2025-12.pdf,2.77
+2025-11,Alameda County EMS Agency,20004,"Alameda County Medical Center, Highland",1137,50.25,30.0,20.25,True,69.9,file-2025-12.pdf,38.37
+2025-11,Alameda County EMS Agency,20005,Alameda Hospital,198,31.1833,30.0,1.1833,True,88.9,file-2025-12.pdf,0.39
+2025-11,Alameda County EMS Agency,20008,"Alta Bates Summit Medical Center, Alta Bates Campus",351,40.65,30.0,10.65,True,75.8,file-2025-12.pdf,6.23
+2025-11,Alameda County EMS Agency,20011,"Alta Bates Summit Medical Center, Summit Campus",1144,40.9333,30.0,10.9333,True,76.0,file-2025-12.pdf,20.85
+2025-11,Los Angeles County EMS Agency,20018,Antelope Valley Hospital,1715,33.15,30.0,3.15,True,87.2,file-2025-12.pdf,9.0
+2025-11,Kern County EMS Agency,20027,Bakersfield Heart Hospital,355,39.9333,30.0,9.9333,True,70.1,file-2025-12.pdf,5.88
+2025-11,Kern County EMS Agency,20028,Bakersfield Memorial Hospital,1221,70.6167,30.0,40.6167,True,52.1,file-2025-12.pdf,82.65
+2025-11,Los Angeles County EMS Agency,20038,Beverly Hospital,392,69.9667,30.0,39.9667,True,67.1,file-2025-12.pdf,26.11
+2025-11,San Francisco County EMS Agency,20050,CPMC Mission Bernal Campus,650,36.95,30.0,6.95,True,84.2,file-2025-12.pdf,7.53
+2025-11,San Francisco County EMS Agency,62636,CPMC-Van Ness,809,41.55,30.0,11.55,True,78.2,file-2025-12.pdf,15.57
+2025-11,Los Angeles County EMS Agency,20045,California Hospital Medical Center,596,49.5833,30.0,19.5833,True,80.4,file-2025-12.pdf,19.45
+2025-11,Los Angeles County EMS Agency,20054,Cedars-Sinai Medical Center,1182,56.4667,30.0,26.4667,True,70.3,file-2025-12.pdf,52.14
+2025-11,Los Angeles County EMS Agency,20055,Centinela Hospital Medical Center,2206,39.35,30.0,9.35,True,74.6,file-2025-12.pdf,34.38
+2025-11,Alameda County EMS Agency,20059,Children's Hospital & Research Center Oakland,100,30.35,30.0,0.35,True,89.0,file-2025-12.pdf,0.06
+2025-11,Los Angeles County EMS Agency,20068,"Citrus Valley Medical Center, Queen of the Valley Campus",722,45.9667,30.0,15.9667,True,74.1,file-2025-12.pdf,19.21
+2025-11,Central California EMS Agency,20070,Clovis Community Medical Center,2127,31.9833,30.0,1.9833,True,87.2,file-2025-12.pdf,7.03
+2025-11,Los Angeles County EMS Agency,20328,College Medical Center,191,41.0,30.0,11.0,True,85.3,file-2025-12.pdf,3.5
+2025-11,Los Angeles County EMS Agency,20081,Community Hospital of Huntington Park,356,53.2333,30.0,23.2333,True,75.0,file-2025-12.pdf,13.79
+2025-11,Central California EMS Agency,20085,"Community Regional Medical Center, Fresno",4314,36.4833,30.0,6.4833,True,81.6,file-2025-12.pdf,46.61
+2025-11,Contra Costa County EMS Agency,20087,Contra Costa Regional Medical Center,368,37.75,20.0,17.75,True,66.0,file-2025-12.pdf,10.89
+2025-11,Riverside County EMS Agency,20090,Corona Regional Medical Center,811,32.1167,30.0,2.1167,True,87.7,file-2025-12.pdf,2.86
+2025-11,San Joaquin County EMS Agency,20094,Dameron Hospital,624,26.0667,20.0,6.0667,True,75.8,file-2025-12.pdf,6.31
+2025-11,Kern County EMS Agency,20096,Delano Regional Medical Center,209,36.0833,30.0,6.0833,True,80.9,file-2025-12.pdf,2.12
+2025-11,San Joaquin County EMS Agency,20099,Doctors Hospital of Manteca,330,21.4333,20.0,1.4333,True,88.5,file-2025-12.pdf,0.79
+2025-11,Alameda County EMS Agency,20112,Eden Medical Center,993,41.95,30.0,11.95,True,76.1,file-2025-12.pdf,19.78
+2025-11,Santa Clara County EMS Agency,20115,El Camino Hospital,818,21.0833,20.0,1.0833,True,89.4,file-2025-12.pdf,1.48
+2025-11,Santa Clara County EMS Agency,20116,El Camino Hospital Los Gatos,132,23.1667,20.0,3.1667,True,88.6,file-2025-12.pdf,0.7
+2025-11,Imperial County EMS Agency,20117,El Centro Regional Medical Center,585,25.0,20.0,5.0,True,80.5,file-2025-12.pdf,4.88
+2025-11,Los Angeles County EMS Agency,20067,Emanate Health- InterCommunity Hospital,343,46.85,30.0,16.85,True,78.7,file-2025-12.pdf,9.63
+2025-11,Stanislaus County EMS Agency,20119,Emanuel Medical Center,601,31.9833,30.0,1.9833,True,87.9,file-2025-12.pdf,1.99
+2025-11,Los Angeles County EMS Agency,20129,Foothill Presbyterian Hospital,303,35.9333,30.0,5.9333,True,83.5,file-2025-12.pdf,3.0
+2025-11,San Luis Obispo County EMS Agency,20135,French Hospital Medical Center,380,22.0,20.0,2.0,True,88.2,file-2025-12.pdf,1.27
+2025-11,Los Angeles County EMS Agency,20149,"Good Samaritan Hospital, Los Angeles",816,37.2,30.0,7.2,True,81.9,file-2025-12.pdf,9.79
+2025-11,Santa Clara County EMS Agency,20150,"Good Samaritan Hospital, San Jose",986,22.8833,20.0,2.8833,True,84.4,file-2025-12.pdf,4.74
+2025-11,Los Angeles County EMS Agency,20152,Greater El Monte Community Hospital,249,39.1833,30.0,9.1833,True,83.1,file-2025-12.pdf,3.81
+2025-11,Los Angeles County EMS Agency,20240,Harbor UCLA Medical Center,1017,49.5833,30.0,19.5833,True,73.2,file-2025-12.pdf,33.19
+2025-11,Riverside County EMS Agency,20162,Hemet Valley Medical Center,1199,75.7167,30.0,45.7167,True,50.2,file-2025-12.pdf,91.36
+2025-11,Los Angeles County EMS Agency,20171,Hollywood Presbyterian Medical Center,505,43.8667,30.0,13.8667,True,79.4,file-2025-12.pdf,11.67
+2025-11,Orange County EMS Agency,20172,Huntington Beach Hospital,301,31.1333,30.0,1.1333,True,88.7,file-2025-12.pdf,0.57
+2025-11,Riverside County EMS Agency,20442,Inland Valley Medical Center,1122,49.1,30.0,19.1,True,78.0,file-2025-12.pdf,35.72
+2025-11,Contra Costa County EMS Agency,20179,"John Muir Medical Center, Concord",1025,24.7167,20.0,4.7167,True,85.0,file-2025-12.pdf,8.06
+2025-11,Contra Costa County EMS Agency,20180,"John Muir Medical Center, Walnut Creek",1080,30.0,20.0,10.0,True,78.1,file-2025-12.pdf,18.0
+2025-11,Orange County EMS Agency,20560,"Kaiser Permanente, Anaheim",440,37.4333,30.0,7.4333,True,85.9,file-2025-12.pdf,5.45
+2025-11,Contra Costa County EMS Agency,20214,"Kaiser Permanente, Antioch",871,30.4,20.0,10.4,True,67.5,file-2025-12.pdf,15.1
+2025-11,Los Angeles County EMS Agency,20183,"Kaiser Permanente, Baldwin Park",265,42.65,30.0,12.65,True,77.4,file-2025-12.pdf,5.59
+2025-11,Los Angeles County EMS Agency,20215,"Kaiser Permanente, Downey",491,51.0,30.0,21.0,True,68.6,file-2025-12.pdf,17.19
+2025-11,Alameda County EMS Agency,20185,"Kaiser Permanente, Fremont",450,35.55,30.0,5.55,True,82.7,file-2025-12.pdf,4.16
+2025-11,Central California EMS Agency,20186,"Kaiser Permanente, Fresno",926,39.05,30.0,9.05,True,82.0,file-2025-12.pdf,13.97
+2025-11,Los Angeles County EMS Agency,20207,"Kaiser Permanente, Los Angeles",545,35.7833,30.0,5.7833,True,83.9,file-2025-12.pdf,5.25
+2025-11,Riverside County EMS Agency,20211,"Kaiser Permanente, Moreno Valley",370,34.6333,30.0,4.6333,True,85.9,file-2025-12.pdf,2.86
+2025-11,Alameda County EMS Agency,20190,"Kaiser Permanente, Oakland Medical Center",704,49.5,30.0,19.5,True,65.1,file-2025-12.pdf,22.88
+2025-11,Contra Costa County EMS Agency,20194,"Kaiser Permanente, Richmond",981,47.0,20.0,27.0,True,43.1,file-2025-12.pdf,44.15
+2025-11,San Francisco County EMS Agency,20199,"Kaiser Permanente, San Francisco",421,38.2333,30.0,8.2333,True,79.6,file-2025-12.pdf,5.78
+2025-11,Santa Clara County EMS Agency,20200,"Kaiser Permanente, San Jose",809,22.6167,20.0,2.6167,True,85.2,file-2025-12.pdf,3.53
+2025-11,Alameda County EMS Agency,62356,"Kaiser Permanente, San Leandro Medical Center",736,32.3333,30.0,2.3333,True,85.9,file-2025-12.pdf,2.86
+2025-11,Santa Clara County EMS Agency,20202,"Kaiser Permanente, Santa Clara Medical Center and Medical Offices",823,26.2167,20.0,6.2167,True,77.2,file-2025-12.pdf,8.53
+2025-11,Los Angeles County EMS Agency,20204,"Kaiser Permanente, South Bay",454,36.5667,30.0,6.5667,True,82.8,file-2025-12.pdf,4.97
+2025-11,Contra Costa County EMS Agency,20208,"Kaiser Permanente, Walnut Creek",878,31.5167,20.0,11.5167,True,63.4,file-2025-12.pdf,16.85
+2025-11,Los Angeles County EMS Agency,20209,"Kaiser Permanente, West Los Angeles",529,39.0667,30.0,9.0667,True,81.9,file-2025-12.pdf,7.99
+2025-11,Los Angeles County EMS Agency,20210,"Kaiser Permanente, Woodland Hills",226,32.35,30.0,2.35,True,87.6,file-2025-12.pdf,0.89
+2025-11,Central California EMS Agency,20219,Kaweah Delta Medical Center,2034,44.15,30.0,14.15,True,66.7,file-2025-12.pdf,47.97
+2025-11,Kern County EMS Agency,20224,Kern Medical,1067,60.7,30.0,30.7,True,51.8,file-2025-12.pdf,54.59
+2025-11,Los Angeles County EMS Agency,20239,La Palma Intercommunity Hospital,95,45.7833,30.0,15.7833,True,83.2,file-2025-12.pdf,2.5
+2025-11,Orange County EMS Agency,20239,La Palma Intercommunity Hospital,95,45.7833,30.0,15.7833,True,83.2,file-2025-12.pdf,2.5
+2025-11,Los Angeles County EMS Agency,20244,Lakewood Regional Medical Center,407,72.4333,30.0,42.4333,True,64.4,file-2025-12.pdf,28.78
+2025-11,Riverside County EMS Agency,20535,"Loma Linda University Medical Center, Murrieta",785,41.1667,30.0,11.1667,True,79.7,file-2025-12.pdf,14.61
+2025-11,Los Angeles County EMS Agency,20270,Marina Del Rey Hospital,539,59.3333,30.0,29.3333,True,66.4,file-2025-12.pdf,26.35
+2025-11,Los Angeles County EMS Agency,60988,"Martin Luther King, Jr. Community Hospital",1143,30.05,30.0,0.05,True,89.9,file-2025-12.pdf,0.1
+2025-11,Merced County EMS Agency,20274,Memorial Hospital Los Banos,240,30.9333,30.0,0.9333,True,88.3,file-2025-12.pdf,0.37
+2025-11,Los Angeles County EMS Agency,20276,Memorial Hospital Of Gardena,975,40.55,30.0,10.55,True,77.4,file-2025-12.pdf,17.14
+2025-11,Stanislaus County EMS Agency,20275,"Memorial Medical Center, Modesto",1858,32.4833,30.0,2.4833,True,89.1,file-2025-12.pdf,7.69
+2025-11,Los Angeles County EMS Agency,20255,MemorialCare Long Beach Medical Center,966,39.0,30.0,9.0,True,85.6,file-2025-12.pdf,14.49
+2025-11,Riverside County EMS Agency,20278,Menifee Valley Medical Center,375,59.4167,30.0,29.4167,True,61.9,file-2025-12.pdf,18.39
+2025-11,Sacramento County EMS Agency,20280,Mercy General Hospital,749,25.1667,25.0,0.1667,True,89.6,file-2025-12.pdf,0.21
+2025-11,Kern County EMS Agency,20281,Mercy Hospital,759,48.9333,30.0,18.9333,True,59.3,file-2025-12.pdf,23.95
+2025-11,Kern County EMS Agency,20287,Mercy Hospital SW - Bakersfield,573,58.0,30.0,28.0,True,53.2,file-2025-12.pdf,26.74
+2025-11,Sacramento County EMS Agency,20282,Mercy Hospital of Folsom,322,29.7,25.0,4.7,True,84.2,file-2025-12.pdf,2.52
+2025-11,Merced County EMS Agency,20283,"Mercy Medical Center, Merced",1343,37.6333,30.0,7.6333,True,80.6,file-2025-12.pdf,17.09
+2025-11,Los Angeles County EMS Agency,20289,Methodist Hospital of Southern California,859,45.0,30.0,15.0,True,78.0,file-2025-12.pdf,21.48
+2025-11,San Mateo County EMS Agency,20342,Mills-Peninsula Medical Center,1075,22.1333,20.0,2.1333,True,87.8,file-2025-12.pdf,3.82
+2025-11,Los Angeles County EMS Agency,20316,Norwalk Community Hospital,98,42.3833,30.0,12.3833,True,83.7,file-2025-12.pdf,2.02
+2025-11,Santa Clara County EMS Agency,20321,"O'Connor Hospital, San Jose",997,27.3167,20.0,7.3167,True,76.2,file-2025-12.pdf,12.16
+2025-11,Los Angeles County EMS Agency,20106,"PIH Health Hospital, Downey",519,39.2,30.0,9.2,True,84.4,file-2025-12.pdf,7.96
+2025-11,Los Angeles County EMS Agency,20350,"PIH Health Hospital, Whittier",704,42.9667,30.0,12.9667,True,74.7,file-2025-12.pdf,15.21
+2025-11,Los Angeles County EMS Agency,20333,Palmdale Regional Medical Center,983,33.9167,30.0,3.9167,True,86.0,file-2025-12.pdf,6.42
+2025-11,San Diego County EMS Agency,20561,Palomar Medical Center,1448,33.4167,30.0,3.4167,True,86.5,file-2025-12.pdf,8.25
+2025-11,San Diego County EMS Agency,20337,Paradise Valley Hospital,284,56.0167,30.0,26.0167,True,65.1,file-2025-12.pdf,12.31
+2025-11,Imperial County EMS Agency,20344,Pioneers Memorial Hospital,338,24.0,20.0,4.0,True,86.4,file-2025-12.pdf,2.25
+2025-11,San Diego County EMS Agency,20347,Pomerado Hospital,263,42.25,30.0,12.25,True,74.1,file-2025-12.pdf,5.37
+2025-11,Los Angeles County EMS Agency,20348,Pomona Valley Hospital Medical Center,1182,44.8667,30.0,14.8667,True,78.3,file-2025-12.pdf,29.29
+2025-11,Los Angeles County EMS Agency,20356,"Providence Little Company of Mary Medical Center, San Pedro",314,34.6167,30.0,4.6167,True,84.4,file-2025-12.pdf,2.42
+2025-11,Los Angeles County EMS Agency,20357,"Providence Little Company of Mary Medical Center, Torrance",924,45.55,30.0,15.55,True,75.5,file-2025-12.pdf,23.95
+2025-11,Los Angeles County EMS Agency,20451,Providence Saint John's Health Center,638,50.3333,30.0,20.3333,True,78.4,file-2025-12.pdf,21.62
+2025-11,Riverside County EMS Agency,20441,Rancho Springs Medical Center,639,37.3,30.0,7.3,True,85.6,file-2025-12.pdf,7.77
+2025-11,Santa Clara County EMS Agency,20368,Regional Medical Center of San Jose,1335,23.2833,20.0,3.2833,True,84.4,file-2025-12.pdf,7.31
+2025-11,Kern County EMS Agency,20372,Ridgecrest Regional Hospital,221,30.1833,30.0,0.1833,True,89.6,file-2025-12.pdf,0.07
+2025-11,Riverside County EMS Agency,20374,Riverside Community Hospital,2122,44.4,30.0,14.4,True,75.3,file-2025-12.pdf,50.93
+2025-11,Riverside County EMS Agency,20375,Riverside University Health System Medical Center,1781,30.5833,30.0,0.5833,True,89.3,file-2025-12.pdf,1.73
+2025-11,Los Angeles County EMS Agency,20377,Ronald Reagan UCLA Medical Center,527,32.0333,30.0,2.0333,True,88.6,file-2025-12.pdf,1.79
+2025-11,Central California EMS Agency,20443,Saint Agnes Medical Center,2496,31.5,30.0,1.5,True,88.4,file-2025-12.pdf,6.24
+2025-11,Los Angeles County EMS Agency,20446,Saint Francis Medical Center,1116,76.0333,30.0,46.0333,True,49.4,file-2025-12.pdf,85.62
+2025-11,San Francisco County EMS Agency,20447,Saint Francis Memorial Hospital,705,35.5333,30.0,5.5333,True,82.7,file-2025-12.pdf,6.5
+2025-11,Alameda County EMS Agency,20463,Saint Rose Hospital,403,30.35,30.0,0.35,True,89.6,file-2025-12.pdf,0.24
+2025-11,Riverside County EMS Agency,20388,San Gorgonio Memorial Hospital,796,39.4667,30.0,9.4667,True,80.2,file-2025-12.pdf,12.56
+2025-11,Alameda County EMS Agency,20393,San Leandro Hospital,483,40.2,30.0,10.2,True,71.2,file-2025-12.pdf,8.21
+2025-11,Santa Clara County EMS Agency,20400,Santa Clara Valley Medical Center,986,32.1833,20.0,12.1833,True,74.8,file-2025-12.pdf,20.02
+2025-11,Los Angeles County EMS Agency,20401,Santa Monica - UCLA Medical Center and Orthopaedic Hospital,400,45.8,30.0,15.8,True,69.5,file-2025-12.pdf,10.53
+2025-11,San Diego County EMS Agency,20406,"Scripps Memorial Hospital, Encinitas",570,36.5667,30.0,6.5667,True,83.7,file-2025-12.pdf,6.24
+2025-11,San Diego County EMS Agency,20407,"Scripps Memorial Hospital, La Jolla",1246,35.9667,30.0,5.9667,True,86.0,file-2025-12.pdf,12.39
+2025-11,San Diego County EMS Agency,20408,Scripps Mercy Hospital,1653,36.7333,30.0,6.7333,True,83.8,file-2025-12.pdf,18.55
+2025-11,San Diego County EMS Agency,20409,"Scripps Mercy Hospital, Chula Vista",895,37.3333,30.0,7.3333,True,85.1,file-2025-12.pdf,10.94
+2025-11,San Diego County EMS Agency,20416,Sharp Chula Vista Medical Center,1211,39.7167,30.0,9.7167,True,75.6,file-2025-12.pdf,19.61
+2025-11,San Diego County EMS Agency,20417,Sharp Coronado Hospital and Healthcare Center,270,31.7,30.0,1.7,True,89.3,file-2025-12.pdf,0.76
+2025-11,San Diego County EMS Agency,20153,Sharp Grossmont Hospital,2177,33.6,30.0,3.6,True,85.8,file-2025-12.pdf,13.06
+2025-11,San Diego County EMS Agency,20419,Sharp Memorial Hospital,1484,49.6667,30.0,19.6667,True,77.0,file-2025-12.pdf,48.64
+2025-11,Central California EMS Agency,20429,Sierra View Medical Center,533,31.9333,30.0,1.9333,True,87.6,file-2025-12.pdf,1.72
+2025-11,San Luis Obispo County EMS Agency,20431,Sierra Vista Regional Medical Center,428,26.0833,20.0,6.0833,True,86.4,file-2025-12.pdf,4.34
+2025-11,Los Angeles County EMS Agency,20042,Southern California Hospital at Culver City,169,48.0,30.0,18.0,True,76.3,file-2025-12.pdf,5.07
+2025-11,San Joaquin County EMS Agency,20457,St. Joseph's Medical Center of Stockton,2143,29.1667,20.0,9.1667,True,71.7,file-2025-12.pdf,32.74
+2025-11,Los Angeles County EMS Agency,20460,"St. Mary Medical Center, Long Beach",974,32.0,30.0,2.0,True,88.7,file-2025-12.pdf,3.25
+2025-11,San Francisco County EMS Agency,20462,"St. Mary's Medical Center, San Francisco",465,31.65,30.0,1.65,True,88.2,file-2025-12.pdf,1.28
+2025-11,Alameda County EMS Agency,20515,Stanford Health Care - ValleyCare,686,37.3667,30.0,7.3667,True,82.1,file-2025-12.pdf,8.42
+2025-11,Contra Costa County EMS Agency,20474,Sutter Delta Medical Center,994,29.8,20.0,9.8,True,71.3,file-2025-12.pdf,16.24
+2025-11,Sacramento County EMS Agency,20475,Sutter Medical Center - Sacramento,1422,35.6833,25.0,10.6833,True,66.8,file-2025-12.pdf,25.32
+2025-11,Coastal Valleys EMS Agency,20478,Sutter Santa Rosa Regional Hospital,630,23.5833,20.0,3.5833,True,82.7,file-2025-12.pdf,3.76
+2025-11,San Joaquin County EMS Agency,20484,Sutter Tracy Community Hospital,396,24.3333,20.0,4.3333,True,81.1,file-2025-12.pdf,2.86
+2025-11,Riverside County EMS Agency,20559,Temecula Valley Hospital,599,31.9167,30.0,1.9167,True,88.8,file-2025-12.pdf,1.91
+2025-11,Los Angeles County EMS Agency,20496,Torrance Memorial Medical Center,849,42.5333,30.0,12.5333,True,79.0,file-2025-12.pdf,17.73
+2025-11,San Diego County EMS Agency,20497,Tri-City Medical Center,370,56.8333,30.0,26.8333,True,73.2,file-2025-12.pdf,16.55
+2025-11,Central California EMS Agency,20500,Tulare Regional Medical Center,80,34.3667,30.0,4.3667,True,88.8,file-2025-12.pdf,0.58
+2025-11,Sacramento County EMS Agency,20508,UC Davis Medical Center,1515,33.1,25.0,8.1,True,79.1,file-2025-12.pdf,20.45
+2025-11,San Diego County EMS Agency,62998,UC San Diego Health East Campus Medical Center,493,41.2167,30.0,11.2167,True,80.3,file-2025-12.pdf,9.22
+2025-11,Orange County EMS Agency,20130,UCI Health - Fountain Valley,761,31.0333,30.0,1.0333,True,88.6,file-2025-12.pdf,1.31
+2025-11,Orange County EMS Agency,20256,UCI Health - Los Alamitos,536,32.6167,30.0,2.6167,True,86.0,file-2025-12.pdf,2.34
+2025-11,San Francisco County EMS Agency,20504,UCSF Medical Center at Parnassus,620,41.2167,30.0,11.2167,True,75.6,file-2025-12.pdf,11.59
+2025-11,Los Angeles County EMS Agency,20518,USC Verdugo Hills Hospital,197,38.3167,30.0,8.3167,True,84.8,file-2025-12.pdf,2.73
+2025-11,Orange County EMS Agency,20509,"University of California, Irvine Medical Center",694,34.7833,30.0,4.7833,True,86.3,file-2025-12.pdf,5.53
+2025-11,San Diego County EMS Agency,20510,"University of California, San Diego Medical Center",1063,61.2333,30.0,31.2333,True,63.6,file-2025-12.pdf,55.33
+2025-11,Los Angeles County EMS Agency,20514,Valley Presbyterian Hospital,455,32.7333,30.0,2.7333,True,88.1,file-2025-12.pdf,2.07
+2025-11,Alameda County EMS Agency,20525,"Washington Hospital, Fremont",928,34.7167,30.0,4.7167,True,83.4,file-2025-12.pdf,7.3
+2025-11,Los Angeles County EMS Agency,20528,West Hills Hospital and Medical Center,629,33.3833,30.0,3.3833,True,86.8,file-2025-12.pdf,3.55
+2025-11,San Francisco County EMS Agency,20386,Zuckerberg San Francisco General Hospital and Trauma Center,1232,30.6,30.0,0.6,True,89.8,file-2025-12.pdf,1.23
+2025-12,Orange,20002,AHMC Anaheim Regional Medical Center,462,32.9833,30.0,2.9833,False,86.8,file-2026-01.pdf,2.3
+2025-12,Kern,20389,Adventist Health Bakersfield,1532,52.8333,30.0,22.8333,False,53.6,file-2026-01.pdf,58.3
+2025-12,Los Angeles,20144,Adventist Health Glendale,647,34.0,30.0,4.0,False,86.6,file-2026-01.pdf,4.31
+2025-12,Central California,20001,Adventist Health Hanford,973,35.4833,30.0,5.4833,False,83.5,file-2026-01.pdf,8.89
+2025-12,San Joaquin,20247,Adventist Health Lodi Memorial,847,30.9333,20.0,10.9333,False,72.8,file-2026-01.pdf,15.43
+2025-12,Kern,20488,Adventist Health Tehachapi Valley,241,31.2333,30.0,1.2333,False,88.0,file-2026-01.pdf,0.5
+2025-12,Los Angeles,20531,Adventist Health White Memorial,212,57.8833,30.0,27.8833,False,77.8,file-2026-01.pdf,9.85
+2025-12,Alameda,20004,"Alameda County Medical Center, Highland",1161,56.5833,30.0,26.5833,False,62.6,file-2026-01.pdf,51.44
+2025-12,Alameda,20008,"Alta Bates Summit Medical Center, Alta Bates Campus",359,37.8333,30.0,7.8333,False,77.4,file-2026-01.pdf,4.69
+2025-12,Alameda,20011,"Alta Bates Summit Medical Center, Summit Campus",1313,50.5667,30.0,20.5667,False,70.2,file-2026-01.pdf,45.01
+2025-12,Orange,20530,Anaheim Global Medical Center,215,32.2,30.0,2.2,False,87.9,file-2026-01.pdf,0.79
+2025-12,Los Angeles,20018,Antelope Valley Hospital,2017,34.5333,30.0,4.5333,False,86.6,file-2026-01.pdf,15.24
+2025-12,Kern,20027,Bakersfield Heart Hospital,430,43.5833,30.0,13.5833,False,68.1,file-2026-01.pdf,9.73
+2025-12,Kern,20028,Bakersfield Memorial Hospital,1297,70.4833,30.0,40.4833,False,49.3,file-2026-01.pdf,87.51
+2025-12,Los Angeles,20038,Beverly Hospital,295,74.2167,30.0,44.2167,False,52.2,file-2026-01.pdf,21.74
+2025-12,San Francisco,20050,CPMC Mission Bernal Campus,864,38.9167,30.0,8.9167,False,78.5,file-2026-01.pdf,12.84
+2025-12,San Francisco,62636,CPMC-Van Ness,915,47.0333,30.0,17.0333,False,73.9,file-2026-01.pdf,25.98
+2025-12,Los Angeles,20045,California Hospital Medical Center,644,45.3,30.0,15.3,False,81.1,file-2026-01.pdf,16.42
+2025-12,Los Angeles,20054,Cedars-Sinai Medical Center,1090,54.4,30.0,24.4,False,69.6,file-2026-01.pdf,44.33
+2025-12,Los Angeles,20055,Centinela Hospital Medical Center,2376,33.6667,30.0,3.6833,False,85.0,file-2026-01.pdf,14.52
+2025-12,Alameda,20059,Children's Hospital & Research Center Oakland,132,32.6,30.0,2.6,False,88.6,file-2026-01.pdf,0.57
+2025-12,Inland Counties EMS Agency,20066,Chino Valley Medical Center,397,40.5,25.0,15.5,False,73.3,file-2026-01.pdf,10.26
+2025-12,Los Angeles,20068,"Citrus Valley Medical Center, Queen of the Valley Campus",771,57.0833,30.0,27.0833,False,68.9,file-2026-01.pdf,34.8
+2025-12,Central California,20070,Clovis Community Medical Center,2263,30.2833,30.0,0.2833,False,89.5,file-2026-01.pdf,1.07
+2025-12,Los Angeles,20328,College Medical Center,178,33.1,30.0,3.1,False,87.1,file-2026-01.pdf,0.92
+2025-12,Los Angeles,20081,Community Hospital of Huntington Park,399,47.1833,30.0,17.1833,False,77.2,file-2026-01.pdf,11.43
+2025-12,Inland Counties EMS Agency,20083,Community Hospital of San Bernardino,660,40.8833,25.0,15.8833,False,64.5,file-2026-01.pdf,17.47
+2025-12,Central California,20085,"Community Regional Medical Center, Fresno",4455,36.5167,30.0,6.5167,False,82.4,file-2026-01.pdf,48.39
+2025-12,Contra Costa,20087,Contra Costa Regional Medical Center,439,31.8167,20.0,11.8167,False,71.8,file-2026-01.pdf,8.65
+2025-12,Riverside,20090,Corona Regional Medical Center,958,41.7667,30.0,11.7667,False,80.4,file-2026-01.pdf,18.79
+2025-12,San Joaquin,20094,Dameron Hospital,726,28.9,20.0,8.9,False,76.6,file-2026-01.pdf,10.77
+2025-12,Kern,20096,Delano Regional Medical Center,220,31.1,30.0,1.1,False,88.6,file-2026-01.pdf,0.4
+2025-12,Inland Counties EMS Agency,20098,Desert Valley Hospital,987,43.9833,25.0,18.9833,False,57.6,file-2026-01.pdf,31.23
+2025-12,San Joaquin,20099,Doctors Hospital of Manteca,410,22.6333,20.0,2.6333,False,86.1,file-2026-01.pdf,1.8
+2025-12,Los Angeles,20108,East Los Angeles Doctors Hospital,271,31.8167,30.0,1.8167,False,88.2,file-2026-01.pdf,0.82
+2025-12,Alameda,20112,Eden Medical Center,1099,41.6833,30.0,11.6833,False,73.3,file-2026-01.pdf,21.4
+2025-12,Santa Clara,20115,El Camino Hospital,837,20.0333,20.0,0.0333,False,89.8,file-2026-01.pdf,0.05
+2025-12,Imperial,20117,El Centro Regional Medical Center,678,30.05,20.0,10.05,False,74.3,file-2026-01.pdf,11.36
+2025-12,Los Angeles,20067,Emanate Health- InterCommunity Hospital,415,41.9167,30.0,11.9167,False,76.6,file-2026-01.pdf,8.24
+2025-12,Stanislaus,20119,Emanuel Medical Center,570,31.8,30.0,1.8,False,87.7,file-2026-01.pdf,1.71
+2025-12,Los Angeles,20129,Foothill Presbyterian Hospital,376,35.9167,30.0,5.9167,False,82.4,file-2026-01.pdf,3.71
+2025-12,Orange,20139,Garden Grove Hospital and Medical Center,474,33.6167,30.0,3.6167,False,86.9,file-2026-01.pdf,2.86
+2025-12,Los Angeles,20149,"Good Samaritan Hospital, Los Angeles",793,41.0167,30.0,11.0167,False,80.8,file-2026-01.pdf,14.56
+2025-12,Santa Clara,20150,"Good Samaritan Hospital, San Jose",1046,26.6167,20.0,6.6167,False,79.5,file-2026-01.pdf,11.54
+2025-12,Los Angeles,20152,Greater El Monte Community Hospital,256,35.3833,30.0,5.3833,False,86.3,file-2026-01.pdf,2.3
+2025-12,Los Angeles,20240,Harbor UCLA Medical Center,1005,50.5,30.0,20.5,False,78.2,file-2026-01.pdf,34.34
+2025-12,Riverside,20162,Hemet Valley Medical Center,1223,89.85,30.0,59.85,False,46.7,file-2026-01.pdf,121.99
+2025-12,Los Angeles,20171,Hollywood Presbyterian Medical Center,549,47.6,30.0,17.6,False,76.9,file-2026-01.pdf,16.1
+2025-12,Riverside,20442,Inland Valley Medical Center,1217,51.6333,30.0,21.6333,False,81.0,file-2026-01.pdf,43.88
+2025-12,Contra Costa,20179,"John Muir Medical Center, Concord",1104,28.0833,20.0,8.0833,False,82.2,file-2026-01.pdf,14.87
+2025-12,Contra Costa,20180,"John Muir Medical Center, Walnut Creek",1225,21.95,20.0,1.95,False,87.7,file-2026-01.pdf,3.98
+2025-12,Orange,20560,"Kaiser Permanente, Anaheim",497,32.5,30.0,2.5,False,87.7,file-2026-01.pdf,2.07
+2025-12,Contra Costa,20214,"Kaiser Permanente, Antioch",1036,32.8333,20.0,12.8333,False,66.0,file-2026-01.pdf,22.16
+2025-12,Los Angeles,20183,"Kaiser Permanente, Baldwin Park",338,47.5333,30.0,17.5333,False,70.4,file-2026-01.pdf,9.88
+2025-12,Los Angeles,20215,"Kaiser Permanente, Downey",593,49.2833,30.0,19.2833,False,71.5,file-2026-01.pdf,19.06
+2025-12,Alameda,20185,"Kaiser Permanente, Fremont",521,41.3333,30.0,11.3333,False,77.7,file-2026-01.pdf,9.84
+2025-12,Central California,20186,"Kaiser Permanente, Fresno",1041,51.4667,30.0,21.4667,False,72.6,file-2026-01.pdf,37.24
+2025-12,Los Angeles,20207,"Kaiser Permanente, Los Angeles",505,39.2833,30.0,9.2833,False,82.4,file-2026-01.pdf,7.81
+2025-12,Riverside,20211,"Kaiser Permanente, Moreno Valley",451,48.6167,30.0,18.6167,False,76.9,file-2026-01.pdf,13.99
+2025-12,Alameda,20190,"Kaiser Permanente, Oakland Medical Center",756,53.4333,30.0,23.4333,False,60.7,file-2026-01.pdf,29.53
+2025-12,Inland Counties EMS Agency,20555,"Kaiser Permanente, Ontario",1027,26.3667,25.0,1.3667,False,88.7,file-2026-01.pdf,2.34
+2025-12,Contra Costa,20194,"Kaiser Permanente, Richmond",1078,59.8667,20.0,39.8667,False,43.0,file-2026-01.pdf,71.63
+2025-12,Riverside,20195,"Kaiser Permanente, Riverside",594,32.9,30.0,2.9,False,87.4,file-2026-01.pdf,2.87
+2025-12,San Diego,20198,"Kaiser Permanente, San Diego",968,31.1167,30.0,1.1167,False,88.9,file-2026-01.pdf,1.8
+2025-12,San Francisco,20199,"Kaiser Permanente, San Francisco",452,41.4333,30.0,11.4333,False,80.8,file-2026-01.pdf,8.61
+2025-12,Santa Clara,20200,"Kaiser Permanente, San Jose",890,22.45,20.0,2.45,False,85.2,file-2026-01.pdf,3.63
+2025-12,Alameda,62356,"Kaiser Permanente, San Leandro Medical Center",824,40.3333,30.0,10.3333,False,74.5,file-2026-01.pdf,14.19
+2025-12,Santa Clara,20202,"Kaiser Permanente, Santa Clara Medical Center and Medical Offices",857,24.7833,20.0,4.7833,False,80.7,file-2026-01.pdf,6.83
+2025-12,Coastal Valleys,20203,"Kaiser Permanente, Santa Rosa",714,21.1333,20.0,1.1333,False,88.9,file-2026-01.pdf,1.35
+2025-12,Los Angeles,20204,"Kaiser Permanente, South Bay",496,36.5833,30.0,6.5833,False,84.3,file-2026-01.pdf,5.44
+2025-12,Sacramento,20205,"Kaiser Permanente, South Sacramento Medical Center",1471,28.7167,25.0,3.7167,False,84.6,file-2026-01.pdf,9.11
+2025-12,Contra Costa,20208,"Kaiser Permanente, Walnut Creek",936,33.4167,20.0,13.4167,False,62.3,file-2026-01.pdf,20.93
+2025-12,Los Angeles,20209,"Kaiser Permanente, West Los Angeles",583,42.6667,30.0,12.6667,False,78.9,file-2026-01.pdf,12.31
+2025-12,Central California,20219,Kaweah Delta Medical Center,2109,48.2167,30.0,18.2167,False,60.6,file-2026-01.pdf,64.03
+2025-12,Kern,20224,Kern Medical,1064,62.7667,30.0,32.7667,False,49.1,file-2026-01.pdf,58.11
+2025-12,Orange,20239,La Palma Intercommunity Hospital,147,42.0667,30.0,12.0667,False,79.6,file-2026-01.pdf,2.96
+2025-12,Los Angeles,20244,Lakewood Regional Medical Center,448,88.6667,30.0,58.6667,False,64.7,file-2026-01.pdf,43.8
+2025-12,Inland Counties EMS Agency,64989,Loma Linda University Children's Hospital,376,29.8667,25.0,4.8667,False,83.8,file-2026-01.pdf,3.05
+2025-12,Inland Counties EMS Agency,20252,Loma Linda University Medical Center,1461,25.15,25.0,0.15,False,89.7,file-2026-01.pdf,0.37
+2025-12,Riverside,20535,"Loma Linda University Medical Center, Murrieta",931,47.6833,30.0,17.6833,False,72.6,file-2026-01.pdf,27.44
+2025-12,Los Angeles,20270,Marina Del Rey Hospital,315,53.0333,30.0,23.0333,False,70.2,file-2026-01.pdf,12.09
+2025-12,Los Angeles,20276,Memorial Hospital Of Gardena,1020,47.75,30.0,17.75,False,77.7,file-2026-01.pdf,30.18
+2025-12,Los Angeles,20255,MemorialCare Long Beach Medical Center,888,38.3,30.0,8.3,False,85.7,file-2026-01.pdf,12.28
+2025-12,Riverside,20278,Menifee Valley Medical Center,381,84.7333,30.0,54.7333,False,49.1,file-2026-01.pdf,34.76
+2025-12,Sacramento,20280,Mercy General Hospital,806,27.95,25.0,2.95,False,85.4,file-2026-01.pdf,3.96
+2025-12,Kern,20281,Mercy Hospital,770,54.4833,30.0,24.4833,False,52.6,file-2026-01.pdf,31.42
+2025-12,Kern,20287,Mercy Hospital SW - Bakersfield,720,50.75,30.0,20.75,False,52.1,file-2026-01.pdf,24.9
+2025-12,Sacramento,20282,Mercy Hospital of Folsom,337,28.3,25.0,3.3,False,83.4,file-2026-01.pdf,1.85
+2025-12,Merced,20283,"Mercy Medical Center, Merced",1408,38.6333,30.0,8.6333,False,81.1,file-2026-01.pdf,20.26
+2025-12,Sacramento,20288,Methodist Hospital of Sacramento,796,26.0167,25.0,1.0167,False,88.4,file-2026-01.pdf,1.35
+2025-12,Los Angeles,20289,Methodist Hospital of Southern California,854,52.05,30.0,22.05,False,75.9,file-2026-01.pdf,31.38
+2025-12,San Mateo,20342,Mills-Peninsula Medical Center,1158,22.1667,20.0,2.1667,False,85.8,file-2026-01.pdf,4.18
+2025-12,Inland Counties EMS Agency,20300,Montclair Hospital Medical Center,189,26.45,25.0,1.45,False,88.9,file-2026-01.pdf,0.46
+2025-12,Los Angeles,20315,Northridge Hospital Medical Center,1439,30.5833,30.0,0.5833,False,89.4,file-2026-01.pdf,1.4
+2025-12,Los Angeles,20316,Norwalk Community Hospital,99,50.6,30.0,20.6,False,73.7,file-2026-01.pdf,3.4
+2025-12,Santa Clara,20321,"O'Connor Hospital, San Jose",1124,32.65,20.0,12.65,False,70.8,file-2026-01.pdf,23.7
+2025-12,Los Angeles,20106,"PIH Health Hospital, Downey",605,39.0,30.0,9.0,False,84.5,file-2026-01.pdf,9.07
+2025-12,Los Angeles,20350,"PIH Health Hospital, Whittier",801,53.8,30.0,23.8,False,60.9,file-2026-01.pdf,31.77
+2025-12,Los Angeles,20333,Palmdale Regional Medical Center,1158,39.9667,30.0,9.9667,False,83.2,file-2026-01.pdf,19.24
+2025-12,San Diego,20561,Palomar Medical Center,1568,32.05,30.0,2.05,False,88.1,file-2026-01.pdf,5.36
+2025-12,San Diego,20337,Paradise Valley Hospital,400,65.4,30.0,35.4,False,67.8,file-2026-01.pdf,23.6
+2025-12,Imperial,20344,Pioneers Memorial Hospital,336,21.7333,20.0,1.7167,False,87.5,file-2026-01.pdf,0.97
+2025-12,San Diego,20347,Pomerado Hospital,477,44.75,30.0,14.75,False,75.7,file-2026-01.pdf,11.73
+2025-12,Los Angeles,20348,Pomona Valley Hospital Medical Center,1253,48.75,30.0,18.75,False,73.9,file-2026-01.pdf,39.16
+2025-12,Los Angeles,20356,"Providence Little Company of Mary Medical Center, San Pedro",308,39.6167,30.0,9.6167,False,80.5,file-2026-01.pdf,4.94
+2025-12,Los Angeles,20357,"Providence Little Company of Mary Medical Center, Torrance",853,48.7333,30.0,18.7333,False,75.6,file-2026-01.pdf,26.63
+2025-12,Los Angeles,20451,Providence Saint John's Health Center,552,53.2,30.0,23.2,False,70.5,file-2026-01.pdf,21.34
+2025-12,Riverside,20441,Rancho Springs Medical Center,634,44.3667,30.0,14.3667,False,82.0,file-2026-01.pdf,15.18
+2025-12,Inland Counties EMS Agency,20366,Redlands Community Hospital,938,30.85,25.0,5.85,False,81.2,file-2026-01.pdf,9.15
+2025-12,Santa Clara,20368,Regional Medical Center of San Jose,1416,25.5833,20.0,5.6,False,82.4,file-2026-01.pdf,13.18
+2025-12,Kern,20372,Ridgecrest Regional Hospital,245,32.8167,30.0,2.8167,False,88.2,file-2026-01.pdf,1.15
+2025-12,Riverside,20374,Riverside Community Hospital,2290,46.1333,30.0,16.1333,False,72.6,file-2026-01.pdf,61.58
+2025-12,Los Angeles,20377,Ronald Reagan UCLA Medical Center,555,32.4167,30.0,2.4167,False,87.7,file-2026-01.pdf,2.24
+2025-12,Central California,20443,Saint Agnes Medical Center,2709,31.3333,30.0,1.3333,False,88.5,file-2026-01.pdf,6.02
+2025-12,Los Angeles,20446,Saint Francis Medical Center,1022,106.8833,30.0,76.8833,False,48.5,file-2026-01.pdf,130.96
+2025-12,San Francisco,20447,Saint Francis Memorial Hospital,819,48.6333,30.0,18.6333,False,71.3,file-2026-01.pdf,25.43
+2025-12,Alameda,20463,Saint Rose Hospital,451,33.1667,30.0,3.1667,False,84.7,file-2026-01.pdf,2.38
+2025-12,Monterey,20381,Salinas Valley Memorial Hospital,636,32.6833,30.0,2.6833,False,88.4,file-2026-01.pdf,2.84
+2025-12,Los Angeles,20385,San Dimas Community Hospital,218,39.7667,30.0,9.7667,False,85.3,file-2026-01.pdf,3.55
+2025-12,Riverside,20388,San Gorgonio Memorial Hospital,879,42.8167,30.0,12.8167,False,75.5,file-2026-01.pdf,18.78
+2025-12,San Joaquin,20391,San Joaquin General Hospital,1167,23.2667,20.0,3.2667,False,85.6,file-2026-01.pdf,6.35
+2025-12,Alameda,20393,San Leandro Hospital,550,51.0667,30.0,21.0667,False,66.9,file-2026-01.pdf,19.31
+2025-12,Santa Clara,20400,Santa Clara Valley Medical Center,1104,50.7667,20.0,30.7667,False,67.4,file-2026-01.pdf,56.61
+2025-12,Los Angeles,20401,Santa Monica - UCLA Medical Center and Orthopaedic Hospital,289,57.75,30.0,27.75,False,73.7,file-2026-01.pdf,13.37
+2025-12,San Diego,20406,"Scripps Memorial Hospital, Encinitas",898,43.0,30.0,13.0,False,79.1,file-2026-01.pdf,19.46
+2025-12,San Diego,20407,"Scripps Memorial Hospital, La Jolla",1547,44.3167,30.0,14.3167,False,80.6,file-2026-01.pdf,36.91
+2025-12,San Diego,20408,Scripps Mercy Hospital,2206,38.4833,30.0,8.4833,False,81.8,file-2026-01.pdf,31.19
+2025-12,San Diego,20409,"Scripps Mercy Hospital, Chula Vista",1076,34.1667,30.0,4.1667,False,87.0,file-2026-01.pdf,7.47
+2025-12,San Diego,20416,Sharp Chula Vista Medical Center,1426,49.6,30.0,19.6,False,69.2,file-2026-01.pdf,46.58
+2025-12,San Diego,20153,Sharp Grossmont Hospital,2450,31.0833,30.0,1.0833,False,88.9,file-2026-01.pdf,4.42
+2025-12,San Diego,20419,Sharp Memorial Hospital,1759,51.6,30.0,21.6,False,78.3,file-2026-01.pdf,63.32
+2025-12,Central California,20429,Sierra View Medical Center,604,34.6333,30.0,4.6333,False,83.9,file-2026-01.pdf,4.66
+2025-12,Los Angeles,20042,Southern California Hospital at Culver City,185,42.7833,30.0,12.7833,False,72.4,file-2026-01.pdf,3.94
+2025-12,Inland Counties EMS Agency,20444,St. Bernardine Medical Center,1650,27.4667,25.0,2.4667,False,86.6,file-2026-01.pdf,6.78
+2025-12,San Joaquin,20457,St. Joseph's Medical Center of Stockton,2410,33.1333,20.0,13.1333,False,69.5,file-2026-01.pdf,52.75
+2025-12,Inland Counties EMS Agency,20461,St. Mary Medical Center,1575,58.9,25.0,33.9,False,35.9,file-2026-01.pdf,88.99
+2025-12,Los Angeles,20460,"St. Mary Medical Center, Long Beach",924,35.0667,30.0,5.0667,False,87.1,file-2026-01.pdf,7.8
+2025-12,San Francisco,20462,"St. Mary's Medical Center, San Francisco",609,39.2,30.0,9.2,False,83.6,file-2026-01.pdf,9.34
+2025-12,Alameda,20515,Stanford Health Care - ValleyCare,699,53.1333,30.0,23.1333,False,71.4,file-2026-01.pdf,26.95
+2025-12,Contra Costa,20474,Sutter Delta Medical Center,1128,35.9333,20.0,15.9333,False,67.4,file-2026-01.pdf,29.95
+2025-12,Sacramento,20475,Sutter Medical Center - Sacramento,1696,39.75,25.0,14.7333,False,57.7,file-2026-01.pdf,41.69
+2025-12,Coastal Valleys,20478,Sutter Santa Rosa Regional Hospital,681,24.0,20.0,4.0,False,84.0,file-2026-01.pdf,4.54
+2025-12,San Joaquin,20484,Sutter Tracy Community Hospital,390,24.5333,20.0,4.5333,False,83.6,file-2026-01.pdf,2.95
+2025-12,Riverside,20559,Temecula Valley Hospital,734,36.9333,30.0,6.9333,False,81.9,file-2026-01.pdf,8.48
+2025-12,Los Angeles,20496,Torrance Memorial Medical Center,842,44.95,30.0,14.95,False,74.9,file-2026-01.pdf,20.98
+2025-12,San Diego,20497,Tri-City Medical Center,890,44.3333,30.0,14.3333,False,77.4,file-2026-01.pdf,21.26
+2025-12,Central California,20500,Tulare Regional Medical Center,66,46.25,30.0,16.25,False,81.8,file-2026-01.pdf,1.79
+2025-12,Sacramento,20508,UC Davis Medical Center,1605,32.0833,25.0,7.0833,False,80.6,file-2026-01.pdf,18.95
+2025-12,San Diego,62998,UC San Diego Health East Campus Medical Center,599,39.6833,30.0,9.6833,False,80.6,file-2026-01.pdf,9.67
+2025-12,Orange,20130,UCI Health - Fountain Valley,736,36.9333,30.0,6.9333,False,85.6,file-2026-01.pdf,8.5
+2025-12,Los Angeles,20256,UCI Health - Los Alamitos,437,32.15,30.0,2.15,False,88.1,file-2026-01.pdf,1.57
+2025-12,Orange,20256,UCI Health - Los Alamitos,437,32.15,30.0,2.15,False,88.1,file-2026-01.pdf,1.57
+2025-12,Orange,20345,UCI Health - Placentia Linda,481,36.75,30.0,6.75,False,85.0,file-2026-01.pdf,5.41
+2025-12,San Francisco,20504,UCSF Medical Center at Parnassus,773,50.0167,30.0,20.0167,False,68.8,file-2026-01.pdf,25.79
+2025-12,Los Angeles,20518,USC Verdugo Hills Hospital,232,38.45,30.0,8.45,False,86.2,file-2026-01.pdf,3.27
+2025-12,Orange,20509,"University of California, Irvine Medical Center",718,37.9,30.0,7.9,False,85.1,file-2026-01.pdf,9.45
+2025-12,San Diego,20510,"University of California, San Diego Medical Center",1311,64.4667,30.0,34.4667,False,65.3,file-2026-01.pdf,75.31
+2025-12,Los Angeles,20514,Valley Presbyterian Hospital,449,31.1667,30.0,1.1667,False,89.1,file-2026-01.pdf,0.87
+2025-12,Inland Counties EMS Agency,20520,Victor Valley Global Medical Center,612,55.6667,25.0,30.6667,False,41.8,file-2026-01.pdf,31.28
+2025-12,Alameda,20525,"Washington Hospital, Fremont",1061,44.5,30.0,14.5,False,74.3,file-2026-01.pdf,25.64
+2025-12,Los Angeles,20528,West Hills Hospital and Medical Center,582,31.6333,30.0,1.6333,False,87.5,file-2026-01.pdf,1.58
+2025-12,San Francisco,20386,Zuckerberg San Francisco General Hospital and Trauma Center,1179,34.85,30.0,4.85,False,86.1,file-2026-01.pdf,9.53
+2026-01,Orange County EMS Agency,20002,AHMC Anaheim Regional Medical Center,532,30.2833,30.0,0.2833,False,89.5,file-2026-02.pdf,0.25
+2026-01,Kern County EMS Agency,20389,Adventist Health Bakersfield,1521,49.0667,30.0,19.0667,False,58.4,file-2026-02.pdf,48.33
+2026-01,Los Angeles County EMS Agency,20144,Adventist Health Glendale,710,44.2,30.0,14.2,False,78.0,file-2026-02.pdf,16.8
+2026-01,Central California EMS Agency,20001,Adventist Health Hanford,1119,34.9,30.0,4.9,False,83.3,file-2026-02.pdf,9.14
+2026-01,San Joaquin County EMS Agency,20247,Adventist Health Lodi Memorial,805,30.65,20.0,10.65,False,74.8,file-2026-02.pdf,14.29
+2026-01,Los Angeles County EMS Agency,20531,Adventist Health White Memorial,259,81.8667,30.0,51.8667,False,63.7,file-2026-02.pdf,22.39
+2026-01,Alameda County EMS Agency,20004,"Alameda County Medical Center, Highland",1151,66.3333,30.0,36.3333,False,60.5,file-2026-02.pdf,69.7
+2026-01,Alameda County EMS Agency,20005,Alameda Hospital,262,31.6667,30.0,1.6667,False,87.4,file-2026-02.pdf,0.73
+2026-01,Alameda County EMS Agency,20008,"Alta Bates Summit Medical Center, Alta Bates Campus",445,39.3667,30.0,9.3667,False,76.9,file-2026-02.pdf,6.95
+2026-01,Alameda County EMS Agency,20011,"Alta Bates Summit Medical Center, Summit Campus",1303,51.1,30.0,21.1,False,69.4,file-2026-02.pdf,45.82
+2026-01,Orange County EMS Agency,20530,Anaheim Global Medical Center,200,31.6167,30.0,1.6167,False,87.0,file-2026-02.pdf,0.54
+2026-01,Kern County EMS Agency,20027,Bakersfield Heart Hospital,445,41.8833,30.0,11.8833,False,73.5,file-2026-02.pdf,8.81
+2026-01,Kern County EMS Agency,20028,Bakersfield Memorial Hospital,1314,72.4167,30.0,42.4167,False,48.3,file-2026-02.pdf,92.89
+2026-01,Los Angeles County EMS Agency,20038,Beverly Hospital,258,85.2333,30.0,55.2333,False,58.9,file-2026-02.pdf,23.75
+2026-01,San Francisco County EMS Agency,20050,CPMC Mission Bernal Campus,819,45.45,30.0,15.45,False,75.0,file-2026-02.pdf,21.09
+2026-01,San Francisco County EMS Agency,62636,CPMC-Van Ness,971,47.7167,30.0,17.7167,False,71.1,file-2026-02.pdf,28.67
+2026-01,Los Angeles County EMS Agency,20045,California Hospital Medical Center,617,51.6,30.0,21.6,False,79.9,file-2026-02.pdf,22.21
+2026-01,San Francisco County EMS Agency,20048,"California Pacific Medical Center, Davies Campus Hospital",381,38.7667,30.0,8.7667,False,83.7,file-2026-02.pdf,5.57
+2026-01,Los Angeles County EMS Agency,20054,Cedars-Sinai Medical Center,1165,57.1833,30.0,27.1833,False,69.4,file-2026-02.pdf,52.78
+2026-01,Los Angeles County EMS Agency,20055,Centinela Hospital Medical Center,2416,40.7333,30.0,10.7333,False,79.8,file-2026-02.pdf,43.22
+2026-01,Alameda County EMS Agency,20059,Children's Hospital & Research Center Oakland,156,30.2333,30.0,0.2333,False,88.5,file-2026-02.pdf,0.06
+2026-01,Inland Counties EMS Agency,20066,Chino Valley Medical Center,372,39.3333,25.0,14.3333,False,74.5,file-2026-02.pdf,8.89
+2026-01,Los Angeles County EMS Agency,20068,"Citrus Valley Medical Center, Queen of the Valley Campus",775,64.8333,30.0,34.8333,False,59.5,file-2026-02.pdf,44.99
+2026-01,Los Angeles County EMS Agency,20073,Coast Plaza Hospital,246,30.95,30.0,0.95,False,89.4,file-2026-02.pdf,0.39
+2026-01,Los Angeles County EMS Agency,20328,College Medical Center,231,39.0,30.0,9.0,False,86.1,file-2026-02.pdf,3.47
+2026-01,Los Angeles County EMS Agency,20081,Community Hospital of Huntington Park,444,65.5333,30.0,35.5333,False,71.4,file-2026-02.pdf,26.29
+2026-01,Inland Counties EMS Agency,20083,Community Hospital of San Bernardino,653,43.5833,25.0,18.5833,False,66.6,file-2026-02.pdf,20.22
+2026-01,Central California EMS Agency,20085,"Community Regional Medical Center, Fresno",4638,35.2,30.0,5.2,False,82.3,file-2026-02.pdf,40.2
+2026-01,Contra Costa County EMS Agency,20087,Contra Costa Regional Medical Center,502,33.9667,20.0,13.9667,False,67.5,file-2026-02.pdf,11.69
+2026-01,Riverside County EMS Agency,20090,Corona Regional Medical Center,967,43.7833,30.0,13.7833,False,81.1,file-2026-02.pdf,22.21
+2026-01,San Joaquin County EMS Agency,20094,Dameron Hospital,675,24.1667,20.0,4.1667,False,82.2,file-2026-02.pdf,4.69
+2026-01,Kern County EMS Agency,20096,Delano Regional Medical Center,223,37.9833,30.0,7.9833,False,81.2,file-2026-02.pdf,2.97
+2026-01,Inland Counties EMS Agency,20098,Desert Valley Hospital,1006,51.8333,25.0,26.8167,False,54.9,file-2026-02.pdf,44.99
+2026-01,San Joaquin County EMS Agency,20099,Doctors Hospital of Manteca,397,21.8333,20.0,1.8333,False,88.2,file-2026-02.pdf,1.21
+2026-01,Los Angeles County EMS Agency,20108,East Los Angeles Doctors Hospital,350,40.6667,30.0,10.6667,False,83.1,file-2026-02.pdf,6.22
+2026-01,Alameda County EMS Agency,20112,Eden Medical Center,1086,45.7667,30.0,15.7667,False,72.6,file-2026-02.pdf,28.54
+2026-01,Santa Clara County EMS Agency,20115,El Camino Hospital,902,21.0,20.0,1.0,False,87.6,file-2026-02.pdf,1.5
+2026-01,Imperial County EMS Agency,20117,El Centro Regional Medical Center,676,28.0,20.0,8.0,False,76.9,file-2026-02.pdf,9.01
+2026-01,Los Angeles County EMS Agency,20067,Emanate Health- InterCommunity Hospital,420,57.5167,30.0,27.5167,False,66.0,file-2026-02.pdf,19.26
+2026-01,Los Angeles County EMS Agency,20129,Foothill Presbyterian Hospital,463,62.0833,30.0,32.0833,False,66.7,file-2026-02.pdf,24.76
+2026-01,Orange County EMS Agency,20308,Foothill Regional Medical Center,138,34.15,30.0,4.15,False,86.2,file-2026-02.pdf,0.95
+2026-01,Orange County EMS Agency,20139,Garden Grove Hospital and Medical Center,403,44.8167,30.0,14.8167,False,79.7,file-2026-02.pdf,9.95
+2026-01,Los Angeles County EMS Agency,20145,Glendale Memorial Hospital and Health Center,591,35.05,30.0,5.05,False,84.9,file-2026-02.pdf,4.97
+2026-01,Los Angeles County EMS Agency,20149,"Good Samaritan Hospital, Los Angeles",900,44.0,30.0,14.0,False,75.9,file-2026-02.pdf,21.0
+2026-01,Santa Clara County EMS Agency,20150,"Good Samaritan Hospital, San Jose",1031,31.2167,20.0,11.2167,False,71.3,file-2026-02.pdf,19.27
+2026-01,Los Angeles County EMS Agency,20152,Greater El Monte Community Hospital,279,48.65,30.0,18.65,False,75.6,file-2026-02.pdf,8.67
+2026-01,Los Angeles County EMS Agency,20240,Harbor UCLA Medical Center,1030,69.7833,30.0,39.7833,False,74.2,file-2026-02.pdf,68.29
+2026-01,Riverside County EMS Agency,20162,Hemet Valley Medical Center,1256,82.75,30.0,52.75,False,43.1,file-2026-02.pdf,110.42
+2026-01,Los Angeles County EMS Agency,20163,Henry Mayo Newhall Memorial Hospital,1287,30.1167,30.0,0.1167,False,89.9,file-2026-02.pdf,0.25
+2026-01,Los Angeles County EMS Agency,20171,Hollywood Presbyterian Medical Center,616,52.1333,30.0,22.1333,False,74.7,file-2026-02.pdf,22.72
+2026-01,Orange County EMS Agency,20172,Huntington Beach Hospital,434,37.2833,30.0,7.2833,False,85.7,file-2026-02.pdf,5.27
+2026-01,Riverside County EMS Agency,20442,Inland Valley Medical Center,1142,51.25,30.0,21.25,False,79.8,file-2026-02.pdf,40.45
+2026-01,Contra Costa County EMS Agency,20179,"John Muir Medical Center, Concord",1173,24.5833,20.0,4.5833,False,84.7,file-2026-02.pdf,8.96
+2026-01,Contra Costa County EMS Agency,20214,"Kaiser Permanente, Antioch",1037,30.5667,20.0,10.5667,False,70.9,file-2026-02.pdf,18.26
+2026-01,Los Angeles County EMS Agency,20183,"Kaiser Permanente, Baldwin Park",363,40.5333,30.0,10.5333,False,77.7,file-2026-02.pdf,6.37
+2026-01,Los Angeles County EMS Agency,20215,"Kaiser Permanente, Downey",599,46.4167,30.0,16.4167,False,73.1,file-2026-02.pdf,16.39
+2026-01,Alameda County EMS Agency,20185,"Kaiser Permanente, Fremont",494,46.7167,30.0,16.7167,False,73.5,file-2026-02.pdf,13.76
+2026-01,Central California EMS Agency,20186,"Kaiser Permanente, Fresno",1004,46.5,30.0,16.5,False,76.3,file-2026-02.pdf,27.61
+2026-01,Los Angeles County EMS Agency,20207,"Kaiser Permanente, Los Angeles",523,49.0167,30.0,19.0167,False,77.8,file-2026-02.pdf,16.58
+2026-01,Riverside County EMS Agency,20211,"Kaiser Permanente, Moreno Valley",426,44.2,30.0,14.2167,False,80.3,file-2026-02.pdf,10.08
+2026-01,Alameda County EMS Agency,20190,"Kaiser Permanente, Oakland Medical Center",815,53.7833,30.0,23.7833,False,60.5,file-2026-02.pdf,32.31
+2026-01,Inland Counties EMS Agency,20555,"Kaiser Permanente, Ontario",945,25.5,25.0,0.5,False,89.2,file-2026-02.pdf,0.79
+2026-01,Contra Costa County EMS Agency,20194,"Kaiser Permanente, Richmond",1054,67.3,20.0,47.3,False,46.4,file-2026-02.pdf,83.09
+2026-01,Riverside County EMS Agency,20195,"Kaiser Permanente, Riverside",651,47.05,30.0,17.05,False,76.2,file-2026-02.pdf,18.5
+2026-01,San Diego County EMS Agency,20198,"Kaiser Permanente, San Diego",961,31.0,30.0,1.0,False,89.4,file-2026-02.pdf,1.6
+2026-01,San Francisco County EMS Agency,20199,"Kaiser Permanente, San Francisco",460,43.7333,30.0,13.7333,False,77.0,file-2026-02.pdf,10.53
+2026-01,Santa Clara County EMS Agency,20200,"Kaiser Permanente, San Jose",829,22.1167,20.0,2.1167,False,86.6,file-2026-02.pdf,2.92
+2026-01,Alameda County EMS Agency,62356,"Kaiser Permanente, San Leandro Medical Center",809,40.8,30.0,10.8,False,72.1,file-2026-02.pdf,14.56
+2026-01,Santa Clara County EMS Agency,20202,"Kaiser Permanente, Santa Clara Medical Center and Medical Offices",828,23.4167,20.0,3.4167,False,82.5,file-2026-02.pdf,4.72
+2026-01,Coastal Valleys EMS Agency,20203,"Kaiser Permanente, Santa Rosa",712,24.2333,20.0,4.2333,False,87.6,file-2026-02.pdf,5.02
+2026-01,Los Angeles County EMS Agency,20204,"Kaiser Permanente, South Bay",528,44.3833,30.0,14.3833,False,80.7,file-2026-02.pdf,12.66
+2026-01,Sacramento County EMS Agency,20205,"Kaiser Permanente, South Sacramento Medical Center",1592,28.45,25.0,3.45,False,85.1,file-2026-02.pdf,9.15
+2026-01,Contra Costa County EMS Agency,20208,"Kaiser Permanente, Walnut Creek",954,34.4667,20.0,14.4667,False,63.5,file-2026-02.pdf,23.0
+2026-01,Los Angeles County EMS Agency,20209,"Kaiser Permanente, West Los Angeles",538,32.7333,30.0,2.7333,False,87.9,file-2026-02.pdf,2.45
+2026-01,Central California EMS Agency,20219,Kaweah Delta Medical Center,2229,49.3833,30.0,19.3833,False,57.2,file-2026-02.pdf,72.01
+2026-01,Kern County EMS Agency,20224,Kern Medical,1040,61.8833,30.0,31.8833,False,53.5,file-2026-02.pdf,55.26
+2026-01,Los Angeles County EMS Agency,20242,LAC USC Medical Center,1894,30.45,30.0,0.45,False,89.4,file-2026-02.pdf,1.42
+2026-01,Orange County EMS Agency,20239,La Palma Intercommunity Hospital,182,36.5333,30.0,6.5333,False,86.8,file-2026-02.pdf,1.98
+2026-01,Los Angeles County EMS Agency,20244,Lakewood Regional Medical Center,502,107.7667,30.0,77.7667,False,57.8,file-2026-02.pdf,65.06
+2026-01,Inland Counties EMS Agency,64989,Loma Linda University Children's Hospital,373,28.9667,25.0,3.9667,False,84.7,file-2026-02.pdf,2.47
+2026-01,Inland Counties EMS Agency,20252,Loma Linda University Medical Center,1384,26.8333,25.0,1.8333,False,86.4,file-2026-02.pdf,4.23
+2026-01,Riverside County EMS Agency,20535,"Loma Linda University Medical Center, Murrieta",855,54.4333,30.0,24.4333,False,72.3,file-2026-02.pdf,34.82
+2026-01,Central California EMS Agency,20265,Madera Community Hospital,576,32.15,30.0,2.15,False,87.5,file-2026-02.pdf,2.06
+2026-01,Los Angeles County EMS Agency,20270,Marina Del Rey Hospital,277,63.0,30.0,33.0,False,61.7,file-2026-02.pdf,15.24
+2026-01,Merced County EMS Agency,20274,Memorial Hospital Los Banos,276,34.95,30.0,4.95,False,86.6,file-2026-02.pdf,2.28
+2026-01,Los Angeles County EMS Agency,20276,Memorial Hospital Of Gardena,960,62.6833,30.0,32.6833,False,71.7,file-2026-02.pdf,52.29
+2026-01,Los Angeles County EMS Agency,20255,MemorialCare Long Beach Medical Center,994,49.0,30.0,19.0,False,83.3,file-2026-02.pdf,31.48
+2026-01,Riverside County EMS Agency,20278,Menifee Valley Medical Center,382,62.1167,30.0,32.1167,False,56.3,file-2026-02.pdf,20.45
+2026-01,Sacramento County EMS Agency,20280,Mercy General Hospital,846,27.7667,25.0,2.7667,False,85.8,file-2026-02.pdf,3.9
+2026-01,Kern County EMS Agency,20281,Mercy Hospital,769,53.15,30.0,23.15,False,60.3,file-2026-02.pdf,29.67
+2026-01,Kern County EMS Agency,20287,Mercy Hospital SW - Bakersfield,697,48.9833,30.0,18.9833,False,61.8,file-2026-02.pdf,22.05
+2026-01,Sacramento County EMS Agency,20282,Mercy Hospital of Folsom,358,31.3,25.0,6.3,False,84.1,file-2026-02.pdf,3.76
+2026-01,Merced County EMS Agency,20283,"Mercy Medical Center, Merced",1505,37.0833,30.0,7.0833,False,83.7,file-2026-02.pdf,17.77
+2026-01,Sacramento County EMS Agency,20288,Methodist Hospital of Sacramento,784,26.3833,25.0,1.3833,False,86.6,file-2026-02.pdf,1.81
+2026-01,Los Angeles County EMS Agency,20289,Methodist Hospital of Southern California,878,53.5167,30.0,23.5167,False,71.1,file-2026-02.pdf,34.41
+2026-01,Los Angeles County EMS Agency,20294,Mission Community Hospital,348,31.15,30.0,1.15,False,88.8,file-2026-02.pdf,0.67
+2026-01,Inland Counties EMS Agency,20300,Montclair Hospital Medical Center,202,27.1167,25.0,2.1,False,86.1,file-2026-02.pdf,0.71
+2026-01,Los Angeles County EMS Agency,20315,Northridge Hospital Medical Center,1442,32.4167,30.0,2.4167,False,88.2,file-2026-02.pdf,5.81
+2026-01,Los Angeles County EMS Agency,20316,Norwalk Community Hospital,118,57.1167,30.0,27.1167,False,76.3,file-2026-02.pdf,5.33
+2026-01,Santa Clara County EMS Agency,20321,"O'Connor Hospital, San Jose",1001,32.2167,20.0,12.2167,False,72.7,file-2026-02.pdf,20.38
+2026-01,Los Angeles County EMS Agency,20106,"PIH Health Hospital, Downey",627,49.3667,30.0,19.3667,False,76.9,file-2026-02.pdf,20.24
+2026-01,Los Angeles County EMS Agency,20350,"PIH Health Hospital, Whittier",823,58.5833,30.0,28.5833,False,59.3,file-2026-02.pdf,39.21
+2026-01,Los Angeles County EMS Agency,20333,Palmdale Regional Medical Center,1137,33.9167,30.0,3.9167,False,87.2,file-2026-02.pdf,7.42
+2026-01,San Diego County EMS Agency,20561,Palomar Medical Center,1760,30.1167,30.0,0.1167,False,89.8,file-2026-02.pdf,0.34
+2026-01,San Diego County EMS Agency,20337,Paradise Valley Hospital,410,72.8833,30.0,42.8833,False,62.7,file-2026-02.pdf,29.3
+2026-01,Imperial County EMS Agency,20344,Pioneers Memorial Hospital,348,20.5333,20.0,0.5333,False,88.5,file-2026-02.pdf,0.31
+2026-01,San Diego County EMS Agency,20347,Pomerado Hospital,531,38.5833,30.0,8.5833,False,80.4,file-2026-02.pdf,7.6
+2026-01,Los Angeles County EMS Agency,20348,Pomona Valley Hospital Medical Center,1239,41.0667,30.0,11.0667,False,77.3,file-2026-02.pdf,22.85
+2026-01,Los Angeles County EMS Agency,20356,"Providence Little Company of Mary Medical Center, San Pedro",379,34.0667,30.0,4.0667,False,85.8,file-2026-02.pdf,2.57
+2026-01,Los Angeles County EMS Agency,20357,"Providence Little Company of Mary Medical Center, Torrance",1035,55.1667,30.0,25.1667,False,71.9,file-2026-02.pdf,43.41
+2026-01,Los Angeles County EMS Agency,20451,Providence Saint John's Health Center,680,66.7167,30.0,36.7167,False,61.9,file-2026-02.pdf,41.61
+2026-01,Los Angeles County EMS Agency,20361,Providence Tarzana Medical Center,406,33.0667,30.0,3.0667,False,87.4,file-2026-02.pdf,2.08
+2026-01,Riverside County EMS Agency,20441,Rancho Springs Medical Center,714,38.0167,30.0,8.0167,False,80.4,file-2026-02.pdf,9.54
+2026-01,Inland Counties EMS Agency,20366,Redlands Community Hospital,1034,34.5833,25.0,9.5833,False,77.5,file-2026-02.pdf,16.52
+2026-01,Santa Clara County EMS Agency,20368,Regional Medical Center of San Jose,1363,26.0,20.0,6.0,False,80.7,file-2026-02.pdf,13.63
+2026-01,Kern County EMS Agency,20372,Ridgecrest Regional Hospital,256,39.9667,30.0,9.9667,False,84.8,file-2026-02.pdf,4.25
+2026-01,Riverside County EMS Agency,20374,Riverside Community Hospital,2182,56.2167,30.0,26.2167,False,65.2,file-2026-02.pdf,95.34
+2026-01,Riverside County EMS Agency,20375,Riverside University Health System Medical Center,1872,33.1833,30.0,3.1833,False,85.0,file-2026-02.pdf,9.93
+2026-01,Central California EMS Agency,20443,Saint Agnes Medical Center,2580,33.6333,30.0,3.6333,False,85.7,file-2026-02.pdf,15.62
+2026-01,Los Angeles County EMS Agency,20446,Saint Francis Medical Center,1057,98.2167,30.0,68.2167,False,49.8,file-2026-02.pdf,120.18
+2026-01,San Francisco County EMS Agency,20447,Saint Francis Memorial Hospital,765,44.1833,30.0,14.1833,False,73.6,file-2026-02.pdf,18.08
+2026-01,Alameda County EMS Agency,20463,Saint Rose Hospital,476,36.25,30.0,6.25,False,83.4,file-2026-02.pdf,4.96
+2026-01,Inland Counties EMS Agency,20382,San Antonio Regional Hospital,1799,26.6333,25.0,1.6333,False,88.3,file-2026-02.pdf,4.9
+2026-01,Los Angeles County EMS Agency,20385,San Dimas Community Hospital,223,52.8167,30.0,22.8167,False,82.1,file-2026-02.pdf,8.48
+2026-01,Los Angeles County EMS Agency,20387,San Gabriel Valley Medical Center,216,36.8,30.0,6.8,False,86.1,file-2026-02.pdf,2.45
+2026-01,Riverside County EMS Agency,20388,San Gorgonio Memorial Hospital,898,45.65,30.0,15.65,False,71.3,file-2026-02.pdf,23.42
+2026-01,Alameda County EMS Agency,20393,San Leandro Hospital,559,49.5167,30.0,19.5167,False,61.9,file-2026-02.pdf,18.18
+2026-01,Santa Clara County EMS Agency,20400,Santa Clara Valley Medical Center,1045,40.8167,20.0,20.8167,False,72.1,file-2026-02.pdf,36.26
+2026-01,Los Angeles County EMS Agency,20401,Santa Monica - UCLA Medical Center and Orthopaedic Hospital,297,81.6167,30.0,51.6167,False,65.0,file-2026-02.pdf,25.55
+2026-01,San Diego County EMS Agency,20406,"Scripps Memorial Hospital, Encinitas",899,46.2667,30.0,16.2667,False,78.0,file-2026-02.pdf,24.37
+2026-01,San Diego County EMS Agency,20407,"Scripps Memorial Hospital, La Jolla",1540,39.2167,30.0,9.2167,False,82.9,file-2026-02.pdf,23.66
+2026-01,San Diego County EMS Agency,20408,Scripps Mercy Hospital,2201,43.5,30.0,13.5,False,79.4,file-2026-02.pdf,49.52
+2026-01,San Diego County EMS Agency,20409,"Scripps Mercy Hospital, Chula Vista",1040,43.0,30.0,13.0,False,78.9,file-2026-02.pdf,22.53
+2026-01,San Diego County EMS Agency,20416,Sharp Chula Vista Medical Center,1417,55.65,30.0,25.65,False,62.2,file-2026-02.pdf,60.58
+2026-01,San Diego County EMS Agency,20153,Sharp Grossmont Hospital,2431,34.2833,30.0,4.2833,False,86.4,file-2026-02.pdf,17.35
+2026-01,San Diego County EMS Agency,20419,Sharp Memorial Hospital,1818,52.4333,30.0,22.4333,False,74.6,file-2026-02.pdf,67.97
+2026-01,Central California EMS Agency,20429,Sierra View Medical Center,629,32.6167,30.0,2.6167,False,86.6,file-2026-02.pdf,2.74
+2026-01,San Luis Obispo County EMS Agency,20431,Sierra Vista Regional Medical Center,427,29.0,20.0,9.0,False,85.0,file-2026-02.pdf,6.41
+2026-01,Los Angeles County EMS Agency,20042,Southern California Hospital at Culver City,270,44.05,30.0,14.05,False,76.3,file-2026-02.pdf,6.32
+2026-01,Inland Counties EMS Agency,20444,St. Bernardine Medical Center,1662,30.0167,25.0,5.0167,False,83.5,file-2026-02.pdf,13.9
+2026-01,San Joaquin County EMS Agency,20457,St. Joseph's Medical Center of Stockton,2323,30.45,20.0,10.45,False,74.9,file-2026-02.pdf,40.46
+2026-01,Inland Counties EMS Agency,20461,St. Mary Medical Center,1579,69.0167,25.0,44.0167,False,31.4,file-2026-02.pdf,115.84
+2026-01,Los Angeles County EMS Agency,20460,"St. Mary Medical Center, Long Beach",988,37.0,30.0,7.0,False,85.6,file-2026-02.pdf,11.53
+2026-01,San Francisco County EMS Agency,20462,"St. Mary's Medical Center, San Francisco",625,37.4333,30.0,7.4333,False,85.3,file-2026-02.pdf,7.74
+2026-01,Alameda County EMS Agency,20515,Stanford Health Care - ValleyCare,680,51.8667,30.0,21.8667,False,76.2,file-2026-02.pdf,24.78
+2026-01,Contra Costa County EMS Agency,20474,Sutter Delta Medical Center,1069,31.6333,20.0,11.6333,False,72.8,file-2026-02.pdf,20.73
+2026-01,Sacramento County EMS Agency,20475,Sutter Medical Center - Sacramento,1681,48.5,25.0,23.5,False,49.5,file-2026-02.pdf,65.84
+2026-01,Coastal Valleys EMS Agency,20478,Sutter Santa Rosa Regional Hospital,722,23.8167,20.0,3.8167,False,84.2,file-2026-02.pdf,4.59
+2026-01,San Joaquin County EMS Agency,20484,Sutter Tracy Community Hospital,368,24.75,20.0,4.7333,False,84.2,file-2026-02.pdf,2.91
+2026-01,Riverside County EMS Agency,20559,Temecula Valley Hospital,650,32.8333,30.0,2.8333,False,87.1,file-2026-02.pdf,3.07
+2026-01,Los Angeles County EMS Agency,20496,Torrance Memorial Medical Center,817,42.6333,30.0,12.6333,False,78.3,file-2026-02.pdf,17.2
+2026-01,San Diego County EMS Agency,20497,Tri-City Medical Center,1010,43.0,30.0,13.0,False,78.2,file-2026-02.pdf,21.88
+2026-01,Sacramento County EMS Agency,20508,UC Davis Medical Center,1597,29.75,25.0,4.75,False,83.8,file-2026-02.pdf,12.64
+2026-01,San Diego County EMS Agency,62998,UC San Diego Health East Campus Medical Center,593,52.7833,30.0,22.7833,False,74.5,file-2026-02.pdf,22.52
+2026-01,Orange County EMS Agency,20130,UCI Health - Fountain Valley,791,41.0667,30.0,11.0667,False,82.2,file-2026-02.pdf,14.59
+2026-01,Orange County EMS Agency,20256,UCI Health - Los Alamitos,479,44.7333,30.0,14.7333,False,78.5,file-2026-02.pdf,11.76
+2026-01,Orange County EMS Agency,20345,UCI Health - Placentia Linda,583,42.7,30.0,12.7,False,80.4,file-2026-02.pdf,12.34
+2026-01,San Francisco County EMS Agency,20504,UCSF Medical Center at Parnassus,755,42.9833,30.0,12.9833,False,75.2,file-2026-02.pdf,16.34
+2026-01,Los Angeles County EMS Agency,20518,USC Verdugo Hills Hospital,253,49.8,30.0,19.8,False,81.8,file-2026-02.pdf,8.35
+2026-01,Orange County EMS Agency,20509,"University of California, Irvine Medical Center",817,40.4333,30.0,10.4333,False,81.4,file-2026-02.pdf,14.21
+2026-01,San Diego County EMS Agency,20510,"University of California, San Diego Medical Center",1331,81.1,30.0,51.1,False,56.0,file-2026-02.pdf,113.36
+2026-01,Los Angeles County EMS Agency,20514,Valley Presbyterian Hospital,485,43.4167,30.0,13.4167,False,83.7,file-2026-02.pdf,10.85
+2026-01,Inland Counties EMS Agency,20520,Victor Valley Global Medical Center,607,62.3833,25.0,37.3833,False,35.3,file-2026-02.pdf,37.82
+2026-01,Alameda County EMS Agency,20525,"Washington Hospital, Fremont",1126,52.35,30.0,22.3333,False,66.6,file-2026-02.pdf,41.94
+2026-01,Los Angeles County EMS Agency,20528,West Hills Hospital and Medical Center,550,34.2,30.0,4.2,False,83.8,file-2026-02.pdf,3.85
+2026-01,San Francisco County EMS Agency,20386,Zuckerberg San Francisco General Hospital and Trauma Center,1055,33.9333,30.0,3.9333,False,87.5,file-2026-02.pdf,6.92
+2026-02,Orange County EMS Agency,20002,AHMC Anaheim Regional Medical Center,538,40.0167,30.0,10.0167,False,79.4,file-2026-03.pdf,8.98
+2026-02,Kern County EMS Agency,20389,Adventist Health Bakersfield,1303,54.7333,30.0,24.7333,False,63.2,file-2026-03.pdf,53.71
+2026-02,Los Angeles County EMS Agency,20144,Adventist Health Glendale,689,44.3167,30.0,14.3167,False,77.9,file-2026-03.pdf,16.44
+2026-02,Central California EMS Agency,20001,Adventist Health Hanford,1010,33.75,30.0,3.75,False,84.5,file-2026-03.pdf,6.31
+2026-02,San Joaquin County EMS Agency,20247,Adventist Health Lodi Memorial,716,30.7833,20.0,10.7667,False,72.9,file-2026-03.pdf,12.87
+2026-02,Los Angeles County EMS Agency,20531,Adventist Health White Memorial,222,92.1667,30.0,62.1667,False,64.9,file-2026-03.pdf,23.0
+2026-02,Orange County EMS Agency,20530,Anaheim Global Medical Center,210,36.6667,30.0,6.6667,False,85.2,file-2026-03.pdf,2.33
+2026-02,Kern County EMS Agency,20027,Bakersfield Heart Hospital,428,38.5333,30.0,8.5333,False,79.4,file-2026-03.pdf,6.09
+2026-02,Kern County EMS Agency,20028,Bakersfield Memorial Hospital,1219,70.0167,30.0,40.0167,False,56.3,file-2026-03.pdf,81.3
+2026-02,Los Angeles County EMS Agency,20038,Beverly Hospital,334,70.5,30.0,40.5,False,57.8,file-2026-03.pdf,22.55
+2026-02,San Francisco County EMS Agency,20050,CPMC Mission Bernal Campus,755,47.4833,30.0,17.4833,False,69.9,file-2026-03.pdf,22.0
+2026-02,San Francisco County EMS Agency,62636,CPMC-Van Ness,943,47.9,30.0,17.9,False,70.7,file-2026-03.pdf,28.13
+2026-02,Los Angeles County EMS Agency,20045,California Hospital Medical Center,571,54.8,30.0,24.8,False,75.8,file-2026-03.pdf,23.6
+2026-02,San Francisco County EMS Agency,20048,"California Pacific Medical Center, Davies Campus Hospital",339,37.2667,30.0,7.2667,False,82.9,file-2026-03.pdf,4.11
+2026-02,Los Angeles County EMS Agency,20054,Cedars-Sinai Medical Center,1060,52.9167,30.0,22.9167,False,68.6,file-2026-03.pdf,40.49
+2026-02,Los Angeles County EMS Agency,20055,Centinela Hospital Medical Center,2214,36.7667,30.0,6.7667,False,81.3,file-2026-03.pdf,24.97
+2026-02,Inland Counties EMS Agency,20066,Chino Valley Medical Center,393,43.25,25.0,18.25,False,72.8,file-2026-03.pdf,11.95
+2026-02,Los Angeles County EMS Agency,20068,"Citrus Valley Medical Center, Queen of the Valley Campus",722,74.8833,30.0,44.8833,False,55.0,file-2026-03.pdf,54.01
+2026-02,Los Angeles County EMS Agency,20073,Coast Plaza Hospital,231,41.95,30.0,11.95,False,78.8,file-2026-03.pdf,4.6
+2026-02,Los Angeles County EMS Agency,20081,Community Hospital of Huntington Park,393,63.55,30.0,33.55,False,69.7,file-2026-03.pdf,21.98
+2026-02,Inland Counties EMS Agency,20083,Community Hospital of San Bernardino,649,47.1333,25.0,22.1333,False,60.2,file-2026-03.pdf,23.94
+2026-02,Central California EMS Agency,20085,"Community Regional Medical Center, Fresno",4086,33.6833,30.0,3.6833,False,85.1,file-2026-03.pdf,25.08
+2026-02,Contra Costa County EMS Agency,20087,Contra Costa Regional Medical Center,521,36.9,20.0,16.9,False,70.2,file-2026-03.pdf,14.67
+2026-02,Riverside County EMS Agency,20090,Corona Regional Medical Center,891,82.9667,30.0,52.9667,False,63.7,file-2026-03.pdf,78.66
+2026-02,San Joaquin County EMS Agency,20094,Dameron Hospital,665,22.0333,20.0,2.0333,False,86.3,file-2026-03.pdf,2.25
+2026-02,Kern County EMS Agency,20096,Delano Regional Medical Center,245,32.8333,30.0,2.8333,False,87.3,file-2026-03.pdf,1.16
+2026-02,Riverside County EMS Agency,N-desert-regional-medical-center,Desert Regional Medical Center,1461,51.0333,30.0,21.0333,False,82.7,file-2026-03.pdf,51.22
+2026-02,Inland Counties EMS Agency,20098,Desert Valley Hospital,896,50.8,25.0,25.8,False,53.7,file-2026-03.pdf,38.53
+2026-02,San Joaquin County EMS Agency,20099,Doctors Hospital of Manteca,353,20.6333,20.0,0.6333,False,88.4,file-2026-03.pdf,0.37
+2026-02,Stanislaus County EMS Agency,20101,Doctors Medical Center,704,30.15,30.0,0.15,False,89.8,file-2026-03.pdf,0.18
+2026-02,Los Angeles County EMS Agency,20108,East Los Angeles Doctors Hospital,292,38.7667,30.0,8.7667,False,80.8,file-2026-03.pdf,4.27
+2026-02,Santa Clara County EMS Agency,20116,El Camino Hospital Los Gatos,156,25.0167,20.0,5.0333,False,86.5,file-2026-03.pdf,1.3
+2026-02,Imperial County EMS Agency,20117,El Centro Regional Medical Center,592,26.3667,20.0,6.3667,False,77.2,file-2026-03.pdf,6.28
+2026-02,Los Angeles County EMS Agency,20067,Emanate Health- InterCommunity Hospital,356,69.1833,30.0,39.1833,False,57.6,file-2026-03.pdf,23.25
+2026-02,Stanislaus County EMS Agency,20119,Emanuel Medical Center,274,32.25,30.0,2.25,False,88.3,file-2026-03.pdf,1.03
+2026-02,Los Angeles County EMS Agency,N-encino-hospital-medical-center,Encino Hospital Medical Center,160,32.5667,30.0,2.5667,False,88.1,file-2026-03.pdf,0.68
+2026-02,Los Angeles County EMS Agency,20129,Foothill Presbyterian Hospital,410,63.1833,30.0,33.1833,False,56.1,file-2026-03.pdf,22.68
+2026-02,Orange County EMS Agency,20308,Foothill Regional Medical Center,136,31.7167,30.0,1.7167,False,88.2,file-2026-03.pdf,0.39
+2026-02,San Luis Obispo County EMS Agency,20135,French Hospital Medical Center,361,23.65,20.0,3.65,False,87.8,file-2026-03.pdf,2.2
+2026-02,Orange County EMS Agency,20139,Garden Grove Hospital and Medical Center,373,52.6833,30.0,22.6833,False,76.7,file-2026-03.pdf,14.1
+2026-02,Los Angeles County EMS Agency,20149,"Good Samaritan Hospital, Los Angeles",803,47.5,30.0,17.5,False,75.6,file-2026-03.pdf,23.42
+2026-02,Santa Clara County EMS Agency,20150,"Good Samaritan Hospital, San Jose",1031,30.2667,20.0,10.2667,False,72.0,file-2026-03.pdf,17.64
+2026-02,Los Angeles County EMS Agency,20152,Greater El Monte Community Hospital,266,69.2667,30.0,39.2667,False,62.8,file-2026-03.pdf,17.41
+2026-02,Los Angeles County EMS Agency,20240,Harbor UCLA Medical Center,930,61.8667,30.0,31.8667,False,77.0,file-2026-03.pdf,49.39
+2026-02,Riverside County EMS Agency,20162,Hemet Valley Medical Center,1058,105.7833,30.0,75.7833,False,43.8,file-2026-03.pdf,133.63
+2026-02,Los Angeles County EMS Agency,20171,Hollywood Presbyterian Medical Center,555,44.85,30.0,14.85,False,80.4,file-2026-03.pdf,13.74
+2026-02,Orange County EMS Agency,20172,Huntington Beach Hospital,363,37.9167,30.0,7.9167,False,84.8,file-2026-03.pdf,4.79
+2026-02,Los Angeles County EMS Agency,N-huntington-memorial-hospital,Huntington Memorial Hospital,1263,31.9333,30.0,1.9333,False,88.7,file-2026-03.pdf,4.07
+2026-02,Riverside County EMS Agency,20442,Inland Valley Medical Center,1070,83.9,30.0,53.9,False,67.8,file-2026-03.pdf,96.12
+2026-02,Contra Costa County EMS Agency,20179,"John Muir Medical Center, Concord",1043,22.2,20.0,2.2,False,88.9,file-2026-03.pdf,3.82
+2026-02,Contra Costa County EMS Agency,20214,"Kaiser Permanente, Antioch",905,25.6833,20.0,5.6833,False,79.0,file-2026-03.pdf,8.57
+2026-02,Los Angeles County EMS Agency,20183,"Kaiser Permanente, Baldwin Park",385,37.4667,30.0,7.4667,False,80.5,file-2026-03.pdf,4.79
+2026-02,Los Angeles County EMS Agency,20215,"Kaiser Permanente, Downey",515,43.6833,30.0,13.6833,False,77.7,file-2026-03.pdf,11.74
+2026-02,Central California EMS Agency,20186,"Kaiser Permanente, Fresno",952,50.4167,30.0,20.4167,False,72.6,file-2026-03.pdf,32.39
+2026-02,Los Angeles County EMS Agency,20207,"Kaiser Permanente, Los Angeles",387,41.5667,30.0,11.5667,False,77.5,file-2026-03.pdf,7.46
+2026-02,Riverside County EMS Agency,20211,"Kaiser Permanente, Moreno Valley",409,49.15,30.0,19.15,False,73.3,file-2026-03.pdf,13.05
+2026-02,Contra Costa County EMS Agency,20194,"Kaiser Permanente, Richmond",994,61.8333,20.0,41.8333,False,54.2,file-2026-03.pdf,69.3
+2026-02,Riverside County EMS Agency,20195,"Kaiser Permanente, Riverside",576,61.6167,30.0,31.6167,False,72.0,file-2026-03.pdf,30.35
+2026-02,Sacramento County EMS Agency,N-kaiser-permanente-sacramento-medical-cen,"Kaiser Permanente, Sacramento Medical Center",1190,30.8167,25.0,5.8167,False,85.0,file-2026-03.pdf,11.54
+2026-02,San Francisco County EMS Agency,20199,"Kaiser Permanente, San Francisco",415,37.6167,30.0,7.6167,False,82.9,file-2026-03.pdf,5.27
+2026-02,Santa Clara County EMS Agency,20200,"Kaiser Permanente, San Jose",789,20.95,20.0,0.95,False,88.5,file-2026-03.pdf,1.25
+2026-02,Santa Clara County EMS Agency,20202,"Kaiser Permanente, Santa Clara Medical Center and Medical Offices",840,25.9833,20.0,5.9833,False,76.5,file-2026-03.pdf,8.38
+2026-02,Coastal Valleys EMS Agency,20203,"Kaiser Permanente, Santa Rosa",709,31.1,20.0,11.1,False,83.8,file-2026-03.pdf,13.12
+2026-02,Sacramento County EMS Agency,20205,"Kaiser Permanente, South Sacramento Medical Center",1505,37.5667,25.0,12.5667,False,76.5,file-2026-03.pdf,31.52
+2026-02,Contra Costa County EMS Agency,20208,"Kaiser Permanente, Walnut Creek",894,30.1833,20.0,10.1833,False,67.7,file-2026-03.pdf,15.17
+2026-02,Los Angeles County EMS Agency,20209,"Kaiser Permanente, West Los Angeles",514,36.1333,30.0,6.1333,False,86.0,file-2026-03.pdf,5.25
+2026-02,San Diego County EMS Agency,62989,Kaiser San Marcos Medical Center,434,31.6667,30.0,1.6667,False,88.9,file-2026-03.pdf,1.21
+2026-02,Central California EMS Agency,20219,Kaweah Delta Medical Center,2143,51.1,30.0,21.1,False,55.1,file-2026-03.pdf,75.36
+2026-02,Kern County EMS Agency,20224,Kern Medical,1004,55.75,30.0,25.75,False,65.8,file-2026-03.pdf,43.09
+2026-02,Orange County EMS Agency,20239,La Palma Intercommunity Hospital,191,57.1833,30.0,27.1833,False,74.3,file-2026-03.pdf,8.65
+2026-02,Los Angeles County EMS Agency,20244,Lakewood Regional Medical Center,487,95.4667,30.0,65.4667,False,57.5,file-2026-03.pdf,53.14
+2026-02,Inland Counties EMS Agency,64989,Loma Linda University Children's Hospital,329,26.35,25.0,1.35,False,89.1,file-2026-03.pdf,0.74
+2026-02,Inland Counties EMS Agency,20252,Loma Linda University Medical Center,1457,26.65,25.0,1.65,False,87.2,file-2026-03.pdf,4.01
+2026-02,Riverside County EMS Agency,20535,"Loma Linda University Medical Center, Murrieta",794,84.2833,30.0,54.2833,False,62.5,file-2026-03.pdf,71.83
+2026-02,Central California EMS Agency,20265,Madera Community Hospital,525,30.1833,30.0,0.1833,False,89.7,file-2026-03.pdf,0.16
+2026-02,Los Angeles County EMS Agency,20270,Marina Del Rey Hospital,270,48.2,30.0,18.2,False,72.2,file-2026-03.pdf,8.19
+2026-02,Los Angeles County EMS Agency,20276,Memorial Hospital Of Gardena,928,40.7667,30.0,10.7667,False,82.4,file-2026-03.pdf,16.65
+2026-02,Los Angeles County EMS Agency,20255,MemorialCare Long Beach Medical Center,999,43.2,30.0,13.2,False,84.3,file-2026-03.pdf,21.98
+2026-02,Riverside County EMS Agency,20278,Menifee Valley Medical Center,426,108.7667,30.0,78.7833,False,43.0,file-2026-03.pdf,55.92
+2026-02,Sacramento County EMS Agency,20280,Mercy General Hospital,799,30.5333,25.0,5.5333,False,81.5,file-2026-03.pdf,7.37
+2026-02,Kern County EMS Agency,20281,Mercy Hospital,717,59.5167,30.0,29.5167,False,62.9,file-2026-03.pdf,35.27
+2026-02,Kern County EMS Agency,20287,Mercy Hospital SW - Bakersfield,651,41.7833,30.0,11.7833,False,73.6,file-2026-03.pdf,12.78
+2026-02,Sacramento County EMS Agency,20282,Mercy Hospital of Folsom,313,30.5833,25.0,5.5833,False,82.1,file-2026-03.pdf,2.91
+2026-02,Merced County EMS Agency,20283,"Mercy Medical Center, Merced",1524,47.2,30.0,17.2,False,75.2,file-2026-03.pdf,43.69
+2026-02,Sierra-Sacramento Valley EMS Agency,20284,"Mercy Medical Center, Redding",1275,31.5,30.0,1.5,False,88.5,file-2026-03.pdf,3.19
+2026-02,Sacramento County EMS Agency,20288,Methodist Hospital of Sacramento,758,29.6333,25.0,4.6333,False,80.1,file-2026-03.pdf,5.85
+2026-02,Los Angeles County EMS Agency,20289,Methodist Hospital of Southern California,765,60.4167,30.0,30.4167,False,68.1,file-2026-03.pdf,38.78
+2026-02,Los Angeles County EMS Agency,20294,Mission Community Hospital,304,34.1,30.0,4.1,False,86.5,file-2026-03.pdf,2.08
+2026-02,Inland Counties EMS Agency,20300,Montclair Hospital Medical Center,208,42.0833,25.0,17.0833,False,77.9,file-2026-03.pdf,5.92
+2026-02,Los Angeles County EMS Agency,20315,Northridge Hospital Medical Center,1258,48.1333,30.0,18.1333,False,80.2,file-2026-03.pdf,38.02
+2026-02,Los Angeles County EMS Agency,20316,Norwalk Community Hospital,104,56.15,30.0,26.15,False,72.1,file-2026-03.pdf,4.53
+2026-02,Santa Clara County EMS Agency,20321,"O'Connor Hospital, San Jose",1014,30.4333,20.0,10.4333,False,74.8,file-2026-03.pdf,17.63
+2026-02,Los Angeles County EMS Agency,N-olive-view-ucla-medical-center,Olive View UCLA Medical Center,331,38.2667,30.0,8.2667,False,87.6,file-2026-03.pdf,4.56
+2026-02,Orange County EMS Agency,N-orange-coast-memorial-medical-center,Orange Coast Memorial Medical Center,409,31.4167,30.0,1.4167,False,89.2,file-2026-03.pdf,0.97
+2026-02,Los Angeles County EMS Agency,20106,"PIH Health Hospital, Downey",647,57.6167,30.0,27.6167,False,71.1,file-2026-03.pdf,29.78
+2026-02,Los Angeles County EMS Agency,20350,"PIH Health Hospital, Whittier",759,69.4167,30.0,39.4167,False,57.4,file-2026-03.pdf,49.86
+2026-02,San Diego County EMS Agency,20337,Paradise Valley Hospital,376,57.5833,30.0,27.5833,False,65.7,file-2026-03.pdf,17.29
+2026-02,Riverside County EMS Agency,N-parkview-community-hospital-medical-cent,Parkview Community Hospital Medical Center,762,31.8667,30.0,1.8667,False,88.1,file-2026-03.pdf,2.37
+2026-02,Imperial County EMS Agency,20344,Pioneers Memorial Hospital,313,24.7,20.0,4.7,False,83.1,file-2026-03.pdf,2.45
+2026-02,Los Angeles County EMS Agency,20348,Pomona Valley Hospital Medical Center,1101,56.7667,30.0,26.7667,False,66.8,file-2026-03.pdf,49.12
+2026-02,Los Angeles County EMS Agency,N-providence-holy-cross-medical-center,Providence Holy Cross Medical Center,521,30.4333,30.0,0.4333,False,89.6,file-2026-03.pdf,0.38
+2026-02,Los Angeles County EMS Agency,20356,"Providence Little Company of Mary Medical Center, San Pedro",283,35.0167,30.0,5.0167,False,84.5,file-2026-03.pdf,2.37
+2026-02,Los Angeles County EMS Agency,20357,"Providence Little Company of Mary Medical Center, Torrance",854,47.6667,30.0,17.6667,False,75.2,file-2026-03.pdf,25.15
+2026-02,Los Angeles County EMS Agency,20451,Providence Saint John's Health Center,426,63.6,30.0,33.6,False,70.9,file-2026-03.pdf,23.86
+2026-02,Los Angeles County EMS Agency,20360,Providence Saint Joseph Medical Center,1175,32.0,30.0,2.0,False,87.2,file-2026-03.pdf,3.92
+2026-02,Riverside County EMS Agency,20441,Rancho Springs Medical Center,811,61.5167,30.0,31.5167,False,66.0,file-2026-03.pdf,42.6
+2026-02,Inland Counties EMS Agency,20366,Redlands Community Hospital,972,44.0833,25.0,19.0833,False,72.4,file-2026-03.pdf,30.91
+2026-02,Santa Clara County EMS Agency,20368,Regional Medical Center of San Jose,1318,25.25,20.0,5.25,False,84.1,file-2026-03.pdf,11.53
+2026-02,Kern County EMS Agency,20372,Ridgecrest Regional Hospital,227,37.2333,30.0,7.2333,False,85.0,file-2026-03.pdf,2.74
+2026-02,Riverside County EMS Agency,20374,Riverside Community Hospital,2024,60.7167,30.0,30.7167,False,64.7,file-2026-03.pdf,103.62
+2026-02,Riverside County EMS Agency,20375,Riverside University Health System Medical Center,1779,36.1167,30.0,6.1167,False,80.7,file-2026-03.pdf,18.14
+2026-02,Central California EMS Agency,20443,Saint Agnes Medical Center,2447,35.5667,30.0,5.5667,False,84.6,file-2026-03.pdf,22.7
+2026-02,Los Angeles County EMS Agency,20446,Saint Francis Medical Center,1014,91.9833,30.0,61.9833,False,48.6,file-2026-03.pdf,104.75
+2026-02,San Francisco County EMS Agency,20447,Saint Francis Memorial Hospital,396,53.7167,30.0,23.7,False,67.7,file-2026-03.pdf,15.65
+2026-02,Monterey County EMS Agency,20381,Salinas Valley Memorial Hospital,581,30.8833,30.0,0.8833,False,89.0,file-2026-03.pdf,0.86
+2026-02,Inland Counties EMS Agency,20382,San Antonio Regional Hospital,1749,37.1,25.0,12.1,False,81.5,file-2026-03.pdf,35.27
+2026-02,Los Angeles County EMS Agency,20385,San Dimas Community Hospital,264,58.05,30.0,28.05,False,73.1,file-2026-03.pdf,12.34
+2026-02,Los Angeles County EMS Agency,20387,San Gabriel Valley Medical Center,224,41.7833,30.0,11.7833,False,83.9,file-2026-03.pdf,4.4
+2026-02,Riverside County EMS Agency,20388,San Gorgonio Memorial Hospital,836,43.4,30.0,13.4,False,77.4,file-2026-03.pdf,18.67
+2026-02,Santa Clara County EMS Agency,20400,Santa Clara Valley Medical Center,1040,50.4667,20.0,30.4667,False,68.2,file-2026-03.pdf,52.81
+2026-02,Los Angeles County EMS Agency,20401,Santa Monica - UCLA Medical Center and Orthopaedic Hospital,62,53.7,30.0,23.7,False,74.2,file-2026-03.pdf,2.45
+2026-02,San Diego County EMS Agency,20406,"Scripps Memorial Hospital, Encinitas",838,60.0,30.0,30.0,False,69.6,file-2026-03.pdf,41.9
+2026-02,San Diego County EMS Agency,20407,"Scripps Memorial Hospital, La Jolla",1466,47.6333,30.0,17.6333,False,79.3,file-2026-03.pdf,43.08
+2026-02,San Diego County EMS Agency,20408,Scripps Mercy Hospital,2229,43.8333,30.0,13.8333,False,79.3,file-2026-03.pdf,51.39
+2026-02,San Diego County EMS Agency,20409,"Scripps Mercy Hospital, Chula Vista",1091,54.3667,30.0,24.3667,False,72.5,file-2026-03.pdf,44.31
+2026-02,San Diego County EMS Agency,20416,Sharp Chula Vista Medical Center,1342,69.5167,30.0,39.5167,False,53.7,file-2026-03.pdf,88.39
+2026-02,San Diego County EMS Agency,20417,Sharp Coronado Hospital and Healthcare Center,393,30.4,30.0,0.4,False,89.6,file-2026-03.pdf,0.26
+2026-02,San Diego County EMS Agency,20153,Sharp Grossmont Hospital,2410,40.8667,30.0,10.8667,False,82.8,file-2026-03.pdf,43.65
+2026-02,San Diego County EMS Agency,20419,Sharp Memorial Hospital,1789,49.0167,30.0,19.0167,False,74.7,file-2026-03.pdf,56.7
+2026-02,Los Angeles County EMS Agency,N-sherman-oaks-hospital,Sherman Oaks Hospital,447,35.0333,30.0,5.0333,False,86.4,file-2026-03.pdf,3.75
+2026-02,San Luis Obispo County EMS Agency,20431,Sierra Vista Regional Medical Center,373,23.3167,20.0,3.3167,False,86.9,file-2026-03.pdf,2.06
+2026-02,Los Angeles County EMS Agency,20042,Southern California Hospital at Culver City,271,44.5167,30.0,14.5167,False,77.9,file-2026-03.pdf,6.56
+2026-02,Inland Counties EMS Agency,20444,St. Bernardine Medical Center,1501,30.7167,25.0,5.7167,False,82.7,file-2026-03.pdf,14.3
+2026-02,San Joaquin County EMS Agency,20457,St. Joseph's Medical Center of Stockton,2157,25.5333,20.0,5.5333,False,81.0,file-2026-03.pdf,19.89
+2026-02,Santa Clara County EMS Agency,N-st-louise-regional-hospital,St. Louise Regional Hospital,431,20.3333,20.0,0.3333,False,89.3,file-2026-03.pdf,0.24
+2026-02,Inland Counties EMS Agency,20461,St. Mary Medical Center,1591,59.2167,25.0,34.2167,False,35.1,file-2026-03.pdf,90.73
+2026-02,Los Angeles County EMS Agency,20460,"St. Mary Medical Center, Long Beach",935,39.6,30.0,9.6,False,85.5,file-2026-03.pdf,14.96
+2026-02,San Francisco County EMS Agency,20462,"St. Mary's Medical Center, San Francisco",315,37.45,30.0,7.45,False,83.5,file-2026-03.pdf,3.91
+2026-02,Contra Costa County EMS Agency,20474,Sutter Delta Medical Center,1007,32.6,20.0,12.6,False,72.3,file-2026-03.pdf,21.15
+2026-02,Sacramento County EMS Agency,20475,Sutter Medical Center - Sacramento,1550,42.55,25.0,17.55,False,54.5,file-2026-03.pdf,45.34
+2026-02,Coastal Valleys EMS Agency,20478,Sutter Santa Rosa Regional Hospital,638,25.8833,20.0,5.8833,False,82.4,file-2026-03.pdf,6.26
+2026-02,San Joaquin County EMS Agency,20484,Sutter Tracy Community Hospital,387,26.0333,20.0,6.0333,False,80.4,file-2026-03.pdf,3.89
+2026-02,Riverside County EMS Agency,20559,Temecula Valley Hospital,664,41.1,30.0,11.1,False,75.6,file-2026-03.pdf,12.28
+2026-02,Los Angeles County EMS Agency,20496,Torrance Memorial Medical Center,752,38.0,30.0,8.0,False,82.7,file-2026-03.pdf,10.03
+2026-02,San Diego County EMS Agency,20497,Tri-City Medical Center,925,50.7333,30.0,20.7333,False,74.4,file-2026-03.pdf,31.96
+2026-02,Sacramento County EMS Agency,20508,UC Davis Medical Center,1490,29.3833,25.0,4.3833,False,83.7,file-2026-03.pdf,10.89
+2026-02,San Diego County EMS Agency,62998,UC San Diego Health East Campus Medical Center,660,54.2667,30.0,24.2667,False,70.6,file-2026-03.pdf,26.69
+2026-02,Orange County EMS Agency,20130,UCI Health - Fountain Valley,655,35.7667,30.0,5.7667,False,84.6,file-2026-03.pdf,6.3
+2026-02,Orange County EMS Agency,20256,UCI Health - Los Alamitos,332,51.6833,30.0,21.6833,False,74.4,file-2026-03.pdf,12.0
+2026-02,Orange County EMS Agency,20345,UCI Health - Placentia Linda,478,49.85,30.0,19.85,False,75.5,file-2026-03.pdf,15.81
+2026-02,San Francisco County EMS Agency,20504,UCSF Medical Center at Parnassus,668,45.3,30.0,15.3,False,74.3,file-2026-03.pdf,17.03
+2026-02,Los Angeles County EMS Agency,20518,USC Verdugo Hills Hospital,220,54.0333,30.0,24.0333,False,78.2,file-2026-03.pdf,8.81
+2026-02,Orange County EMS Agency,20509,"University of California, Irvine Medical Center",706,33.1,30.0,3.1167,False,88.2,file-2026-03.pdf,3.65
+2026-02,San Diego County EMS Agency,20510,"University of California, San Diego Medical Center",1245,88.6,30.0,58.6,False,54.5,file-2026-03.pdf,121.59
+2026-02,Los Angeles County EMS Agency,20514,Valley Presbyterian Hospital,495,50.9833,30.0,20.9833,False,80.6,file-2026-03.pdf,17.31
+2026-02,Inland Counties EMS Agency,20520,Victor Valley Global Medical Center,604,67.7333,25.0,42.7333,False,34.3,file-2026-03.pdf,43.02
+2026-02,Orange County EMS Agency,20527,West Anaheim Medical Center,563,30.0833,30.0,0.0833,False,89.5,file-2026-03.pdf,0.08
+2026-02,Los Angeles County EMS Agency,20528,West Hills Hospital and Medical Center,507,36.4333,30.0,6.4333,False,84.8,file-2026-03.pdf,5.44
+2026-02,Los Angeles County EMS Agency,N-whittier-hospital-medical-center,Whittier Hospital Medical Center,323,30.4333,30.0,0.4333,False,89.8,file-2026-03.pdf,0.23
+2026-02,San Francisco County EMS Agency,20386,Zuckerberg San Francisco General Hospital and Trauma Center,1096,32.8,30.0,2.8,False,87.2,file-2026-03.pdf,5.11

@@ -20,14 +20,28 @@ ROW = re.compile(
     r"(?:\s(?P<over>\d+:\d\d:\d\d))?(?:\s(?P<pct>\d+(?:\.\d+)?)%)?$"
 )
 
-# Layout used from the February 2026 data month: no facility ID, columns reordered.
-ROW_B = re.compile(
-    r"^(?P<lemsa>.+? EMS Agency)\s(?P<hospital>.+?)\s(?P<n>[\d,]+)\s(?P<pct>\d+(?:\.\d+)?)%\s"
-    r"(?P<p90>\d+:\d\d:\d\d)\s(?P<std>\d+:\d\d:\d\d)\s(?P<over>\d+:\d\d:\d\d)$"
-)
-
 # Some months abbreviate the agency; map to the full name used elsewhere.
 LEMSA_ALIASES = {"ICEMA": "Inland Counties EMS Agency"}
+
+# Layout used from the February 2026 data month: no facility ID, columns reordered,
+# seven cells. The count cell can contain a space ("7 04" == 704), so cells are
+# parsed individually instead of via one flattened regex.
+TIME = re.compile(r"^\d+:\d\d:\d\d$")
+
+
+def parse_cells(line):
+    cells = [c.strip() for c in line.split("|")]
+    if len(cells) == 6 and "EMS Agency" in cells[0] and not cells[0].endswith("EMS Agency"):
+        head, tail = cells[0].split("EMS Agency", 1)  # agency and hospital abut with no gap
+        cells = [head + "EMS Agency", tail.strip()] + cells[1:]
+    if len(cells) != 7 or not cells[0].endswith("EMS Agency"):
+        return None
+    lemsa, hospital, n, pct, p90, std, over = cells
+    n = re.sub(r"[\s,]", "", n)
+    if not (n.isdigit() and pct.endswith("%") and all(TIME.match(t) for t in (p90, std, over))):
+        return None
+    return {"lemsa": lemsa, "fid": None, "hospital": hospital, "n": n,
+            "pct": pct[:-1], "p90": p90, "std": std, "over": over}
 
 
 def hms_to_min(s):
@@ -74,11 +88,9 @@ def extract(path):
                 continue
             for line in _lines(pg):
                 flat = re.sub(r"\s*\|\s*", " ", line)
-                m = ROW.match(flat) or ROW_B.match(flat)
-                if m:
-                    d = m.groupdict()
-                    d.setdefault("fid", None)
-                    d["n"] = d["n"].replace(",", "")
+                m = ROW.match(flat)
+                d = m.groupdict() if m else parse_cells(line)
+                if d:
                     std = hms_to_min(d["std"])
                     p90 = hms_to_min(d["p90"])
                     rows.append({
@@ -94,7 +106,7 @@ def extract(path):
                         "pct_compliant": float(d["pct"]) if d["pct"] else None,
                         "source_file": Path(path).name,
                     })
-                elif re.search(r"\d:\d\d:\d\d", line) and re.search(r"\d{5}", line):
+                elif len(re.findall(r"\d:\d\d:\d\d", line)) >= 2 and "(HH:MM:SS)" not in line:
                     unmatched.append(line)
     return month, rows, unmatched
 
