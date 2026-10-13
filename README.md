@@ -18,6 +18,16 @@ It is a static site. No server, no accounts, no analytics. Open `site/index.html
 - District membership uses the Census 119th-Congress boundary. **Redlands Community Hospital and Loma Linda University Medical Center are in CA-23, not CA-33.** Only Community Hospital of San Bernardino, St. Bernardine and Arrowhead (not listed in any report) are inside CA-33. The report card lists hospitals within about 6 miles of the boundary separately.
 - Hospital map locations come from the CDPH facility list, matched by name inside the agency's county. Matches that were not clearly the same hospital are left unplaced (see the `unplaced` rows of `data/config/hospital_crosswalk.csv`) rather than guessed.
 
+## What people can do with it
+
+- **Look**: a map with filters (by crowding) and a health-center layer; hospital pages with trends; a statewide view by EMS agency and congressional district; Simple and Pro modes; English and Spanish.
+- **Change things**: a scenario tool (set a handoff-time limit and your own cost per ambulance-hour to see ambulance-hours, ambulance-equivalents and dollars), filters and sorting, CSV downloads.
+- **Route**: non-emergency drive times and a route line from your search to nearby hospitals (OpenStreetMap routing, only when you tap it), plus a Directions link.
+- **Act**: an editable message to a representative or EMS agency that cites the numbers (copy, email, or share; nothing is sent for you). EMSA already tells listed hospitals to carry out an offload-reduction plan, so the message asks how it is working.
+- **Stay current**: a scheduled GitHub Action checks for new EMSA reports three times a month, rebuilds, runs the tests, and commits only if they pass; a failure opens an issue instead of changing the published data. The app labels itself out of date when the newest report is more than 45 days old.
+
+See `docs/IMPACT.md` for what this can and cannot honestly claim, and `docs/OUTREACH.md` for send-ready drafts.
+
 ## Simple and Pro modes
 
 A switch in the header flips between **Simple** (default: few words, big buttons, "Use my location", bottom tab bar on phones) and **Pro** (full tables, exact figures, lower-bound hours, what-if slider, an Assessment block per hospital and district, compare view, methods, downloads). The choice is saved only in the visitor's browser. A link can force a mode, e.g. `#/district/CA-33?mode=pro` (used for the printable report card).

@@ -12,7 +12,7 @@ SITE = ROOT / "site"
 
 def main():
     data = {}
-    for name in ("hospitals", "districts", "meta", "clinics", "forecast", "places"):
+    for name in ("hospitals", "districts", "meta", "clinics", "forecast", "places", "state"):
         data[name] = json.loads((SITE / "data" / f"{name}.json").read_text(encoding="utf-8"))
     data["geo"] = json.loads((SITE / "data" / "ca_districts.geojson").read_text(encoding="utf-8"))
     data["i18n"] = {lang: json.loads((SITE / "i18n" / f"{lang}.json").read_text(encoding="utf-8"))

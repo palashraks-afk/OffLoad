@@ -6,7 +6,7 @@
   var appEl = mainEl;
   if (!D) { mainEl.textContent = 'The data files did not load. Please reload. In an emergency, call 911.'; return; }
 
-  var META = D.meta, HOSP = D.hospitals, CLINICS = D.clinics, FC = D.forecast;
+  var META = D.meta, HOSP = D.hospitals, CLINICS = D.clinics, FC = D.forecast, ST = D.state;
   var BYID = {};
   HOSP.forEach(function (h) { BYID[h.id] = h; });
   var LATEST = META.latest_month;
@@ -119,6 +119,8 @@
   /* ---------- page chrome ---------- */
   var current = { base: '#/' };
   var ICON = {
+    state: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M3 12h18 M12 3c3 3 3 15 0 18 M12 3c-3 3-3 15 0 18',
+    route: 'M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M7 17h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6',
     home: 'M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
     report: 'M7 3h8l4 4v14H7z M15 3v4h4 M10 12h6 M10 16h6',
     compare: 'M5 20V10 M12 20V4 M19 20v-7',
@@ -131,10 +133,9 @@
     return '<svg width="' + (size || 24) + '" height="' + (size || 24) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ICON[name] + '"/></svg>';
   }
   function navItems() {
-    var items = [['#/', 'tab.home', 'home'], ['#/district/' + HOME, 'tab.report', 'report']];
-    if (pro()) items.push(['#/compare', 'tab.compare', 'compare']);
-    items.push(['#/forecast', 'tab.outlook', 'outlook']);
-    items.push(pro() ? ['#/methods', 'tab.data', 'data'] : ['#/about', 'tab.about', 'about']);
+    var items = [['#/', 'tab.home', 'home'], ['#/district/' + HOME, 'tab.report', 'report'], ['#/state', 'tab.state', 'state']];
+    if (pro()) { items.push(['#/forecast', 'tab.outlook', 'outlook']); items.push(['#/methods', 'tab.data', 'data']); }
+    else items.push(['#/about', 'tab.about', 'about']);
     return items;
   }
   function isOn(href) { return current.base === (href === '#/' ? '#/' : href.split('/').slice(0, 2).join('/')); }
@@ -172,7 +173,7 @@
 
   /* ---------- maps ---------- */
   var activeMap = null;
-  function destroyMap() { if (activeMap) { try { activeMap.remove(); } catch (e) { /* ignore */ } activeMap = null; } }
+  function destroyMap() { routeLayer = null; if (activeMap) { try { activeMap.remove(); } catch (e) { /* ignore */ } activeMap = null; } }
   function featureFor(d) {
     for (var i = 0; i < D.geo.features.length; i++) if (D.geo.features[i].properties.district === d) return D.geo.features[i];
     return null;
@@ -203,11 +204,12 @@
     } catch (e) { /* offline: points and outline still draw */ }
     var f = opts.district ? featureFor(opts.district) : null;
     if (f) L.geoJSON(f, { style: { color: '#0a5c7a', weight: 3, fillColor: '#0a5c7a', fillOpacity: 0.08 }, interactive: false }).addTo(map);
+    var rec = [];
     opts.hospitals.forEach(function (h) {
       if (h.lat == null) return;
       var m = L.marker([h.lat, h.lon], { icon: markerIcon(h), title: hospLabel(h), alt: hospLabel(h), keyboard: true });
       m.bindPopup('<strong>' + esc(h.name) + '</strong><br>' + badge(status(h).band) + '<br><a href="#/hospital/' + encodeURIComponent(h.id) + '">' + esc(t('card.detail', { name: h.name })) + '</a>');
-      m.addTo(map);
+      m.addTo(map); rec.push({ h: h, m: m });
     });
     if (opts.pin) {
       L.circleMarker([opts.pin[0], opts.pin[1]], { radius: 8, color: '#000', weight: 3, fillColor: '#fff', fillOpacity: 1 }).addTo(map);
@@ -215,7 +217,7 @@
     if (opts.view) map.setView(opts.view[0], opts.view[1]);
     else if (opts.bounds) map.fitBounds([[opts.bounds[0], opts.bounds[1]], [opts.bounds[2], opts.bounds[3]]], { padding: [20, 20] });
     else map.setView([34.1, -117.3], 10);
-    return map;
+    return { map: map, rec: rec };
   }
   function legendSimple() {
     return '<div class="legend-row">' + ['red', 'yellow', 'gray'].map(badge).join('') + '</div>' +
@@ -229,8 +231,125 @@
     }).join('') + '</ul><p class="small">' + esc(t('legend.note')) + '</p>';
   }
 
+  /* ---------- equivalents, scenario, letter ---------- */
+  function daysIn(m) { var p = m.split('-'); return new Date(Date.UTC(+p[0], +p[1], 0)).getUTCDate(); }
+  function ambEq(hours, m) { return hours / (24 * daysIn(m)); }
+  function fmtAmb(n) { return n < 0.1 ? t('eq.less') : t('eq.about', { n: num(n, n >= 10 ? 0 : 1) }); }
+  function latestRows(filterFn) {
+    var r = [];
+    HOSP.forEach(function (h) { var m = h.months[LATEST]; if (m && (!filterFn || filterFn(h))) r.push({ h: h, m: m }); });
+    return r;
+  }
+  function scenarioHtml(id) {
+    return '<div class="card" id="' + id + '"><h2 class="h3">' + esc(t('scn.h')) + '</h2>' +
+      '<label for="' + id + '-t">' + esc(t('scn.slider')) + '</label><div class="row" style="margin:0"><input type="range" id="' + id + '-t" min="20" max="60" step="5" value="30"><output id="' + id + '-to" for="' + id + '-t"></output></div>' +
+      '<label for="' + id + '-c">' + esc(t('scn.cost')) + '</label><br><input type="text" inputmode="decimal" id="' + id + '-c" placeholder="' + esc(t('scn.cost.ph')) + '" style="max-width:12rem">' +
+      '<div id="' + id + '-o" aria-live="polite" style="margin-top:.75rem"></div><p class="small">' + esc(t('scn.note')) + '</p></div>';
+  }
+  function wireScenario(id, rows, month) {
+    var tt = $('#' + id + '-t'), cc = $('#' + id + '-c');
+    function upd() {
+      var T = +tt.value, h = 0;
+      rows.forEach(function (r) { h += 0.1 * r.m.offloads * Math.max(0, r.m.p90_min - T) / 60; });
+      $('#' + id + '-to').textContent = T + ' ' + t('minutes.unit');
+      tt.setAttribute('aria-valuetext', T + ' ' + t('minutes.unit'));
+      var rate = parseFloat((cc.value || '').replace(/[^0-9.]/g, ''));
+      var out = '<p><strong>' + esc(t('scn.out', { h: num(h, 0), t: T })) + '</strong></p><p>' + esc(t('scn.amb', { n: fmtAmb(ambEq(h, month)) })) + '</p>';
+      if (rate > 0) out += '<p>' + esc(t('scn.money', { r: '$' + num(rate, 0), c: '$' + num(h * rate, 0) })) + '</p>';
+      $('#' + id + '-o').innerHTML = out;
+    }
+    tt.oninput = upd; cc.oninput = upd; upd();
+  }
+  function composerHtml(id) {
+    return '<details class="card noprint" id="' + id + '"><summary><strong>' + esc(t('act.h')) + '</strong> <span class="small">' + esc(t('act.s')) + '</span></summary>' +
+      '<p class="small">' + esc(t('act.who')) + '</p><label for="' + id + '-m" class="sr">' + esc(t('act.h')) + '</label><textarea id="' + id + '-m" rows="13"></textarea>' +
+      '<div class="row"><button type="button" class="primary lg" data-act="copy">' + esc(t('act.copy')) + '</button><button type="button" class="lg" data-act="email">' + esc(t('act.email')) + '</button>' +
+      '<button type="button" class="lg" data-act="share" hidden>' + esc(t('act.share')) + '</button>' +
+      '<a class="btn lg" href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">' + esc(t('act.find')) + '</a></div>' +
+      '<div role="status" aria-live="polite" class="small" id="' + id + '-s"></div></details>';
+  }
+  function wireComposer(id, text, subject) {
+    var box = $('#' + id), ta = $('#' + id + '-m', box), st = $('#' + id + '-s', box);
+    ta.value = text;
+    var share = $('[data-act=share]', box);
+    if (navigator.share) share.hidden = false;
+    $('[data-act=copy]', box).onclick = function () {
+      function done() { st.textContent = t('act.copied'); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(done, function () { ta.select(); document.execCommand('copy'); done(); });
+      else { ta.select(); document.execCommand('copy'); done(); }
+    };
+    $('[data-act=email]', box).onclick = function () { location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(ta.value); };
+    share.onclick = function () { navigator.share({ title: subject, text: ta.value }).catch(function () { /* cancelled */ }); };
+  }
+  function districtLetter(d, list) {
+    var worst = null;
+    list.forEach(function (h) { var m = h.months[LATEST]; if (m && (!worst || m.over_min > worst.m.over_min)) worst = { h: h, m: m }; });
+    var dd = D.districts[d] || { months: {} }, cur = dd.months[LATEST];
+    if (!worst || !cur) return null;
+    return t('act.letter.district', { place: d, month: monthLabel(LATEST), hours: num(cur.hours_min, 0), worst: worst.h.name, p90: Math.round(worst.m.p90_min), std: Math.round(worst.m.standard_min) });
+  }
+  function hospitalLetter(h) {
+    var m = h.months[LATEST]; if (!m) return null;
+    return t('act.letter.hospital', { hospital: h.name, month: monthLabel(LATEST), p90: Math.round(m.p90_min), std: Math.round(m.standard_min), pct: m.pct_compliant == null ? '--' : Math.round(m.pct_compliant), hours: num(m.hours_min, 0) });
+  }
+
+  /* ---------- routing (non-emergency drive times) ---------- */
+  var routeLayer = null;
+  function wireRoutes(origin) {
+    $all('[data-route]').forEach(function (b) {
+      b.onclick = function () {
+        var h = BYID[b.getAttribute('data-route')], out = $('#rt-' + h.id);
+        out.textContent = t('route.busy');
+        var ctl = ('AbortController' in window) ? new AbortController() : null;
+        var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+        fetch('https://routing.openstreetmap.de/routed-car/route/v1/driving/' + origin.lon + ',' + origin.lat + ';' + h.lon + ',' + h.lat + '?overview=full&geometries=geojson', ctl ? { signal: ctl.signal } : {})
+          .then(function (r) { if (!r.ok) throw new Error('bad'); return r.json(); })
+          .then(function (j) {
+            clearTimeout(timer);
+            if (!j.routes || !j.routes[0]) throw new Error('none');
+            var r0 = j.routes[0];
+            out.textContent = t('route.result', { min: Math.round(r0.duration / 60), mi: num(r0.distance / 1609.34, 1) });
+            if (activeMap) {
+              if (routeLayer) activeMap.removeLayer(routeLayer);
+              routeLayer = L.geoJSON(r0.geometry, { style: { color: '#0a5c7a', weight: 5, opacity: 0.9 }, interactive: false }).addTo(activeMap);
+              activeMap.fitBounds(routeLayer.getBounds(), { padding: [30, 30] });
+            }
+          }).catch(function () { clearTimeout(timer); out.textContent = t('route.fail'); });
+      };
+    });
+  }
+
+  /* ---------- map options (layers and filters) ---------- */
+  function mapOptionsHtml() {
+    return '<div class="row mapopts"><div><label for="optf">' + esc(t('lay.filter')) + '</label><br><select id="optf">' +
+      ['all', 'red', 'yellow', 'gray'].map(function (v) { return '<option value="' + v + '">' + esc(t('lay.f.' + v)) + '</option>'; }).join('') + '</select></div>' +
+      '<label class="chk"><input type="checkbox" id="optc"> ' + esc(t('lay.clinics')) + '</label></div>';
+  }
+  function wireMapOptions(hd) {
+    var layer = null, f = $('#optf'), c = $('#optc');
+    f.value = 'all'; c.checked = false;
+    f.onchange = function () {
+      var v = f.value;
+      hd.rec.forEach(function (r) {
+        var ok = v === 'all' || status(r.h).band === v, on = hd.map.hasLayer(r.m);
+        if (ok && !on) r.m.addTo(hd.map); else if (!ok && on) hd.map.removeLayer(r.m);
+      });
+    };
+    c.onchange = function () {
+      if (c.checked) {
+        if (!layer) {
+          layer = L.layerGroup(CLINICS.map(function (k) {
+            return L.circleMarker([k.lat, k.lon], { radius: 6, color: '#fff', weight: 2, fillColor: '#0a5c7a', fillOpacity: 1 })
+              .bindPopup('<strong>' + esc(k.name) + '</strong><br>' + esc(k.address) + (k.phone ? '<br>' + esc(k.phone) : ''));
+          }));
+        }
+        layer.addTo(hd.map);
+      } else if (layer) hd.map.removeLayer(layer);
+    };
+  }
+
   /* ---------- hospital card ---------- */
-  function cardHtml(h, dist) {
+  function cardHtml(h, dist, origin) {
     var s = status(h), body, where = [];
     if (h.city) where.push(esc(h.city));
     if (dist != null) where.push(esc(distText(dist)));
@@ -249,7 +368,13 @@
       body = '<p class="cap"><strong>' + esc(t('card.s.none', { month: monthLabel(LATEST) })) + '</strong></p>' +
         (pro() ? (lm.length ? '<p class="cap">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '') + '<p class="cap">' + esc(t('band.gray.desc')) + '</p>' : '');
     }
-    return '<li class="card hc"><h3>' + esc(h.name) + '</h3><p class="where">' + where.join(' &middot; ') + '</p><p>' + badge(s.band) + '</p>' + body +
+    var rt = '';
+    if (origin && h.lat != null) {
+      rt = '<div class="rt"><button type="button" class="chip" data-route="' + esc(h.id) + '">' + icon('route', 16) + ' ' + esc(t('route.btn')) + '</button> ' +
+        '<a class="btn chip" href="https://www.google.com/maps/dir/?api=1&origin=' + origin.lat + ',' + origin.lon + '&destination=' + h.lat + ',' + h.lon + '&travelmode=driving" target="_blank" rel="noopener">' + esc(t('route.dirs')) + '</a></div>' +
+        '<p class="small" id="rt-' + esc(h.id) + '" aria-live="polite"></p>';
+    }
+    return '<li class="card hc"><h3>' + esc(h.name) + '</h3><p class="where">' + where.join(' &middot; ') + '</p><p>' + badge(s.band) + '</p>' + body + rt +
       '<a class="more" href="#/hospital/' + encodeURIComponent(h.id) + '" aria-label="' + esc(t('card.detail', { name: h.name })) + '">' + esc(t('card.more')) + ' &rarr;</a></li>';
   }
 
@@ -364,13 +489,13 @@
       '<h2>' + esc(t('map.h')) + '</h2>' +
       '<div class="row"><div><label for="dsel">' + esc(t('district.pick')) + '</label><br><select id="dsel">' +
       districtList().map(function (x) { return '<option value="' + x + '"' + (x === d ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select></div></div>' +
-      '<div id="map" class="map" role="region" aria-label="' + esc(t('map.label')) + '"></div><p class="small">' + esc(t('map.note')) + '</p>' +
+      '<div id="map" class="map" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + mapOptionsHtml() + '<p class="small">' + esc(t('map.note')) + '</p>' +
       legendHtml() +
       '<h2>' + esc(t('map.list')) + '</h2><p class="small">' + esc(t('map.list.help')) + '</p><ul class="cards three" id="hl"></ul>';
     wireSearch(); wireChips();
     function show(dist) {
       var f = featureFor(dist), b = f ? featureBounds(f) : null;
-      drawMap($('#map'), { district: dist, hospitals: HOSP, bounds: b });
+      wireMapOptions(drawMap($('#map'), { district: dist, hospitals: HOSP, bounds: b }));
       var list = HOSP.filter(function (h) { return h.lat != null && inDistrictArea(h, dist, 6); });
       var c = b ? [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2] : [34.1, -117.3];
       list.sort(function (a, z) { return miles(c[0], c[1], a.lat, a.lon) - miles(c[0], c[1], z.lat, z.lon); });
@@ -392,12 +517,12 @@
     appEl.innerHTML =
       '<section class="hero"><h1 id="h1" tabindex="-1">' + esc(t('s.h1')) + '</h1><p class="lead">' + esc(t('s.sub')) + '</p>' +
       searchFormHtml('') + tryChips() + '</section>' +
-      '<div id="map" class="map tall" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + legendSimple() +
+      '<div id="map" class="map tall" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + mapOptionsHtml() + legendSimple() +
       '<h2>' + esc(t('s.near.h')) + '</h2><ul class="cards three" id="hl"></ul>' +
       '<details class="why"><summary>' + esc(t('s.why.h')) + '</summary><p>' + esc(t('s.why')) + '</p></details>';
     wireSearch(); wireChips();
     var r = homeList(HOME, 6);
-    drawMap($('#map'), { district: HOME, hospitals: HOSP, bounds: r.bounds });
+    wireMapOptions(drawMap($('#map'), { district: HOME, hospitals: HOSP, bounds: r.bounds }));
     $('#hl').innerHTML = r.list.map(function (h) { return cardHtml(h, null); }).join('');
   }
   function viewHome() { if (pro()) viewHomePro(); else viewHomeSimple(); }
@@ -411,9 +536,9 @@
     appEl.innerHTML =
       '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(t(pro() ? 'near.h' : 'near.s.h', { place: q })) + '</h1>' +
       (pro() ? '<div class="callout caution"><strong>' + esc(t('near.emergency')) + '</strong></div>' : '') + searchFormHtml(params.q || '') +
-      '<div id="map" class="map small" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + (pro() ? legendHtml() : legendSimple()) +
-      '<h2 class="sr">' + esc(t('s.near.h')) + '</h2>' +
-      (near.length ? '<ul class="cards three">' + near.map(function (x) { return cardHtml(x.h, x.d); }).join('') + '</ul>' : '<div class="card empty"><h3>' + esc(t('empty.near.h')) + '</h3><p>' + esc(t('empty.near.p')) + '</p><div class="actions"><a class="btn primary" href="#/">' + esc(t('back.map')) + '</a><a class="btn" href="#/district/' + HOME + '">' + esc(t('nav.district')) + '</a></div></div>') +
+      '<div id="map" class="map small" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + mapOptionsHtml() + (pro() ? legendHtml() : legendSimple()) +
+      '<h2 class="sr">' + esc(t('s.near.h')) + '</h2><p class="small">' + esc(t('route.note')) + '</p>' +
+      (near.length ? '<ul class="cards three">' + near.map(function (x) { return cardHtml(x.h, x.d, { lat: lat, lon: lon }); }).join('') + '</ul>' : '<div class="card empty"><h3>' + esc(t('empty.near.h')) + '</h3><p>' + esc(t('empty.near.p')) + '</p><div class="actions"><a class="btn primary" href="#/">' + esc(t('back.map')) + '</a><a class="btn" href="#/district/' + HOME + '">' + esc(t('nav.district')) + '</a></div></div>') +
       '<h2>' + esc(t(pro() ? 'clinics.h' : 'clinics.s.h')) + '</h2><p class="small">' + esc(t(pro() ? 'clinics.note' : 'clinics.s.note')) + '</p>' +
       (cl.length ? '<ul class="cards three">' + cl.map(function (x) {
         return '<li class="card hc"><h3>' + esc(x.c.name) + '</h3><p class="where">' + esc(x.c.address) + ' &middot; ' + esc(distText(x.d)) + '</p>' +
@@ -425,7 +550,8 @@
     var north = Math.max(lat, near.length ? Math.max.apply(null, pts.slice(0, 3).map(function (h) { return h.lat; })) : lat);
     var west = Math.min(lon, near.length ? Math.min.apply(null, pts.slice(0, 3).map(function (h) { return h.lon; })) : lon);
     var east = Math.max(lon, near.length ? Math.max.apply(null, pts.slice(0, 3).map(function (h) { return h.lon; })) : lon);
-    drawMap($('#map'), { district: null, hospitals: pts, bounds: [south, west, north, east], pin: [lat, lon] });
+    wireMapOptions(drawMap($('#map'), { district: null, hospitals: pts, bounds: [south, west, north, east], pin: [lat, lon] }));
+    wireRoutes({ lat: lat, lon: lon });
   }
 
   /* ---- SVG charts (hand drawn, with a data table beneath) ---- */
@@ -521,8 +647,10 @@
       var list = lm.map(function (m) { return monthLabel(m, true) + ' ' + Math.round(h.months[m].p90_min); }).join(', ');
       out += '<h2>' + esc(t('detail.s.trend')) + '</h2>' + lineChart(h, t('detail.s.alt', { list: list, std: Math.round(last.standard_min) }));
     }
+    if (s.listed) out += '<p class="small" style="margin-top:1rem">' + esc(t('act.protocol')) + '</p>' + composerHtml('cmp');
     out += '<p class="small" style="margin-top:1rem"><a href="' + REPO + '/issues/new?title=' + encodeURIComponent('Data error: ' + h.name) + '" rel="noopener">' + esc(t('detail.report')) + '</a></p>';
     appEl.innerHTML = '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(h.name) + '</h1><p class="small">' + esc(h.city) + '</p>' + out;
+    if (s.listed) wireComposer('cmp', hospitalLetter(h), t('act.subject', { place: h.name }));
     document.title = h.name + ' - OffloadWatch';
   }
 
@@ -543,6 +671,7 @@
         (lm.length ? '<p class="small">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '<p class="small">' + esc(t('card.never', { first: monthLabel(META.months[0]), last: monthLabel(LATEST) })) + '</p>') + '</div>';
     }
     sect += assessHtml(h);
+    if (s.listed) sect += '<div class="callout" style="margin-top:.75rem">' + esc(t('act.protocol')) + '</div>' + composerHtml('cmp');
     if (lm.length) {
       var stdv = last.standard_min;
       sect += '<h2>' + esc(t('detail.trend')) + '</h2>' + lineChart(h, t('detail.trend.alt', { std: Math.round(stdv) })) +
@@ -564,6 +693,7 @@
       '<a class="btn" href="' + REPO + '/issues/new?title=' + encodeURIComponent('Data error: ' + h.name) + '" rel="noopener">' + esc(t('detail.report')) + '</a></p>';
     appEl.innerHTML = '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(h.name) + '</h1>' +
       '<p class="small">' + esc(h.city ? t('detail.city', { city: h.city }) : '') + ' &middot; ' + esc(h.lemsa) + '</p>' + trauma + sect;
+    if (s.listed) wireComposer('cmp', hospitalLetter(h), t('act.subject', { place: h.name }));
     var dl = $('#dl'); if (dl) dl.onclick = function () { downloadCsv('offloadwatch-' + h.id + '.csv', hospCsvRows([h])); };
     document.title = h.name + ' - OffloadWatch';
   }
@@ -576,7 +706,9 @@
       '<h2>' + esc(t('d.s.hospitals')) + '</h2>' +
       (list.length ? '<ul class="cards three">' + list.map(function (h) { return cardHtml(h, null); }).join('') + '</ul>'
         : '<div class="card empty"><h3>' + esc(t('empty.district.h', { d: d })) + '</h3><p>' + esc(t('empty.district.p', { home: HOME })) + '</p></div>') +
+      (list.some(function (h) { return h.months[LATEST]; }) ? composerHtml('cmp') : '') +
       '<p><button type="button" class="lg" id="full">' + icon('report', 20) + ' ' + esc(t('d.s.full')) + '</button></p>';
+    var lt = districtLetter(d, list); if (lt) wireComposer('cmp', lt, t('act.subject', { place: d }));
     $('#full').onclick = function () { setMode('pro'); };
     document.title = d + ' - OffloadWatch';
   }
@@ -606,7 +738,7 @@
       '<button type="button" class="primary" id="pr">' + esc(t('district.print')) + '</button><button type="button" id="dcsv">' + esc(t('district.csv')) + '</button></div>' +
       '<p class="lead">' + esc(t('district.intro', { d: d })) + '</p>' +
       '<div class="grid c2"><div class="card stat-tile"><p class="label">' + esc(t('district.total', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(tot, 1) + '</p><p class="small">' + esc(t('district.total.expl')) + '</p></div>' +
-      '<div class="card"><h2 style="margin-top:0">' + esc(t('whatif.h')) + '</h2><label for="wi" id="wl"></label><br><input type="range" id="wi" min="0" max="100" step="5" value="50"> <output id="wo" for="wi"></output><p id="wr" aria-live="polite"></p></div></div>' +
+      scenarioHtml('scn') + '</div>' +
       '<div style="margin-top:.75rem">' + assessDistrict(d, list, dd) + '</div>' +
       '<h2>' + esc(t('district.table', { d: d })) + '</h2>' +
       (list.length ? '<div class="tablewrap"><table><thead>' + head + '</thead><tbody>' + list.map(rowFor).join('') + '</tbody></table></div>' : '<p>' + esc(t('district.none')) + '</p>') +
@@ -614,36 +746,69 @@
         '<div class="tablewrap chartdata"><table><caption class="sr">' + esc(t('district.trend')) + '</caption><thead><tr><th scope="col">' + esc(t('district.col.month')) + '</th><th scope="col" class="num">' + esc(t('district.col.listed')) + '</th><th scope="col" class="num">' + esc(t('district.col.hours')) + '</th></tr></thead><tbody>' +
         bars.map(function (b) { return '<tr><th scope="row">' + esc(monthLabel(b.m)) + '</th><td class="num">' + b.n + '</td><td class="num">' + num(b.v, 1) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '') +
       (nearby.length ? '<h2>' + esc(t('district.nearby')) + '</h2><p class="small">' + esc(t('district.nearby.expl')) + '</p><div class="tablewrap"><table><thead>' + head + '</thead><tbody>' + nearby.map(rowFor).join('') + '</tbody></table></div>' : '') +
+      (list.some(function (h) { return h.months[LATEST]; }) ? '<div style="margin-top:1rem">' + composerHtml('cmp') + '</div>' : '') +
       '<p class="small" style="margin-top:1rem">' + esc(t('district.source', { first: monthLabel(META.months[0]), last: monthLabel(LATEST), built: builtLabel() })) + '</p><p class="small">' + esc(t('district.limits')) + '</p>';
     $('#dsel').onchange = function () { go('#/district/' + this.value); };
     $('#pr').onclick = function () { window.print(); };
     $('#dcsv').onclick = function () { downloadCsv('offloadwatch-' + d + '.csv', hospCsvRows(list)); };
-    var wi = $('#wi');
-    function upd() {
-      var p = +wi.value;
-      $('#wl').textContent = t('whatif.label', { pct: p });
-      $('#wo').textContent = p + '%';
-      wi.setAttribute('aria-valuetext', p + '%');
-      $('#wr').textContent = t('whatif.result', { h: num(tot * p / 100, 1) });
-    }
-    wi.oninput = upd; upd();
+    wireScenario('scn', latestRows(function (h) { return h.district === d; }), LATEST);
+    var lt2 = districtLetter(d, list); if (lt2) wireComposer('cmp', lt2, t('act.subject', { place: d }));
     document.title = d + ' - ' + t('district.h') + ' - OffloadWatch';
   }
 
-  function viewCompare() {
-    var rows = Object.keys(D.districts).map(function (d) {
+  function viewState() {
+    var tot = ST.months[LATEST] || { hours_min: 0, listed: 0 }, eq = ambEq(tot.hours_min, LATEST);
+    var bars = META.months.map(function (m) { var x = ST.months[m]; return { m: m, v: x ? x.hours_min : 0, n: x ? x.listed : 0 }; });
+    var letter = t('act.letter.state', { month: monthLabel(LATEST), hours: num(tot.hours_min, 0), amb: fmtAmb(eq), n: tot.listed });
+    var subject = t('act.subject', { place: 'California' });
+    if (!pro()) {
+      appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('state.h')) + '</h1>' +
+        '<div class="card stat-tile"><p class="stat">' + num(tot.hours_min, 0) + ' <small>h</small></p><p class="sub">' + esc(t('state.s.cap', { month: monthLabel(LATEST) })) + '</p>' +
+        '<p class="sub"><strong>' + esc(t('state.s.equiv', { n: fmtAmb(eq) })) + '</strong></p><p class="sub">' + esc(t('state.s.listed', { n: tot.listed })) + '</p></div>' +
+        '<h2>' + esc(t('state.trend')) + '</h2>' + barChart(bars, t('state.alt')) +
+        '<p style="margin-top:1rem"><a class="btn lg" href="#/district/' + HOME + '">' + esc(t('state.s.your', { d: HOME })) + '</a></p>' + composerHtml('cmp');
+      wireComposer('cmp', letter, subject);
+      return;
+    }
+    var agencies = Object.keys(ST.lemsas).map(function (n) { var m = ST.lemsas[n].months[LATEST]; return m ? { name: n, listed: m.listed, hours: m.hours_min, longest: m.longest_p90, std: m.standard_min } : null; }).filter(Boolean);
+    var districts = Object.keys(D.districts).map(function (d) {
       var mm = D.districts[d].months[LATEST]; if (!mm) return null;
-      var longest = 0;
-      HOSP.forEach(function (h) { if (h.district === d && h.months[LATEST]) longest = Math.max(longest, h.months[LATEST].p90_min); });
-      return { d: d, n: mm.listed, hours: mm.hours_min, longest: longest };
-    }).filter(Boolean).sort(function (a, b) { return b.hours - a.hours; });
-    appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('compare.h')) + '</h1><p class="lead">' + esc(t('compare.lead')) + '</p>' +
-      '<div class="row"><div><label for="stsel">' + esc(t('compare.state')) + '</label><br><select id="stsel"><option>California</option></select></div></div>' +
-      '<p class="small">' + esc(t('compare.states')) + '</p>' +
-      '<div class="tablewrap"><table><thead><tr><th scope="col">' + esc(t('compare.col.district')) + '</th><th scope="col" class="num">' + esc(t('compare.col.hospitals')) + '</th><th scope="col" class="num">' + esc(t('compare.col.hours', { month: monthLabel(LATEST) })) + '</th><th scope="col" class="num">' + esc(t('compare.col.longest')) + '</th></tr></thead><tbody>' +
-      rows.map(function (r) {
-        return '<tr><th scope="row"><a href="#/district/' + r.d + '" aria-label="' + esc(t('compare.open', { d: r.d })) + '">' + r.d + '</a></th><td class="num">' + r.n + '</td><td class="num">' + num(r.hours, 1) + '</td><td class="num">' + num(r.longest, 1) + '</td></tr>';
-      }).join('') + '</tbody></table></div>';
+      var longest = 0; HOSP.forEach(function (h) { if (h.district === d && h.months[LATEST]) longest = Math.max(longest, h.months[LATEST].p90_min); });
+      return { name: d, listed: mm.listed, hours: mm.hours_min, longest: longest };
+    }).filter(Boolean);
+    appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('state.h')) + '</h1>' +
+      '<div class="grid c3"><div class="card stat-tile"><p class="label">' + esc(t('state.s.cap', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(tot.hours_min, 0) + ' <small>h</small></p></div>' +
+      '<div class="card stat-tile"><p class="label">' + esc(t('state.col.listed')) + '</p><p class="stat">' + tot.listed + '</p></div>' +
+      '<div class="card stat-tile"><p class="label">' + esc(t('eq.label')) + '</p><p class="stat">' + num(eq, 1) + '</p></div></div>' +
+      '<h2>' + esc(t('state.trend')) + '</h2>' + barChart(bars, t('state.alt')) +
+      '<div class="tablewrap chartdata"><table><caption class="sr">' + esc(t('state.trend')) + '</caption><thead><tr><th scope="col">' + esc(t('state.col.month')) + '</th><th scope="col" class="num">' + esc(t('state.col.listed')) + '</th><th scope="col" class="num">' + esc(t('state.col.hours')) + '</th></tr></thead><tbody>' +
+      bars.map(function (b) { return '<tr><th scope="row">' + esc(monthLabel(b.m)) + '</th><td class="num">' + b.n + '</td><td class="num">' + num(b.v, 1) + '</td></tr>'; }).join('') + '</tbody></table></div>' +
+      '<div style="margin-top:1rem">' + scenarioHtml('scn') + '</div>' +
+      '<div class="row"><div><label for="fil">' + esc(t('state.filter')) + '</label><br><input type="search" id="fil"></div><div><label for="srt">' + esc(t('state.sort')) + '</label><br><select id="srt"><option value="hours">' + esc(t('state.sort.hours')) + '</option><option value="name">' + esc(t('state.sort.name')) + '</option></select></div><button type="button" id="acsv">' + esc(t('state.csv')) + '</button></div>' +
+      '<h2>' + esc(t('state.agencies')) + '</h2><p class="small">' + esc(t('state.agencies.note')) + '</p>' +
+      '<div class="tablewrap"><table><caption class="sr">' + esc(t('state.agencies')) + '</caption><thead><tr><th scope="col">' + esc(t('state.col.agency')) + '</th><th scope="col" class="num">' + esc(t('state.col.listed')) + '</th><th scope="col" class="num">' + esc(t('state.col.hours')) + '</th><th scope="col" class="num">' + esc(t('state.col.longest')) + '</th><th scope="col" class="num">' + esc(t('state.col.target')) + '</th></tr></thead><tbody id="atb"></tbody></table></div>' +
+      '<h2>' + esc(t('state.districts')) + '</h2>' +
+      '<div class="tablewrap"><table><caption class="sr">' + esc(t('state.districts')) + '</caption><thead><tr><th scope="col">' + esc(t('compare.col.district')) + '</th><th scope="col" class="num">' + esc(t('state.col.listed')) + '</th><th scope="col" class="num">' + esc(t('state.col.hours')) + '</th><th scope="col" class="num">' + esc(t('state.col.longest')) + '</th></tr></thead><tbody id="dtb"></tbody></table></div>' +
+      '<div style="margin-top:1rem">' + composerHtml('cmp') + '</div><p class="small" style="margin-top:1rem">' + esc(t('compare.states')) + '</p>';
+    function paint() {
+      var q = ($('#fil').value || '').toLowerCase(), by = $('#srt').value;
+      function pick(rows) {
+        var r = rows.filter(function (x) { return x.name.toLowerCase().indexOf(q) !== -1; });
+        r.sort(function (a, b) { return by === 'name' ? a.name.localeCompare(b.name) : b.hours - a.hours; });
+        return r;
+      }
+      var a = pick(agencies), d = pick(districts);
+      $('#atb').innerHTML = a.length ? a.map(function (x) { return '<tr><th scope="row">' + esc(x.name) + '</th><td class="num">' + x.listed + '</td><td class="num">' + num(x.hours, 1) + '</td><td class="num">' + num(x.longest, 1) + '</td><td class="num">' + num(x.std) + '</td></tr>'; }).join('') : '<tr><td colspan="5">' + esc(t('state.none')) + '</td></tr>';
+      $('#dtb').innerHTML = d.length ? d.map(function (x) { return '<tr><th scope="row"><a href="#/district/' + x.name + '" aria-label="' + esc(t('compare.open', { d: x.name })) + '">' + x.name + '</a></th><td class="num">' + x.listed + '</td><td class="num">' + num(x.hours, 1) + '</td><td class="num">' + num(x.longest, 1) + '</td></tr>'; }).join('') : '<tr><td colspan="4">' + esc(t('state.none')) + '</td></tr>';
+    }
+    $('#fil').oninput = paint; $('#srt').onchange = paint; paint();
+    $('#acsv').onclick = function () {
+      var rows = [['ems_agency', 'month', 'hospitals_listed', 'lower_bound_hours', 'longest_p90_min', 'target_min']];
+      agencies.forEach(function (x) { rows.push([x.name, LATEST, x.listed, x.hours, x.longest, x.std]); });
+      downloadCsv('offloadwatch-agencies-' + LATEST + '.csv', rows);
+    };
+    wireScenario('scn', latestRows(), LATEST);
+    wireComposer('cmp', letter, subject);
   }
 
   function viewForecastSimple() {
@@ -754,17 +919,18 @@
   function route(keepScroll) {
     var r = parse();
     if (r.qs.mode === 'pro' || r.qs.mode === 'simple') { mode = r.qs.mode; try { localStorage.setItem('ow-mode', mode); } catch (e) { /* ignore */ } }
-    current.base = (r.name === 'home' || r.name === 'near' || r.name === 'hospital') ? '#/' : '#/' + r.name;
+    current.base = (r.name === 'home' || r.name === 'near' || r.name === 'hospital') ? '#/' : (r.name === 'compare' ? '#/state' : '#/' + r.name);
     chrome();
     destroyMap();
     var title = t('app.title');
-    mainEl.innerHTML = '<p class="datanote">' + (pro() ? esc(t('fresh.short', { month: monthLabel(LATEST) })) + ' <a href="#/methods">' + esc(t('fresh.about')) + '</a>' : esc(t('s.data', { month: monthLabel(LATEST) }))) + '</p>';
+    var endOfLatest = new Date(Date.UTC(+LATEST.split('-')[0], +LATEST.split('-')[1], 1)), stale = (Date.now() - endOfLatest.getTime()) / 86400000 > 45;
+    mainEl.innerHTML = '<p class="datanote">' + (stale ? '<strong>' + esc(pro() ? t('stale.pro', { month: monthLabel(LATEST) }) : t('stale.s')) + '</strong> ' : '') + (pro() ? esc(t('fresh.short', { month: monthLabel(LATEST) })) + ' <a href="#/methods">' + esc(t('fresh.about')) + '</a>' : esc(t('s.data', { month: monthLabel(LATEST) }))) + '</p>';
     appEl = document.createElement('div'); appEl.className = 'view'; mainEl.appendChild(appEl);
     try {
       if (r.name === 'near') viewNear(r.qs);
       else if (r.name === 'hospital') viewHospital(r.arg);
       else if (r.name === 'district') viewDistrict(r.arg);
-      else if (r.name === 'compare') viewCompare();
+      else if (r.name === 'state' || r.name === 'compare') viewState();
       else if (r.name === 'forecast') viewForecast();
       else if (r.name === 'methods') viewMethods();
       else if (r.name === 'about') viewAbout();

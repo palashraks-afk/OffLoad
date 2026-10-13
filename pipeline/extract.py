@@ -23,6 +23,18 @@ ROW = re.compile(
 # Some months abbreviate the agency; map to the full name used elsewhere.
 LEMSA_ALIASES = {"ICEMA": "Inland Counties EMS Agency"}
 
+REGIONAL = {"Central California", "Coastal Valleys", "Sierra-Sacramento Valley", "Inland Counties",
+            "Mountain Counties", "North Coast", "Northern California"}
+
+
+def full_agency(name):
+    """Some months print 'Riverside'; others 'Riverside County EMS Agency'. Use the full form."""
+    name = LEMSA_ALIASES.get(name.strip(), name.strip())
+    if name.endswith("EMS Agency"):
+        return name
+    return name + (" EMS Agency" if name in REGIONAL else " County EMS Agency")
+
+
 # Layout used from the February 2026 data month: no facility ID, columns reordered,
 # seven cells. The count cell can contain a space ("7 04" == 704), so cells are
 # parsed individually instead of via one flattened regex.
@@ -95,7 +107,7 @@ def extract(path):
                     p90 = hms_to_min(d["p90"])
                     rows.append({
                         "month": month,
-                        "lemsa": LEMSA_ALIASES.get(d["lemsa"].strip(), d["lemsa"].strip()),
+                        "lemsa": full_agency(d["lemsa"]),
                         "facility_id": d["fid"],
                         "hospital": d["hospital"].strip(),
                         "offloads": int(d["n"]),

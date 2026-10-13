@@ -11,9 +11,15 @@ Done in code: pipeline, tests, resident / official / analyst screens, English + 
 6. **Test with 3 people** who have not seen it, on a phone and a laptop, in two browsers; record Lighthouse scores.
 7. Enable GitHub Pages (Settings -> Pages -> Source: GitHub Actions).
 
+## Added since the first notes
+- Statewide / by-agency view, scenario tool, letter composer, drive-time routing, map filters, monthly auto-update, out-of-date label. See `docs/IMPACT.md` and `docs/OUTREACH.md`.
+- **Novelty claim**: some counties (San Diego, Orange, Alameda, Sacramento) already publish their own dashboards, so do not say "no dashboard exists". Say what is new: statewide plus by-agency plus by-congressional-district in one plain-language place, with limits stated and a way to act.
+- **Impact claim**: do not say it reduces delays or saves lives. Say it makes a hidden record visible and easy to act on. Get one real reply from an agency, hospital or office; that is your honest evidence.
+- Routing and the letter feature send nothing to us. Routing contacts routing.openstreetmap.de only when tapped.
+
 ## Not built (cut honestly)
 - Georgia / a second state: not parsed yet (the Compare page says so). `data/config/CA.json` documents the source, but the extractor is not config-driven yet, so "add a state by adding one config" is **not** true yet.
-- Drive-time rings, virus/heat overlay, share card (stretch features).
+- Drive-time rings (areas that depend on each hospital), virus/heat overlay (stretch features). Routing to a hospital is built; coverage areas are not.
 - Urgent care: no licensing category exists in the source. The list is federally qualified health centers, with phone numbers but not hours.
 - Outside forecast inputs (virus, heat, air) and month-of-year (not usable with 6 months).
 

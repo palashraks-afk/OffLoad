@@ -147,6 +147,27 @@ def main():
             t["hours_min"] = round(t["hours_min"] + v["hours_min"], 2)
             t["listed"] += 1
 
+    # Statewide and per-agency totals. A hospital can be listed under two agencies in one month
+    # (seen for La Palma), so count each (hospital, month) once.
+    state = {"months": {}, "lemsas": {}}
+    seen = df.sort_values("lower_bound_hours", ascending=False).drop_duplicates(["facility_id", "month"])
+    for r in seen.itertuples():
+        s_m = state["months"].setdefault(r.month, {"hours_min": 0.0, "listed": 0, "offloads": 0})
+        s_m["hours_min"] += r.lower_bound_hours
+        s_m["listed"] += 1
+        s_m["offloads"] += int(r.offloads)
+        l_m = state["lemsas"].setdefault(r.lemsa, {"months": {}})["months"].setdefault(
+            r.month, {"hours_min": 0.0, "listed": 0, "longest_p90": 0.0, "standard_min": r.standard_min})
+        l_m["hours_min"] += r.lower_bound_hours
+        l_m["listed"] += 1
+        l_m["longest_p90"] = max(l_m["longest_p90"], r.p90_min)
+    for s_m in state["months"].values():
+        s_m["hours_min"] = round(s_m["hours_min"], 1)
+    for l in state["lemsas"].values():
+        for l_m in l["months"].values():
+            l_m["hours_min"] = round(l_m["hours_min"], 1)
+            l_m["longest_p90"] = round(l_m["longest_p90"], 1)
+
     meta = {
         "months": months, "latest_month": latest, "state": "CA",
         "generated_from": sorted({r for r in df.source_file}),
@@ -156,7 +177,8 @@ def main():
         "built": date.today().isoformat(),
     }
     payload = {"hospitals": hlist, "districts": dist, "meta": meta, "clinics": clinics(find)}
-    for name in ("hospitals", "districts", "meta", "clinics"):
+    payload["state"] = state
+    for name in ("hospitals", "districts", "meta", "clinics", "state"):
         text = json.dumps(payload[name], separators=(",", ":"))
         (OUT / f"{name}.json").write_text(text, encoding="utf-8")
         (SITE / f"{name}.json").write_text(text, encoding="utf-8")
