@@ -21,6 +21,15 @@
     else if ((navigator.language || '').toLowerCase().indexOf('es') === 0) lang = 'es';
   } catch (e) { /* storage may be blocked */ }
 
+  var mode = 'simple';
+  try { if (localStorage.getItem('ow-mode') === 'pro') mode = 'pro'; } catch (e) { /* storage may be blocked */ }
+  function pro() { return mode === 'pro'; }
+  function setMode(m) {
+    mode = m;
+    try { localStorage.setItem('ow-mode', m); } catch (e) { /* ignore */ }
+    chrome(); route(true);
+  }
+
   function raw(key) {
     var v = D.i18n[lang][key];
     return v === undefined ? D.i18n.en[key] : v;
@@ -108,28 +117,57 @@
   }
 
   /* ---------- page chrome ---------- */
-  var ROUTES = [['#/', 'nav.map'], ['#/district/' + HOME, 'nav.district'], ['#/compare', 'nav.compare'], ['#/forecast', 'nav.forecast'], ['#/methods', 'nav.methods'], ['#/about', 'nav.about']];
   var current = { base: '#/' };
+  var ICON = {
+    home: 'M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
+    report: 'M7 3h8l4 4v14H7z M15 3v4h4 M10 12h6 M10 16h6',
+    compare: 'M5 20V10 M12 20V4 M19 20v-7',
+    outlook: 'M3 17l6-6 4 4 8-8 M15 7h6v6',
+    data: 'M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6 M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6',
+    about: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 11v5 M12 8h.01',
+    pin: 'M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z'
+  };
+  function icon(name, size) {
+    return '<svg width="' + (size || 24) + '" height="' + (size || 24) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + ICON[name] + '"/></svg>';
+  }
+  function navItems() {
+    var items = [['#/', 'tab.home', 'home'], ['#/district/' + HOME, 'tab.report', 'report']];
+    if (pro()) items.push(['#/compare', 'tab.compare', 'compare']);
+    items.push(['#/forecast', 'tab.outlook', 'outlook']);
+    items.push(pro() ? ['#/methods', 'tab.data', 'data'] : ['#/about', 'tab.about', 'about']);
+    return items;
+  }
+  function isOn(href) { return current.base === (href === '#/' ? '#/' : href.split('/').slice(0, 2).join('/')); }
 
   function chrome() {
     document.documentElement.lang = lang;
+    document.body.setAttribute('data-mode', mode);
     $('#skip').textContent = t('skip');
     $('#e911').setAttribute('aria-label', t('e911.label'));
     $('#e911').innerHTML = '<strong>' + esc(t('e911.title')) + '</strong> <span>' + esc(t('e911.body')) + '</span>';
-    var nav = ROUTES.map(function (r) {
-      var on = current.base === r[0].split('/').slice(0, 2).join('/') || (r[0] === '#/' && current.base === '#/') || (r[0].indexOf('#/district') === 0 && current.base === '#/district');
-      return '<li><a href="' + r[0] + '"' + (on ? ' aria-current="page"' : '') + '>' + esc(t(r[1])) + '</a></li>';
+    var items = navItems();
+    var nav = items.map(function (r) {
+      return '<li><a href="' + r[0] + '"' + (isOn(r[0]) ? ' aria-current="page"' : '') + '>' + esc(t(r[1])) + '</a></li>';
     }).join('');
     $('#top').innerHTML = '<div class="top-in">' +
       '<a class="brand" href="#/"><svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M16 8v16M8 16h16" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>' + esc(t('app.title')) + '</a>' +
-      '<nav aria-label="' + esc(t('nav.label')) + '"><ul>' + nav + '</ul></nav>' +
-      '<button type="button" class="langbtn" id="lang" lang="' + (lang === 'en' ? 'es' : 'en') + '" aria-label="' + esc(t('lang.toggle.label')) + '">' + esc(t('lang.toggle')) + '</button></div>';
+      '<nav class="desknav" aria-label="' + esc(t('nav.label')) + '"><ul>' + nav + '</ul></nav>' +
+      '<button type="button" id="mode" class="switch" role="switch" aria-checked="' + (pro() ? 'true' : 'false') + '" aria-label="' + esc(t('mode.aria')) + '"><span class="sw-l">' + esc(t('mode.simple')) + '</span><span class="sw-r">' + esc(t('mode.pro')) + '</span></button>' +
+      '<button type="button" class="langbtn" id="lang" lang="' + (lang === 'en' ? 'es' : 'en') + '" aria-label="' + esc(t('lang.toggle.label')) + '"><span class="ll">' + esc(t('lang.toggle')) + '</span><span class="ls" aria-hidden="true">' + (lang === 'en' ? 'ES' : 'EN') + '</span></button></div>';
+    $('#tabs').setAttribute('aria-label', t('tab.label'));
+    $('#tabs').innerHTML = items.map(function (r) {
+      return '<a href="' + r[0] + '"' + (isOn(r[0]) ? ' aria-current="page"' : '') + '>' + icon(r[2]) + '<span>' + esc(t(r[1])) + '</span></a>';
+    }).join('');
+    $('#mode').onclick = function () { setMode(pro() ? 'simple' : 'pro'); };
     $('#lang').onclick = function () {
       lang = lang === 'en' ? 'es' : 'en';
       try { localStorage.setItem('ow-lang', lang); } catch (e) { /* ignore */ }
       chrome(); route(true);
     };
-    $('#foot').innerHTML = '<p>' + esc(t('info.only')) + '</p><p>' + esc(t('footer.data')) + ' ' + esc(t('fresh.built', { built: builtLabel() })) + ' <a href="' + REPO + '/issues" rel="noopener">' + esc(t('footer.error')) + '</a> &middot; <a href="' + REPO + '" rel="noopener">GitHub</a></p>';
+    var links = ' <a href="#/about">' + esc(t('foot.links')) + '</a> &middot; <a href="#/methods">' + esc(t('foot.data')) + '</a>';
+    $('#foot').innerHTML = pro()
+      ? '<p>' + esc(t('info.only')) + '</p><p>' + esc(t('footer.data')) + ' ' + esc(t('fresh.built', { built: builtLabel() })) + ' <a href="' + REPO + '/issues" rel="noopener">' + esc(t('footer.error')) + '</a> &middot;' + links + ' &middot; <a href="' + REPO + '" rel="noopener">GitHub</a></p>'
+      : '<p>' + esc(t('s.foot')) + links + '</p>';
   }
 
   /* ---------- maps ---------- */
@@ -179,6 +217,12 @@
     else map.setView([34.1, -117.3], 10);
     return map;
   }
+  function legendSimple() {
+    return '<div class="legend-row">' + ['red', 'yellow', 'gray'].map(badge).join('') + '</div>' +
+      '<details><summary>' + esc(t('s.legend.more')) + '</summary><ul class="legend">' + ['red', 'yellow', 'green', 'gray'].map(function (b) {
+        return '<li>' + badge(b) + '<span>' + esc(t('band.' + b + '.desc')) + '</span></li>';
+      }).join('') + '</ul></details>';
+  }
   function legendHtml() {
     return '<h2>' + esc(t('legend.title')) + '</h2><ul class="legend">' + ['red', 'yellow', 'green', 'gray'].map(function (b) {
       return '<li>' + badge(b) + '<span>' + esc(t('band.' + b + '.desc')) + '</span></li>';
@@ -193,15 +237,17 @@
     var std;
     if (s.listed) {
       std = Math.round(s.m.standard_min);
-      body = '<p class="big">' + Math.round(s.m.p90_min) + ' <small>' + esc(t('minutes.unit')) + '</small></p><p class="cap">' + esc(t('card.big.label')) + '</p>' +
-        (s.m.pct_compliant == null ? '<p class="cap">' + esc(t('card.listed.nopct', { month: monthLabel(LATEST), p90: aboutMin(s.m.p90_min), std: std })) + '</p>'
-          : '<div class="meter" role="img" aria-label="' + esc(t('card.meter', { pct: Math.round(s.m.pct_compliant), std: std })) + '"><span style="width:' + Math.max(2, Math.round(s.m.pct_compliant)) + '%"></span></div><p class="cap">' + esc(t('card.meter', { pct: Math.round(s.m.pct_compliant), std: std })) + '</p>') +
-        '<details><summary>' + esc(t('card.exact')) + '</summary><p>' + esc(t('card.exact.body', { mmss: mmss(s.m.p90_min), n: num(s.m.offloads), pct: pctText(s.m.pct_compliant) })) + '</p></details>';
+      var pct = s.m.pct_compliant;
+      body = '<p class="big">' + Math.round(s.m.p90_min) + ' <small>' + esc(t('minutes.unit')) + '</small></p><p class="cap">' + esc(t(pro() ? 'card.big.label' : 'card.s.cap')) + ' &middot; ' + esc(t('card.s.target', { std: std })) + '</p>';
+      if (pct != null) {
+        var label = pro() ? t('card.meter', { pct: Math.round(pct), std: std }) : t('card.s.ontime', { pct: Math.round(pct) });
+        body += '<div class="meter" role="img" aria-label="' + esc(label) + '"><span style="width:' + Math.max(2, Math.round(pct)) + '%"></span></div><p class="cap">' + esc(label) + '</p>';
+      }
+      if (pro()) body += '<details><summary>' + esc(t('card.exact')) + '</summary><p>' + esc(t('card.exact.body', { mmss: mmss(s.m.p90_min), n: num(s.m.offloads), pct: pctText(s.m.pct_compliant) })) + '</p><p>' + esc(t('detail.hours', { month: monthLabel(LATEST) })) + ': ' + num(s.m.hours_min, 1) + '</p></details>';
     } else {
       var lm = listedMonths(h);
-      body = '<p class="cap"><strong>' + esc(t('card.notlisted.short', { month: monthLabel(LATEST) })) + '</strong></p>' +
-        (lm.length ? '<p class="cap">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '') +
-        '<p class="cap">' + esc(t('band.gray.desc')) + '</p>';
+      body = '<p class="cap"><strong>' + esc(t('card.s.none', { month: monthLabel(LATEST) })) + '</strong></p>' +
+        (pro() ? (lm.length ? '<p class="cap">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '') + '<p class="cap">' + esc(t('band.gray.desc')) + '</p>' : '');
     }
     return '<li class="card hc"><h3>' + esc(h.name) + '</h3><p class="where">' + where.join(' &middot; ') + '</p><p>' + badge(s.band) + '</p>' + body +
       '<a class="more" href="#/hospital/' + encodeURIComponent(h.id) + '" aria-label="' + esc(t('card.detail', { name: h.name })) + '">' + esc(t('card.more')) + ' &rarr;</a></li>';
@@ -212,10 +258,11 @@
     return '<option value="">' + esc(t('search.city.none')) + '</option>' + Object.keys(D.places.cities).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('');
   }
   function searchFormHtml(q) {
-    return '<form class="search" id="sf" role="search" novalidate><div class="field"><label for="q">' + esc(t('search.label')) + '</label>' +
+    return '<form class="search" id="sf" role="search" novalidate><div class="field"><label for="q">' + esc(t(pro() ? 'search.label' : 's.search.label')) + '</label>' +
       '<input type="search" id="q" name="q" autocomplete="street-address" placeholder="' + esc(t('search.placeholder')) + '" value="' + esc(q || '') + '"></div>' +
-      '<button class="primary" type="submit">' + esc(t('search.button')) + '</button></form>' +
-      '<div id="msg" role="status" aria-live="polite"></div><p class="small">' + esc(t('search.hint')) + '</p>';
+      '<button class="primary lg" type="submit">' + esc(t(pro() ? 'search.button' : 's.search.btn')) + '</button>' +
+      '<button class="lg" type="button" id="loc">' + icon('pin', 20) + ' ' + esc(t('loc.btn')) + '</button></form>' +
+      '<div id="msg" role="status" aria-live="polite"></div>' + (pro() ? '<p class="small">' + esc(t('search.hint')) + '</p>' : '');
   }
   function tryChips() {
     return '<div class="tryrow"><span>' + esc(t('search.try')) + '</span>' + ['92404', 'San Bernardino', 'Redlands', '92335'].map(function (x) { return '<button type="button" class="chip" data-q="' + x + '">' + x + '</button>'; }).join('') + '</div>';
@@ -227,6 +274,15 @@
     var form = $('#sf'); if (!form) return;
     var msg = $('#msg');
     function say(html) { msg.innerHTML = html; }
+    var lb = $('#loc');
+    if (lb) lb.onclick = function () {
+      if (!navigator.geolocation) { say(esc(t('loc.fail'))); return; }
+      say(esc(t('loc.busy')));
+      navigator.geolocation.getCurrentPosition(function (p) {
+        /* rounded to about 1 km and kept only in this browser; nothing is sent anywhere */
+        go('#/near?lat=' + p.coords.latitude.toFixed(2) + '&lon=' + p.coords.longitude.toFixed(2) + '&q=' + encodeURIComponent(t('loc.place')));
+      }, function () { say(esc(t('loc.fail'))); }, { timeout: 8000, maximumAge: 600000 });
+    };
     function toNear(lat, lon, q) { go('#/near?lat=' + lat.toFixed(5) + '&lon=' + lon.toFixed(5) + '&q=' + encodeURIComponent(q)); }
     form.onsubmit = function (ev) {
       ev.preventDefault();
@@ -294,19 +350,13 @@
     return distToDistrict(h, d) <= padMi;
   }
 
-  function viewHome() {
+  function viewHomePro() {
     var d = HOME, cur = (D.districts[d] || { months: {} }).months[LATEST];
     var worst = null;
     HOSP.forEach(function (h) { if (h.district === d && h.months[LATEST] && (!worst || h.months[LATEST].p90_min > worst.p90_min)) worst = h.months[LATEST]; });
     appEl.innerHTML =
       '<section class="hero"><h1 id="h1" tabindex="-1">' + esc(t('hero.h1')) + '</h1><p class="lead">' + esc(t('hero.sub')) + '</p>' +
       searchFormHtml('') + tryChips() + '</section>' +
-      '<div class="grid c3" style="margin-top:2rem">' +
-      '<a class="card door" href="#/" id="d1"><span class="who">' + esc(t('door.res.who')) + '</span><h2 class="h3">' + esc(t('door.res.h')) + '</h2><p>' + esc(t('door.res.p')) + '</p><span class="go">' + esc(t('door.res.go')) + ' &rarr;</span></a>' +
-      '<a class="card door" href="#/district/' + d + '"><span class="who">' + esc(t('door.off.who')) + '</span><h2 class="h3">' + esc(t('door.off.h')) + '</h2><p>' + esc(t('door.off.p')) + '</p><span class="go">' + esc(t('door.off.go')) + ' &rarr;</span></a>' +
-      '<a class="card door" href="#/forecast"><span class="who">' + esc(t('door.ana.who')) + '</span><h2 class="h3">' + esc(t('door.ana.h')) + '</h2><p>' + esc(t('door.ana.p')) + '</p><span class="go">' + esc(t('door.ana.go')) + ' &rarr;</span></a></div>' +
-      '<div class="grid c2 ps" style="margin-top:1rem"><div class="card"><h2 class="h3">' + esc(t('ps.problem.h')) + '</h2><p>' + esc(t('ps.problem')) + '</p></div>' +
-      '<div class="card"><h2 class="h3">' + esc(t('ps.solution.h')) + '</h2><p>' + esc(t('ps.solution')) + '</p></div></div>' +
       '<h2>' + esc(t('stats.h', { d: d })) + ' <span class="small">&middot; ' + esc(monthLabel(LATEST)) + '</span></h2>' +
       '<div class="grid c3"><div class="card stat-tile"><p class="label">' + esc(t('stat.hospitals')) + '</p><p class="stat">' + (cur ? cur.listed : 0) + '</p><p class="sub">' + esc(t('stat.hospitals.sub', { month: monthLabel(LATEST) })) + '</p></div>' +
       '<div class="card stat-tile"><p class="label">' + esc(t('stat.hours')) + '</p><p class="stat">' + num(cur ? cur.hours_min : 0, 1) + ' <small>h</small></p><p class="sub">' + esc(t('stat.hours.sub', { month: monthLabel(LATEST) })) + '</p></div>' +
@@ -318,7 +368,6 @@
       legendHtml() +
       '<h2>' + esc(t('map.list')) + '</h2><p class="small">' + esc(t('map.list.help')) + '</p><ul class="cards three" id="hl"></ul>';
     wireSearch(); wireChips();
-    $('#d1').onclick = function (ev) { ev.preventDefault(); var q = $('#q'); window.scrollTo(0, 0); q.focus(); };
     function show(dist) {
       var f = featureFor(dist), b = f ? featureBounds(f) : null;
       drawMap($('#map'), { district: dist, hospitals: HOSP, bounds: b });
@@ -332,18 +381,40 @@
     show(d);
   }
 
+  function homeList(dist, limit) {
+    var f = featureFor(dist), b = f ? featureBounds(f) : null;
+    var list = HOSP.filter(function (h) { return h.lat != null && inDistrictArea(h, dist, 6); });
+    var c = b ? [(b[0] + b[2]) / 2, (b[1] + b[3]) / 2] : [34.1, -117.3];
+    list.sort(function (a, z) { return miles(c[0], c[1], a.lat, a.lon) - miles(c[0], c[1], z.lat, z.lon); });
+    return { list: limit ? list.slice(0, limit) : list, bounds: b };
+  }
+  function viewHomeSimple() {
+    appEl.innerHTML =
+      '<section class="hero"><h1 id="h1" tabindex="-1">' + esc(t('s.h1')) + '</h1><p class="lead">' + esc(t('s.sub')) + '</p>' +
+      searchFormHtml('') + tryChips() + '</section>' +
+      '<div id="map" class="map tall" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + legendSimple() +
+      '<h2>' + esc(t('s.near.h')) + '</h2><ul class="cards three" id="hl"></ul>' +
+      '<details class="why"><summary>' + esc(t('s.why.h')) + '</summary><p>' + esc(t('s.why')) + '</p></details>';
+    wireSearch(); wireChips();
+    var r = homeList(HOME, 6);
+    drawMap($('#map'), { district: HOME, hospitals: HOSP, bounds: r.bounds });
+    $('#hl').innerHTML = r.list.map(function (h) { return cardHtml(h, null); }).join('');
+  }
+  function viewHome() { if (pro()) viewHomePro(); else viewHomeSimple(); }
+
   function viewNear(params) {
     var lat = parseFloat(params.lat), lon = parseFloat(params.lon), q = params.q || t('near.here');
     if (isNaN(lat) || isNaN(lon)) { go('#/'); return; }
     var near = HOSP.filter(function (h) { return h.lat != null; }).map(function (h) { return { h: h, d: miles(lat, lon, h.lat, h.lon) }; })
-      .sort(function (a, b) { return a.d - b.d; }).slice(0, 6);
-    var cl = CLINICS.map(function (c) { return { c: c, d: miles(lat, lon, c.lat, c.lon) }; }).sort(function (a, b) { return a.d - b.d; }).slice(0, 5);
+      .sort(function (a, b) { return a.d - b.d; }).slice(0, pro() ? 6 : 4);
+    var cl = CLINICS.map(function (c) { return { c: c, d: miles(lat, lon, c.lat, c.lon) }; }).sort(function (a, b) { return a.d - b.d; }).slice(0, pro() ? 5 : 3);
     appEl.innerHTML =
-      '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(t('near.h', { place: q })) + '</h1>' +
-      '<div class="callout caution"><strong>' + esc(t('near.emergency')) + '</strong></div>' + searchFormHtml(params.q || '') +
-      '<div id="map" class="map small" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + legendHtml() +
+      '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(t(pro() ? 'near.h' : 'near.s.h', { place: q })) + '</h1>' +
+      (pro() ? '<div class="callout caution"><strong>' + esc(t('near.emergency')) + '</strong></div>' : '') + searchFormHtml(params.q || '') +
+      '<div id="map" class="map small" role="region" aria-label="' + esc(t('map.label')) + '"></div>' + (pro() ? legendHtml() : legendSimple()) +
+      '<h2 class="sr">' + esc(t('s.near.h')) + '</h2>' +
       (near.length ? '<ul class="cards three">' + near.map(function (x) { return cardHtml(x.h, x.d); }).join('') + '</ul>' : '<div class="card empty"><h3>' + esc(t('empty.near.h')) + '</h3><p>' + esc(t('empty.near.p')) + '</p><div class="actions"><a class="btn primary" href="#/">' + esc(t('back.map')) + '</a><a class="btn" href="#/district/' + HOME + '">' + esc(t('nav.district')) + '</a></div></div>') +
-      '<h2>' + esc(t('clinics.h')) + '</h2><p class="small">' + esc(t('clinics.note')) + '</p>' +
+      '<h2>' + esc(t(pro() ? 'clinics.h' : 'clinics.s.h')) + '</h2><p class="small">' + esc(t(pro() ? 'clinics.note' : 'clinics.s.note')) + '</p>' +
       (cl.length ? '<ul class="cards three">' + cl.map(function (x) {
         return '<li class="card hc"><h3>' + esc(x.c.name) + '</h3><p class="where">' + esc(x.c.address) + ' &middot; ' + esc(distText(x.d)) + '</p>' +
           (x.c.phone ? '<p>' + esc(t('clinics.call', { phone: x.c.phone })) + '</p>' : '') + '</li>';
@@ -403,9 +474,62 @@
   }
   function persistRate() { return FC.classification.test_base_rate; }
 
+  function dl(rows) {
+    return '<dl class="assess">' + rows.map(function (r) { return '<div><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') + '</dl>';
+  }
+  function assessHtml(h) {
+    var lm = listedMonths(h), rows = [], last = lm.length ? h.months[lm[lm.length - 1]] : null;
+    if (last) {
+      var first = h.months[lm[0]], gap = last.p90_min - last.standard_min;
+      rows.push([t('assess.gap'), t(gap >= 0 ? 'assess.gap.above' : 'assess.gap.below', { n: num(Math.abs(gap), 0) })]);
+      if (lm.length > 1) {
+        var dlt = last.p90_min - first.p90_min, mo = monthLabel(lm[0]);
+        rows.push([t('assess.trend'), Math.abs(dlt) < 1 ? t('assess.trend.flat', { month: mo }) : t(dlt > 0 ? 'assess.trend.up' : 'assess.trend.down', { n: num(Math.abs(dlt), 0), month: mo })]);
+      } else rows.push([t('assess.trend'), t('assess.trend.one')]);
+      rows.push([t('assess.ontime'), last.pct_compliant == null ? t('pct.unknown') : t('assess.ontime.v', { pct: num(last.pct_compliant, 1) })]);
+      rows.push([t('assess.hours'), num(last.hours_min, 1)]);
+      var fi = forecastFor(h.id);
+      rows.push([t('assess.outlook'), fi && fi.status === 'forecast' ? t('assess.outlook.v', { p: Math.round(fi.p_stays_listed * 100) }) : t('assess.outlook.none')]);
+    }
+    rows.push([t('assess.cover'), t('assess.cover.v', { n: lm.length, total: META.months.length })]);
+    return '<div class="card"><h2 class="h3">' + esc(t('assess.h')) + (lm.length ? ' <span class="small">&middot; ' + esc(monthLabel(lm[lm.length - 1])) + '</span>' : '') + '</h2>' + dl(rows) + '</div>';
+  }
+  function assessDistrict(d, list, dd) {
+    var rows = [], cur = dd.months[LATEST];
+    rows.push([t('assess.d.listed'), String(cur ? cur.listed : 0)]);
+    var earlier = META.months.filter(function (m) { return m < LATEST && dd.months[m]; })[0];
+    if (cur && earlier) {
+      var diff = cur.hours_min - dd.months[earlier].hours_min, mo = monthLabel(earlier);
+      rows.push([t('assess.d.trend'), Math.abs(diff) < 0.5 ? t('assess.d.flat', { month: mo }) : t(diff > 0 ? 'assess.d.up' : 'assess.d.down', { n: num(Math.abs(diff), 1), month: mo })]);
+    } else rows.push([t('assess.d.trend'), t('assess.d.none')]);
+    var worst = null;
+    list.forEach(function (h) { var m = h.months[LATEST]; if (m && (!worst || m.over_min > worst.m.over_min)) worst = { h: h, m: m }; });
+    if (worst) rows.push([t('assess.d.worst'), t('assess.d.worst.v', { name: worst.h.name, n: num(worst.m.over_min, 0) })]);
+    return '<div class="card"><h2 class="h3">' + esc(t('assess.h')) + '</h2>' + dl(rows) + '</div>';
+  }
+
+  function viewHospitalSimple(h) {
+    var s = status(h), lm = listedMonths(h), last = lm.length ? h.months[lm[lm.length - 1]] : null, out = '';
+    if (s.listed) {
+      var pct = s.m.pct_compliant, std = Math.round(s.m.standard_min);
+      out += '<div class="card hc"><p>' + badge(s.band) + '</p><p class="big">' + Math.round(s.m.p90_min) + ' <small>' + esc(t('minutes.unit')) + '</small></p><p>' + esc(t('detail.s.sentence', { p90: Math.round(s.m.p90_min), std: std })) + '</p>' +
+        (pct == null ? '' : '<div class="meter" role="img" aria-label="' + esc(t('card.s.ontime', { pct: Math.round(pct) })) + '"><span style="width:' + Math.max(2, Math.round(pct)) + '%"></span></div><p class="cap">' + esc(t('card.s.ontime', { pct: Math.round(pct) })) + '</p>') + '</div>';
+    } else {
+      out += '<div class="card empty"><p>' + badge('gray') + '</p><p>' + esc(t('detail.s.notlisted', { month: monthLabel(LATEST) })) + '</p></div>';
+    }
+    if (last) {
+      var list = lm.map(function (m) { return monthLabel(m, true) + ' ' + Math.round(h.months[m].p90_min); }).join(', ');
+      out += '<h2>' + esc(t('detail.s.trend')) + '</h2>' + lineChart(h, t('detail.s.alt', { list: list, std: Math.round(last.standard_min) }));
+    }
+    out += '<p class="small" style="margin-top:1rem"><a href="' + REPO + '/issues/new?title=' + encodeURIComponent('Data error: ' + h.name) + '" rel="noopener">' + esc(t('detail.report')) + '</a></p>';
+    appEl.innerHTML = '<p class="crumb"><a href="#/">&larr; ' + esc(t('back.map')) + '</a></p><h1 id="h1" tabindex="-1">' + esc(h.name) + '</h1><p class="small">' + esc(h.city) + '</p>' + out;
+    document.title = h.name + ' - OffloadWatch';
+  }
+
   function viewHospital(id) {
     var h = BYID[id];
     if (!h) { appEl.innerHTML = '<p>' + esc(t('detail.notfound')) + '</p><p><a href="#/">' + esc(t('back.map')) + '</a></p>'; return; }
+    if (!pro()) { viewHospitalSimple(h); return; }
     var s = status(h), lm = listedMonths(h), last = lm.length ? h.months[lm[lm.length - 1]] : null;
     var trauma = h.trauma ? '<p class="small">' + esc(t('detail.trauma', { level: h.trauma.replace(/^LEVEL\s+/i, 'Level ') })) + '</p>' : '';
     var sect = '';
@@ -418,6 +542,7 @@
       sect += '<div class="card empty"><p>' + badge('gray') + '</p><p>' + esc(t('detail.notlisted.expl', { month: monthLabel(LATEST) })) + '</p>' +
         (lm.length ? '<p class="small">' + esc(t('card.last', { month: monthLabel(lm[lm.length - 1]) })) + '</p>' : '<p class="small">' + esc(t('card.never', { first: monthLabel(META.months[0]), last: monthLabel(LATEST) })) + '</p>') + '</div>';
     }
+    sect += assessHtml(h);
     if (lm.length) {
       var stdv = last.standard_min;
       sect += '<h2>' + esc(t('detail.trend')) + '</h2>' + lineChart(h, t('detail.trend.alt', { std: Math.round(stdv) })) +
@@ -443,8 +568,22 @@
     document.title = h.name + ' - OffloadWatch';
   }
 
+  function viewDistrictSimple(d) {
+    var list = HOSP.filter(function (h) { return h.district === d; }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+    var dd = D.districts[d] || { months: {} }, tot = dd.months[LATEST] ? dd.months[LATEST].hours_min : 0;
+    appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('d.s.h', { d: d })) + '</h1>' +
+      '<div class="card stat-tile"><p class="stat">' + num(tot, 1) + ' <small>h</small></p><p class="sub">' + esc(t('d.s.cap', { month: monthLabel(LATEST) })) + '</p></div>' +
+      '<h2>' + esc(t('d.s.hospitals')) + '</h2>' +
+      (list.length ? '<ul class="cards three">' + list.map(function (h) { return cardHtml(h, null); }).join('') + '</ul>'
+        : '<div class="card empty"><h3>' + esc(t('empty.district.h', { d: d })) + '</h3><p>' + esc(t('empty.district.p', { home: HOME })) + '</p></div>') +
+      '<p><button type="button" class="lg" id="full">' + icon('report', 20) + ' ' + esc(t('d.s.full')) + '</button></p>';
+    $('#full').onclick = function () { setMode('pro'); };
+    document.title = d + ' - OffloadWatch';
+  }
+
   function viewDistrict(d) {
     d = d || HOME;
+    if (!pro()) { viewDistrictSimple(d); return; }
     var dsel = districtList();
     var list = HOSP.filter(function (h) { return h.district === d; }).sort(function (a, b) { return a.name.localeCompare(b.name); });
     var dd = D.districts[d] || { months: {} };
@@ -468,6 +607,7 @@
       '<p class="lead">' + esc(t('district.intro', { d: d })) + '</p>' +
       '<div class="grid c2"><div class="card stat-tile"><p class="label">' + esc(t('district.total', { month: monthLabel(LATEST) })) + '</p><p class="stat">' + num(tot, 1) + '</p><p class="small">' + esc(t('district.total.expl')) + '</p></div>' +
       '<div class="card"><h2 style="margin-top:0">' + esc(t('whatif.h')) + '</h2><label for="wi" id="wl"></label><br><input type="range" id="wi" min="0" max="100" step="5" value="50"> <output id="wo" for="wi"></output><p id="wr" aria-live="polite"></p></div></div>' +
+      '<div style="margin-top:.75rem">' + assessDistrict(d, list, dd) + '</div>' +
       '<h2>' + esc(t('district.table', { d: d })) + '</h2>' +
       (list.length ? '<div class="tablewrap"><table><thead>' + head + '</thead><tbody>' + list.map(rowFor).join('') + '</tbody></table></div>' : '<p>' + esc(t('district.none')) + '</p>') +
       (bars.length ? '<h2>' + esc(t('district.trend')) + '</h2>' + barChart(bars, t('district.trend.alt')) +
@@ -506,7 +646,16 @@
       }).join('') + '</tbody></table></div>';
   }
 
+  function viewForecastSimple() {
+    var beats = FC.beats_baseline, yes = beats.classification && beats.regression;
+    appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('out.s.h')) + '</h1>' +
+      '<div class="callout caution"><strong>' + esc(t(yes ? 'out.s.yes' : 'out.s.no')) + '</strong></div><p>' + esc(t('out.s.2')) + '</p>' +
+      '<p><button type="button" class="lg" id="more">' + esc(t('out.s.more')) + '</button></p>';
+    $('#more').onclick = function () { setMode('pro'); };
+  }
+
   function viewForecast() {
+    if (!pro()) { viewForecastSimple(); return; }
     var c = FC.classification, r = FC.regression, beats = FC.beats_baseline;
     var verdict = (beats.classification && beats.regression) ? 'forecast.verdict.yes' : 'forecast.verdict.no';
     var items = FC.forecast.items.filter(function (i) { return i.status === 'forecast' && BYID[i.facility_id]; });
@@ -552,7 +701,15 @@
     };
   }
 
+  function viewMethodsSimple() {
+    appEl.innerHTML = '<div class="prose"><h1 id="h1" tabindex="-1">' + esc(t('how.s.h')) + '</h1><ul>' +
+      raw('methods.short').map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+      '<p><button type="button" class="lg" id="more">' + esc(t('how.s.more')) + '</button></p></div>';
+    $('#more').onclick = function () { setMode('pro'); };
+  }
+
   function viewMethods() {
+    if (!pro()) { viewMethodsSimple(); return; }
     var secs = raw('methods.sections');
     appEl.innerHTML = '<div class="prose"><h1 id="h1" tabindex="-1">' + esc(t('methods.h')) + '</h1>' +
       '<div class="callout"><h2 class="h3">' + esc(t('methods.short.h')) + '</h2><ul>' + raw('methods.short').map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
@@ -564,7 +721,17 @@
       }).join('') + '</ul></div>';
   }
 
+  function viewAboutSimple() {
+    var story = t('about.story');
+    appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('about.s.h')) + '</h1><p class="lead">' + esc(t('about.lead')) + '</p><p>' + esc(t('about.who')) + '</p>' +
+      '<div class="grid c2 ps"><div class="card"><h2 class="h3">' + esc(t('ps.problem.h')) + '</h2><p>' + esc(t('ps.problem')) + '</p></div><div class="card"><h2 class="h3">' + esc(t('ps.solution.h')) + '</h2><p>' + esc(t('ps.solution')) + '</p></div></div>' +
+      (story ? '<h2>' + esc(t('about.story.h')) + '</h2><p>' + esc(story) + '</p>' : '') +
+      (lang === 'es' ? '<p class="callout caution">' + esc(t('about.translation')) + '</p>' : '') +
+      '<p><a href="' + REPO + '" rel="noopener">' + esc(t('about.code')) + '</a></p>';
+  }
+
   function viewAbout() {
+    if (!pro()) { viewAboutSimple(); return; }
     var story = t('about.story');
     appEl.innerHTML = '<h1 id="h1" tabindex="-1">' + esc(t('about.h')) + '</h1><p class="lead">' + esc(t('about.lead')) + '</p><p>' + esc(t('about.who')) + '</p>' +
       '<div class="grid c2 ps"><div class="card"><h2 class="h3">' + esc(t('ps.problem.h')) + '</h2><p>' + esc(t('ps.problem')) + '</p></div><div class="card"><h2 class="h3">' + esc(t('ps.solution.h')) + '</h2><p>' + esc(t('ps.solution')) + '</p></div></div>' +
@@ -586,11 +753,12 @@
   }
   function route(keepScroll) {
     var r = parse();
-    current.base = r.name === 'home' ? '#/' : '#/' + r.name;
+    if (r.qs.mode === 'pro' || r.qs.mode === 'simple') { mode = r.qs.mode; try { localStorage.setItem('ow-mode', mode); } catch (e) { /* ignore */ } }
+    current.base = (r.name === 'home' || r.name === 'near' || r.name === 'hospital') ? '#/' : '#/' + r.name;
     chrome();
     destroyMap();
     var title = t('app.title');
-    mainEl.innerHTML = '<p class="datanote">' + esc(t('fresh.short', { month: monthLabel(LATEST) })) + ' <a href="#/methods">' + esc(t('fresh.about')) + '</a></p>';
+    mainEl.innerHTML = '<p class="datanote">' + (pro() ? esc(t('fresh.short', { month: monthLabel(LATEST) })) + ' <a href="#/methods">' + esc(t('fresh.about')) + '</a>' : esc(t('s.data', { month: monthLabel(LATEST) }))) + '</p>';
     appEl = document.createElement('div'); appEl.className = 'view'; mainEl.appendChild(appEl);
     try {
       if (r.name === 'near') viewNear(r.qs);

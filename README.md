@@ -18,6 +18,10 @@ It is a static site. No server, no accounts, no analytics. Open `site/index.html
 - District membership uses the Census 119th-Congress boundary. **Redlands Community Hospital and Loma Linda University Medical Center are in CA-23, not CA-33.** Only Community Hospital of San Bernardino, St. Bernardine and Arrowhead (not listed in any report) are inside CA-33. The report card lists hospitals within about 6 miles of the boundary separately.
 - Hospital map locations come from the CDPH facility list, matched by name inside the agency's county. Matches that were not clearly the same hospital are left unplaced (see the `unplaced` rows of `data/config/hospital_crosswalk.csv`) rather than guessed.
 
+## Simple and Pro modes
+
+A switch in the header flips between **Simple** (default: few words, big buttons, "Use my location", bottom tab bar on phones) and **Pro** (full tables, exact figures, lower-bound hours, what-if slider, an Assessment block per hospital and district, compare view, methods, downloads). The choice is saved only in the visitor's browser. A link can force a mode, e.g. `#/district/CA-33?mode=pro` (used for the printable report card).
+
 ## Design rules
 
 One typeface (Inter, two weights), one accent color, greys for everything else. Red/amber/green appear only as crowding data colors (always with a shape and a word) and red for the 911 notice. One animation (a short fade when a screen appears, off for reduced-motion). Mobile-first. Every list has a real empty state with a next step.
