@@ -42,7 +42,7 @@
       [esc(SR.d.transit.agency) + " GTFS", t("src.gtfs")], ["Census LODES 2022", t("src.lodes")], ["Census ACS 5-year", t("src.acs")],
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
-    let h = '<p class="tldr">' + t("about.tldr") + '</p><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
+    let h = '<p class="tldr">' + t("about.tldr") + '</p><div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
     h += '<div class="card"><h2>' + t("about.data") + "</h2><table><tbody>" + src.map((s) => "<tr><th>" + s[0] + "</th><td>" + s[1] + "</td></tr>").join("") + "</tbody></table>" +
       '<p class="small">' + t("about.feed", { v: esc(SR.d.transit.agency) }) +
@@ -52,9 +52,41 @@
     h += '<div class="card"><h2>' + t("about.privacy") + "</h2><p>" + t("about.privacy_txt") + "</p></div>";
     h += '<div class="card"><h2>' + t("faq.title") + "</h2>" + [1, 2, 3, 4, 5].map((n) => '<details class="faq"><summary>' + t("faq.q" + n) + "</summary><p>" + t("faq.a" + n) + "</p></details>").join("") + "</div>";
     h += '<div class="card"><h2>' + t("about.origin") + "</h2><p>" + t("about.origin_txt") + "</p></div>";
+    h += '<div class="logo-card"><img src="logo.svg" width="96" height="96" alt="Shift Ready logo"><div><h2>' + t("logo.title") + '</h2><p class="small">' + t("logo.txt") + '</p><div class="row gap wrap"><button type="button" id="logo-copy" class="btn ghost sm">' + t("logo.copy") + '</button><a class="btn ghost sm" href="logo.svg" download>' + t("logo.dl") + "</a></div></div></div>";
     h += '<div class="card"><h2>' + t("about.ai") + "</h2><p>" + t("about.ai_txt") + "</p><p class=\"small\">" + t("about.es_note") + "</p></div>";
     $("#about").innerHTML = h;
     fillFindings();
+    fillNumbers();
+    const lb = $("#logo-copy"); if (lb) lb.onclick = async () => { try { const s = await (await fetch("logo.svg")).text(); await navigator.clipboard.writeText(s); lb.textContent = t("req.copied"); } catch (e) { lb.textContent = "logo.svg"; } };
+  }
+
+  async function fillNumbers() {
+    const box = $("#numbers"), r = SR.d.reach, wd = r.weekday, tr = SR.d.transit;
+    const bit = Planner.DAY_BIT.weekday, trips = tr.trips.filter((x) => x[1] & bit);
+    const lateShare = trips.filter((x) => x[3][x[3].length - 1] >= 22 * 60).length / trips.length;
+    const earlyShare = trips.filter((x) => x[3][0] < 5 * 60).length / trips.length;
+    const noCar = SR.d.tracts.filter((x) => x.in_district).reduce((s, x) => s + x.hh_nocar, 0);
+    const dth = SR.d.deaths || [], dark = dth.filter((d) => d[4]).length;
+    const saf = SR.d.safety ? SR.d.safety.stops : [], nightStops = saf.filter((s) => s[0] > 0).length;
+    const rr = SR.d.risk_report, mrow = rr && rr.rows.find((x) => x.name.startsWith("Road-features")), brow = rr && rr.rows[0];
+    const spark = '<div class="spark" role="img" aria-label="' + t("nums.spark_alt") + '">' + wd.pop_share.map((v, i) => '<i class="' + (i === 23 ? "hi" : "") + '" style="height:' + Math.max(3, v * 100) + '%"></i>').join("") + "</div>";
+    const regs = await SR.getRegions(), rows = [];
+    for (const g of regs) { const x = await SR.getReach(g.id); if (x) rows.push([g.label, x.weekday.pop_share[23], g.id === SR.region]); }
+    const hb = '<div class="hbars">' + rows.map((x) => "<div><span>" + esc(x[0].split(",")[0]) + '</span><span class="bar ' + (x[2] ? "you" : "") + '" style="width:' + Math.max(2, x[1] * 100) + '%"></span><span>' + SR.pct(x[1], 0) + "</span></div>").join("") + "</div>";
+    const N = (big, text, src, extra, cls) => '<div class="num ' + (cls || "") + '"><b>' + big + "</b><p>" + text + "</p>" + (extra || "") + "<small>" + src + "</small></div>";
+    box.innerHTML = '<h2 class="sec">' + t("nums.title") + "</h2>" + '<div class="numgrid">' +
+      N(SR.pct(wd.pop_share[23], 0), t("nums.n1", { c: SR.cfg.short }), t("nums.s_sched"), spark, "wide2") +
+      N(SR.pct(wd.pop_share[1], 0), t("nums.n2"), t("nums.s_sched")) +
+      N(SR.pct(lateShare, 0), t("nums.n3"), t("nums.s_gtfs")) +
+      N(SR.pct(earlyShare, 1), t("nums.n4"), t("nums.s_gtfs")) +
+      N(SR.num(noCar), t("nums.n5", { c: SR.cfg.short, p: SR.pct(r.hh_nocar_share, 1) }), "Census ACS") +
+      N(SR.pct(r.bus_commute_share, 1), t("nums.n6"), "Census ACS") +
+      N(SR.num(r.district_trans_jobs), t("nums.n7", { c: SR.cfg.short, p: SR.pct(wd.trans_jobs_share_district[23], 0) }), "Census LODES 2022") +
+      (dth.length ? N(SR.num(dth.length), t("nums.n8", { d: SR.pct(dark / dth.length, 0) }), "NHTSA FARS 2019–2023") : "") +
+      (saf.length ? N(SR.pct(nightStops / saf.length, 0), t("nums.n9", { a: SR.num(nightStops), b: SR.num(saf.length) }), "NHTSA FARS + schedule") : "") +
+      (rows.length > 1 ? N(SR.pct(wd.pop_share[23], 0), t("nums.n10"), t("nums.s_sched"), hb, "wide2") : "") +
+      (mrow ? N(SR.pct(mrow.cap20, 0), t("nums.n11", { b: SR.pct(brow.cap20, 0), n: rr.n_test_deaths }), "NHTSA FARS + OpenStreetMap") : "") +
+      "</div>";
   }
 
   async function fillFindings() {
@@ -96,6 +128,7 @@
     SR.initCity();
     SR.initReach();
     renderAbout();
+    SR.paintArt();
     const g = $("#gaps");
     if (g && !g.querySelector("#gaps-req")) {
       const b = document.createElement("button");

@@ -10,7 +10,7 @@
 <link rel="preload" href="vendor/fonts/source-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1f4fd8">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%231f4fd8%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%276%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273%27/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,7 +18,7 @@
 <noscript><p style="padding:16px">Shift Ready needs JavaScript. / Shift Ready necesita JavaScript.</p></noscript>
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <header class="top">
-  <div class="brand"><span class="logo" aria-hidden="true"></span><span class="name">Shift Ready</span></div>
+  <a class="brand" href="./" aria-label="Shift Ready"><svg class="mark" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect width="64" height="64" rx="14" fill="currentColor"/><path d="M17 47C36 47 36 33 32 32 28 31 28 17 47 17" fill="none" stroke="var(--bg)" stroke-width="4.5" stroke-linecap="round"/><circle cx="17" cy="47" r="5.2" fill="currentColor" stroke="var(--bg)" stroke-width="3.4"/><circle cx="47" cy="17" r="5.2" fill="currentColor" stroke="var(--bg)" stroke-width="3.4"/><circle cx="17" cy="17" r="8.5" fill="var(--bg)"/><circle cx="21.2" cy="14" r="7.6" fill="currentColor"/></svg><span class="name">Shift Ready</span></a>
   <div class="top-actions">
     <select id="region" class="chip" hidden aria-label="Region" style="max-width:150px;font-size:.85rem"></select>
     <button id="lang" class="chip" type="button" aria-label="Español / English">ES</button>
@@ -31,7 +31,6 @@
   <!-- PLAN -->
   <section id="tab-plan" class="tab" aria-labelledby="h-plan">
     <h1 id="h-plan" data-i18n="plan.title">Can you get there without a car?</h1>
-    <p class="lead" data-i18n="plan.lead">Tell us where, and when. We check the real bus schedule.</p>
 
     <div class="split">
     <div class="pane-form">
@@ -79,21 +78,21 @@
       <button type="submit" class="btn primary big" data-i18n="plan.go">Find my way</button>
     </form>
     </div>
-    <div class="pane-result"><div id="plan-result" aria-live="polite"><div class="empty" data-i18n="plan.waiting">Your plan appears here.</div></div></div>
+    <div class="pane-result"><div id="plan-result" aria-live="polite"><div class="empty art-empty"><div class="art" data-art="stop"></div><p data-i18n="plan.waiting">Your plan appears here.</p></div></div></div>
     </div>
   </section>
 
   <!-- REACH -->
   <section id="tab-reach" class="tab" hidden aria-labelledby="h-reach">
     <h1 id="h-reach" data-i18n="reach.title">How far can you get by bus?</h1>
-    <p class="lead" data-i18n="reach.lead">Pick a starting point and a time. We count the jobs you can reach, then repeat it at other hours.</p>
+    
     <div class="grid-map">
     <div class="card g-ctl">
       <div class="field">
         <label for="r-from" data-i18n="plan.from">Starting from</label>
         <div class="row"><input id="r-from" type="text" placeholder="Address, ZIP or city" data-i18n-ph="plan.from_ph">
           <button type="button" id="r-loc" class="btn ghost" data-i18n="plan.use_loc">Use my location</button></div>
-        <p class="small" data-i18n="reach.tap">Or tap the map below.</p>
+        <p class="small" data-i18n="reach.tap">Or tap the map.</p>
       </div>
       <div class="row gap wrap">
         <select id="r-day" aria-label="Day" style="width:auto"></select>
@@ -105,38 +104,42 @@
     </div>
     <div class="g-map"><div id="reach-map" role="application" aria-label="Reach map"></div>
     <p id="r-legend" class="small"></p></div>
-    <div class="card g-out" id="r-out" aria-live="polite"><div class="empty" data-i18n="reach.empty">Choose a starting point to see what you can reach.</div></div>
+    <div class="card g-out" id="r-out" aria-live="polite"><div class="empty art-empty"><div class="art" data-art="reach"></div><p data-i18n="reach.empty">Choose a starting point to see what you can reach.</p></div></div>
     </div>
   </section>
 
   <!-- MAP -->
-  <section id="tab-map" class="tab" hidden aria-labelledby="h-map">
-    <h1 id="h-map" data-i18n="map.title">Where the buses stop running</h1>
-    <p class="lead" data-i18n="map.lead">Move the slider to see who has a bus within a 5-minute walk.</p>
-    <div class="grid-map">
-    <div class="card g-ctl">
-      <div class="row gap wrap">
-        <div class="seg small" role="radiogroup" aria-label="Day">
-          <label><input type="radio" name="mday" value="weekday" checked><span data-i18n="day.weekday">Weekday</span></label>
-          <label><input type="radio" name="mday" value="saturday"><span data-i18n="day.saturday">Saturday</span></label>
-          <label><input type="radio" name="mday" value="sunday"><span data-i18n="day.sunday">Sunday</span></label>
+  <section id="tab-map" class="tab tab-map" hidden aria-labelledby="h-map">
+    <h1 id="h-map" class="sr-only" data-i18n="map.title">Where the buses stop running</h1>
+    <div class="map-shell">
+      <div id="map" role="application" aria-label="Map"></div>
+      <form id="m-search-form" class="map-search" role="search">
+        <input id="m-search" type="text" placeholder="Search an address" data-i18n-ph="map.search" aria-label="Search an address">
+        <button type="button" id="m-locate" class="iconbtn" aria-label="My location"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+      </form>
+      <div id="m-toast" class="toast" role="status" hidden></div>
+      <div class="map-panel">
+        <div class="mp-head">
+          <div class="seg small" role="radiogroup" aria-label="Day">
+            <label><input type="radio" name="mday" value="weekday" checked><span data-i18n="day.weekday">Weekday</span></label>
+            <label><input type="radio" name="mday" value="saturday"><span data-i18n="day.saturday">Saturday</span></label>
+            <label><input type="radio" name="mday" value="sunday"><span data-i18n="day.sunday">Sunday</span></label>
+          </div>
+          <output id="hour-label" class="big-num">10 PM</output>
         </div>
-        <output id="hour-label" class="big-num">10 PM</output>
+        <div class="mp-time"><button type="button" id="m-play" class="iconbtn" aria-label="Play"></button>
+          <input id="hour" type="range" min="0" max="23" value="22" aria-label="Hour of day"></div>
+        <div id="map-stats" class="stats"></div>
+        <div id="layers" class="chips layerchips" role="group" aria-label="Layers"></div>
+        <details class="mp-more"><summary data-i18n="map.more">More</summary><div id="health"></div><div id="curve"></div></details>
       </div>
-      <input id="hour" type="range" min="0" max="23" value="22" aria-label="Hour of day">
-      <div id="map-stats" class="stats"></div>
-    </div>
-    <div class="g-map"><div id="map" role="application" aria-label="Map"></div></div>
-    <div class="layers card g-lay" id="layers"></div>
-    <div class="card g-cur"><h2 data-i18n="map.curve">Share of people and jobs near a bus, by hour</h2>
-      <div id="curve"></div></div>
     </div>
   </section>
 
   <!-- CITY / EMPLOYERS -->
   <section id="tab-city" class="tab" hidden aria-labelledby="h-city">
     <h1 id="h-city" data-i18n="city.title">For employers and city staff</h1>
-    <p class="lead" data-i18n="city.lead">Three tools. Every number comes from public data.</p>
+    
 
     <div class="cols">
     <div class="card" id="compare"></div>
@@ -192,6 +195,7 @@
 <script src="js/planner.js"></script>
 <script src="js/data.js"></script>
 <script src="js/geocode.js"></script>
+<script src="js/art.js"></script>
 <script src="js/ui-plan.js"></script>
 <script src="js/ui-map.js"></script>
 <script src="js/ui-reach.js"></script>

@@ -28,12 +28,13 @@
     });
   };
 
+  SR.setReachOrigin = function (p) { origin = p; run(); };
   SR.refreshReach = function () { if (map) map.invalidateSize(); };
 
   SR.initReachMap = function () {
     if (map) { setTimeout(() => map.invalidateSize(), 50); return; }
     map = L.map("reach-map", { preferCanvas: true }).setView(SR.cfg.center || [34.09, -117.3], SR.cfg.zoom || 11);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "© OpenStreetMap contributors" }).addTo(map);
+    SR.addTiles(map);
     L.geoJSON(SR.d.boundary, { style: { color: "#0b3d91", weight: 2.5, fill: false, dashArray: "6 4" } }).addTo(map);
     layer = L.layerGroup().addTo(map);
     map.on("click", (e) => {

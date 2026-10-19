@@ -297,8 +297,8 @@
       h += '<div class="card"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
     }
 
-    h += contextHtml(R) + helpHtml(R);
-    h += '<div class="row gap wrap"><button id="req-open" class="btn primary" type="button">' + t("res.request") + '</button><button id="plan-print" class="btn ghost" type="button">' + t("res.print") + '</button><button id="plan-share" class="btn ghost" type="button">' + t("res.share") + '</button>' + (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + "</button>" : "") + "</div>";
+    h += stripHtml(R) + helpHtml(R);
+    h += '<div class="row gap wrap"><button id="req-open" class="btn primary" type="button">' + t("res.request") + '</button><button id="plan-print" class="btn ghost" type="button">' + t("res.print") + '</button><button id="plan-share" class="btn ghost" type="button">' + t("res.share") + '</button>' + (mn.ok ? '<button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") + (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + "</button>" : "") + "</div>";
     h += '<p class="small pad-top">' + t("res.limits", { agency: SR.cfg.agency }) + "</p>";
     return h;
   }
@@ -335,7 +335,68 @@
     return t("share.txt", { a: R.from.label || "", b: R.to.label || "", l: SR.hm(m.leave), r: SR.hm(m.arrive), buses });
   }
 
+  /** One cell per hour: does the same trip work if you must arrive by (or leave at) that hour? */
+  function stripData(R) {
+    const out = [];
+    for (let h = 4; h <= 23; h++) {
+      const T = h * 60, pm = planMain(R.from, R.to, R.d, R.m, T);
+      let lv = "no";
+      if (pm.plan.ok) {
+        lv = "yes";
+        if (pm.tight || pm.plan.walkM > MAX_WALK_OK || pm.plan.minutes > MAX_TRIP || pm.plan.boardings >= 3) lv = "maybe";
+        if (R.m === "depart" && pm.plan.leave - T > 90) lv = "no";
+        else if (R.m === "depart" && pm.plan.leave - T > 20) lv = "maybe";
+      }
+      out.push({ h, lv });
+    }
+    return out;
+  }
+  const GLYPH = { yes: "●", maybe: "■", no: "◆" };
+  function stripHtml(R) {
+    const cells = stripData(R);
+    return '<div class="card strip"><h2>' + t("strip.title") + '</h2><p class="small">' + t("strip.sub") + '</p><div class="strip-row" role="list">' +
+      cells.map((c) => '<button type="button" role="listitem" class="cell ' + c.lv + (c.h * 60 === R.T ? " now" : "") + '" data-hour="' + c.h + '" aria-label="' + SR.hourLabel(c.h) + ": " + t("strip." + c.lv) + '"><i aria-hidden="true">' + GLYPH[c.lv] + "</i><span>" + SR.hourLabel(c.h).replace(" ", "") + "</span></button>").join("") +
+      '</div><p class="small legend"><span class="cell-key yes">●</span> ' + t("strip.yes") + ' <span class="cell-key maybe">■</span> ' + t("strip.maybe") + ' <span class="cell-key no">◆</span> ' + t("strip.no") + "</p></div>";
+  }
+
+  function nextDate(dayType) {
+    const d = new Date(); d.setHours(0, 0, 0, 0);
+    const ok = (x) => (dayType === "saturday" ? x === 6 : dayType === "sunday" ? x === 0 : x >= 1 && x <= 5);
+    while (!ok(d.getDay())) d.setDate(d.getDate() + 1);
+    return d;
+  }
+  function icsStamp(d, min) {
+    const x = new Date(d.getTime() + Math.round(min) * 60000), z = (n) => String(n).padStart(2, "0");
+    return x.getFullYear() + z(x.getMonth() + 1) + z(x.getDate()) + "T" + z(x.getHours()) + z(x.getMinutes()) + "00";
+  }
+  function downloadCalendar(R) {
+    const m = R.main, d = nextDate(R.d), first = m.legs.find((l) => l.k === "bus");
+    const esc2 = (s) => String(s).replace(/[\\,;]/g, (c) => "\\" + c).replace(/\n/g, "\\n");
+    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Shift Ready//EN", "BEGIN:VEVENT", "UID:" + Date.now() + "@shiftready",
+      "DTSTAMP:" + icsStamp(new Date(), 0), "DTSTART:" + icsStamp(d, m.leave), "DTEND:" + icsStamp(d, m.arrive),
+      "SUMMARY:" + esc2(t("leg.bus", { r: SR.routeName(first.route) }) + " → " + (R.to.label || "")),
+      "DESCRIPTION:" + esc2(shareText(R)), "BEGIN:VALARM", "TRIGGER:-PT15M", "ACTION:DISPLAY", "DESCRIPTION:" + esc2(t("res.leave") + " " + SR.hm(m.leave)), "END:VALARM", "END:VEVENT", "END:VCALENDAR"];
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([lines.join("\r\n")], { type: "text/calendar" })); a.download = "shift-ready-trip.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  function printCard(R) {
+    const row = (l, day) => {
+      const inf = SR.stopInfo(day);
+      return "<tr><td>" + esc(SR.stopName(l.fromStop)) + "</td><td>" + esc(SR.routeName(l.route)) + '</td><td class="num">' + (isFinite(inf.last[l.fromStop]) ? SR.hm(inf.last[l.fromStop]) : "–") + "</td></tr>";
+    };
+    let rows = R.main.legs.filter((l) => l.k === "bus").map((l) => row(l, R.d)).join("");
+    let home = R.home && R.home.ok ? R.home.legs.filter((l) => l.k === "bus").map((l) => row(l, R.homeDay)).join("") : "";
+    SR.printHtml("<h1>" + t("card.title") + "</h1><p>" + esc(R.from.label || "") + " → " + esc(R.to.label || "") + " · " + t("day." + R.d) + "</p><table><thead><tr><th>" + t("card.stop") + "</th><th>" + t("plan.from") + "</th><th>" + t("card.last") + "</th></tr></thead><tbody>" + rows +
+      (home ? '<tr><td colspan="3"><b>' + t("card.home") + "</b></td></tr>" + home : "") + "</tbody></table><p>" + t("res.limits", { agency: SR.cfg.agency }) + "</p>");
+  }
+
   function bindResult(R) {
+    const cal = $("#plan-cal"); if (cal) cal.onclick = () => downloadCalendar(R);
+    const cd = $("#plan-card"); if (cd) cd.onclick = () => printCard(R);
+    document.querySelectorAll(".strip .cell").forEach((b) => {
+      b.onclick = () => { const h = +b.dataset.hour; $("#time").value = String(h).padStart(2, "0") + ":00"; runPlan(); };
+    });
     const o = $("#req-open"); if (o) o.onclick = () => SR.openRequest(R);
     const pm = $("#plan-map"); if (pm) pm.onclick = () => SR.showPlanOnMap(R);
     const sh = $("#plan-share");
