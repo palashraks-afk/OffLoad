@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shift Ready</title>
+<meta name="description" content="Find a bus plan to your shift or appointment, see where service is missing, and send a ready-made request for better service.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1f4fd8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%231f4fd8%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%276%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<noscript><p style="padding:16px">Shift Ready needs JavaScript. / Shift Ready necesita JavaScript.</p></noscript>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<header class="top">
+  <div class="brand"><span class="logo" aria-hidden="true"></span><span class="name">Shift Ready</span></div>
+  <div class="top-actions">
+    <select id="region" class="chip" hidden aria-label="Region" style="max-width:150px;font-size:.85rem"></select>
+    <button id="lang" class="chip" type="button" aria-label="Español / English">ES</button>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- PLAN -->
+  <section id="tab-plan" class="tab" aria-labelledby="h-plan">
+    <h1 id="h-plan" data-i18n="plan.title">Can you get there without a car?</h1>
+    <p class="lead" data-i18n="plan.lead">Tell us where, and when. We check the real bus schedule.</p>
+
+    <div id="hero" class="notice" role="note"></div>
+    <form id="plan-form" class="card" autocomplete="off" novalidate>
+      <div class="field">
+        <label for="from" data-i18n="plan.from">Starting from</label>
+        <div class="row">
+          <input id="from" type="text" inputmode="text" placeholder="Address, ZIP or city" data-i18n-ph="plan.from_ph">
+          <button type="button" id="loc" class="btn ghost" data-i18n="plan.use_loc">Use my location</button>
+        </div>
+        <button type="button" id="pick-from" class="link" data-i18n="plan.pick_map">Or tap the map</button>
+      </div>
+
+      <div class="field">
+        <label for="to" data-i18n="plan.to">Going to</label>
+        <input id="to" type="text" placeholder="Address, ZIP or city" data-i18n-ph="plan.to_ph" list="dest-list">
+        <datalist id="dest-list"></datalist>
+        <div class="row wrap gap">
+          <select id="to-quick" aria-label="Quick pick"></select>
+          <button type="button" id="pick-to" class="link" data-i18n="plan.pick_map">Or tap the map</button>
+        </div>
+      </div>
+
+      <fieldset class="field">
+        <legend data-i18n="plan.when">When?</legend>
+        <div class="seg" role="radiogroup" aria-label="Day">
+          <label><input type="radio" name="day" value="weekday" checked><span data-i18n="day.weekday">Weekday</span></label>
+          <label><input type="radio" name="day" value="saturday"><span data-i18n="day.saturday">Saturday</span></label>
+          <label><input type="radio" name="day" value="sunday"><span data-i18n="day.sunday">Sunday</span></label>
+        </div>
+        <div class="seg" role="radiogroup" aria-label="Time type">
+          <label><input type="radio" name="mode" value="arrive" checked><span data-i18n="plan.arrive_by">Be there by</span></label>
+          <label><input type="radio" name="mode" value="depart"><span data-i18n="plan.leave_at">Leave at</span></label>
+        </div>
+        <div class="row gap wrap">
+          <input id="time" type="time" value="22:00" aria-label="Time">
+          <div class="chips" id="presets"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="want-home" checked>
+          <span data-i18n="plan.home_too">Also check my ride home when I finish at</span></label>
+        <input id="end-time" type="time" value="06:30" aria-label="Shift end time">
+      </fieldset>
+
+      <button type="submit" class="btn primary big" data-i18n="plan.go">Find my way</button>
+    </form>
+
+    <div id="plan-result" aria-live="polite"></div>
+  </section>
+
+  <!-- MAP -->
+  <section id="tab-map" class="tab" hidden aria-labelledby="h-map">
+    <h1 id="h-map" data-i18n="map.title">Where the buses stop running</h1>
+    <p class="lead" data-i18n="map.lead">Move the slider to see who has a bus within a 5-minute walk.</p>
+    <div class="card">
+      <div class="row gap wrap">
+        <div class="seg small" role="radiogroup" aria-label="Day">
+          <label><input type="radio" name="mday" value="weekday" checked><span data-i18n="day.weekday">Weekday</span></label>
+          <label><input type="radio" name="mday" value="saturday"><span data-i18n="day.saturday">Saturday</span></label>
+          <label><input type="radio" name="mday" value="sunday"><span data-i18n="day.sunday">Sunday</span></label>
+        </div>
+        <output id="hour-label" class="big-num">10 PM</output>
+      </div>
+      <input id="hour" type="range" min="0" max="23" value="22" aria-label="Hour of day">
+      <div id="map-stats" class="stats"></div>
+    </div>
+    <div id="map" role="application" aria-label="Map"></div>
+    <div class="layers card" id="layers"></div>
+    <div class="card"><h2 data-i18n="map.curve">Share of people and jobs near a bus, by hour</h2>
+      <div id="curve"></div></div>
+  </section>
+
+  <!-- CITY / EMPLOYERS -->
+  <section id="tab-city" class="tab" hidden aria-labelledby="h-city">
+    <h1 id="h-city" data-i18n="city.title">For employers and city staff</h1>
+    <p class="lead" data-i18n="city.lead">Three tools. Every number comes from public data.</p>
+
+    <div class="card" id="compare"></div>
+    <div class="card" id="gaps"></div>
+    <div class="card" id="whatif"></div>
+    <div class="card" id="fit"></div>
+    <div class="card" id="vanpool"></div>
+    <div class="row gap wrap"><button id="print-brief" class="btn ghost" data-i18n="city.print">Print the one-page brief</button><button id="csv-cov" class="btn ghost" data-i18n="city.csv">Download coverage by hour (CSV)</button></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="tab-about" class="tab" hidden aria-labelledby="h-about">
+    <h1 id="h-about" data-i18n="about.title">How this works, and its limits</h1>
+    <div id="about"></div>
+  </section>
+</main>
+
+<div id="brief" class="print-only" aria-hidden="true"></div>
+
+<dialog id="request-dlg" aria-labelledby="req-title">
+  <form method="dialog" class="dlg">
+    <h2 id="req-title" data-i18n="req.title">Ask for better service</h2>
+    <p class="small" data-i18n="req.note">Edit this, then send it from your own email. Nothing is sent from this app.</p>
+    <label for="req-to" data-i18n="req.to">To</label>
+    <input id="req-to" type="text">
+    <label for="req-subj" data-i18n="req.subj">Subject</label>
+    <input id="req-subj" type="text">
+    <label for="req-body" data-i18n="req.body">Message</label>
+    <textarea id="req-body" rows="12"></textarea>
+    <div class="row gap wrap">
+      <button type="button" id="req-copy" class="btn ghost" data-i18n="req.copy">Copy</button>
+      <a id="req-mail" class="btn primary" href="#" data-i18n="req.mail">Open in email</a>
+      <button value="close" class="btn ghost" data-i18n="req.close">Close</button>
+    </div>
+  </form>
+</dialog>
+
+<nav class="tabbar" aria-label="Main">
+  <button data-tab="plan" aria-current="page"><span class="ico" aria-hidden="true">&#x1F68C;</span><span data-i18n="nav.plan">Plan</span></button>
+  <button data-tab="map"><span class="ico" aria-hidden="true">&#x1F5FA;</span><span data-i18n="nav.map">Map</span></button>
+  <button data-tab="city"><span class="ico" aria-hidden="true">&#x1F3E2;</span><span data-i18n="nav.city">Employers &amp; city</span></button>
+  <button data-tab="about"><span class="ico" aria-hidden="true">&#x2139;</span><span data-i18n="nav.about">About</span></button>
+</nav>
+
+<script src="vendor/leaflet.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/planner.js"></script>
+<script src="js/data.js"></script>
+<script src="js/geocode.js"></script>
+<script src="js/ui-plan.js"></script>
+<script src="js/ui-map.js"></script>
+<script src="js/ui-city.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

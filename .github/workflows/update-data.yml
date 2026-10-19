@@ -3,9 +3,7 @@ name: Update data
 # only if something changed. A failed parse or test never overwrites the published data;
 # it opens an issue instead so a person can look.
 on:
-  schedule:
-    - cron: "0 15 1,10,20 * *"
-  workflow_dispatch:
+  workflow_dispatch:   # scheduled runs turned off: this belongs to the abandoned OffloadWatch project
 permissions:
   contents: write
   issues: write

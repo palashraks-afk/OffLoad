@@ -1,0 +1,29 @@
+{
+  "id": "mia",
+  "name": "Miami (Florida's 24th District)",
+  "short": "FL-24",
+  "agency": "Miami-Dade Transit",
+  "gtfs_url": "https://www.miamidade.gov/transit/googletransit/current/google_transit.zip",
+  "gtfs_dir": "data/raw/gtfs/mia",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "12",
+    "cd": "24"
+  },
+  "state_fips": "12",
+  "county_fips": [
+    "086"
+  ],
+  "lodes_state": "fl",
+  "fars_state": 12,
+  "fars_counties": [
+    86
+  ],
+  "utm": 32617,
+  "center": [
+    25.85,
+    -80.22
+  ],
+  "zoom": 11,
+  "label": "Miami, FL"
+}

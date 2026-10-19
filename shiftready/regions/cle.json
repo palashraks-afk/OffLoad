@@ -1,0 +1,30 @@
+{
+  "id": "cle",
+  "name": "Cleveland (Ohio's 11th District)",
+  "short": "OH-11",
+  "agency": "GCRTA (RTA)",
+  "gtfs_url": "https://www.riderta.com/sites/default/files/gtfs/latest/google_transit.zip",
+  "gtfs_dir": "data/raw/gtfs/cle",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "39",
+    "cd": "11"
+  },
+  "state_fips": "39",
+  "county_fips": [
+    "035"
+  ],
+  "lodes_state": "oh",
+  "fars_state": 39,
+  "fars_counties": [
+    35
+  ],
+  "utm": 32617,
+  "center": [
+    41.49,
+    -81.68
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Cleveland, OH"
+}

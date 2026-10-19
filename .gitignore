@@ -5,3 +5,12 @@ data/raw/geo/cd119/
 data/raw/geo/cd119.zip
 data/raw/geo/zcta/
 data/raw/geo/zcta.zip
+.venv/
+data/raw/lodes/
+data/raw/fars/
+data/raw/osm/
+data/raw/tract/
+data/raw/cd/
+data/raw/gtfs/
+data/processed/od_tract_pairs.csv
+data/processed/ped_bike_deaths_us.csv

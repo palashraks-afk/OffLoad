@@ -1,0 +1,30 @@
+{
+  "id": "ca33",
+  "name": "California's 33rd District",
+  "short": "CA-33",
+  "agency": "Omnitrans",
+  "gtfs_dir": "data/raw/gtfs/omnitrans",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "06",
+    "cd": "33"
+  },
+  "state_fips": "06",
+  "county_fips": [
+    "071"
+  ],
+  "lodes_state": "ca",
+  "fars_state": 6,
+  "fars_counties": [
+    71
+  ],
+  "center": [
+    34.0905,
+    -117.3
+  ],
+  "zoom": 11,
+  "utm": 32611,
+  "gtfs_url": "http://www.omnitrans.org/google/google_transit.zip",
+  "facilities": "cdph_ca",
+  "label": "San Bernardino, CA"
+}
