@@ -21,6 +21,7 @@
     document.documentElement.lang = SR.lang;
     document.querySelectorAll("[data-i18n]").forEach((el) => (el.textContent = t(el.dataset.i18n)));
     document.querySelectorAll("[data-i18n-ph]").forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
+    document.querySelectorAll("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
     $("#lang").textContent = SR.lang === "en" ? "ES" : "EN";
   }
 
@@ -36,13 +37,28 @@
 
   function fmtDate(s) { return s && s.length === 8 ? s.slice(0, 4) + "-" + s.slice(4, 6) + "-" + s.slice(6) : s || ""; }
 
+  /** The broad problem, in one place: who, what the data show, what it costs, what is missing, and what this does about it. */
+  function problemHtml() {
+    const r = SR.d.reach, wd = r.weekday, dth = SR.d.deaths || [], dark = dth.length ? dth.filter((d) => d[4]).length / dth.length : null;
+    const noCar = SR.d.tracts.filter((x) => x.in_district).reduce((s, x) => s + x.hh_nocar, 0);
+    const P = (k, v) => "<div><b>" + t("problem." + k + "_h") + "</b><span>" + t("problem." + k, v) + "</span></div>";
+    return '<div class="problem"><h2>' + t("problem.title") + "</h2><p>" + t("problem.lead", { c: SR.cfg.short, a: SR.pct(wd.pop_share[12], 0), b: SR.pct(wd.pop_share[23], 0), d: SR.pct(wd.pop_share[1], 0) }) + "</p>" +
+      '<div class="pgrid">' +
+      P("who", { j: SR.num(r.district_trans_jobs), c: SR.cfg.short, h: SR.num(noCar), w: SR.pct(r.bus_commute_share, 1) }) +
+      P("data", { a: SR.pct(wd.pop_share[20], 0), b: SR.pct(wd.pop_share[22], 0), c: SR.pct(wd.pop_share[23], 0), s: SR.pct(r.saturday.pop_share[23], 0) }) +
+      P("cost", { k: dark != null ? SR.pct(dark, 0) : "most" }) +
+      P("gap", {}) + "</div></div>" +
+      '<div class="flow"><div><b>' + t("flow.1") + "</b><span>" + t("flow.1s") + "</span></div><div><b>" + t("flow.2") + "</b><span>" + t("flow.2s") + "</span></div>" +
+      "<div><b>" + t("flow.3") + "</b><span>" + t("flow.3s") + "</span></div><div><b>" + t("flow.4") + "</b><span>" + t("flow.4s") + "</span></div></div>";
+  }
+
   function renderAbout() {
     const rr = SR.d.risk_report, r = SR.d.reach;
     const src = [
       [esc(SR.d.transit.agency) + " GTFS", t("src.gtfs")], ["Census LODES 2022", t("src.lodes")], ["Census ACS 5-year", t("src.acs")],
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
-    let h = '<p class="tldr">' + t("about.tldr") + '</p><div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
+    let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
     h += '<div class="card"><h2>' + t("about.data") + "</h2><table><tbody>" + src.map((s) => "<tr><th>" + s[0] + "</th><td>" + s[1] + "</td></tr>").join("") + "</tbody></table>" +
       '<p class="small">' + t("about.feed", { v: esc(SR.d.transit.agency) }) +
@@ -123,7 +139,7 @@
     applyStatic();
     const wd = SR.d.reach.weekday;
     const sens = SR.d.reach.sensitivity_800m;
-    $("#hero").innerHTML = t("plan.hero", { p: SR.pct(wd.pop_share[23], 0), p8: SR.pct(sens ? sens["23"].pop_share : wd.pop_share[23], 0), c: SR.cfg.short, w: SR.pct(wd.trans_jobs_share_district[23], 0) });
+    $("#hero").innerHTML = "<b>" + SR.pct(wd.pop_share[23], 0) + "</b><span>" + t("plan.hero", { c: SR.cfg.short }) + "</span>";
     SR.initPlan();
     SR.initCity();
     SR.initReach();

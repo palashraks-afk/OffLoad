@@ -27,13 +27,23 @@ def service_masks(gtfs):
     return masks
 
 
-def adult_fare(gtfs):
+def fares(gtfs):
+    """Fixed-route fares from the agency's own fare files: adult and senior/disability/Medicare. None if the feed has none."""
     f = gtfs / "fare_products.txt"
     if not f.exists():
         return None
     d = pd.read_csv(f, dtype=str)
-    d = d[d.fare_product_name.str.contains("single", case=False) & (d.rider_category_id == "omni_adult")]
-    return float(d.amount.iloc[0]) if len(d) else None
+    names = {"single": "omni_fr_single", "day": "omni_fr_day", "d7": "omni_fr_7d", "d31": "omni_fr_31d"}
+    out = {}
+    for who, cat in (("adult", "omni_adult"), ("reduced", "omni_sdm")):
+        row = {}
+        for k, pid in names.items():
+            x = d[(d.fare_product_id == pid) & (d.rider_category_id == cat)]
+            if len(x):
+                row[k] = float(x.amount.iloc[0])
+        if row:
+            out[who] = row
+    return out or None
 
 
 def build(rid="ca33"):
@@ -64,7 +74,7 @@ def build(rid="ca33"):
                           t.trip_headsign if isinstance(t.trip_headsign, str) else ""])
     obj = {
         "agency": cfg["agency"],
-        "fare_adult_single": adult_fare(gtfs),
+        "fares": fares(gtfs),
         "stops": [[sinfo.loc[s, "stop_name"], round(float(sinfo.loc[s, "stop_lat"]), 5),
                    round(float(sinfo.loc[s, "stop_lon"]), 5)] for s in stop_ids],
         "routes": [[r.route_short_name, r.route_long_name, "#" + r.route_color if r.route_color else ""]
@@ -77,4 +87,4 @@ def build(rid="ca33"):
 
 if __name__ == "__main__":
     o = build(sys.argv[1] if len(sys.argv) > 1 else "ca33")
-    print(len(o["stops"]), "stops,", len(o["routes"]), "routes,", len(o["trips"]), "trips, fare", o["fare_adult_single"])
+    print(len(o["stops"]), "stops,", len(o["routes"]), "routes,", len(o["trips"]), "trips, fares", o["fares"])

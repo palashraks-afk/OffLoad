@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org; font-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="description" content="Find a bus plan to your shift or appointment, see where service is missing, and send a ready-made request for better service.">
 <link rel="preload" href="vendor/fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="vendor/fonts/source-serif.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1f4fd8">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
@@ -19,6 +18,13 @@
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <header class="top">
   <a class="brand" href="./" aria-label="Shift Ready"><svg class="mark" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect width="64" height="64" rx="14" fill="currentColor"/><path d="M17 47C36 47 36 33 32 32 28 31 28 17 47 17" fill="none" stroke="var(--bg)" stroke-width="4.5" stroke-linecap="round"/><circle cx="17" cy="47" r="5.2" fill="currentColor" stroke="var(--bg)" stroke-width="3.4"/><circle cx="47" cy="17" r="5.2" fill="currentColor" stroke="var(--bg)" stroke-width="3.4"/><circle cx="17" cy="17" r="8.5" fill="var(--bg)"/><circle cx="21.2" cy="14" r="7.6" fill="currentColor"/></svg><span class="name">Shift Ready</span></a>
+  <nav class="tabbar" aria-label="Main">
+  <button data-tab="plan" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21v-4M16 21v-4"/><circle cx="8" cy="14" r=".6"/><circle cx="16" cy="14" r=".6"/></svg></span><span data-i18n="nav.plan">Plan</span></button>
+  <button data-tab="reach"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="10" stroke-dasharray="2 3"/></svg></span><span data-i18n="nav.reach">Reach</span></button>
+  <button data-tab="map"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg></span><span data-i18n="nav.map">Map</span></button>
+  <button data-tab="city"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V9l7-4v16M11 21V12l9 3v6M3 21h18M7 11h1M7 14h1M7 17h1M15 17h1M18 17h1"/></svg></span><span data-i18n="nav.city">Employers</span></button>
+  <button data-tab="about"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></span><span data-i18n="nav.about">About</span></button>
+</nav>
   <div class="top-actions">
     <select id="region" class="chip" hidden aria-label="Region" style="max-width:150px;font-size:.85rem"></select>
     <button id="lang" class="chip" type="button" aria-label="Español / English">ES</button>
@@ -30,55 +36,60 @@
   <div id="boot" class="skel" aria-busy="true" aria-label="Loading"><i></i><i></i><i></i><i></i></div>
   <!-- PLAN -->
   <section id="tab-plan" class="tab" aria-labelledby="h-plan">
-    <h1 id="h-plan" data-i18n="plan.title">Can you get there without a car?</h1>
-
+    <div class="hero-band">
+      <div class="hero-in">
+        <div>
+          <h1 id="h-plan" data-i18n="plan.title">Can you get there by bus?</h1>
+          <p id="hero" class="hero-stat"></p>
+        </div>
+        <div class="art hero-art" data-art="stop" aria-hidden="true"></div>
+      </div>
+    </div>
     <div class="split">
     <div class="pane-form">
-    <aside id="hero" class="notice" aria-label="Key number"></aside>
-    <form id="plan-form" class="card" autocomplete="off" novalidate>
-      <div class="field">
-        <label for="from" data-i18n="plan.from">Starting from</label>
-        <div class="row">
-          <input id="from" type="text" inputmode="text" placeholder="Address, ZIP or city" data-i18n-ph="plan.from_ph">
-          <button type="button" id="loc" class="btn ghost" data-i18n="plan.use_loc">Use my location</button>
+    <div id="saved" class="saved" hidden></div>
+    <form id="plan-form" class="card route-card" autocomplete="off" novalidate>
+      <div class="route-fields">
+        <div class="rf"><span class="rdot from" aria-hidden="true"></span>
+          <input id="from" type="text" placeholder="From: address, ZIP or city" data-i18n-ph="plan.from_ph" aria-label="From">
+          <button type="button" id="loc" class="iconbtn flat" data-i18n-aria="plan.use_loc" aria-label="My location"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+          <button type="button" id="pick-from" class="iconbtn flat" data-i18n-aria="plan.pick_map" aria-label="Pick on map"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></button>
         </div>
-        <button type="button" id="pick-from" class="link" data-i18n="plan.pick_map">Or tap the map</button>
-      </div>
-
-      <div class="field">
-        <label for="to" data-i18n="plan.to">Going to</label>
-        <input id="to" type="text" placeholder="Address, ZIP or city" data-i18n-ph="plan.to_ph" list="dest-list">
-        <datalist id="dest-list"></datalist>
-        <div class="row wrap gap">
-          <select id="to-quick" aria-label="Quick pick"></select>
-          <button type="button" id="pick-to" class="link" data-i18n="plan.pick_map">Or tap the map</button>
+        <button type="button" id="swap" class="iconbtn swap" data-i18n-aria="plan.swap" aria-label="Swap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4v14M4 14l4 4 4-4M16 20V6M12 10l4-4 4 4"/></svg></button>
+        <div class="rf"><span class="rdot to" aria-hidden="true"></span>
+          <input id="to" type="text" placeholder="To: address, ZIP or city" data-i18n-ph="plan.to_ph" list="dest-list" aria-label="To">
+          <datalist id="dest-list"></datalist>
+          <button type="button" id="pick-to" class="iconbtn flat" data-i18n-aria="plan.pick_map" aria-label="Pick on map"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></button>
         </div>
       </div>
+      <select id="to-quick" aria-label="Quick pick"></select>
 
-      <fieldset class="field">
-        <legend data-i18n="plan.when">When?</legend>
+      <fieldset class="field when">
+        <legend class="sr-only" data-i18n="plan.when">When</legend>
         <div class="seg" role="radiogroup" aria-label="Day">
           <label><input type="radio" name="day" value="weekday" checked><span data-i18n="day.weekday">Weekday</span></label>
           <label><input type="radio" name="day" value="saturday"><span data-i18n="day.saturday">Saturday</span></label>
           <label><input type="radio" name="day" value="sunday"><span data-i18n="day.sunday">Sunday</span></label>
         </div>
-        <div class="seg" role="radiogroup" aria-label="Time type">
-          <label><input type="radio" name="mode" value="arrive" checked><span data-i18n="plan.arrive_by">Be there by</span></label>
-          <label><input type="radio" name="mode" value="depart"><span data-i18n="plan.leave_at">Leave at</span></label>
-        </div>
         <div class="row gap wrap">
+          <div class="seg" role="radiogroup" aria-label="Time type">
+            <label><input type="radio" name="mode" value="arrive" checked><span data-i18n="plan.arrive_by">Arrive by</span></label>
+            <label><input type="radio" name="mode" value="depart"><span data-i18n="plan.leave_at">Leave at</span></label>
+          </div>
           <input id="time" type="time" value="22:00" aria-label="Time">
-          <div class="chips" id="presets"></div>
         </div>
-        <label class="check"><input type="checkbox" id="want-home" checked>
-          <span data-i18n="plan.home_too">Also check my ride home when I finish at</span></label>
-        <input id="end-time" type="time" value="06:30" aria-label="Shift end time">
+        <div class="chips" id="presets"></div>
       </fieldset>
 
-      <button type="submit" class="btn primary big" data-i18n="plan.go">Find my way</button>
+      <div class="home-row">
+        <label class="switch"><input type="checkbox" id="want-home" checked><span class="track" aria-hidden="true"></span><span data-i18n="plan.home_too">Check my ride home</span></label>
+        <label class="endt"><span data-i18n="plan.ends">Shift ends</span><input id="end-time" type="time" value="06:30"></label>
+      </div>
+
+      <button type="submit" class="btn primary big" data-i18n="plan.go">Check my trip</button>
     </form>
     </div>
-    <div class="pane-result"><div id="plan-result" aria-live="polite"><div class="empty art-empty"><div class="art" data-art="stop"></div><p data-i18n="plan.waiting">Your plan appears here.</p></div></div></div>
+    <div class="pane-result"><div id="plan-result" aria-live="polite"><div class="empty art-empty"><div class="art" data-art="reach"></div><p data-i18n="plan.waiting">Your trip shows up here.</p></div></div></div>
     </div>
   </section>
 
@@ -182,13 +193,7 @@
   </form>
 </dialog>
 
-<nav class="tabbar" aria-label="Main">
-  <button data-tab="plan" aria-current="page"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21v-4M16 21v-4"/><circle cx="8" cy="14" r=".6"/><circle cx="16" cy="14" r=".6"/></svg></span><span data-i18n="nav.plan">Plan</span></button>
-  <button data-tab="reach"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="10" stroke-dasharray="2 3"/></svg></span><span data-i18n="nav.reach">Reach</span></button>
-  <button data-tab="map"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg></span><span data-i18n="nav.map">Map</span></button>
-  <button data-tab="city"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V9l7-4v16M11 21V12l9 3v6M3 21h18M7 11h1M7 14h1M7 17h1M15 17h1M18 17h1"/></svg></span><span data-i18n="nav.city">Employers</span></button>
-  <button data-tab="about"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></span><span data-i18n="nav.about">About</span></button>
-</nav>
+
 
 <script src="vendor/leaflet.js"></script>
 <script src="js/i18n.js"></script>
