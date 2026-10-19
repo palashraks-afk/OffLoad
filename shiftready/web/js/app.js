@@ -195,6 +195,18 @@
     $("#from").value = keep.from; $("#to").value = keep.to; $("#time").value = keep.time; $("#end-time").value = keep.end;
   };
 
+  /** "Install the app": the browser's own prompt where it exists, a one-line hint on iPhone, nothing once installed. */
+  let deferredInstall = null;
+  function setupInstall() {
+    const box = $("#install"), standalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+    if (standalone) return;
+    window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferredInstall = e; box.hidden = false; $("#install-btn").hidden = false; });
+    window.addEventListener("appinstalled", () => { box.hidden = true; deferredInstall = null; });
+    $("#install-btn").onclick = async () => { if (!deferredInstall) return; deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall = null; box.hidden = true; };
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    if (ios) { box.hidden = false; $("#install-btn").hidden = true; $("#install-ios").hidden = false; }
+  }
+
   async function start() {
     try {
       let l = null;
@@ -222,8 +234,10 @@
     window.addEventListener("resize", () => { SR.refreshMap && SR.refreshMap(); SR.refreshReach && SR.refreshReach(); });
     $("#lang").onclick = () => SR.setLang(SR.lang === "en" ? "es" : "en");
     document.querySelectorAll(".tabbar button").forEach((b) => (b.onclick = () => SR.showTab(b.dataset.tab)));
-    SR.showTab("plan");
+    const want = new URLSearchParams(location.search).get("tab");
+    SR.showTab(["plan", "reach", "map", "city", "about"].includes(want) ? want : "plan");
     SR.autoLocate();
+    setupInstall();
     if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 

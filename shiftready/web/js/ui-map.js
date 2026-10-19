@@ -11,6 +11,7 @@
     play: '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>',
     pause: '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>',
   };
+  let haloArr, dotArr, tractArr, jobArr, halo, dots, tractC, jobC;
   let map, layers = {}, ready = false, pickTarget = null, timer = null, spot = null, jobStops = null, poiStops = null;
 
   const mday = () => document.querySelector("input[name=mday]:checked").value;
@@ -23,10 +24,16 @@
   SR.initMap = function () {
     if (ready) { setTimeout(() => map.invalidateSize(), 50); return; }
     ready = true;
-    map = L.map("map", { zoomControl: false, preferCanvas: true }).setView(SR.cfg.center || [34.09, -117.3], SR.cfg.zoom || 11);
+    map = L.map("map", { zoomControl: false, preferCanvas: true, zoomSnap: 0.25, zoomDelta: 0.5 }).setView(SR.cfg.center || [34.09, -117.3], SR.cfg.zoom || 11);
+    SR._map = map;
     L.control.zoom({ position: "bottomright" }).addTo(map);
     SR.addTiles(map);
-    L.geoJSON(SR.d.boundary, { style: { color: "#0b3d91", weight: 2.5, fill: false, dashArray: "7 5" }, interactive: false }).addTo(map);
+    const bnd = L.geoJSON(SR.d.boundary, { style: { color: "#0b3d91", weight: 2.5, fill: false, dashArray: "7 5" }, interactive: false }).addTo(map);
+    SR.fitDistrict = function () {
+      const wide = window.innerWidth >= 900;
+      map.fitBounds(bnd.getBounds(), { paddingTopLeft: wide ? [430, 70] : [10, 70], paddingBottomRight: [10, 10] });
+    };
+    SR.fitDistrict();
 
     layers.halo = L.layerGroup().addTo(map);
     layers.stops = L.layerGroup().addTo(map);
@@ -56,6 +63,19 @@
         .bindPopup("<b>" + esc(r[1] || t("map.unnamed")) + "</b><br>" + t("map.risk_pct", { n: r[0] }) + (r[2] ? "<br>" + t("map.past_deaths", { n: r[2] }) : "")).addTo(layers.corridors);
     });
 
+    halo = haloArr = []; dots = dotArr = []; tractC = tractArr = []; jobC = jobArr = [];
+    SR.net.stops.forEach((s, i) => {
+      halo[i] = L.circle([s[1], s[2]], { radius: 400, stroke: false, fillColor: "#0b3d91", fillOpacity: 0, interactive: false }).addTo(layers.halo);
+      dots[i] = L.circleMarker([s[1], s[2]], { radius: 1.5, weight: 1, color: "#8a929e", fillColor: "#8a929e", fillOpacity: 0.45 }).bindPopup(() => stopPopup(i, mday())).addTo(layers.stops);
+    });
+    SR.d.tracts.forEach((tr, i) => {
+      tractC[i] = L.circleMarker([tr.lat, tr.lon], { radius: 3 + Math.sqrt(tr.pop) / 14 }).bindPopup(() => tractPopup(tr)).addTo(layers.people);
+    });
+    SR.d.blocks.forEach((b, i) => {
+      if (b[3] < 150) return;
+      const c = { i, on: false, m: L.circleMarker([b[0], b[1]], { radius: 2 + Math.sqrt(b[3]) / 6 }).bindPopup(() => "<b>" + SR.num(b[3]) + " " + t("plan.wh_jobs") + "</b><br>" + (c.on ? "✓ " + t("map.bus_yes") : "✕ " + t("map.bus_no")) + " (" + SR.hourLabel(+$("#hour").value) + ")").addTo(layers.jobs) };
+      jobArr.push(c);
+    });
     layerChips();
     $("#hour").oninput = update;
     document.querySelectorAll("input[name=mday]").forEach((r) => (r.onchange = update));
@@ -86,6 +106,7 @@
       spotReport(e.latlng);
     });
     update();
+    setTimeout(() => { map.invalidateSize(); SR.fitDistrict(); }, 60);
   };
 
   function toast(msg) {
@@ -121,36 +142,34 @@
     $("#hour-label").textContent = SR.hourLabel(h);
     const act = SR.activeStops(day)[h];
 
-    layers.halo.clearLayers(); layers.stops.clearLayers();
+    // The layers are built once; each hour only restyles them (cheap, so "play the day" stays smooth).
     SR.net.stops.forEach((s, i) => {
-      if (act[i]) {
-        L.circle([s[1], s[2]], { radius: 400, stroke: false, fillColor: "#0b3d91", fillOpacity: 0.1, interactive: false }).addTo(layers.halo);
-        L.circleMarker([s[1], s[2]], { radius: 2.6, color: "#0b3d91", weight: 1, fillColor: "#0b3d91", fillOpacity: 1 }).bindPopup(() => stopPopup(i, day)).addTo(layers.stops);
-      } else {
-        L.circleMarker([s[1], s[2]], { radius: 1.6, color: "#8a929e", weight: 1, fillOpacity: 0.5 }).bindPopup(() => stopPopup(i, day)).addTo(layers.stops);
-      }
+      const on = act[i] === 1;
+      halo[i].setStyle({ fillOpacity: on ? 0.16 : 0 });
+      dots[i].setStyle(on ? { color: "#0b3d91", fillColor: "#0b3d91", fillOpacity: 1 } : { color: "#8a929e", fillColor: "#8a929e", fillOpacity: 0.45 });
+      dots[i].setRadius(on ? 2.4 : 1.5);
     });
-    layers.people.clearLayers();
-    SR.d.tracts.forEach((tr) => {
-      const on = tr.cov[day][h] === "1", r = 3 + Math.sqrt(tr.pop) / 14;
-      L.circleMarker([tr.lat, tr.lon], on
-        ? { radius: r, color: "#0b3d91", weight: 1, fillColor: "#0b3d91", fillOpacity: tr.in_district ? 0.75 : 0.35 }
-        : { radius: r, color: "#a3211b", weight: 2, dashArray: "3 3", fillColor: "#ffffff", fillOpacity: tr.in_district ? 0.6 : 0.2 })
-        .bindPopup("<b>" + esc(SR.tractLabel(tr)) + "</b><br>" + SR.num(tr.pop) + " " + t("map.people") + "<br>" +
-          (on ? "✓ " + t("map.bus_yes") : "✕ " + t("map.bus_no")) + " (" + SR.hourLabel(h) + ")").addTo(layers.people);
+    SR.d.tracts.forEach((tr, i) => {
+      const on = tr.cov[day][h] === "1";
+      tractC[i].setStyle(on
+        ? { color: "#0b3d91", weight: 1, dashArray: null, fillColor: "#0b3d91", fillOpacity: tr.in_district ? 0.75 : 0.35 }
+        : { color: "#a3211b", weight: 2, dashArray: "3 3", fillColor: "#ffffff", fillOpacity: tr.in_district ? 0.6 : 0.2 });
     });
-    layers.jobs.clearLayers();
     if (!jobStops) jobStops = SR.d.blocks.map((x) => SR.net.near(x[0], x[1], 400).map((y) => y.s));
-    SR.d.blocks.forEach((b, i) => {
-      if (b[3] < 150) return;
-      const on = jobStops[i].some((s) => act[s]);
-      L.circleMarker([b[0], b[1]], on
-        ? { radius: 2 + Math.sqrt(b[3]) / 6, color: "#0b3d91", weight: 1, fillColor: "#0b3d91", fillOpacity: 0.6 }
-        : { radius: 2 + Math.sqrt(b[3]) / 6, color: "#a3211b", weight: 2, dashArray: "2 2", fillColor: "#fff", fillOpacity: 0.5 })
-        .bindPopup("<b>" + SR.num(b[3]) + " " + t("plan.wh_jobs") + "</b><br>" + (on ? "✓ " + t("map.bus_yes") : "✕ " + t("map.bus_no")) + " (" + SR.hourLabel(h) + ")").addTo(layers.jobs);
+    jobC.forEach((c) => {
+      const on = jobStops[c.i].some((s) => act[s]);
+      c.m.setStyle(on
+        ? { color: "#0b3d91", weight: 1, dashArray: null, fillColor: "#0b3d91", fillOpacity: 0.6 }
+        : { color: "#a3211b", weight: 2, dashArray: "2 2", fillColor: "#ffffff", fillOpacity: 0.5 });
+      c.on = on;
     });
     stats(day, h);
     if (spot) spotReport(spot, true);
+  }
+
+  function tractPopup(tr) {
+    const day = mday(), h = +$("#hour").value, on = tr.cov[day][h] === "1";
+    return "<b>" + esc(SR.tractLabel(tr)) + "</b><br>" + SR.num(tr.pop) + " " + t("map.people") + "<br>" + (on ? "✓ " + t("map.bus_yes") : "✕ " + t("map.bus_no")) + " (" + SR.hourLabel(h) + ")";
   }
 
   function stopPopup(i, day) {

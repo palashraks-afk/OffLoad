@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shift Ready</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shift Ready · The bus stops before the shift ends</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org; font-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
-<meta name="description" content="Find a bus plan to your shift or appointment, see where service is missing, and send a ready-made request for better service.">
+<meta name="description" content="The bus stops before the shift ends. Plan around it, then fix it: check a trip against the real schedule, see where service disappears, and send a ready-made request for more.">
 <link rel="preload" href="vendor/fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1f4fd8">
+<meta name="theme-color" content="#0f1b3d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shift Ready">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
@@ -39,6 +44,7 @@
     <div class="hero-band">
       <div class="hero-in">
         <div>
+          <p class="slogan" data-i18n="brand.slogan">The bus stops before the shift ends. Plan around it. Then fix it.</p>
           <h1 id="h-plan" data-i18n="plan.title">Can you get there by bus?</h1>
           <p id="hero" class="hero-stat"></p>
         </div>
@@ -174,9 +180,11 @@
 </main>
 
 <footer class="site-foot">
+  <p class="foot-slogan" data-i18n="brand.slogan">The bus stops before the shift ends. Plan around it. Then fix it.</p>
   <p data-i18n="foot.a">Built for the 2026 Congressional App Challenge, California's 33rd District. Bus times come from the agency's published schedule; check it before you travel.</p>
   <p><a href="https://github.com/palashraks-afk/OffLoad" data-i18n="foot.code">Code and data steps are public on GitHub</a> · <span data-i18n="foot.wrong">Spotted a wrong time? Check the agency first, then tell whoever sent you this link.</span></p>
 </footer>
+<div id="install" class="install" hidden><button type="button" id="install-btn" class="btn primary sm" data-i18n="install.btn">Install the app</button><span id="install-ios" class="small" data-i18n="install.ios" hidden>On iPhone: tap Share, then Add to Home Screen.</span></div>
 <div id="brief" class="print-only" aria-hidden="true"></div>
 
 <dialog id="request-dlg" aria-labelledby="req-title">

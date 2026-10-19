@@ -1,5 +1,7 @@
 # Shift Ready
 
+**The bus stops before the shift ends. Plan around it. Then fix it.**
+
 A static web app that checks the real bus schedule for a trip (a shift, an appointment), shows where service disappears at night and on weekends, and writes a ready-to-send request for better service. English and Spanish. Works for any region with a public bus schedule; built for California's 33rd District (San Bernardino area), also run on Cleveland (OH-11) and Miami (FL-24).
 
 ## What it does

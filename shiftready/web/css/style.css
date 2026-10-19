@@ -399,3 +399,10 @@ details.fold[open] > summary { margin-bottom: 8px; }
 
 .tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -2px; }
 @media (max-width: 520px) { .empabout .emp-mini div { grid-template-columns: 1fr; gap: 4px; } .hbar i { width: 4px; } th { font-size: .68rem; } }
+
+[hidden] { display: none !important; }
+
+.slogan { margin: 0 0 12px; color: var(--amber); font-weight: 700; font-size: .82rem; letter-spacing: .09em; text-transform: uppercase; max-width: 40ch; line-height: 1.35; }
+.foot-slogan { font-weight: 700; color: var(--ink); }
+
+.install { max-width: var(--wrap); margin: 0 auto; padding: 0 20px 20px; display: flex; gap: 12px; align-items: center; }

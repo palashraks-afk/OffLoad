@@ -3,6 +3,8 @@ window.SR = window.SR || {};
 window.SR.STR = {
 en: {
   skip: "Skip to content",
+  "install.btn": "Install the app", "install.ios": "On iPhone: tap Share, then Add to Home Screen.",
+  "brand.slogan": "The bus stops before the shift ends. Plan around it. Then fix it.", "brand.short": "Plan around it. Then fix it.",
   "kind.Hospital": "Hospital", "kind.Community health center": "Community health center", "kind.Rural health clinic": "Rural health clinic", "kind.Community clinic": "Community clinic", "kind.Dialysis": "Dialysis",
   "nav.plan": "Plan", "nav.map": "Map", "nav.city": "Employers", "nav.about": "About",
   "day.weekday": "Weekday", "day.saturday": "Saturday", "day.sunday": "Sunday",
@@ -163,6 +165,8 @@ en: {
 },
 es: {
   skip: "Saltar al contenido",
+  "install.btn": "Instalar la app", "install.ios": "En iPhone: toca Compartir y luego Añadir a pantalla de inicio.",
+  "brand.slogan": "El autobús se va antes de que termine el turno. Planéalo. Luego arréglalo.", "brand.short": "Planéalo. Luego arréglalo.",
   "kind.Hospital": "Hospital", "kind.Community health center": "Centro de salud comunitario", "kind.Rural health clinic": "Clínica rural", "kind.Community clinic": "Clínica comunitaria", "kind.Dialysis": "Diálisis",
   "nav.plan": "Plan", "nav.map": "Mapa", "nav.city": "Empleadores", "nav.about": "Acerca de",
   "day.weekday": "Entre semana", "day.saturday": "Sábado", "day.sunday": "Domingo",

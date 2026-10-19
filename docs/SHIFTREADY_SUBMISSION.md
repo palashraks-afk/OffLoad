@@ -1,5 +1,8 @@
 # Submission drafts (edit into your own words; keep claims true)
 
+## Slogan
+"The bus stops before the shift ends. Plan around it. Then fix it." (Plan around it = the trip check, reach and map. Fix it = the request letter, employer shift-fit and city brief.)
+
 ## One sentence (the video requires one clear sentence)
 "In my district only 4% of residents live near a bus at 11 PM, compared with 55% in Cleveland and 60% in Miami, so people who work shifts and do not drive cannot get to work or home; my app checks the real schedule and writes the request for better service."
 
