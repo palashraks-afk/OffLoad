@@ -15,7 +15,7 @@ def main():
         f = WEB_DATA / rid / "region.json"
         if f.exists() and (WEB_DATA / rid / "transit.json").exists():
             r = json.loads(f.read_text())
-            out.append({"id": rid, "name": r["name"], "short": r["short"], "label": r["label"]})
+            out.append({"id": rid, "name": r["name"], "short": r["short"], "label": r["label"], "center": r["center"]})
     write_json(WEB_DATA / "regions.json", out)
 
 

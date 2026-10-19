@@ -35,9 +35,15 @@
     layers.corridors = L.layerGroup();
     layers.jobs = L.layerGroup();
     layers.health = L.layerGroup();
+    layers.employers = L.layerGroup();
 
     SR.d.pois.forEach((p) => {
       L.marker([p.lat, p.lon], { title: p.name, keyboard: false }).bindPopup("<b>" + esc(p.name) + "</b><br>" + SR.kind(p.kind) + " · " + esc(p.city)).addTo(layers.health);
+    });
+    ((SR.d.employers && SR.d.employers.employers) || []).forEach((e) => {
+      const ic = L.divIcon({ className: "emp-pin", html: "<i></i>", iconSize: [18, 18] });
+      L.marker([e.lat, e.lon], { icon: ic, title: e.name, keyboard: false }).bindPopup(() => employerPopup(e)).addTo(layers.employers);
+      e._marker = layers.employers.getLayers().slice(-1)[0];
     });
     (SR.d.deaths || []).forEach((d) => {
       if (!d[4]) return;
@@ -54,9 +60,11 @@
     $("#hour").oninput = update;
     document.querySelectorAll("input[name=mday]").forEach((r) => (r.onchange = update));
     $("#m-play").innerHTML = ICON.play;
+    $("#m-back").onclick = () => { $("#m-back").hidden = true; SR.showTab("plan"); };
     $("#m-play").onclick = togglePlay;
     $("#m-locate").onclick = async () => {
-      try { const p = await SR.locate(); map.flyTo([p.lat, p.lon], 14); } catch (e) { toast(t("plan.loc_fail")); }
+      const g = await SR.useMyLocation({ say: (msg, kind) => { if (kind === "warn") toast(msg); } });
+      if (g) { map.flyTo([g.lat, g.lon], 15); spotReport({ lat: g.lat, lng: g.lon }); }
     };
     $("#m-search-form").onsubmit = async (e) => {
       e.preventDefault();
@@ -86,7 +94,7 @@
   }
 
   function layerChips() {
-    const items = [["halo", t("map.l_halo"), true], ["stops", t("map.l_stops"), true], ["people", t("map.l_people"), false],
+    const items = [["halo", t("map.l_halo"), true], ["stops", t("map.l_stops"), true], ["employers", SR.d.employers ? t("map.l_emp") : null, false], ["people", t("map.l_people"), false],
       ["jobs", t("map.l_jobs"), false], ["corridors", SR.d.risk_lines ? t("map.l_corridors") : null, false],
       ["deaths", SR.d.deaths && SR.d.deaths.length ? t("map.l_deaths") : null, false], ["health", SR.d.pois.length ? t("map.l_health") : null, false]].filter((x) => x[1]);
     const box = $("#layers");
@@ -185,6 +193,33 @@
     } else layers.spot.setContent(el);
   }
 
+  function employerPopup(e) {
+    const day = mday(), a = SR.employerAccess(e, day), el = document.createElement("div");
+    const at = (h) => (a.hours[h] ? "●" : "○");
+    el.innerHTML = "<b>" + esc(e.name) + "</b><br><span class=\"small\">" + esc(e.address) + "</span><p>" + t("emp.size", { s: esc(e.size) }) + "</p>" + SR.hourBars(a.hours) +
+      '<p class="small">' + t("emp.times", { a: at(5), b: at(14), c: at(22), d: at(23) }) + "</p>" +
+      "<p>" + (a.first != null ? t("map.first_last", { a: SR.hm(a.first), b: SR.hm(a.last) }) : t("emp.no_walk", { m: a.nearestM || "?" })) + "</p>" +
+      '<div class="row gap wrap"><button type="button" class="btn ghost sm" data-go="to">' + t("emp.plan_to") + '</button><button type="button" class="btn ghost sm" data-go="reach">' + t("spot.reach") + "</button></div>";
+    el.querySelectorAll("[data-go]").forEach((b) => {
+      b.onclick = () => {
+        const p = { lat: e.lat, lon: e.lon, label: e.name };
+        if (b.dataset.go === "to") { SR.coords.to = p; $("#to").value = e.name; SR.showTab("plan"); }
+        else { $("#r-from").value = e.name; SR.setReachOrigin(p); SR.showTab("reach"); }
+      };
+    });
+    return el;
+  }
+
+  /** Jump to an employer on the map (used from the Employers tab). */
+  SR.focusEmployer = function (id) {
+    SR.showTab("map");
+    const e = ((SR.d.employers && SR.d.employers.employers) || []).find((x) => x.id === id); if (!e) return;
+    const chip = document.querySelector('#layers [data-layer="employers"]');
+    if (chip && chip.getAttribute("aria-pressed") !== "true") chip.click();
+    map.flyTo([e.lat, e.lon], 15);
+    setTimeout(() => e._marker && e._marker.openPopup(), 700);
+  };
+
   function healthStats(day, h) {
     if (!SR.d.pois.length) return "";
     if (!poiStops) poiStops = SR.d.pois.map((p) => SR.net.near(p.lat, p.lon, 400).map((x) => x.s));
@@ -251,8 +286,10 @@
     });
     L.polyline([prev, pts[1]], { color: "#6b7686", weight: 3, dashArray: "4 6" }).addTo(layers.plan);
     map.fitBounds(L.latLngBounds(pts.concat([prev])).pad(0.3));
+    $("#m-back").hidden = false;
   };
 
+  SR.flyTo = function (lat, lon, z) { SR.showTab("map"); setTimeout(() => map.flyTo([lat, lon], z || 14), 80); };
   SR.setHour = function (h, day) {
     if (!ready) return;
     $("#hour").value = h;

@@ -8,7 +8,7 @@
   SR.coords = { from: null, to: null };
 
   const FILES = ["transit", "tracts", "reach", "sheds", "blocks", "boundary", "places", "pois"];
-  const OPTIONAL = ["safety", "risk_report", "deaths", "corridors", "risk_lines", "region"];
+  const OPTIONAL = ["safety", "risk_report", "deaths", "corridors", "risk_lines", "region", "employers"];
 
   async function getJSON(path, optional) {
     try {
@@ -126,7 +126,36 @@
     return best;
   };
 
+  /** A name a person would recognise: the neighbourhood plus the nearest bus stop's cross streets. */
+  const shortStop = (s) => s.replace(/\bAvenue\b/g, "Ave").replace(/\bBoulevard\b/g, "Blvd").replace(/\bStreet\b/g, "St").replace(/\s*@\s*/g, " & ");
+  SR._lm = {};
+  SR.landmark = function (tr) {
+    if (SR._lm[tr.id] === undefined) {
+      const n = SR.net.near(tr.lat, tr.lon, 1500)[0];
+      SR._lm[tr.id] = n ? shortStop(SR.stopName(n.s)) : "";
+    }
+    return SR._lm[tr.id];
+  };
   SR.tractLabel = function (t) {
-    return (t.place ? t.place : SR.nearestPlace(t.lat, t.lon)) + " (" + t.id.slice(-6) + ")";
+    const place = t.place ? t.place : SR.nearestPlace(t.lat, t.lon), lm = SR.landmark(t);
+    return place + (lm ? " · " + SR.t("lm.near") + " " + lm : "");
+  };
+
+  /** A 24-block picture of the day: filled where a bus runs within a 5-minute walk. */
+  SR.hourBars = function (hours) {
+    return '<span class="hbar" role="img" aria-label="' + SR.t("hb.alt") + '">' + hours.map((on, h) => '<i class="' + (on ? "on" : "") + '" title="' + SR.hourLabel(h) + '"></i>').join("") + "</span>";
+  };
+
+  /** Bus service at an employer, from the schedule itself: which hours a bus runs within a 5-minute walk, first and last bus. */
+  SR._emp = {};
+  SR.employerAccess = function (e, day) {
+    const key = e.id + day;
+    if (SR._emp[key]) return SR._emp[key];
+    const near = SR.net.near(e.lat, e.lon, 400), act = SR.activeStops(day), inf = SR.stopInfo(day);
+    const hours = Array.from({ length: 24 }, (_, h) => near.some((x) => act[h][x.s]));
+    let first = Infinity, last = -Infinity;
+    near.forEach((x) => { if (inf.first[x.s] < first) first = inf.first[x.s]; if (inf.last[x.s] > last) last = inf.last[x.s]; });
+    const nearest = SR.net.near(e.lat, e.lon, 3000)[0];
+    return (SR._emp[key] = { hours, first: isFinite(first) ? first : null, last: isFinite(last) ? last : null, nearestM: nearest ? Math.round(nearest.d * 1.3) : null, stops: near.length });
   };
 })();

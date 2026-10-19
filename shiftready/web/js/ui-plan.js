@@ -25,9 +25,15 @@
     const sel = $("#to-quick");
     sel.innerHTML = "";
     sel.append(new Option(t("plan.quick"), ""));
+    const emps = (SR.d.employers && SR.d.employers.employers) || [];
+    if (emps.length) {
+      const ge = document.createElement("optgroup"); ge.label = t("plan.employers");
+      emps.slice().sort((a, b) => (b.in_district - a.in_district) || a.name.localeCompare(b.name)).forEach((e) => ge.append(new Option(e.name + " · " + e.city, "emp:" + e.id)));
+      sel.append(ge);
+    }
     const g1 = document.createElement("optgroup"); g1.label = t("plan.jobareas");
     Object.keys(SR.d.sheds).map((id) => SR.tractById[id]).filter(Boolean)
-      .sort((a, b) => b.jobs_trans - a.jobs_trans).slice(0, 20).forEach((tr) => {
+      .sort((a, b) => b.jobs_trans - a.jobs_trans).slice(0, 12).forEach((tr) => {
         g1.append(new Option(SR.tractLabel(tr) + " · " + SR.num(tr.jobs_trans) + " " + t("plan.wh_jobs"), "tract:" + tr.id));
       });
     sel.append(g1);
@@ -42,7 +48,8 @@
     sel.onchange = () => {
       const v = sel.value; if (!v) return;
       let pt;
-      if (v.startsWith("tract:")) { const tr = SR.tractById[v.slice(6)]; pt = { lat: tr.lat, lon: tr.lon, label: SR.tractLabel(tr) }; }
+      if (v.startsWith("emp:")) { const e = emps.find((x) => x.id === v.slice(4)); pt = { lat: e.lat, lon: e.lon, label: e.name }; }
+      else if (v.startsWith("tract:")) { const tr = SR.tractById[v.slice(6)]; pt = { lat: tr.lat, lon: tr.lon, label: SR.tractLabel(tr) }; }
       else { const p = SR.d.pois[+v.slice(4)]; pt = { lat: p.lat, lon: p.lon, label: p.name }; }
       SR.coords.to = pt; $("#to").value = pt.label;
     };
@@ -61,10 +68,7 @@
       wrap.append(b);
     });
 
-    $("#loc").onclick = async () => {
-      try { const p = await SR.locate(); SR.coords.from = p; $("#from").value = t("plan.my_loc"); }
-      catch (e) { $("#plan-result").innerHTML = '<div class="notice">' + t("plan.loc_fail") + "</div>"; }
-    };
+    $("#loc").onclick = () => locateInto();
     $("#pick-from").onclick = () => SR.pickOnMap("from");
     $("#pick-to").onclick = () => SR.pickOnMap("to");
     $("#plan-form").onsubmit = (e) => { e.preventDefault(); runPlan(); };
@@ -107,7 +111,7 @@
       const cell = (lv) => '<span class="vi ' + lv + '"><i aria-hidden="true">' + VI[lv][0] + "</i>" + t(VI[lv][1]) + "</span>";
       return '<div class="week-row"><b>' + t("day." + d) + "</b>" + cell(out) + (home ? cell(home) : "<span></span>") + "</div>";
     }).join("");
-    return '<div class="card"><h2>' + t("week.title") + '</h2><p class="small">' + t("week.sub") + '</p><div class="week">' + rows + "</div></div>";
+    return '<details class="card fold"><summary><h2>' + t("week.title") + '</h2></summary><p class="small">' + t("week.sub") + '</p><div class="week">' + rows + "</div></details>";
   }
 
   // ---------- what the trip costs, from the agency's own fare file ----------------------------------
@@ -116,11 +120,11 @@
     const rides = R.main.boardings * (R.wantHome ? 2 : 1) * 22;   // 22 working days a month
     const pay = rides * F.adult.single;
     const best = Math.min(pay, F.adult.d31);
-    let h = '<div class="card"><h2>' + t("cost.title") + '</h2><div class="kv"><div><b>$' + F.adult.single.toFixed(2) + "</b><span>" + t("cost.single") + "</span></div>" +
+    let h = '<details class="card fold"><summary><h2>' + t("cost.title") + '</h2></summary><div class="kv"><div><b>$' + F.adult.single.toFixed(2) + "</b><span>" + t("cost.single") + "</span></div>" +
       "<div><b>$" + F.adult.d31.toFixed(0) + "</b><span>" + t("cost.d31") + "</span></div><div><b>$" + pay.toFixed(0) + "</b><span>" + t("cost.pay", { n: rides }) + "</span></div></div>";
     h += "<p>" + (F.adult.d31 < pay ? t("cost.save", { s: (pay - F.adult.d31).toFixed(0) }) : t("cost.cheaper")) + "</p>";
     if (F.reduced) h += '<p class="small">' + t("cost.reduced", { a: F.reduced.single.toFixed(2), b: F.reduced.d31.toFixed(0) }) + "</p>";
-    return h + "</div>";
+    return h + "</details>";
   }
 
   // ---------- where you CAN get to by then ----------------------------------------------------------
@@ -138,6 +142,47 @@
     if (!out.length) return "<li>" + t("help.no_areas") + "</li>";
     return "<li>" + t("help.areas", { a: out.slice(0, 3).map((x) => esc(SR.tractLabel(x)) + " (" + SR.num(x.jobs_trans) + ")").join(", ") }) + "</li>";
   }
+
+  function locSay(msg, kind, act) {
+    const el = $("#loc-msg"); el.hidden = !msg; el.className = "loc-msg " + (kind || "");
+    el.textContent = msg || "";
+    if (act) { const b = document.createElement("button"); b.type = "button"; b.className = "link"; b.textContent = t("loc.switch"); b.onclick = act; el.append(" ", b); }
+  }
+  /** Fill From with where the person is. `quiet` = no messages unless it worked (used for the automatic fill). */
+  async function locateInto(quiet) {
+    const btn = $("#loc"); btn.disabled = true;
+    const g = await SR.useMyLocation({ say: (m, k, a) => { if (!quiet || k === "ok") locSay(m, k, a); } });
+    btn.disabled = false;
+    if (g) { SR.coords.from = g; $("#from").value = g.label; $("#from").dispatchEvent(new Event("change")); }
+    return g;
+  }
+  /** One-tap demonstrations built from real places: they fill the form and run it. */
+  SR.renderExamples = function () {
+    const box = $("#examples"); if (!box) return;
+    const emps = (SR.d.employers && SR.d.employers.employers) || [], find = (s) => emps.find((e) => e.name.toLowerCase().includes(s));
+    const city = (n) => { const c = SR.d.places.cities[n]; return c ? { lat: c[0], lon: c[1], label: n } : null; };
+    const list = [
+      { k: "ex.night", from: city("Fontana"), to: find("amazon"), T: "22:00", end: "06:30" },
+      { k: "ex.early", from: city("Rialto"), to: find("arrowhead"), T: "06:00", end: "14:30" },
+      { k: "ex.day", from: city("Highland"), to: find("community hospital"), T: "09:00", end: "11:00" },
+    ].filter((x) => x.from && x.to);
+    box.innerHTML = list.length ? "<h3>" + t("ex.title") + "</h3>" + list.map((x, i) => '<button type="button" class="example" data-i="' + i + '"><b>' + t(x.k) + "</b><span>" + esc(x.from.label) + " → " + esc(x.to.name) + "</span></button>").join("") : "";
+    box.querySelectorAll(".example").forEach((b) => {
+      b.onclick = () => {
+        const x = list[+b.dataset.i];
+        SR.coords.from = x.from; $("#from").value = x.from.label;
+        SR.coords.to = { lat: x.to.lat, lon: x.to.lon, label: x.to.name }; $("#to").value = x.to.name;
+        document.querySelector("input[name=day][value=weekday]").checked = true; document.querySelector("input[name=mode][value=arrive]").checked = true;
+        $("#time").value = x.T; $("#end-time").value = x.end; $("#want-home").checked = true; $(".endt").hidden = false;
+        $("#plan-form").requestSubmit();
+      };
+    });
+  };
+
+  SR.autoLocate = async function () {
+    if ($("#from").value || SR.coords.from || !SR.locationPermission) return;
+    if ((await SR.locationPermission()) === "granted") locateInto(true);   // already allowed: no prompt, no typing
+  };
 
   async function resolve(which) {
     const inp = $(which === "from" ? "#from" : "#to");
@@ -218,6 +263,7 @@
       if (wait > 20) bad("why.wait", { n: Math.round(wait), t: SR.hm(mn.leave) });
     }
     if (R.tight) bad("why.tight", { n: Math.max(0, Math.round(R.slack)) });
+    else if (R.m === "arrive" && R.slack > 90) bad("why.early", { n: Math.round(R.slack) });
     if (mn.walkM > MAX_WALK_OK) bad("why.walk", { m: SR.num(mn.walkM) });
     if (mn.minutes > MAX_TRIP) bad("why.long", { n: Math.round(mn.minutes) });
     if (mn.boardings >= 3) bad("why.transfers", { n: mn.boardings - 1 });
@@ -386,7 +432,7 @@
   function helpHtml(R) {
     if (R.verdict.level === "yes") return "";
     const nt = SR.nearestTract(R.to.lat, R.to.lon, true);
-    let h = '<div class="card"><h2>' + t("help.title") + "</h2><ul>";
+    let h = '<details class="card fold" open><summary><h2>' + t("help.title") + "</h2></summary><ul>";
     h += "<li>" + t("help.shift") + "</li>" + areasHtml(R);
     if (nt && nt.d < 2500) {
       const shed = SR.d.sheds[nt.tract.id];
@@ -394,7 +440,7 @@
       const n = nearHome.reduce((a, b) => a + b[1], 0);
       if (n > 0) h += "<li>" + t("help.carpool", { n: SR.num(n), a: esc(SR.tractLabel(nt.tract)) }) + "</li>";
     }
-    h += "<li>" + t("help.request") + "</li></ul></div>";
+    h += "<li>" + t("help.request") + "</li></ul></details>";
     return h;
   }
 
@@ -424,9 +470,9 @@
   const GLYPH = { yes: "●", maybe: "■", no: "◆" };
   function stripHtml(R) {
     const cells = stripData(R);
-    return '<div class="card strip"><h2>' + t("strip.title") + '</h2><p class="small">' + t("strip.sub") + '</p><div class="strip-row" role="list">' +
+    return '<details class="card fold strip" open><summary><h2>' + t("strip.title") + '</h2></summary><p class="small">' + t("strip.sub") + '</p><div class="strip-row" role="list">' +
       cells.map((c) => '<button type="button" role="listitem" class="cell ' + c.lv + (c.h * 60 === R.T ? " now" : "") + '" data-hour="' + c.h + '" aria-label="' + SR.hourLabel(c.h) + ": " + t("strip." + c.lv) + '"><i aria-hidden="true">' + GLYPH[c.lv] + "</i><span>" + SR.hourLabel(c.h).replace(" ", "") + "</span></button>").join("") +
-      '</div><p class="small legend"><span class="cell-key yes">●</span> ' + t("strip.yes") + ' <span class="cell-key maybe">■</span> ' + t("strip.maybe") + ' <span class="cell-key no">◆</span> ' + t("strip.no") + "</p></div>";
+      '</div><p class="small legend"><span class="cell-key yes">●</span> ' + t("strip.yes") + ' <span class="cell-key maybe">■</span> ' + t("strip.maybe") + ' <span class="cell-key no">◆</span> ' + t("strip.no") + "</p></details>";
   }
 
   function nextDate(dayType) {

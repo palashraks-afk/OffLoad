@@ -12,7 +12,7 @@
   SR.cityState = { gaps: null, whatif: null, fit: null };
 
   SR.initCity = function () {
-    renderCompare(); renderGaps(); renderWhatIf(); renderFit();
+    renderEmployers(); renderCities(); renderCompare(); renderGaps(); renderWhatIf(); renderFit();
     $("#print-brief").onclick = printBrief;
     const csv = $("#csv-cov");
     if (csv) csv.onclick = downloadCoverage;
@@ -25,6 +25,55 @@
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = "shiftready_" + SR.region + "_coverage_by_hour.csv";
     document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  // ---------------------------------------------------------------- employers
+  const EMP_HOURS = [5, 14, 22, 23];
+  function renderEmployers() {
+    const box = $("#employers"), E = SR.d.employers && SR.d.employers.employers;
+    if (!E || !E.length) { box.hidden = true; return; }
+    box.innerHTML = "<h2>" + t("emp.title") + '</h2><p class="small">' + t("emp.lead", { n: E.length }) + '</p><div class="row gap wrap"><div class="seg small" role="radiogroup" aria-label="Day">' +
+      DAYS.map((d, i) => '<label><input type="radio" name="eday" value="' + d + '"' + (i ? "" : " checked") + '><span>' + t("day." + d) + "</span></label>").join("") + '</div></div><div id="emp-sum"></div><ul class="emp-list" id="emp-list"></ul><p class="small" id="emp-src"></p>';
+    const run = () => {
+      const day = document.querySelector("input[name=eday]:checked").value;
+      const rows = E.map((e) => ({ e, a: SR.employerAccess(e, day) }));
+      const n = rows.length, cnt = (h) => rows.filter((r) => r.a.hours[h]).length;
+      $("#emp-sum").innerHTML = '<div class="kv">' + EMP_HOURS.map((h) => "<div><b>" + cnt(h) + " / " + n + "</b><span>" + t("emp.bus_at", { h: SR.hourLabel(h) }) + "</span></div>").join("") + "</div>";
+      rows.sort((x, y) => (x.a.hours[23] - y.a.hours[23]) || (x.a.hours[22] - y.a.hours[22]) || x.e.name.localeCompare(y.e.name));
+      $("#emp-list").innerHTML = rows.map((r) => {
+        const { e, a } = r;
+        return '<li><div class="emp-main"><b>' + esc(e.name) + "</b><span class=\"small\">" + esc(e.city) + " · " + t("emp.kind_" + e.kind) + " · " + esc(e.size) + " " + t("emp.people") + "</span>" + SR.hourBars(a.hours) + "</div>" +
+          '<div class="emp-side"><span class="small">' + (a.first != null ? t("map.first_last", { a: SR.hm(a.first), b: SR.hm(a.last) }) : t("emp.no_walk", { m: a.nearestM || "?" })) + '</span><div class="row gap"><button type="button" class="link" data-map="' + e.id + '">' + t("emp.on_map") + '</button><button type="button" class="link" data-plan="' + e.id + '">' + t("emp.plan_to") + "</button></div></div></li>";
+      }).join("");
+      $("#emp-list").querySelectorAll("[data-map]").forEach((b) => (b.onclick = () => SR.focusEmployer(b.dataset.map)));
+      $("#emp-list").querySelectorAll("[data-plan]").forEach((b) => (b.onclick = () => {
+        const e = E.find((x) => x.id === b.dataset.plan); SR.coords.to = { lat: e.lat, lon: e.lon, label: e.name }; $("#to").value = e.name; SR.showTab("plan");
+      }));
+      SR.cityState.employers = { day, rows };
+    };
+    $("#emp-src").innerHTML = t("emp.src") + ' <a href="' + esc(SR.d.employers.source_url) + '" target="_blank" rel="noopener">' + esc(SR.d.employers.source) + "</a>";
+    box.querySelectorAll("input[name=eday]").forEach((r) => (r.onchange = run)); run();
+  }
+
+  // ---------------------------------------------------------------- by city
+  function renderCities() {
+    const box = $("#cities");
+    box.innerHTML = "<h2>" + t("city.by") + '</h2><p class="small">' + t("city.by_lead") + '</p><div class="row gap wrap"><select id="c-hour" style="width:auto" aria-label="' + t("gaps.hour") + '">' + hourOpts(23) + '</select><select id="c-day" style="width:auto" aria-label="' + t("gaps.day") + '">' + dayOpts() + '</select></div><div id="c-out"></div>';
+    const run = () => {
+      const h = +$("#c-hour").value, day = $("#c-day").value, by = {};
+      SR.d.tracts.filter((x) => x.in_district && x.place).forEach((x) => {
+        const c = (by[x.place] = by[x.place] || { pop: 0, on: 0, trans: 0, nocar: 0, lat: 0, lon: 0 });
+        c.pop += x.pop; c.nocar += x.hh_nocar; c.trans += x.jobs_trans; c.lat += x.lat * x.pop; c.lon += x.lon * x.pop;
+        if (x.cov[day][h] === "1") c.on += x.pop;
+      });
+      const rows = Object.keys(by).filter((k) => by[k].pop >= 3000).map((k) => ({ k, ...by[k] })).sort((a, b) => b.pop - a.pop);
+      $("#c-out").innerHTML = '<ul class="city-list">' + rows.map((r) => {
+        const s = r.on / r.pop;
+        return "<li><div><b>" + esc(r.k) + '</b><span class="small">' + SR.num(r.pop) + " " + t("map.people") + " · " + SR.num(r.trans) + " " + t("plan.wh_jobs") + " · " + SR.num(r.nocar) + " " + t("city.nocar") + '</span></div><div class="city-bar"><span class="bar ' + (s < 0.1 ? "low" : "") + '" style="width:' + Math.max(2, s * 100) + '%"></span><b>' + SR.pct(s, 0) + '</b></div><button type="button" class="link" data-ll="' + (r.lat / r.pop) + "," + (r.lon / r.pop) + '">' + t("emp.on_map") + "</button></li>";
+      }).join("") + "</ul><p class=\"small\">" + t("city.by_note", { h: SR.hourLabel(h) }) + "</p>";
+      $("#c-out").querySelectorAll("[data-ll]").forEach((b) => (b.onclick = () => { const [la, lo] = b.dataset.ll.split(",").map(Number); SR.flyTo(la, lo, 13); }));
+    };
+    $("#c-hour").onchange = run; $("#c-day").onchange = run; run();
   }
 
   // ---------------------------------------------------------------- 0. compare regions
@@ -80,8 +129,8 @@
 
   function table(rows, head) {
     if (!rows.length) return '<div class="empty">' + t("empty.none") + "</div>";
-    return "<table><thead><tr>" + head.map((h, i) => '<th class="' + (i ? "num" : "") + '">' + h + "</th>").join("") + "</tr></thead><tbody>" +
-      rows.map((r) => "<tr>" + r.map((c, i) => '<td class="' + (i ? "num" : "") + '">' + c + "</td>").join("") + "</tr>").join("") + "</tbody></table>";
+    return '<div class="tablewrap"><table><thead><tr>' + head.map((h, i) => '<th class="' + (i ? "num" : "") + '">' + h + "</th>").join("") + "</tr></thead><tbody>" +
+      rows.map((r) => "<tr>" + r.map((c, i) => '<td class="' + (i ? "num" : "") + '">' + c + "</td>").join("") + "</tr>").join("") + "</tbody></table></div>";
   }
 
   // ---------------------------------------------------------------- 2. what-if

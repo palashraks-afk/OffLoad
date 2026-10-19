@@ -8,6 +8,10 @@ A static web app that checks the real bus schedule for a trip (a shift, an appoi
 - **Map:** full-height map with walk zones around every running stop, a play button that runs the day, tap-any-spot reports (bus, jobs, past deaths), address search; stop popups; stop popups (routes, first and last bus, past night-time deaths nearby, model risk rank); layers for higher-risk roads from the model, warehouse and transport job blocks, health sites.
 - **Employers:** region comparison, service gaps, route-extension estimate, best shift start time, vanpool pickup areas, one-page brief, CSV.
 
+- **Employers tab:** 21 major employers (California EDD list) with the hours a bus runs within a 5-minute walk, first and last bus, size class, map and plan buttons; a by-city view; region comparison; service gaps; route-extension estimate; shift-time fit; vanpool areas.
+- **Location:** one button fills From from the device's location (with retries, plain-language failures, and an offer to switch region); automatic when permission is already granted.
+- Employers are built with `python shiftready/prep/employers.py ca33` (needs the network; geocodes with Nominatim, cached in `data/raw/employers`).
+
 ## Run it
 ```bash
 python3 -m http.server 8765 --directory shiftready/web      # then open http://localhost:8765
@@ -29,6 +33,7 @@ Add a region: copy `regions/cle.json`, change the agency GTFS URL, state/county 
 node shiftready/tests/planner.test.js     # trip planner vs real timetable trips, both directions
 node shiftready/tests/crosscheck.test.js  # Python coverage tables vs the JavaScript timetable (must agree)
 node shiftready/tests/ui_logic.test.js    # Yes/Partly/No verdict logic on real data
+node shiftready/tests/locate.test.js      # every 'use my location' outcome, with a stand-in for geolocation
 node shiftready/tests/i18n.test.js        # English/Spanish keys and placeholders
 .venv/bin/python -m pytest shiftready/tests -q   # data checks
 ```

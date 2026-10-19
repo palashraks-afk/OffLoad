@@ -15,7 +15,8 @@
   SR.initReach = function () {
     $("#r-go").onclick = run;
     $("#r-loc").onclick = async () => {
-      try { origin = await SR.locate(); $("#r-from").value = t("plan.my_loc"); run(); } catch (e) { $("#r-out").innerHTML = '<div class="notice">' + t("plan.loc_fail") + "</div>"; }
+      const g = await SR.useMyLocation({ say: (m, k) => { $("#r-out").innerHTML = '<div class="notice">' + m + "</div>"; } });
+      if (g) { origin = g; $("#r-from").value = g.label; run(); }
     };
     $("#r-from").oninput = () => { origin = null; };
     $("#r-day").innerHTML = ["weekday", "saturday", "sunday"].map((d) => '<option value="' + d + '">' + t("day." + d) + "</option>").join("");

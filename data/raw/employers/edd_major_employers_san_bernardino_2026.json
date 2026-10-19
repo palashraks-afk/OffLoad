@@ -1,0 +1,227 @@
+[
+ {
+  "id": "427794492",
+  "name": "Amazon Fulfillment Ctr",
+  "city": "San Bernardino",
+  "industry": "Mail Order Fulfillment Service",
+  "address": "1910 E Central Ave # 3 San Bernardino, CA 92408-0123",
+  "size": "1,000-4,999 Employees",
+  "desc": "Mail Order Fulfillment Service"
+ },
+ {
+  "id": "902128446",
+  "name": "Arrowhead Regional Medical Ctr",
+  "city": "Colton",
+  "industry": "Hospitals",
+  "address": "400 N Pepper Ave Colton, CA 92324-1819",
+  "size": "1,000-4,999 Employees",
+  "desc": "Hospitals"
+ },
+ {
+  "id": "472562883",
+  "name": "Bear Mountain",
+  "city": "Big Bear Lake",
+  "industry": "Skiing Centers & Resorts",
+  "address": "880 Summit Blvd Big Bear Lake, CA 92315-",
+  "size": "1,000-4,999 Employees",
+  "desc": "Skiing Centers & Resorts"
+ },
+ {
+  "id": "712352722",
+  "name": "Burlington Distribution Ctr",
+  "city": "San Bernardino",
+  "industry": "Distribution Centers (whls)",
+  "address": "570 E Mill St San Bernardino, CA 92408-1608",
+  "size": "1,000-4,999 Employees",
+  "desc": "Distribution Centers (whls)"
+ },
+ {
+  "id": "001441179",
+  "name": "California State Univ Sn",
+  "city": "San Bernardino",
+  "industry": "Schools-Universities & Colleges Academic",
+  "address": "5500 University Pkwy San Bernardino, CA 92407-2393",
+  "size": "1,000-4,999 Employees",
+  "desc": "Schools-Universities & Colleges Academic"
+ },
+ {
+  "id": "991571704",
+  "name": "Dignity Health Cmnty Hosp-Sn",
+  "city": "San Bernardino",
+  "industry": "Hospitals",
+  "address": "1805 Medical Center Dr San Bernardino, CA 92411-1214",
+  "size": "1,000-4,999 Employees",
+  "desc": "Hospitals"
+ },
+ {
+  "id": "498137710",
+  "name": "Dignity Health-St Bernardine",
+  "city": "San Bernardino",
+  "industry": "Hospitals",
+  "address": "2101 N Waterman Ave San Bernardino, CA 92404-4836",
+  "size": "1,000-4,999 Employees",
+  "desc": "Hospitals"
+ },
+ {
+  "id": "008703290",
+  "name": "Environmental Systems Research",
+  "city": "Redlands",
+  "industry": "Geographics Information Systems",
+  "address": "380 New York St Redlands, CA 92373-8100",
+  "size": "1,000-4,999 Employees",
+  "desc": "Geographics Information Systems"
+ },
+ {
+  "id": "686728635",
+  "name": "Fedex Ground",
+  "city": "Bloomington",
+  "industry": "Delivery Service",
+  "address": "330 Resource Dr Bloomington, CA 92316-3528",
+  "size": "1,000-4,999 Employees",
+  "desc": "Delivery Service"
+ },
+ {
+  "id": "405802673",
+  "name": "Inland Empire Health Plan",
+  "city": "Rancho Cucamonga",
+  "industry": "Health Plans",
+  "address": "10801 6th St # 120 Rancho Cucamonga, CA 91730-5987",
+  "size": "1,000-4,999 Employees",
+  "desc": "Health Plans"
+ },
+ {
+  "id": "652974510",
+  "name": "Loma Linda Univ Health Board",
+  "city": "Loma Linda",
+  "industry": "Univ/Clg-Governing Body/Regent/Trustee",
+  "address": "11175 Campus St Loma Linda, CA 92350-1700",
+  "size": "5,000-9,999 Employees",
+  "desc": "Univ/Clg-Governing Body/Regent/Trustee"
+ },
+ {
+  "id": "173793159",
+  "name": "Metropolitan Auto Warehouse",
+  "city": "San Bernardino",
+  "industry": "Automobile Parts & Supplies-Mfrs",
+  "address": "535 Tennis Court Ln San Bernardino, CA 92408-1615",
+  "size": "1,000-4,999 Employees",
+  "desc": "Automobile Parts & Supplies-Mfrs"
+ },
+ {
+  "id": "580750198",
+  "name": "Mountain High Ski Resort",
+  "city": "Wrightwood",
+  "industry": "Skiing Centers & Resorts",
+  "address": "24510 State Highway 2 Wrightwood, CA 92397-",
+  "size": "1,000-4,999 Employees",
+  "desc": "Skiing Centers & Resorts"
+ },
+ {
+  "id": "822555549",
+  "name": "National Training Ctr Fort",
+  "city": "Fort Irwin",
+  "industry": "Business Services NEC",
+  "address": "Inner Loop Rd # 983 Fort Irwin, CA 92310-",
+  "size": "5,000-9,999 Employees",
+  "desc": "Business Services NEC"
+ },
+ {
+  "id": "974026098",
+  "name": "Ontario International Airport",
+  "city": "Ontario",
+  "industry": "Airports",
+  "address": "2900 E Airport Dr Ontario, CA 91761-2134",
+  "size": "5,000-9,999 Employees",
+  "desc": "Airports"
+ },
+ {
+  "id": "172604092",
+  "name": "Ontario-Montclair School Dist",
+  "city": "Ontario",
+  "industry": "School Districts",
+  "address": "950 W D St Ontario, CA 91762-3026",
+  "size": "1,000-4,999 Employees",
+  "desc": "School Districts"
+ },
+ {
+  "id": "674943121",
+  "name": "Patton State Hospital",
+  "city": "Patton",
+  "industry": "Hospitals",
+  "address": "3102 E Highland Ave Patton, CA 92369-7813",
+  "size": "1,000-4,999 Employees",
+  "desc": "Hospitals"
+ },
+ {
+  "id": "589263904",
+  "name": "Primary Care Assoc Med Group",
+  "city": "Ontario",
+  "industry": "Physicians & Surgeons",
+  "address": "3990 Concours # 500 Ontario, CA 91764-7983",
+  "size": "1,000-4,999 Employees",
+  "desc": "Physicians & Surgeons"
+ },
+ {
+  "id": "736460280",
+  "name": "Radial",
+  "city": "Rialto",
+  "industry": "Mail Order Fulfillment Service",
+  "address": "2225 Alder Ave Rialto, CA 92377-8513",
+  "size": "1,000-4,999 Employees",
+  "desc": "Mail Order Fulfillment Service"
+ },
+ {
+  "id": "409319944",
+  "name": "Redlands Community Hospital",
+  "city": "Redlands",
+  "industry": "Hospitals",
+  "address": "350 Terracina Blvd Redlands, CA 92373-4897",
+  "size": "1,000-4,999 Employees",
+  "desc": "Hospitals"
+ },
+ {
+  "id": "207533456",
+  "name": "San Bernardino County Sch Supt",
+  "city": "San Bernardino",
+  "industry": "Schools & Educational Services NEC",
+  "address": "601 N E St San Bernardino, CA 92415-3093",
+  "size": "1,000-4,999 Employees",
+  "desc": "Schools & Educational Services NEC"
+ },
+ {
+  "id": "173679374",
+  "name": "Snowline Joint Unified Sch Dst",
+  "city": "Phelan",
+  "industry": "Schools",
+  "address": "4075 Nielson Rd Phelan, CA 92371-8896",
+  "size": "1,000-4,999 Employees",
+  "desc": "Schools"
+ },
+ {
+  "id": "861497279",
+  "name": "Target Regional Offices",
+  "city": "Fontana",
+  "industry": "Distribution Centers (whls)",
+  "address": "14750 Miller Ave Fontana, CA 92336-1685",
+  "size": "1,000-4,999 Employees",
+  "desc": "Distribution Centers (whls)"
+ },
+ {
+  "id": "173802679",
+  "name": "Transportation Department",
+  "city": "San Bernardino",
+  "industry": "State Government-Regulation & Administration-",
+  "address": "464 W 4th St # 6 San Bernardino, CA 92401-1400",
+  "size": "1,000-4,999 Employees",
+  "desc": "State Government-Regulation & Administration-"
+ },
+ {
+  "id": "730738789",
+  "name": "Yaamava' Resort-Casino At Sn",
+  "city": "Highland",
+  "industry": "Casinos",
+  "address": "777 San Manuel Blvd Highland, CA 92346-6713",
+  "size": "1,000-4,999 Employees",
+  "desc": "Casinos"
+ }
+]

@@ -14,7 +14,7 @@ for (const m of src.matchAll(/\{ k: "([a-z.]+)"/g)) keys.add(m[1]);
 ["why.no_stop_start", "why.no_stop_end", "why.no_bus"].forEach((k) => keys.add(k));
 const bad = [];
 for (const k of keys) {
-  if (/\.$/.test(k) || k === "about.lim" || k === "faq.q" || k === "faq.a") continue;   // prefixes completed in code
+  if (/\.$/.test(k) || k === "about.lim" || k === "faq.q" || k === "faq.a" || k === "emp.kind_") continue;   // prefixes completed in code
   for (const l of ["en", "es"]) if (!(k in STR[l])) bad.push(l + ":" + k);
 }
 const ph = (s) => (s.match(/\{\w+\}/g) || []).sort().join();

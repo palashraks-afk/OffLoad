@@ -22,7 +22,7 @@
     document.querySelectorAll("[data-i18n]").forEach((el) => (el.textContent = t(el.dataset.i18n)));
     document.querySelectorAll("[data-i18n-ph]").forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
     document.querySelectorAll("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
-    $("#lang").textContent = SR.lang === "en" ? "ES" : "EN";
+    $("#lang").textContent = SR.lang === "en" ? "Español" : "English";
   }
 
   SR.showTab = function (name) {
@@ -47,7 +47,7 @@
       P("who", { j: SR.num(r.district_trans_jobs), c: SR.cfg.short, h: SR.num(noCar), w: SR.pct(r.bus_commute_share, 1) }) +
       P("data", { a: SR.pct(wd.pop_share[20], 0), b: SR.pct(wd.pop_share[22], 0), c: SR.pct(wd.pop_share[23], 0), s: SR.pct(r.saturday.pop_share[23], 0) }) +
       P("cost", { k: dark != null ? SR.pct(dark, 0) : "most" }) +
-      P("gap", {}) + "</div></div>" +
+      P("gap", {}) + '</div><div class="art" data-art="network"></div></div>' +
       '<div class="flow"><div><b>' + t("flow.1") + "</b><span>" + t("flow.1s") + "</span></div><div><b>" + t("flow.2") + "</b><span>" + t("flow.2s") + "</span></div>" +
       "<div><b>" + t("flow.3") + "</b><span>" + t("flow.3s") + "</span></div><div><b>" + t("flow.4") + "</b><span>" + t("flow.4s") + "</span></div></div>";
   }
@@ -59,7 +59,10 @@
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
     let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
+    h += '<div class="card empabout" id="about-emp"></div>';
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
+    h += '<div class="card"><h2>' + t("build.title") + "</h2><p>" + t("build.txt") + "</p></div>";
+    h += '<div class="card"><h2>' + t("src.title") + "</h2>" + sourcesHtml() + "</div>";
     h += '<div class="card"><h2>' + t("about.data") + "</h2><table><tbody>" + src.map((s) => "<tr><th>" + s[0] + "</th><td>" + s[1] + "</td></tr>").join("") + "</tbody></table>" +
       '<p class="small">' + t("about.feed", { v: esc(SR.d.transit.agency) }) +
       (SR.cfg.feed_start ? " " + t("about.valid", { a: fmtDate(SR.cfg.feed_start), b: fmtDate(SR.cfg.feed_end) }) : "") + "</p></div>";
@@ -73,7 +76,35 @@
     $("#about").innerHTML = h;
     fillFindings();
     fillNumbers();
+    fillEmployersAbout();
     const lb = $("#logo-copy"); if (lb) lb.onclick = async () => { try { const s = await (await fetch("logo.svg")).text(); await navigator.clipboard.writeText(s); lb.textContent = t("req.copied"); } catch (e) { lb.textContent = "logo.svg"; } };
+  }
+
+  function sourcesHtml() {
+    const L = (u, s) => '<li><a href="' + u + '" target="_blank" rel="noopener">' + s + "</a></li>";
+    return '<ul class="srcs">' +
+      L("https://mobilitydatabase.org/feeds/gtfs/mdb-97", "Omnitrans GTFS schedule (the bus times and stops)") +
+      L("https://lehd.ces.census.gov/data/lodes/LODES8/", "Census LODES 2022 (where people work and live)") +
+      L("https://censusreporter.org/", "Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)") +
+      L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", "Census cartographic boundaries (district and tract shapes)") +
+      L("https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars", "NHTSA FARS 2019–2023 (every fatal crash, with location and light)") +
+      L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", "California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)") +
+      L("https://www.openstreetmap.org/copyright", "OpenStreetMap (roads, map tiles) and Nominatim (address search)") +
+      L("https://data.chhs.ca.gov/", "California CDPH facility list (hospitals, clinics, dialysis)") +
+      L("https://www.riderta.com/", "GCRTA schedule (Cleveland)") + L("https://www.miamidade.gov/transit/", "Miami-Dade Transit schedule (Miami)") +
+      L("https://leafletjs.com/", "Leaflet (map library)") + L("https://github.com/uswds/public-sans", "Public Sans typeface") + "</ul>";
+  }
+
+  /** The problem at named workplaces: which of the biggest employers have a bus when shifts change. */
+  function fillEmployersAbout() {
+    const box = $("#about-emp"), E = SR.d.employers && SR.d.employers.employers;
+    if (!E || !E.length) { box.hidden = true; return; }
+    const rows = E.map((e) => ({ e, a: SR.employerAccess(e, "weekday") }));
+    const n = rows.length, at = (h) => rows.filter((r) => r.a.hours[h]).length;
+    const feat = rows.filter((r) => r.e.kind === "warehouse" || r.e.kind === "health").sort((x, y) => (x.a.hours[23] - y.a.hours[23]) || x.e.name.localeCompare(y.e.name));
+    box.innerHTML = "<h2>" + t("empabout.title") + "</h2><p>" + t("empabout.lead", { n, a: at(23) + " of " + n, b: at(5) + " of " + n }) + '</p><div class="emp-mini">' +
+      feat.map((r) => "<div><b>" + esc(r.e.name) + "</b>" + SR.hourBars(r.a.hours) + '<span class="small">' + esc(r.e.city) + " · " + esc(r.e.size) + " " + t("emp.people") + " · " + (r.a.first != null ? t("map.first_last", { a: SR.hm(r.a.first), b: SR.hm(r.a.last) }) : t("emp.no_walk", { m: r.a.nearestM || "?" })) + "</span></div>").join("") + "</div>" +
+      '<p class="small">' + t("emp.src") + ' <a href="' + esc(SR.d.employers.source_url) + '" target="_blank" rel="noopener">' + esc(SR.d.employers.source) + "</a></p>";
   }
 
   async function fillNumbers() {
@@ -124,7 +155,7 @@
 
   function modelTable(rows) {
     const body = rows.map((x) => "<tr><td>" + esc(x.name) + '</td><td class="num">' + SR.pct(x.cap10, 0) + '</td><td class="num">' + SR.pct(x.cap20, 0) + "</td></tr>").join("");
-    return "<table><thead><tr><th>" + t("about.method") + '</th><th class="num">' + t("about.top10") + '</th><th class="num">' + t("about.top20") + "</th></tr></thead><tbody>" + body + "</tbody></table>";
+    return '<div class="tablewrap">' + "<table><thead><tr><th>" + t("about.method") + '</th><th class="num">' + t("about.top10") + '</th><th class="num">' + t("about.top20") + "</th></tr></thead><tbody>" + body + "</tbody></table></div>";
   }
 
   function modelHtml(rr) {
@@ -141,6 +172,7 @@
     const sens = SR.d.reach.sensitivity_800m;
     $("#hero").innerHTML = "<b>" + SR.pct(wd.pop_share[23], 0) + "</b><span>" + t("plan.hero", { c: SR.cfg.short }) + "</span>";
     SR.initPlan();
+    SR.renderExamples();
     SR.initCity();
     SR.initReach();
     renderAbout();
@@ -191,6 +223,7 @@
     $("#lang").onclick = () => SR.setLang(SR.lang === "en" ? "es" : "en");
     document.querySelectorAll(".tabbar button").forEach((b) => (b.onclick = () => SR.showTab(b.dataset.tab)));
     SR.showTab("plan");
+    SR.autoLocate();
     if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
   }
 
