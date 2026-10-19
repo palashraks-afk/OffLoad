@@ -7,6 +7,14 @@ Read this file first, then `docs/HANDOFF.md`. This replaces any earlier plan you
 - **Contest:** 2026 Congressional App Challenge. **Deadline Monday 2026-10-26, 12:00 pm Eastern.** Target: submit by **Sunday 2026-10-25**.
 - **How he talks:** casual, fast, many typos. Read intent through the typos. Short, plain answers. Don't lecture. Don't ask a question you can answer yourself. Say plainly when something is unverified or won't work.
 
+## His goal, his criteria, and who it is for (his words, kept faithful)
+**Goal:** find the idea that reaches the **highest overall score** on all his categories, with **at least a 4 in every category** (a secure 4-5), a **real problem with statistical evidence**, **real impact** and a solution that actually solves it. He wants a "5 idea" where possible, but a 4 everywhere is the floor.
+**Novel means nobody has made it that way.** Judge novelty by searching for existing versions and say honestly what was and wasn't found. Don't inflate it; if the honest novelty is 3-4, say so and say exactly which parts are new.
+**His 8 categories:** District (specific to CA-33), Impact, Novel, Works (by Oct 25), ML/biomed, Nationwide, Mapping, Challenge fit. Requirements for a 4 and a 5 are in `docs/HANDOFF.md` section 2.
+**Who it should target:** it must be **helpful and make sense to regular people** (citizens, workers such as night-shift workers, ordinary residents) with a **user-friendly experience**: not just for officials. It does **not** have to be for everyone; it needs a clear target group. A city/official gets a useful brief too, but the everyday person is the main user.
+**Not wanted:** heat ideas, alarm or early-warning systems, OffloadWatch, "basic" ideas, and anything that is only an official dashboard.
+**Too many words is a complaint:** keep screens short, plain, and friendly. Simple by default.
+
 ## The rule that overrides everything (read it, it protects him)
 The official 2026 rules (https://www.congressionalappchallenge.us/wp-content/uploads/2026/05/2026-CAC-Rules.pdf) say:
 - the app must be "original and solely created by the contestant. All coding and technical development must be done by the student";
