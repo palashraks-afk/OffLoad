@@ -2,11 +2,14 @@
 
 Read `CLAUDE.md` first (role and rules). This file is the full context.
 
+## 0. READ THIS FIRST: NO PROJECT IS CHOSEN YET
+The student is **still looking for his project**. Sections 3-10 below describe the **leading candidate only** (pedestrian and cyclist safety). He has **not approved it** and wants something more novel. Treat those sections as research and a template, not a decision. The current job is to find the best idea (see `CLAUDE.md`, "How to find the idea"). Do not start building.
+
 ## 1. Status
 - Deadline: Mon 2026-10-26 12:00 pm ET. Plan to submit Sun 2026-10-25. From 2026-10-18 that is 8 days.
 - The student rejected the first project (OffloadWatch, AI-written, ineligible), heat ideas, and alarm/warning products.
-- Chosen direction: pedestrian and cyclist safety in CA-33, usable by regular people, with a one-page brief for a city. He does not need it to serve everyone; he needs it to make sense to ordinary people.
-- Not yet decided: the app's name, his true personal story, his district/eligibility confirmation, team (solo or up to 4).
+- Leading candidate (NOT chosen): pedestrian and cyclist safety in CA-33, usable by regular people, with a one-page brief for a city. He does not need the app to serve everyone; he needs it to make sense to ordinary people.
+- Not yet decided: the project itself, the app's name, his true personal story, his district/eligibility confirmation, team (solo or up to 4).
 
 ## 2. His 8 scoring categories (what a 4 and a 5 need)
 | Category | A 4 needs | A 5 needs |
@@ -22,7 +25,7 @@ Read `CLAUDE.md` first (role and rules). This file is the full context.
 Realistic goal: 4 in each (32 or more of 40). Impact and Works reach 5 only with outside actions.
 The contest's own criteria: idea (creativity, originality), implementation (UX, design), demonstrated coding excellence (his own), and a working app.
 
-## 3. The one-sentence problem (the video requires it)
+## 3. The one-sentence problem for the LEADING CANDIDATE (the video requires one sentence for whichever project he picks)
 "In San Bernardino County 547 people walking or biking were killed from 2019 to 2023 (217 inside CA-33, rising from 33 to 59 a year), and neither residents nor cities can easily see where the next death is most likely or which proven fix to fund first."
 
 ## 4. Verified numbers (computed from primary data; he must re-run and confirm)
@@ -78,7 +81,7 @@ Deaths per person walking differ from raw death counts. Plan: for each census tr
 - Funding and fixes: FHWA Proven Safety Countermeasures and CMF Clearinghouse; Caltrans HSIP page; USDOT SS4A. Verify every date and amount yourself.
 - Other candidate data (not chosen): FRA rail incident data (data.transportation.gov; San Bernardino County ranked 3rd nationally for trespasser casualties 2016-2019 per the FRA), HHS emPOWER (power-dependent equipment), CDC PLACES, CDPH kindergarten vaccination reports. See `docs/research/03_PROBLEM_CANDIDATES.md` and `06_IDEA_SCREENING.md`.
 
-## 10. Eight-day plan (the student writes the code; the assistant coaches)
+## 10. Eight-day plan TEMPLATE (written for the pedestrian candidate; adapt it to whatever he chooses; the student writes the code; the assistant coaches)
 - **Day 1 (Sun 10/18):** download FARS 2019-2023; filter to California pedestrian/cyclist deaths; find CA-33 with the boundary; draw his first map. Re-compute the 217 and the yearly counts himself.
 - **Day 2 (Mon 10/19):** reproduce the 3% backtest; load OSM road features for San Bernardino and Colton/Rialto.
 - **Day 3 (Tue 10/20):** snap deaths to segments; build the baseline; first model; honest comparison.

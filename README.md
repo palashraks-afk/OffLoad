@@ -1,4 +1,6 @@
-# OffloadWatch
+> **STOP: read `CLAUDE.md` first.** OffloadWatch (below) is an **abandoned, rejected project** written by an AI assistant. It is **not** the student's contest entry and must not be continued or submitted. **No new project has been chosen yet; the student is still finding one.** Do not build anything until he picks.
+
+# OffloadWatch (abandoned; reference only)
 
 Shows where ambulances get stuck waiting at hospitals ("offload" delays) and how that changed month to month, so residents, officials and EMS crews can see the problem. Built for the Congressional App Challenge, around California's 33rd District (San Bernardino, Fontana, Rialto, Colton, Highland, Grand Terrace, north Redlands).
 

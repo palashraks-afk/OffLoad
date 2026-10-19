@@ -1,4 +1,4 @@
-# Recommended idea (decision record, 2026-10-12)
+# LEADING CANDIDATE, NOT A DECISION (record from 2026-10-12; the student has NOT approved it and is still searching)
 
 ## One sentence (the video requires this)
 In San Bernardino County 547 people walking or biking were killed from 2019 to 2023 (217 inside CA-33, rising from 33 to 59 a year), and cities can't easily tell where the next death will happen or which proven fix to fund first.
