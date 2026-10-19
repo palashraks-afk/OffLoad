@@ -232,6 +232,7 @@
     const net = () => { const o = $("#offline"); o.hidden = navigator.onLine; o.textContent = t("offline.txt"); };
     window.addEventListener("online", net); window.addEventListener("offline", net); net();
     window.addEventListener("resize", () => { SR.refreshMap && SR.refreshMap(); SR.refreshReach && SR.refreshReach(); });
+    $("#theme").onclick = () => SR.setTheme(SR.theme === "dark" ? "light" : "dark");
     $("#lang").onclick = () => SR.setLang(SR.lang === "en" ? "es" : "en");
     document.querySelectorAll(".tabbar button").forEach((b) => (b.onclick = () => SR.showTab(b.dataset.tab)));
     const want = new URLSearchParams(location.search).get("tab");

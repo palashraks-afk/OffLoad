@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Shift Ready logo">
   <title>Shift Ready</title>
-  <rect width="64" height="64" rx="14" fill="#0b3d91"/>
+  <rect width="64" height="64" rx="14" fill="#13171d"/>
   <!-- the last route of the night: an S-shaped line between two stops -->
   <path d="M17 47 C 36 47 36 33 32 32 C 28 31 28 17 47 17" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
-  <circle cx="17" cy="47" r="5.2" fill="#0b3d91" stroke="#fff" stroke-width="3.4"/>
-  <circle cx="47" cy="17" r="5.2" fill="#0b3d91" stroke="#fff" stroke-width="3.4"/>
+  <circle cx="17" cy="47" r="5.2" fill="#13171d" stroke="#fff" stroke-width="3.4"/>
+  <circle cx="47" cy="17" r="5.2" fill="#13171d" stroke="#fff" stroke-width="3.4"/>
   <!-- a crescent moon for the shifts that start after dark -->
-  <circle cx="17" cy="17" r="8.5" fill="#fff"/>
-  <circle cx="21.2" cy="14" r="7.6" fill="#0b3d91"/>
+  <circle cx="17" cy="17" r="8.5" fill="#f5a524"/>
+  <circle cx="21.2" cy="14" r="7.6" fill="#13171d"/>
 </svg>

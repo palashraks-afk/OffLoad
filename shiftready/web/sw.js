@@ -1,9 +1,9 @@
 /* Offline support. The app shell is stored when the app is first opened; schedule and map data are stored as they are used,
  * so a trip that has been checked once can be checked again with no signal. Map tiles are never cached here.
  * Code (HTML, JS, CSS) is fetched fresh when online so updates show up at once. */
-const CACHE = "shiftready-v3";
+const CACHE = "shiftready-v4";
 const SHELL = ["./", "index.html", "offline.html", "css/style.css", "vendor/leaflet.css", "vendor/leaflet.js", "vendor/fonts/public-sans.woff2",
-  "js/i18n.js", "js/planner.js", "js/data.js", "js/geocode.js", "js/art.js", "js/ui-plan.js", "js/ui-map.js", "js/ui-reach.js", "js/ui-city.js", "js/app.js",
+  "js/theme.js", "js/i18n.js", "js/planner.js", "js/data.js", "js/geocode.js", "js/art.js", "js/ui-plan.js", "js/ui-map.js", "js/ui-reach.js", "js/ui-city.js", "js/app.js",
   "logo.svg", "manifest.webmanifest", "icons/maskable-192.png", "icons/maskable-512.png", "icons/apple-touch-icon.png", "data/regions.json"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => Promise.all(SHELL.map((u) => c.add(u).catch(() => null)))).then(() => self.skipWaiting()));

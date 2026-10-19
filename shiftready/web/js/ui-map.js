@@ -12,6 +12,7 @@
     pause: '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>',
   };
   let haloArr, dotArr, tractArr, jobArr, halo, dots, tractC, jobC;
+  let bnd, deathL = [], riskL = [];
   let map, layers = {}, ready = false, pickTarget = null, timer = null, spot = null, jobStops = null, poiStops = null;
 
   const mday = () => document.querySelector("input[name=mday]:checked").value;
@@ -28,7 +29,7 @@
     SR._map = map;
     L.control.zoom({ position: "bottomright" }).addTo(map);
     SR.addTiles(map);
-    const bnd = L.geoJSON(SR.d.boundary, { style: { color: "#0b3d91", weight: 2.5, fill: false, dashArray: "7 5" }, interactive: false }).addTo(map);
+    bnd = L.geoJSON(SR.d.boundary, { style: { color: SR.C("--map"), weight: 2.5, fill: false, dashArray: "7 5" }, interactive: false }).addTo(map);
     SR.fitDistrict = function () {
       const wide = window.innerWidth >= 900;
       map.fitBounds(bnd.getBounds(), { paddingTopLeft: wide ? [430, 70] : [10, 70], paddingBottomRight: [10, 10] });
@@ -54,19 +55,19 @@
     });
     (SR.d.deaths || []).forEach((d) => {
       if (!d[4]) return;
-      L.circleMarker([d[0], d[1]], { radius: 4, color: "#a3211b", weight: 2, fillOpacity: 0.2 })
-        .bindPopup(d[2] + " · " + (d[3] ? t("map.cyclist") : t("map.pedestrian")) + " · " + esc(d[5] || "")).addTo(layers.deaths);
+      deathL.push(L.circleMarker([d[0], d[1]], { radius: 4, color: SR.C("--bad"), weight: 2, fillOpacity: 0.2 })
+        .bindPopup(d[2] + " · " + (d[3] ? t("map.cyclist") : t("map.pedestrian")) + " · " + esc(d[5] || "")).addTo(layers.deaths));
     });
     (SR.d.risk_lines || []).forEach((r) => {
       const w = r[0] >= 99 ? 6 : r[0] >= 96 ? 4 : 2.5;
-      L.polyline(r[3], { color: "#8a4b00", weight: w, opacity: 0.85, dashArray: r[0] >= 99 ? null : r[0] >= 96 ? "10 4" : "3 4" })
-        .bindPopup("<b>" + esc(r[1] || t("map.unnamed")) + "</b><br>" + t("map.risk_pct", { n: r[0] }) + (r[2] ? "<br>" + t("map.past_deaths", { n: r[2] }) : "")).addTo(layers.corridors);
+      riskL.push(L.polyline(r[3], { color: SR.C("--maybe"), weight: w, opacity: 0.85, dashArray: r[0] >= 99 ? null : r[0] >= 96 ? "10 4" : "3 4" })
+        .bindPopup("<b>" + esc(r[1] || t("map.unnamed")) + "</b><br>" + t("map.risk_pct", { n: r[0] }) + (r[2] ? "<br>" + t("map.past_deaths", { n: r[2] }) : "")).addTo(layers.corridors));
     });
 
     halo = haloArr = []; dots = dotArr = []; tractC = tractArr = []; jobC = jobArr = [];
     SR.net.stops.forEach((s, i) => {
-      halo[i] = L.circle([s[1], s[2]], { radius: 400, stroke: false, fillColor: "#0b3d91", fillOpacity: 0, interactive: false }).addTo(layers.halo);
-      dots[i] = L.circleMarker([s[1], s[2]], { radius: 1.5, weight: 1, color: "#8a929e", fillColor: "#8a929e", fillOpacity: 0.45 }).bindPopup(() => stopPopup(i, mday())).addTo(layers.stops);
+      halo[i] = L.circle([s[1], s[2]], { radius: 400, stroke: false, fillColor: SR.C("--map"), fillOpacity: 0, interactive: false }).addTo(layers.halo);
+      dots[i] = L.circleMarker([s[1], s[2]], { radius: 1.5, weight: 1, color: SR.C("--map-off"), fillColor: SR.C("--map-off"), fillOpacity: 0.45 }).bindPopup(() => stopPopup(i, mday())).addTo(layers.stops);
     });
     SR.d.tracts.forEach((tr, i) => {
       tractC[i] = L.circleMarker([tr.lat, tr.lon], { radius: 3 + Math.sqrt(tr.pop) / 14 }).bindPopup(() => tractPopup(tr)).addTo(layers.people);
@@ -146,21 +147,21 @@
     SR.net.stops.forEach((s, i) => {
       const on = act[i] === 1;
       halo[i].setStyle({ fillOpacity: on ? 0.16 : 0 });
-      dots[i].setStyle(on ? { color: "#0b3d91", fillColor: "#0b3d91", fillOpacity: 1 } : { color: "#8a929e", fillColor: "#8a929e", fillOpacity: 0.45 });
+      dots[i].setStyle(on ? { color: SR.C("--map"), fillColor: SR.C("--map"), fillOpacity: 1 } : { color: SR.C("--map-off"), fillColor: SR.C("--map-off"), fillOpacity: 0.45 });
       dots[i].setRadius(on ? 2.4 : 1.5);
     });
     SR.d.tracts.forEach((tr, i) => {
       const on = tr.cov[day][h] === "1";
       tractC[i].setStyle(on
-        ? { color: "#0b3d91", weight: 1, dashArray: null, fillColor: "#0b3d91", fillOpacity: tr.in_district ? 0.75 : 0.35 }
-        : { color: "#a3211b", weight: 2, dashArray: "3 3", fillColor: "#ffffff", fillOpacity: tr.in_district ? 0.6 : 0.2 });
+        ? { color: SR.C("--map"), weight: 1, dashArray: null, fillColor: SR.C("--map"), fillOpacity: tr.in_district ? 0.75 : 0.35 }
+        : { color: SR.C("--bad"), weight: 2, dashArray: "3 3", fillColor: SR.C("--surface"), fillOpacity: tr.in_district ? 0.6 : 0.2 });
     });
     if (!jobStops) jobStops = SR.d.blocks.map((x) => SR.net.near(x[0], x[1], 400).map((y) => y.s));
     jobC.forEach((c) => {
       const on = jobStops[c.i].some((s) => act[s]);
       c.m.setStyle(on
-        ? { color: "#0b3d91", weight: 1, dashArray: null, fillColor: "#0b3d91", fillOpacity: 0.6 }
-        : { color: "#a3211b", weight: 2, dashArray: "2 2", fillColor: "#ffffff", fillOpacity: 0.5 });
+        ? { color: SR.C("--map"), weight: 1, dashArray: null, fillColor: SR.C("--map"), fillOpacity: 0.6 }
+        : { color: SR.C("--bad"), weight: 2, dashArray: "2 2", fillColor: SR.C("--surface"), fillOpacity: 0.5 });
       c.on = on;
     });
     stats(day, h);
@@ -265,9 +266,9 @@
     let svg = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + t("map.curve_alt") + '" style="width:100%;height:auto">';
     [0, 0.5, 1].forEach((g) => { svg += '<line x1="' + L0 + '" x2="' + (W - 8) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="var(--line)"/><text x="0" y="' + (y(g) + 4) + '">' + Math.round(g * 100) + "%</text>"; });
     [0, 6, 12, 18, 23].forEach((i) => (svg += '<text x="' + (x(i) - 8) + '" y="' + (H - 5) + '">' + SR.hourLabel(i) + "</text>"));
-    svg += line(r.pop_share, "#0b3d91") + line(r.jobs_share, "#6b7686", "6 3") + line(r.trans_jobs_share_district, "#8a4b00", "2 3");
+    svg += line(r.pop_share, SR.C("--map")) + line(r.jobs_share, SR.C("--map-off"), "6 3") + line(r.trans_jobs_share_district, SR.C("--maybe"), "2 3");
     svg += '<line x1="' + x(h) + '" x2="' + x(h) + '" y1="' + Tt + '" y2="' + (H - B) + '" stroke="var(--ink)" stroke-width="1.5"/></svg>';
-    svg += '<p class="small"><b style="color:#0b3d91">—</b> ' + t("map.s_people") + " &nbsp; <b>- -</b> " + t("map.s_jobs") + " &nbsp; <b style='color:#8a4b00'>···</b> " + t("map.s_wh") + "</p>";
+    svg += '<p class="small"><b style="color:var(--map)">—</b> ' + t("map.s_people") + " &nbsp; <b>- -</b> " + t("map.s_jobs") + " &nbsp; <b style='color:var(--maybe)'>···</b> " + t("map.s_wh") + "</p>";
     $("#curve").innerHTML = svg;
   }
 
@@ -298,12 +299,12 @@
       const seq = SR.d.transit.trips[l.trip][2];
       const a = seq.indexOf(l.fromStop), b = seq.indexOf(l.toStop, a);
       const line = (b >= a ? seq.slice(a, b + 1) : [l.fromStop, l.toStop]).map(stop);
-      const col = (SR.d.transit.routes[l.route][2] || "#0b3d91");
-      L.polyline([prev, line[0]], { color: "#6b7686", weight: 3, dashArray: "4 6" }).addTo(layers.plan);
+      const col = (SR.d.transit.routes[l.route][2] || SR.C("--map"));
+      L.polyline([prev, line[0]], { color: SR.C("--map-off"), weight: 3, dashArray: "4 6" }).addTo(layers.plan);
       L.polyline(line, { color: col, weight: 7, opacity: 0.95 }).bindPopup(t("leg.bus", { r: esc(SR.routeName(l.route)) }) + " " + SR.hm(l.dep)).addTo(layers.plan);
       prev = line[line.length - 1];
     });
-    L.polyline([prev, pts[1]], { color: "#6b7686", weight: 3, dashArray: "4 6" }).addTo(layers.plan);
+    L.polyline([prev, pts[1]], { color: SR.C("--map-off"), weight: 3, dashArray: "4 6" }).addTo(layers.plan);
     map.fitBounds(L.latLngBounds(pts.concat([prev])).pad(0.3));
     $("#m-back").hidden = false;
   };
@@ -313,6 +314,15 @@
     if (!ready) return;
     $("#hour").value = h;
     if (day) document.querySelector("input[name=mday][value=" + day + "]").checked = true;
+    update();
+  };
+  /** Called when the theme changes: recolour everything the map draws. */
+  SR.mapTheme = function () {
+    if (!ready) return;
+    bnd.setStyle({ color: SR.C("--map") });
+    deathL.forEach((x) => x.setStyle({ color: SR.C("--bad") }));
+    riskL.forEach((x) => x.setStyle({ color: SR.C("--maybe") }));
+    haloArr.forEach((x) => x.setStyle({ fillColor: SR.C("--map") }));
     update();
   };
   SR.mapUpdate = update;

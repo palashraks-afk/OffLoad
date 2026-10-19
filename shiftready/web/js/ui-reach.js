@@ -6,7 +6,7 @@
   const t = (k, v) => SR.t(k, v);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const COMPARE_HOURS = [6, 9, 14, 18, 22, 23];
-  let map = null, layer = null, origin = null, access = null;
+  let rb = null, map = null, layer = null, origin = null, access = null;
 
   function opts() {
     return { day: $("#r-day").value, depart: SR.parseTime($("#r-time").value), budget: +$("#r-budget").value };
@@ -30,13 +30,14 @@
   };
 
   SR.setReachOrigin = function (p) { origin = p; run(); };
+  SR.reachTheme = function () { if (!map) return; rb.setStyle({ color: SR.C("--map") }); if (origin) run(); };
   SR.refreshReach = function () { if (map) map.invalidateSize(); };
 
   SR.initReachMap = function () {
     if (map) { setTimeout(() => map.invalidateSize(), 50); return; }
     map = L.map("reach-map", { preferCanvas: true }).setView(SR.cfg.center || [34.09, -117.3], SR.cfg.zoom || 11);
     SR.addTiles(map);
-    L.geoJSON(SR.d.boundary, { style: { color: "#0b3d91", weight: 2.5, fill: false, dashArray: "6 4" } }).addTo(map);
+    rb = L.geoJSON(SR.d.boundary, { style: { color: SR.C("--map"), weight: 2.5, fill: false, dashArray: "6 4" } }).addTo(map);
     layer = L.layerGroup().addTo(map);
     map.on("click", (e) => {
       origin = { lat: e.latlng.lat, lon: e.latlng.lng, label: t("plan.dropped") };
@@ -118,15 +119,15 @@
   function draw(R, depart, budget) {
     layer.clearLayers();
     const bands = [budget / 3, (2 * budget) / 3, budget];
-    const style = [{ r: 5, c: "#0b3d91", o: 1 }, { r: 4, c: "#3f6fc4", o: 0.9 }, { r: 3, c: "#93b1e3", o: 0.9 }];
+    const style = [{ r: 5, c: SR.C("--map"), o: 1 }, { r: 4, c: SR.C("--map"), o: 0.65 }, { r: 3, c: SR.C("--map"), o: 0.35 }];
     SR.net.stops.forEach((s, i) => {
       const dt = R.arr[i] - depart;
       if (!(dt <= budget)) return;
       const k = dt <= bands[0] ? 0 : dt <= bands[1] ? 1 : 2;
-      L.circleMarker([s[1], s[2]], { radius: style[k].r, color: "#0b3d91", weight: 1, fillColor: style[k].c, fillOpacity: style[k].o })
+      L.circleMarker([s[1], s[2]], { radius: style[k].r, color: SR.C("--map"), weight: 1, fillColor: style[k].c, fillOpacity: style[k].o })
         .bindPopup("<b>" + esc(s[0]) + "</b><br>" + t("reach.arrive_in", { n: Math.round(dt) })).addTo(layer);
     });
-    L.circleMarker([origin.lat, origin.lon], { radius: 9, color: "#111", weight: 3, fillColor: "#fff", fillOpacity: 1 }).addTo(layer);
+    L.circleMarker([origin.lat, origin.lon], { radius: 9, color: SR.C("--ink"), weight: 3, fillColor: SR.C("--surface"), fillOpacity: 1 }).addTo(layer);
     $("#r-legend").innerHTML = t("reach.legend", { a: Math.round(bands[0]), b: Math.round(bands[1]), c: budget });
     if (!R.stopsReached) map.setView([origin.lat, origin.lon], 13);
     else {

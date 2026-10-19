@@ -6,6 +6,8 @@
   SR.lang = "en";
   SR.d = {};
   SR.coords = { from: null, to: null };
+  /** A theme colour (CSS variable) as a string the map library can use. Read at call time so a theme change is picked up. */
+  SR.C = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
   const FILES = ["transit", "tracts", "reach", "sheds", "blocks", "boundary", "places", "pois"];
   const OPTIONAL = ["safety", "risk_report", "deaths", "corridors", "risk_lines", "region", "employers"];
