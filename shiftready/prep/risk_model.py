@@ -296,17 +296,24 @@ def main(rid="ca33"):
     risk[surf] = final.predict_proba(X[surf])[:, 1]
     edges["risk"] = risk
     edges["deaths_all"] = allc
+    pr = pd.Series(risk[surf]).rank(pct=True).values
+    full_pct = np.zeros(len(edges)); full_pct[surf] = pr
     # corridors: top surface segments, as lat/lon lines
     top = edges[surf & (edges.len > 80)].sort_values("risk", ascending=False).head(150).to_crs(4326)
     cor = [{"name": r.name1, "deaths": int(r.deaths_all), "line": [[round(y, 5), round(x, 5)] for x, y in r.geometry.simplify(0.00005).coords]}
            for r in top.itertuples()]
     write_json(WEB_DATA / rid / "corridors.json", cor)
+    # risk lines for the map: the top 8% of surface segments by model risk, with their percentile (92 to 100)
+    keep = edges[surf & (full_pct >= 0.92) & (edges.len > 40)].copy()
+    keep["pct"] = (full_pct[keep.index] * 100).round().astype(int)
+    keep = keep.to_crs(4326)
+    lines = [[int(r.pct), r.name1, int(r.deaths_all), [[round(y, 4), round(x, 4)] for x, y in r.geometry.simplify(0.00008).coords]]
+             for r in keep.itertuples()]
+    write_json(WEB_DATA / rid / "risk_lines.json", lines)
     # stop-level risk percentile: highest segment risk within 150 m of the stop
     st = json.loads((WEB_DATA / rid / "transit.json").read_text())["stops"]
     sp = gpd.GeoSeries(gpd.points_from_xy([s[2] for s in st], [s[1] for s in st]), crs=4326).to_crs(UTM)
     et = cKDTree(np.c_[edges.mx, edges.my])
-    pr = pd.Series(risk[surf]).rank(pct=True).values
-    full_pct = np.zeros(len(edges)); full_pct[surf] = pr
     stop_pct = []
     for x, y in zip(sp.x, sp.y):
         ix = et.query_ball_point([x, y], 150)

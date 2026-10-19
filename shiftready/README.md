@@ -2,6 +2,12 @@
 
 A static web app that checks the real bus schedule for a trip (a shift, an appointment), shows where service disappears at night and on weekends, and writes a ready-to-send request for better service. English and Spanish. Works for any region with a public bus schedule; built for California's 33rd District (San Bernardino area), also run on Cleveland (OH-11) and Miami (FL-24).
 
+## What it does
+- **Plan:** door-to-door bus plan for a shift or appointment (be there by / leave at), last bus home, a fallback if you miss it, a safer-stop suggestion on the same route, route badges in the agency's own colors, show on map, share, print.
+- **Reach:** from any point and time, how many jobs (all, warehouse and transport, health care) and people you can reach by bus within 30 to 90 minutes, versus on foot, and the same start at other hours.
+- **Map:** who has a bus within a 5-minute walk by hour; stop popups (routes, first and last bus, past night-time deaths nearby, model risk rank); layers for higher-risk roads from the model, warehouse and transport job blocks, health sites.
+- **Employers:** region comparison, service gaps, route-extension estimate, best shift start time, vanpool pickup areas, one-page brief, CSV.
+
 ## Run it
 ```bash
 python3 -m http.server 8765 --directory shiftready/web      # then open http://localhost:8765

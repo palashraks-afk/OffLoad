@@ -28,6 +28,7 @@
     document.querySelectorAll(".tab").forEach((s) => (s.hidden = s.id !== "tab-" + name));
     document.querySelectorAll(".tabbar button").forEach((b) => b.setAttribute("aria-current", b.dataset.tab === name ? "page" : "false"));
     if (name === "map") SR.initMap();
+    if (name === "reach") SR.initReachMap();
     window.scrollTo(0, 0);
     $("#main").focus({ preventScroll: true });
     SR.currentTab = name;
@@ -91,6 +92,7 @@
     $("#hero").innerHTML = t("plan.hero", { p: SR.pct(wd.pop_share[23], 0), p8: SR.pct(sens ? sens["23"].pop_share : wd.pop_share[23], 0), c: SR.cfg.short, w: SR.pct(wd.trans_jobs_share_district[23], 0) });
     SR.initPlan();
     SR.initCity();
+    SR.initReach();
     renderAbout();
     const g = $("#gaps");
     if (g && !g.querySelector("#gaps-req")) {

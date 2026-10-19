@@ -21,6 +21,7 @@
     layers.stops = L.layerGroup().addTo(map);
     layers.deaths = L.layerGroup();
     layers.corridors = L.layerGroup();
+    layers.jobs = L.layerGroup();
     layers.health = L.layerGroup();
 
     SR.d.pois.forEach((p) => {
@@ -33,14 +34,14 @@
           .bindPopup(d[2] + " · " + (d[3] ? t("map.cyclist") : t("map.pedestrian")) + " · " + (d[5] || "")).addTo(layers.deaths);
       });
     }
-    if (SR.d.corridors) {
-      SR.d.corridors.forEach((c, i) => {
-        L.polyline(c.line, { color: "#9a5b00", weight: 5, opacity: 0.85 })
-          .bindPopup("<b>" + (c.name || t("map.unnamed")) + "</b><br>" + t("map.rank", { n: i + 1 }) + "<br>" + (c.deaths ? t("map.past_deaths", { n: c.deaths }) : ""))
-          .addTo(layers.corridors);
+    if (SR.d.risk_lines) {
+      // top 8% of roads by the model; thicker = higher percentile (shape and weight, not colour alone)
+      SR.d.risk_lines.forEach((r) => {
+        const w = r[0] >= 99 ? 6 : r[0] >= 96 ? 4 : 2.5;
+        L.polyline(r[3], { color: "#8a4b00", weight: w, opacity: 0.8, dashArray: r[0] >= 99 ? null : r[0] >= 96 ? "10 4" : "3 4" })
+          .bindPopup("<b>" + (r[1] || t("map.unnamed")) + "</b><br>" + t("map.risk_pct", { n: r[0] }) + (r[2] ? "<br>" + t("map.past_deaths", { n: r[2] }) : "")).addTo(layers.corridors);
       });
     }
-
     buildLayerToggles();
     $("#hour").oninput = update;
     document.querySelectorAll("input[name=mday]").forEach((r) => (r.onchange = update));
@@ -60,7 +61,7 @@
   function buildLayerToggles() {
     const box = $("#layers");
     const items = [["people", t("map.l_people"), true], ["stops", t("map.l_stops"), true],
-      ["deaths", SR.d.deaths ? t("map.l_deaths") : null, false], ["corridors", SR.d.corridors ? t("map.l_corridors") : null, false],
+      ["deaths", SR.d.deaths ? t("map.l_deaths") : null, false], ["corridors", SR.d.risk_lines ? t("map.l_corridors") : null, false], ["jobs", t("map.l_jobs"), false],
       ["health", t("map.l_health"), false]].filter((x) => x[1]);
     box.innerHTML = "<h2>" + t("map.layers") + "</h2>" + items.map((i) =>
       '<label><input type="checkbox" data-layer="' + i[0] + '"' + (i[2] ? " checked" : "") + "> " + i[1] + "</label>").join("") +
@@ -90,12 +91,31 @@
     SR.net.stops.forEach((s, i) => {
       L.circleMarker([s[1], s[2]], act[i]
         ? { radius: 2.5, color: "#1f4fd8", weight: 1, fillOpacity: 1, fillColor: "#1f4fd8" }
-        : { radius: 1.5, color: "#8a929e", weight: 1, fillOpacity: 0.5 }).addTo(layers.stops);
+        : { radius: 1.5, color: "#8a929e", weight: 1, fillOpacity: 0.5 }).bindPopup(() => stopPopup(i, day, h)).addTo(layers.stops);
+    });
+    layers.jobs.clearLayers();
+    SR.d.blocks.forEach((b, i) => {
+      if (b[3] < 150) return;
+      if (!jobStops) jobStops = SR.d.blocks.map((x) => SR.net.near(x[0], x[1], 400).map((y) => y.s));
+      const on = jobStops[i].some((s) => act[s]);
+      L.circleMarker([b[0], b[1]], on
+        ? { radius: 2 + Math.sqrt(b[3]) / 6, color: "#0b3d91", weight: 1, fillColor: "#0b3d91", fillOpacity: 0.6 }
+        : { radius: 2 + Math.sqrt(b[3]) / 6, color: "#b3261e", weight: 2, dashArray: "2 2", fillColor: "#fff", fillOpacity: 0.5 })
+        .bindPopup("<b>" + SR.num(b[3]) + " " + t("plan.wh_jobs") + "</b><br>" + (on ? "✓ " + t("map.bus_yes") : "✕ " + t("map.bus_no")) + " (" + SR.hourLabel(h) + ")").addTo(layers.jobs);
     });
     stats(day, h);
   }
 
-  let poiStops = null;
+  let jobStops = null, poiStops = null;
+  function stopPopup(i, day, h) {
+    const inf = SR.stopInfo(day), s = SR.d.safety && SR.d.safety.stops && SR.d.safety.stops[i];
+    const rt = [...inf.routes[i]].map((r) => SR.routeName(r)).filter(Boolean).sort().join(", ");
+    let html = "<b>" + SR.stopName(i).replace(/[&<>]/g, "") + "</b>";
+    if (rt) html += "<br>" + t("map.routes") + ": " + rt;
+    html += "<br>" + (isFinite(inf.first[i]) ? t("map.first_last", { a: SR.hm(inf.first[i]), b: SR.hm(inf.last[i]) }) : t("map.no_service_day"));
+    if (s) html += "<br>" + t("map.stop_deaths", { n: s[0], m: s[1] }) + (s[2] != null ? "<br>" + t("map.stop_risk", { n: 100 - s[2] }) : "");
+    return html;
+  }
   function healthStats(day, h) {
     if (!SR.d.pois.length) return "";
     if (!poiStops) poiStops = SR.d.pois.map((p) => SR.net.near(p.lat, p.lon, 400).map((x) => x.s));
@@ -104,8 +124,8 @@
       const k = (by[p.kind] = by[p.kind] || { n: 0, ok: 0 });
       k.n++; if (poiStops[i].some((s) => act[s])) k.ok++;
     });
-    return '<div class="stat" style="grid-column:1/-1"><span><b style="font-size:1rem">' + t("map.health", { h: SR.hourLabel(h) }) + "</b><br>" +
-      Object.keys(by).map((k) => SR.kind(k) + ": <b>" + by[k].ok + "</b> / " + by[k].n).join(" · ") + "</span></div>";
+    return '<div class="stat wide"><span class="h">' + t("map.health", { h: SR.hourLabel(h) }) + "</span><ul class=\"plain\">" +
+      Object.keys(by).map((k) => "<li>" + SR.kind(k) + ' <span class="v">' + by[k].ok + " / " + by[k].n + "</span></li>").join("") + "</ul></div>";
   }
 
   function stats(day, h) {

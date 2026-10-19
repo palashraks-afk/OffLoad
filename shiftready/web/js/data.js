@@ -8,7 +8,7 @@
   SR.coords = { from: null, to: null };
 
   const FILES = ["transit", "tracts", "reach", "sheds", "blocks", "boundary", "places", "pois"];
-  const OPTIONAL = ["safety", "risk_report", "deaths", "corridors", "region"];
+  const OPTIONAL = ["safety", "risk_report", "deaths", "corridors", "risk_lines", "region"];
 
   async function getJSON(path, optional) {
     try {
@@ -64,6 +64,14 @@
   SR.kind = function (k) { const s = SR.STR[SR.lang]; return (s && s["kind." + k]) || k; };
   SR.stopName = function (i) { return SR.d.transit.stops[i][0]; };
   SR.routeName = function (r) { const x = SR.d.transit.routes[r]; return x[0]; };
+  /** CSS variables for a route's own colour, with a readable text colour. */
+  SR.routeStyle = function (r) {
+    const c = (SR.d.transit.routes[r][2] || "").replace("#", "");
+    if (!/^[0-9a-fA-F]{6}$/.test(c)) return "";
+    const n = parseInt(c, 16), R = n >> 16, G = (n >> 8) & 255, B = n & 255;
+    const lum = (0.2126 * R + 0.7152 * G + 0.0722 * B) / 255;
+    return "--rc:#" + c + ";--rt:" + (lum > 0.6 ? "#101216" : "#ffffff");
+  };
   SR.routeLong = function (r) { return SR.d.transit.routes[r][1]; };
 
   /** Which stops have a departure in this hour? Cached per day. */
@@ -79,6 +87,25 @@
       a[Math.floor(t / 60) % 24][C.dep[i]] = 1;
     }
     return (SR._active[day] = a);
+  };
+
+  /** Per stop: routes that serve it, and first and last departure (minutes) on a day type. */
+  SR._sinfo = {};
+  SR.stopInfo = function (day) {
+    if (SR._sinfo[day]) return SR._sinfo[day];
+    const n = SR.net.stops.length, bit = Planner.DAY_BIT[day];
+    const first = new Float32Array(n).fill(Infinity), last = new Float32Array(n).fill(-Infinity), routes = Array.from({ length: n }, () => new Set());
+    SR.d.transit.trips.forEach((tr) => {
+      const on = tr[1] & bit;
+      tr[2].forEach((s, k) => {
+        routes[s].add(tr[0]);
+        if (!on || k === tr[2].length - 1) return;
+        const tm = tr[3][k];
+        if (tm < first[s]) first[s] = tm;
+        if (tm > last[s]) last[s] = tm;
+      });
+    });
+    return (SR._sinfo[day] = { first, last, routes });
   };
 
   /** Nearest tract center to a point (for labels and commute-shed lookups). */

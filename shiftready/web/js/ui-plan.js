@@ -192,14 +192,41 @@
           : l.end === "finish" ? t("leg.walk_from", { s: esc(SR.stopName(l.from)) }) : t("leg.walk_xfer");
         return '<li><div class="t"></div><div class="what">' + where + "<small>" + SR.num(m) + " m · ~" + Math.max(1, Math.round(l.min)) + " min</small></div></li>";
       }
-      const r = SR.routeName(l.route);
-      return '<li><div class="t">' + SR.hm(l.dep) + '</div><div class="what"><b>' + t("leg.bus", { r: esc(r) }) + "</b> " + esc(l.headsign || "") +
+      return '<li class="bus" style="' + SR.routeStyle(l.route) + '"><div class="t">' + SR.hm(l.dep) + '</div><div class="what"><span class="route" aria-label="' + t("leg.bus", { r: esc(SR.routeName(l.route)) }) + '">' + esc(SR.routeName(l.route)) + "</span>" + esc(l.headsign || "") +
         "<small>" + esc(SR.stopName(l.fromStop)) + " → " + esc(SR.stopName(l.toStop)) + " · " + SR.hm(l.arr) + "</small></div></li>";
     }).join("");
     return '<ol class="steps">' + rows + "</ol>";
   }
 
-  function riskHtml(p) {
+  /** Another stop on the SAME route, same direction, about the same time, with fewer past night deaths nearby and not much farther to walk. */
+  function saferBoarding(R, leg) {
+    const S = SR.d.safety && SR.d.safety.stops;
+    if (!S) return null;
+    const cur = S[leg.fromStop], here = SR.net.stops[leg.fromStop], inf = SR.stopInfo(R.d), bit = Planner.DAY_BIT[R.d];
+    const curWalk = Planner.hav(R.from.lat, R.from.lon, here[1], here[2]);
+    let best = null;
+    for (const c of SR.net.near(here[1], here[2], 450)) {
+      if (c.s === leg.fromStop || !inf.routes[c.s].has(leg.route)) continue;
+      const s = S[c.s];
+      if (!(s[0] < cur[0] || (cur[2] != null && s[2] != null && s[2] <= cur[2] - 20))) continue;
+      const st = SR.net.stops[c.s];
+      const extra = (Planner.hav(R.from.lat, R.from.lon, st[1], st[2]) - curWalk) * Planner.walkMeters(1);
+      if (extra > 350) continue;
+      const ok = SR.d.transit.trips.some((tr) => {
+        if (tr[0] !== leg.route || !(tr[1] & bit)) return false;
+        const ia = tr[2].indexOf(c.s);
+        if (ia < 0 || tr[2].indexOf(leg.toStop, ia) < 0) return false;
+        const tm = tr[3][ia];
+        return tm >= leg.dep - 3 && tm <= leg.dep + 25;
+      });
+      if (!ok) continue;
+      const score = s[0] * 100 + extra / 10;
+      if (!best || score < best.score) best = { stop: c.s, night: s[0], curNight: cur[0], extra: Math.max(0, Math.round(extra)), score };
+    }
+    return best;
+  }
+
+  function riskHtml(p, R) {
     if (!p || !p.ok || !SR.d.safety) return "";
     const buses = p.legs.filter((l) => l.k === "bus");
     const ids = [buses[0].fromStop, buses[buses.length - 1].toStop];
@@ -207,10 +234,16 @@
     if (!lines.length) return "";
     const worst = lines.reduce((a, b) => (b.r.night > a.r.night ? b : a));
     const level = worst.r.night >= 2 ? "bad" : worst.r.night === 1 ? "warn" : "";
-    const txt = worst.r.night === 0 ? t("risk.none", { s: esc(SR.stopName(worst.i)) })
+    let txt = worst.r.night === 0 ? t("risk.none", { s: esc(SR.stopName(worst.i)) })
       : t("risk.some", { n: worst.r.night, s: esc(SR.stopName(worst.i)) });
-    return '<div class="notice"><span class="badge ' + level + '">' + (level === "bad" ? "▲▲ " : level === "warn" ? "▲ " : "✓ ") + t("risk.label") + "</span> " + txt +
+    if (worst.r.pct != null && worst.r.pct >= 90) txt += " " + t("risk.rank", { n: 100 - worst.r.pct });
+    let out = '<div class="notice"><span class="badge ' + level + '">' + (level === "bad" ? "▲▲ " : level === "warn" ? "▲ " : "✓ ") + t("risk.label") + "</span> " + txt +
       ' <span class="small">' + t("risk.src") + "</span></div>";
+    if (R) {
+      const alt = saferBoarding(R, buses[0]);
+      if (alt) out += '<div class="notice"><span class="badge">' + t("risk.alt_label") + "</span> " + t("risk.alt", { s: esc(SR.stopName(alt.stop)), m: alt.extra, a: alt.night, b: alt.curNight }) + "</div>";
+    }
+    return out;
   }
 
   function render(R) {
@@ -227,7 +260,7 @@
         "<div><b>" + SR.hm(mn.arrive) + "</b><span>" + t("res.arrive") + "</span></div>" +
         "<div><b>" + Math.round(mn.minutes) + " min</b><span>" + t("res.door") + "</span></div>" +
         (fare != null ? "<div><b>$" + fare.toFixed(2) + "</b><span>" + t("res.fare") + "</span></div>" : "") + "</div>" +
-        legsHtml(mn) + riskHtml(mn);
+        legsHtml(mn) + riskHtml(mn, R);
       if (R.backup && R.backup.ok) {
         const late = R.m === "arrive" ? R.backup.arrive - R.T : null;
         h += '<h3>' + t("res.miss") + "</h3><p>" + t("res.miss_txt", { l: SR.hm(R.backup.leave), a: SR.hm(R.backup.arrive) }) +

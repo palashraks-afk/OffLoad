@@ -209,6 +209,13 @@
     return result;
   }
 
+  /** Earliest arrival (minutes) at every stop for someone leaving (lat,lon) at `depart`; Infinity = not reachable within `horizon` minutes. */
+  function earliestArrivals(net, origin, day, depart, maxWalk, horizon) {
+    const C = net.connections(day, false);
+    const start = net.near(origin.lat, origin.lon, maxWalk || 800).map((x) => ({ s: x.s, t: depart + walkMinutes(x.d) }));
+    return scan(net, C, start, depart + (horizon || 120)).arr;
+  }
+
   /** Latest time you can leave each stop and still arrive at (lat,lon) by T. -Infinity = cannot. */
   function latestDepartures(net, dest, T, day, maxWalk) {
     const C = net.connections(day, true);
@@ -238,6 +245,6 @@
     return false;
   }
 
-  const api = { Network, plan, latestDepartures, canReachFrom, hasService, hav, walkMinutes, walkMeters, DAY_BIT };
+  const api = { Network, plan, earliestArrivals, latestDepartures, canReachFrom, hasService, hav, walkMinutes, walkMeters, DAY_BIT };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.Planner = api;
 })(typeof window !== "undefined" ? window : globalThis);
