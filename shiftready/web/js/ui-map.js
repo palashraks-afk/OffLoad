@@ -193,4 +193,5 @@
   };
 
   SR.mapUpdate = update;
+  SR.refreshMap = function () { if (map) map.invalidateSize(); };
 })();

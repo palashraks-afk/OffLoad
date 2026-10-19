@@ -80,11 +80,13 @@
   }
 
   async function runPlan() {
-    const out = $("#plan-result");
+    const out = $("#plan-result"), go = $("#plan-form button[type=submit]");
+    go.disabled = true; const label = go.textContent; go.textContent = t("plan.working");
     out.innerHTML = '<div class="empty">' + t("plan.working") + "</div>";
     const [from, to] = await Promise.all([resolve("from"), resolve("to")]);
     if (!from || !to) {
       out.innerHTML = '<div class="verdict maybe"><div class="tag"><span class="icon">!</span>' + t("plan.need_places") + "</div></div>";
+      go.disabled = false; go.textContent = label;
       return;
     }
     const d = day(), m = mode(), T = SR.parseTime($("#time").value);
@@ -93,7 +95,9 @@
     const R = compute(from, to, d, m, T, wantHome, endT);
     SR.lastPlan = R;
     out.innerHTML = render(R);
+    out.classList.add("stagger");
     bindResult(R);
+    go.disabled = false; go.textContent = label;
     out.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 

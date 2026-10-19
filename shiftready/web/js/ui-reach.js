@@ -28,6 +28,8 @@
     });
   };
 
+  SR.refreshReach = function () { if (map) map.invalidateSize(); };
+
   SR.initReachMap = function () {
     if (map) { setTimeout(() => map.invalidateSize(), 50); return; }
     map = L.map("reach-map", { preferCanvas: true }).setView(SR.cfg.center || [34.09, -117.3], SR.cfg.zoom || 11);

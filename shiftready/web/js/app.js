@@ -42,7 +42,7 @@
       [esc(SR.d.transit.agency) + " GTFS", t("src.gtfs")], ["Census LODES 2022", t("src.lodes")], ["Census ACS 5-year", t("src.acs")],
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
-    let h = '<div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
+    let h = '<p class="tldr">' + t("about.tldr") + '</p><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
     h += '<div class="card"><h2>' + t("about.data") + "</h2><table><tbody>" + src.map((s) => "<tr><th>" + s[0] + "</th><td>" + s[1] + "</td></tr>").join("") + "</tbody></table>" +
       '<p class="small">' + t("about.feed", { v: esc(SR.d.transit.agency) }) +
@@ -50,6 +50,8 @@
     h += '<div class="card"><h2>' + t("about.model") + "</h2>" + (rr ? modelHtml(rr) : "<p>" + t("about.model_none") + "</p>") + "</div>";
     h += '<div class="card"><h2>' + t("about.limits") + "</h2><ul>" + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("about.lim" + i, { agency: SR.cfg.agency }) + "</li>").join("") + "</ul></div>";
     h += '<div class="card"><h2>' + t("about.privacy") + "</h2><p>" + t("about.privacy_txt") + "</p></div>";
+    h += '<div class="card"><h2>' + t("faq.title") + "</h2>" + [1, 2, 3, 4, 5].map((n) => '<details class="faq"><summary>' + t("faq.q" + n) + "</summary><p>" + t("faq.a" + n) + "</p></details>").join("") + "</div>";
+    h += '<div class="card"><h2>' + t("about.origin") + "</h2><p>" + t("about.origin_txt") + "</p></div>";
     h += '<div class="card"><h2>' + t("about.ai") + "</h2><p>" + t("about.ai_txt") + "</p><p class=\"small\">" + t("about.es_note") + "</p></div>";
     $("#about").innerHTML = h;
     fillFindings();
@@ -123,6 +125,7 @@
       console.error(e);
       return;
     }
+    $("#boot") && $("#boot").remove();
     renderAll();
     try {
       const regs = await SR.getRegions();
@@ -133,6 +136,9 @@
         sel.onchange = () => { location.search = "?r=" + sel.value; };
       }
     } catch (e) {}
+    const net = () => { const o = $("#offline"); o.hidden = navigator.onLine; o.textContent = t("offline.txt"); };
+    window.addEventListener("online", net); window.addEventListener("offline", net); net();
+    window.addEventListener("resize", () => { SR.refreshMap && SR.refreshMap(); SR.refreshReach && SR.refreshReach(); });
     $("#lang").onclick = () => SR.setLang(SR.lang === "en" ? "es" : "en");
     document.querySelectorAll(".tabbar button").forEach((b) => (b.onclick = () => SR.showTab(b.dataset.tab)));
     SR.showTab("plan");
