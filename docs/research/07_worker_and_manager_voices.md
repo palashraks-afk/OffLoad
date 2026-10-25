@@ -34,16 +34,16 @@ Reddit pages could not be opened, so these are only the titles and the first lin
 | Omnitrans: "They are either late, super early, or don't even show up"; "Get the Transit app... keep an eye on bus locations" | r/InlandEmpire | Live alerts and tracking links; the app says it cannot see delays |
 | "Getting to work w/o a car in the Inland Empire": Uber "eats up half of my paycheck", bus "doesn't stop close enough" | r/InlandEmpire | Cost card; walking distance in the verdict |
 
-## Looks hand-made, not template (self-grade, 2026-10-25)
-Criteria from the earlier research on "vibe-coded" tells. Grade 1-5, 5 = clearly designed by a person for this job.
+## Looks hand-made, not template (self-grade, updated 2026-10-25 after the design pass)
+Grade 1-5, 5 = clearly designed by a person for this job. Checked on a 375 px phone and a 1280 px desktop, light and dark.
 | Check | Grade | Evidence |
 |---|---|---|
 | One typeface, one accent color | 4 | Public Sans, a single teal; red/amber/green only for yes/maybe/no |
-| Icons: no emoji | 4 | Emoji replaced with inline SVG; a few text symbols remain in badges |
-| Content is specific, not generic | 4 | Real stop names, route colors, real employers, real numbers |
-| Real empty/error states | 3.5 | Present for results and offline; not every screen checked |
-| Layout varies by purpose (not one repeated card) | 3 | Timeline for the trip is distinctive; many other blocks are the same rounded card |
-| Stat-tile strip | 2.5 | Four equal tiles at the top of the plan card is a common template look |
-| Hero | 3.5 | A single local statistic, but still a dark banner with a big orange number |
-| Copy sounds like a person | 3.5 | Plain, short; some sentences are still generic |
-Overall about 3.5 of 5. Fixing the stat strip and the repeated cards would be the next steps.
+| Icons: no emoji, no glyph dependence | 4.5 | Inline SVG icons; yes/maybe/no shapes (circle, square, diamond) drawn in CSS; no emoji in the interface |
+| Content is specific, not generic | 4 | Real stop names, route colors, employers, local numbers; live "Real situations" |
+| Real empty/error states | 3.5 | Present for results, offline, bad input; not every screen reviewed |
+| Layout varies by purpose | 4 | Panels for the trip and ride home; plain sections with rules for support; left-bar notes for warnings; shaded area for actions |
+| Stat-tile strip | 4 | Replaced by one trip line (leave, arrow, arrive); other pages still use small tiles |
+| Hero | 4 | One local number, set large, with a 24-hour ruler that marks 11 PM, instead of a generic banner |
+| Copy sounds like a person | 3.5-4 | Filler cut in the result and About text; some sentences are still long |
+Overall about 4 of 5. What remains: the About and Employers pages still use the earlier card style, and the form-plus-result layout is the same shape as other trip planners.

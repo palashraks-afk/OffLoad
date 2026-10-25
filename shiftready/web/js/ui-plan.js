@@ -103,7 +103,7 @@
   };
 
   // ---------- the same trip on every kind of day ---------------------------------------------------
-  const VI = { yes: ["●", "v.yes"], maybe: ["■", "v.maybe"], no: ["◆", "v.no"] };
+  const VI = { yes: ["", "v.yes"], maybe: ["", "v.maybe"], no: ["", "v.no"] };   // the shape is drawn in CSS (.vi i, .cell i)
   function weekHtml(R) {
     const rows = ["weekday", "saturday", "sunday"].map((d) => {
       const x = d === R.d ? R : compute(R.from, R.to, d, R.m, R.T, R.wantHome, R.endT, true);
@@ -406,11 +406,11 @@
     const lines = ids.map((i) => ({ i, r: stopRisk(i) })).filter((x) => x.r);
     if (!lines.length) return "";
     const worst = lines.reduce((a, b) => (b.r.night > a.r.night ? b : a));
-    const level = worst.r.night >= 2 ? "bad" : worst.r.night === 1 ? "warn" : "";
+    const level = worst.r.night >= 2 ? "bad" : worst.r.night === 1 ? "warn" : "ok";
     let txt = worst.r.night === 0 ? t("risk.none", { s: esc(SR.stopName(worst.i)) })
       : t("risk.some", { n: worst.r.night, s: esc(SR.stopName(worst.i)) });
     if (worst.r.pct != null && worst.r.pct >= 90) txt += " " + t("risk.rank", { n: 100 - worst.r.pct });
-    let out = '<div class="notice"><span class="badge ' + level + '">' + (level === "bad" ? "▲▲ " : level === "warn" ? "▲ " : "✓ ") + t("risk.label") + "</span> " + txt +
+    let out = '<div class="notice"><span class="badge ' + level + '">' + t("risk.label") + "</span> " + txt +
       ' <span class="small">' + t("risk.src") + "</span></div>";
     if (R) {
       const alt = saferBoarding(R, buses[0]);
@@ -421,14 +421,14 @@
 
   function render(R) {
     const v = R.verdict, mn = R.main;
-    const icon = { yes: "✓", maybe: "!", no: "✕" }[v.level];
+    const icon = { yes: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>', maybe: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v8M12 18.2v.1"/></svg>', no: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>' }[v.level];
     const word = t("v." + v.level);
     let h = '<div class="verdict ' + v.level + '" role="status"><div class="tag"><span class="icon"><span>' + icon + "</span></span>" + word + "</div>" +
       "<p class=\"sub\">" + v.reasons.map(esc).join(" ") + "</p></div>" + SR.impact.waitSlot();
     setTimeout(() => SR.impact.loadConditions(R), 0);
 
     if (mn.ok) {
-      h += '<div class="card"><h2>' + t("res.plan") + "</h2>" +
+      h += '<div class="card panel"><h2>' + t("res.plan") + "</h2>" +
         '<div class="trip-line"><span class="tl"><small>' + t("res.leave") + "</small><b>" + SR.hm(mn.leave) + '</b></span><span class="tl-arrow" aria-hidden="true">&#8594;</span><span class="tl"><small>' + t("res.arrive") + "</small><b>" + SR.hm(mn.arrive) + "</b></span></div>" +
         '<p class="trip-meta">' + Math.round(mn.minutes) + " min " + t("res.door").toLowerCase() +
         (SR.d.transit.fares && mn.boardings > railCount(mn) ? " · " + t(railCount(mn) ? "res.fare_line_bus" : "res.fare_line", { a: esc(SR.cfg.agency), p: ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) }) : "") + "</p>" +
@@ -442,12 +442,12 @@
     }
 
     if (R.wantHome) {
-      h += '<div class="card"><h2>' + t("res.home") + "</h2>";
+      h += '<div class="card panel"><h2>' + t("res.home") + "</h2>";
       if (R.home && R.home.ok) {
-        h += '<div class="kv"><div><b>' + SR.hm(R.home.leave) + "</b><span>" + t("res.leave") + "</span></div><div><b>" + SR.hm(R.home.arrive) +
-          "</b><span>" + t("res.home_arrive") + "</span></div>" + (R.lastBus ? "<div><b>" + SR.hm(R.lastBus.leave) + "</b><span>" + t("res.lastbus") + "</span></div>" : "") + "</div>" + legsHtml(R.home);
+        h += '<div class="trip-line"><span class="tl"><small>' + t("res.leave") + "</small><b>" + SR.hm(R.home.leave) + '</b></span><span class="tl-arrow" aria-hidden="true">&#8594;</span><span class="tl"><small>' + t("res.home_arrive") + "</small><b>" + SR.hm(R.home.arrive) + "</b></span></div>" +
+          (R.lastBus ? '<p class="trip-meta">' + t("res.lastbus") + ": " + SR.hm(R.lastBus.leave) + "</p>" : "") + legsHtml(R.home);
       } else {
-        h += '<p><span class="badge bad">✕ ' + t("res.no_ride_home") + "</span> " + t("res.no_ride_home_txt", { t: SR.hm(R.endT) }) + "</p>";
+        h += '<p><span class="badge bad">' + t("res.no_ride_home") + "</span> " + t("res.no_ride_home_txt", { t: SR.hm(R.endT) }) + "</p>";
         if (R.homeLater) h += "<p>" + t("res.next_home_txt", { t: SR.hm(R.homeLater.leave) }) + "</p>";
         if (R.lastBus) h += "<p>" + t("res.lastbus_txt", { t: SR.hm(R.lastBus.leave) }) + "</p>";
       }
@@ -455,14 +455,14 @@
     }
 
     if (R.alts && (R.alts.earlier || R.alts.later)) {
-      h += '<div class="card"><h2>' + t("res.alts") + "</h2><p class=\"small\">" + t("res.alts_txt") + "</p><div class=\"chips\">";
+      h += '<div class="card plain"><h2>' + t("res.alts") + "</h2><p class=\"small\">" + t("res.alts_txt") + "</p><div class=\"chips\">";
       [R.alts.earlier, R.alts.later].filter(Boolean).forEach((a) => {
         h += "<button type=\"button\" data-alt=\"" + a.T + "\">" + (R.m === "arrive" ? t("res.be_there", { t: SR.hm(a.T) }) : t("res.leave_at", { t: SR.hm(a.T) })) +
           " · " + t("res.works", { l: SR.hm(a.plan.leave) }) + "</button>";
       });
       h += "</div></div>";
     } else if (v.level === "no") {
-      h += '<div class="card"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
+      h += '<div class="card plain"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
     }
 
     h += (mn.ok ? SR.impact.liveHtml() : "") + stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml(R);
@@ -478,7 +478,7 @@
     const hr = Math.floor(((R.m === "arrive" ? R.T : R.T) % 1440) / 60);
     const reach = SR.d.reach[R.d];
     const jt = reach.trans_jobs_share_county[hr];
-    return '<div class="card"><h2>' + t("res.context") + "</h2><p>" + t("res.context_txt", {
+    return '<div class="card plain"><h2>' + t("res.context") + "</h2><p>" + t("res.context_txt", {
       h: SR.hourLabel(hr), p: SR.pct(reach.pop_share[hr]), j: SR.pct(reach.trans_jobs_share_district[hr], 1), c: SR.cfg.short,
     }) + "</p></div>";
   }
@@ -534,12 +534,12 @@
     }
     return out;
   }
-  const GLYPH = { yes: "●", maybe: "■", no: "◆" };
+  const GLYPH = { yes: "", maybe: "", no: "" };
   function stripHtml(R) {
     const cells = stripData(R);
     return '<details class="card fold strip" open><summary><h2>' + t("strip.title") + '</h2></summary><p class="small">' + t("strip.sub") + '</p><div class="strip-row" role="list">' +
       cells.map((c) => '<button type="button" role="listitem" class="cell ' + c.lv + (c.h * 60 === R.T ? " now" : "") + '" data-hour="' + c.h + '" aria-label="' + SR.hourLabel(c.h) + ": " + t("strip." + c.lv) + '"><i aria-hidden="true">' + GLYPH[c.lv] + "</i><span>" + SR.hourLabel(c.h).replace(" ", "") + "</span></button>").join("") +
-      '</div><p class="small legend"><span class="cell-key yes">●</span> ' + t("strip.yes") + ' <span class="cell-key maybe">■</span> ' + t("strip.maybe") + ' <span class="cell-key no">◆</span> ' + t("strip.no") + "</p></details>";
+      '</div><p class="small legend"><span class="cell-key yes"><i></i></span> ' + t("strip.yes") + ' <span class="cell-key maybe"><i></i></span> ' + t("strip.maybe") + ' <span class="cell-key no"><i></i></span> ' + t("strip.no") + "</p></details>";
   }
 
   function nextDate(dayType) {

@@ -12,7 +12,7 @@ Scores are my estimates, 1-5, with the evidence. They are not judges' scores. A 
 | Nationwide | 4 | 9 regions in 8 states (CA x3, OH, FL, CO, GA, WA, MA), no API keys, one pipeline | New cities lack risk layers, hospital and employer lists and fares; DC blocked on a key |
 | Mapping | 4 | Route map, hour slider, coverage layers, risk corridors, reach map, pick-on-map; map now draws only in-district stops | Not tested on real devices |
 | Challenge fit | 3 | Free, no account, bilingual, built around one district; AI use fully disclosed in docs/AI_USE_LOG.md | Contest rules say AI cannot be the whole entry; the student must state what he wrote himself. Only he can fix this |
-| Looks hand-made | 3.5-4 | One typeface and accent; emoji replaced by icons; four-tile stat strip replaced by one trip line; real stop names and route colors; live "Real situations" | Many cards still share one rounded style; hero is still a banner with a big number |
+| Looks hand-made | 4 | Verdict is the loudest element; supporting facts are plain sections with rules, warnings use a left bar, answers sit in panels with a colored top edge, actions have their own area; hero is one large number with a 24-hour ruler marking 11 PM; shapes and icons are drawn (no glyph or emoji dependence); one spacing scale; contrast checked 4.5:1 or better in both themes at 375 px | Many other pages (About, Employers) still use the earlier card style; the product is still a form plus a result, like any planner |
 
 ## What would honestly move the rest above 4
 1. Impact: show the app to 3-5 shift workers or a manager, write down what they said, put it in the video. (Student)
