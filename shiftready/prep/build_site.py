@@ -6,7 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from common import APP, WEB_DATA, write_json  # noqa: E402
 
-ORDER = ["ca33", "cle", "mia"]
+ORDER = ["ca33", "cle", "mia", "sac"]
 
 
 def main():

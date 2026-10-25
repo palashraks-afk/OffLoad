@@ -59,7 +59,7 @@
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
     let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
-    if (SR.cfg.id === "ca33") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
+    if (SR.cfg.id === "ca33") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
     h += '<div class="card"><h2>' + t("diff.title") + "</h2><ul>" + [1, 2, 3, 4, 5].map((i) => "<li>" + t("diff." + i) + "</li>").join("") + "</ul></div>";
     h += '<div class="card empabout" id="about-emp"></div>';
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
@@ -85,7 +85,7 @@
   function sourcesHtml() {
     const L = (u, s) => '<li><a href="' + u + '" target="_blank" rel="noopener">' + s + "</a></li>";
     return '<ul class="srcs">' +
-      L("https://mobilitydatabase.org/feeds/gtfs/mdb-97", "Omnitrans GTFS schedule (the bus times and stops)") +
+      L(SR.cfg.id === "ca33" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agency) + " GTFS schedule (the bus times and stops)") +
       L("https://lehd.ces.census.gov/data/lodes/LODES8/", "Census LODES 2022 (where people work and live)") +
       L("https://censusreporter.org/", "Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)") +
       L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", "Census cartographic boundaries (district and tract shapes)") +
@@ -93,7 +93,7 @@
       L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", "California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)") +
       L("https://www.openstreetmap.org/copyright", "OpenStreetMap (roads, map tiles) and Nominatim (address search)") +
       L("https://data.chhs.ca.gov/", "California CDPH facility list (hospitals, clinics, dialysis)") +
-      L("https://www.riderta.com/", "GCRTA schedule (Cleveland)") + L("https://www.miamidade.gov/transit/", "Miami-Dade Transit schedule (Miami)") +
+      L("https://www.riderta.com/", "GCRTA schedule (Cleveland)") + L("https://www.miamidade.gov/transit/", "Miami-Dade Transit schedule (Miami)") + L("https://www.sacrt.com/", "SacRT schedule (Sacramento)") +
       L("https://leafletjs.com/", "Leaflet (map library)") + L("https://github.com/uswds/public-sans", "Public Sans typeface") + "</ul>";
   }
 

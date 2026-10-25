@@ -1,0 +1,31 @@
+{
+  "id": "sac",
+  "name": "Sacramento (California's 7th District)",
+  "short": "CA-7",
+  "agency": "SacRT",
+  "gtfs_dir": "data/raw/gtfs/sac",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "06",
+    "cd": "07"
+  },
+  "state_fips": "06",
+  "county_fips": [
+    "067"
+  ],
+  "lodes_state": "ca",
+  "fars_state": 6,
+  "fars_counties": [
+    67
+  ],
+  "center": [
+    38.5816,
+    -121.4944
+  ],
+  "zoom": 11,
+  "utm": 32610,
+  "gtfs_url": "https://apps.sacrt.com/gtfs/srtd/google_transit.zip",
+  "facilities": "cdph_ca",
+  "label": "Sacramento, CA",
+  "model_area": "county"
+}

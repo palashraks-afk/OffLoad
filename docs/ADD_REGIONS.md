@@ -27,3 +27,6 @@ Pitfalls seen so far: Census Reporter blocks generic user agents; OSM's public O
 
 ## Recommended order if there is time
 Sacramento first (verified feed, strong story: "the state capital's own bus service at 11 pm"), then CA-23 valley only if entering CA-23, then DC if the key is easy. Skip CA-22 and the High Desert.
+
+## Update 2026-10-25: Sacramento added
+Region `sac` (SacRT, California's 7th District) built with the same pipeline: `fetch_region.py`, then `transit`, `people`, `places`, `safety`. The road-risk model was not run for it (needs OSM data and `osmnx`), so the risk layers and corridors are absent there (the app shows them only when present). No fare file, so the cost card is hidden. No employers list, so the quick pick uses the jobs areas. Check: 2% of people are within a 5-minute walk of a bus at 11 PM (SacRT's own timetable has very few stop times after 11 PM). Known edge: when origin and destination are within about 800 m of each other, "arrive by" reports no bus instead of "walk it".

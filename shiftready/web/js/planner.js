@@ -83,7 +83,8 @@
           }
         }
       });
-      const idx = dT.map((_, i) => i).sort((x, y) => dT[x] - dT[y]);
+      // ties in time are broken by position along the trip, so a stop with zero dwell is passed in the right order (forward and reversed)
+      const idx = dT.map((_, i) => i).sort((x, y) => dT[x] - dT[y] || seq[x] - seq[y]);
       const C = { n: idx.length, dep: new Int32Array(idx.map((i) => dep[i])), arr: new Int32Array(idx.map((i) => arr[i])),
         depT: new Float64Array(idx.map((i) => dT[i])), arrT: new Float64Array(idx.map((i) => aT[i])),
         trip: new Int32Array(idx.map((i) => trip[i])), seq: new Int32Array(idx.map((i) => seq[i])) };
