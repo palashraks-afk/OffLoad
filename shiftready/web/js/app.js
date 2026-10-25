@@ -85,7 +85,7 @@
   function sourcesHtml() {
     const L = (u, s) => '<li><a href="' + u + '" target="_blank" rel="noopener">' + s + "</a></li>";
     return '<ul class="srcs">' +
-      L(SR.cfg.id === "ca33" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agency) + " GTFS schedule (the bus times and stops)") +
+      L(SR.cfg.id === "ca33" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agencies || SR.cfg.agency) + " GTFS schedules (the bus and train times and stops)") +
       L("https://lehd.ces.census.gov/data/lodes/LODES8/", "Census LODES 2022 (where people work and live)") +
       L("https://censusreporter.org/", "Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)") +
       L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", "Census cartographic boundaries (district and tract shapes)") +

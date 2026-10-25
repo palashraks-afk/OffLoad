@@ -38,7 +38,8 @@ def main(rid="ca33"):
     write_json(WEB_DATA / rid / "region.json", {
         "id": cfg["id"], "name": cfg["name"], "short": cfg["short"], "label": cfg["label"], "agency": cfg["agency"], "center": cfg["center"],
         "zoom": cfg["zoom"], "contact_email": feed.get("feed_contact_email", ""),
-        "feed_version": feed.get("feed_version", ""), "feed_start": feed.get("feed_start_date", ""), "feed_end": feed.get("feed_end_date", "")})
+        "feed_version": feed.get("feed_version", ""), "feed_start": feed.get("feed_start_date", ""), "feed_end": feed.get("feed_end_date", ""),
+        **{k: cfg[k] for k in ("alerts_url", "track_url", "agencies") if k in cfg}})
     if cfg.get("facilities") != "cdph_ca":
         write_json(WEB_DATA / rid / "pois.json", [])
         print(len(b), "job blocks;", len(zips), "ZIPs;", len(cities), "places; no health destination file for this state")

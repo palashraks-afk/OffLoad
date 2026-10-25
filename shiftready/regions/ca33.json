@@ -26,5 +26,15 @@
   "utm": 32611,
   "gtfs_url": "http://www.omnitrans.org/google/google_transit.zip",
   "facilities": "cdph_ca",
-  "label": "San Bernardino, CA"
+  "label": "San Bernardino, CA",
+  "gtfs_extra": [
+    {
+      "dir": "data/raw/gtfs/metrolink",
+      "url": "https://metrolinktrains.com/globalassets/about/gtfs/gtfs.zip",
+      "prefix": "ml_"
+    }
+  ],
+  "agencies": "Omnitrans and Metrolink",
+  "alerts_url": "https://omnitrans.org/plan-a-trip/alerts/",
+  "track_url": "https://omnitrans.org/plan-a-trip/track-your-bus/"
 }

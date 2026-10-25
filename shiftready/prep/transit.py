@@ -46,15 +46,36 @@ def fares(gtfs):
     return out or None
 
 
-def build(rid="ca33"):
-    cfg = region(rid)
-    gtfs = ROOT / cfg["gtfs_dir"]
-    masks = service_masks(gtfs)
+def load_feed(gtfs, prefix=""):
+    """One GTFS folder -> the five tables, with every id prefixed so several feeds can be merged without clashes."""
+    masks = {prefix + k: v for k, v in service_masks(gtfs).items()}
     routes = pd.read_csv(gtfs / "routes.txt", dtype=str).fillna("")
+    routes["route_id"] = prefix + routes.route_id
     trips = pd.read_csv(gtfs / "trips.txt", dtype=str)
+    trips["trip_id"] = prefix + trips.trip_id
+    trips["route_id"] = prefix + trips.route_id
+    trips["service_id"] = prefix + trips.service_id
     stops = pd.read_csv(gtfs / "stops.txt", dtype={"stop_id": str})
+    stops["stop_id"] = prefix + stops.stop_id
     st = pd.read_csv(gtfs / "stop_times.txt", dtype=str,
                      usecols=["trip_id", "stop_id", "stop_sequence", "arrival_time", "departure_time"])
+    st["trip_id"] = prefix + st.trip_id
+    st["stop_id"] = prefix + st.stop_id
+    return masks, routes, trips, stops, st
+
+
+def build(rid="ca33"):
+    """Merges the main agency feed with any `gtfs_extra` feeds listed in the region file (for example commuter rail)."""
+    cfg = region(rid)
+    gtfs = ROOT / cfg["gtfs_dir"]
+    feeds = [load_feed(gtfs)] + [load_feed(ROOT / x["dir"], x["prefix"]) for x in cfg.get("gtfs_extra", [])]
+    masks = {}
+    for f in feeds:
+        masks.update(f[0])
+    routes = pd.concat([f[1] for f in feeds], ignore_index=True)
+    trips = pd.concat([f[2] for f in feeds], ignore_index=True)
+    stops = pd.concat([f[3] for f in feeds], ignore_index=True)
+    st = pd.concat([f[4] for f in feeds], ignore_index=True)
     st["seq"] = st.stop_sequence.astype(int)
     st = st.sort_values(["trip_id", "seq"])
     ridx = {r: i for i, r in enumerate(routes.route_id)}

@@ -14,5 +14,6 @@
  "feed_start": "20260810",
  "feed_end": "20270103",
  "alerts_url": "https://omnitrans.org/plan-a-trip/alerts/",
- "track_url": "https://omnitrans.org/plan-a-trip/track-your-bus/"
+ "track_url": "https://omnitrans.org/plan-a-trip/track-your-bus/",
+ "agencies": "Omnitrans and Metrolink"
 }

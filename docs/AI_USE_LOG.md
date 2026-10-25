@@ -29,3 +29,5 @@ The 2026 rules require every use of AI to be fully disclosed in the submission, 
 | 2026-10-25 | Claude Code | Forum scan (titles/snippets only), added "Message my boss" button (bossText in ui-plan.js), early-bus tip, forum table and a hand-made-look self-grade in docs/research/07. Cache v9. |
 
 | 2026-10-25 | Claude Code | Deep evidence note (docs/research/09), statistics card (BLS, county indicators, Urban Institute), Sacramento region built with the existing pipeline (data from SacRT GTFS, Census LODES/ACS, FARS), planner tie-break for zero-dwell stops, region-aware schedule source line. Cache v11. |
+
+| 2026-10-25 | Claude Code | Merged Metrolink (rail) into the CA-33 timetable (multi-feed support in prep/transit.py), rebuilt the stop-dependent data, label "Omnitrans and Metrolink", train legs excluded from fare estimates. All tests pass. Cache v13. |

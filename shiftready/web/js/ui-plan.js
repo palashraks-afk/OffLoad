@@ -114,9 +114,13 @@
     return '<details class="card fold"><summary><h2>' + t("week.title") + '</h2></summary><p class="small">' + t("week.sub") + '</p><div class="week">' + rows + "</div></details>";
   }
 
+  /** Legs on Metrolink trains: the agency fare file only covers the buses, so train fares are not estimated. */
+  const isRail = (l) => l.k === "bus" && /^Metrolink/.test(SR.d.transit.routes[l.route][1] || "");
+  const railCount = (m) => m.legs.filter(isRail).length;
+
   // ---------- what the trip costs, from the agency's own fare file ----------------------------------
   function costHtml(R) {
-    const F = SR.d.transit.fares; if (!F || !R.main.ok) return "";
+    const F = SR.d.transit.fares; if (!F || !R.main.ok || railCount(R.main)) return "";
     const perDay = R.main.boardings * (R.wantHome ? 2 : 1);
     const rides = perDay * 22;   // 22 working days a month
     const pay = 22 * Math.min(perDay * F.adult.single, F.adult.day || Infinity);   // a day pass caps the daily cost
@@ -377,7 +381,7 @@
         '<div class="kv"><div><b>' + SR.hm(mn.leave) + "</b><span>" + t("res.leave") + "</span></div>" +
         "<div><b>" + SR.hm(mn.arrive) + "</b><span>" + t("res.arrive") + "</span></div>" +
         "<div><b>" + Math.round(mn.minutes) + " min</b><span>" + t("res.door") + "</span></div>" +
-        (SR.d.transit.fares ? "<div><b>$" + (mn.boardings * SR.d.transit.fares.adult.single).toFixed(2) + "</b><span>" + t("res.fare") + "</span></div>" : "") + "</div>" +
+        (SR.d.transit.fares ? "<div><b>$" + ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) + "</b><span>" + t(railCount(mn) ? "res.fare_bus" : "res.fare") + "</span></div>" : "") + "</div>" +
         legsHtml(mn) + riskHtml(mn, R);
       if (R.backup && R.backup.ok) {
         const late = R.m === "arrive" ? R.backup.arrive - R.T : null;
@@ -417,7 +421,7 @@
       '<button id="plan-save" class="btn ghost" type="button">' + t("saved.save") + "</button>" +
       (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + '</button><button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") +
       '<button id="plan-boss" class="btn ghost" type="button">' + t("boss.btn") + '</button><button id="plan-share" class="btn ghost" type="button">' + t("res.share") + '</button><button id="plan-print" class="btn ghost" type="button">' + t("res.print") + "</button></div>";
-    h += '<p class="small pad-top">' + t("res.limits", { agency: SR.cfg.agency }) + "</p>";
+    h += '<p class="small pad-top">' + t("res.limits", { agency: SR.cfg.agencies || SR.cfg.agency }) + "</p>";
     return h;
   }
 
@@ -518,7 +522,7 @@
     let rows = R.main.legs.filter((l) => l.k === "bus").map((l) => row(l, R.d)).join("");
     let home = R.home && R.home.ok ? R.home.legs.filter((l) => l.k === "bus").map((l) => row(l, R.homeDay)).join("") : "";
     SR.printHtml("<h1>" + t("card.title") + "</h1><p>" + esc(R.from.label || "") + " → " + esc(R.to.label || "") + " · " + t("day." + R.d) + "</p><table><thead><tr><th>" + t("card.stop") + "</th><th>" + t("plan.from") + "</th><th>" + t("card.last") + "</th></tr></thead><tbody>" + rows +
-      (home ? '<tr><td colspan="3"><b>' + t("card.home") + "</b></td></tr>" + home : "") + "</tbody></table><p>" + t("res.limits", { agency: SR.cfg.agency }) + "</p>");
+      (home ? '<tr><td colspan="3"><b>' + t("card.home") + "</b></td></tr>" + home : "") + "</tbody></table><p>" + t("res.limits", { agency: SR.cfg.agencies || SR.cfg.agency }) + "</p>");
   }
 
   function bindResult(R) {
