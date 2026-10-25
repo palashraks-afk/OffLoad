@@ -16,7 +16,8 @@ from people import district_polygon  # noqa: E402
 
 HIGHWAYS = ("motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link|"
             "tertiary|tertiary_link|unclassified|residential")
-URL = "https://overpass-api.de/api/interpreter"
+import os
+URL = os.environ.get("OVERPASS_URL", "https://overpass-api.de/api/interpreter")   # set OVERPASS_URL to use a mirror when the main server refuses this machine
 
 
 def tile_xml(bbox, dest, tries=8):
@@ -59,28 +60,51 @@ def fetch(rid="ca33", nx=3, ny=3):
         return out
     d = ROOT / f"data/raw/osm/{rid}_tiles3"
     d.mkdir(parents=True, exist_ok=True)
-    w, s, e, n = area_polygon(cfg).bounds
-    nx, ny = (4, 4) if cfg.get("model_area") == "county" else (nx, ny)
-    xs = [w + (e - w) * i / nx for i in range(nx + 1)]
-    ys = [s + (n - s) * j / ny for j in range(ny + 1)]
     parts = []
-    for i in range(nx):
-        for j in range(ny):
-            f = d / f"t{i}{j}.osm"
+    if cfg.get("osm_tiles"):
+        # a district that is mostly empty desert: fetch only the listed populated boxes [south, west, north, east]
+        for k, box in enumerate(cfg["osm_tiles"]):
+            f = d / f"box{k}.osm"
             if not f.exists():
-                print("tile", i, j, flush=True)
-                tile_xml((ys[j], xs[i], ys[j + 1], xs[i + 1]), f)
+                print("box", k, box, flush=True)
+                tile_xml(tuple(box), f)
             parts.append(f)
+    else:
+        w, s, e, n = area_polygon(cfg).bounds
+        nx, ny = (4, 4) if cfg.get("model_area") == "county" else (nx, ny)
+        xs = [w + (e - w) * i / nx for i in range(nx + 1)]
+        ys = [s + (n - s) * j / ny for j in range(ny + 1)]
+        for i in range(nx):
+            for j in range(ny):
+                f = d / f"t{i}{j}.osm"
+                if not f.exists():
+                    print("tile", i, j, flush=True)
+                    tile_xml((ys[j], xs[i], ys[j + 1], xs[i + 1]), f)
+                parts.append(f)
     # merge tiles into one XML (ways/nodes may repeat across tiles; osmnx ignores duplicates)
     merged = d / "merged.osm"
-    with merged.open("w") as m:
+    import re
+    bodies = []
+    for f in parts:
+        txt = f.read_text(encoding="utf-8")
+        body = txt[txt.index("<osm"):]
+        bodies.append(body[body.index(">") + 1: body.rindex("</osm>")])
+    # a mirror can be a moment out of step with itself: drop the few ways that point at a node that was not delivered
+    have = set(re.findall(r'<node id="(\d+)"', "".join(bodies)))
+    dropped = 0
+    with merged.open("w", encoding="utf-8") as m:
         m.write('<?xml version="1.0" encoding="UTF-8"?><osm version="0.6">')
-        for f in parts:
-            txt = f.read_text()
-            body = txt[txt.index("<osm"):]
-            body = body[body.index(">") + 1: body.rindex("</osm>")]
-            m.write(body)
+        for body in bodies:
+            def keep(mt):
+                nonlocal dropped
+                if all(r in have for r in re.findall(r'<nd ref="(\d+)"', mt.group(0))):
+                    return mt.group(0)
+                dropped += 1
+                return ""
+            m.write(re.sub(r"<way .*?</way>", keep, body, flags=re.S))
         m.write("</osm>")
+    if dropped:
+        print("dropped", dropped, "ways with missing nodes", flush=True)
     ox.settings.useful_tags_way = ["highway", "lanes", "maxspeed", "oneway", "name", "bridge", "tunnel", "lit", "sidewalk"]
     g = ox.graph_from_xml(merged, simplify=True, retain_all=True)
     ox.save_graphml(g, out)

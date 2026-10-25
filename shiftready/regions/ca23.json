@@ -74,5 +74,44 @@
       "name": "Metrolink",
       "url": "https://metrolinktrains.com/"
     }
-  ]
+  ],
+  "osm_tiles": [
+    [
+      34.0,
+      -117.35,
+      34.18,
+      -117.15
+    ],
+    [
+      34.0,
+      -117.15,
+      34.18,
+      -116.95
+    ],
+    [
+      34.38,
+      -117.45,
+      34.62,
+      -117.15
+    ],
+    [
+      34.84,
+      -117.12,
+      34.94,
+      -116.95
+    ],
+    [
+      34.2,
+      -117.0,
+      34.3,
+      -116.7
+    ],
+    [
+      34.05,
+      -116.5,
+      34.25,
+      -115.95
+    ]
+  ],
+  "model_area_label": "the populated parts of California's 23rd District in San Bernardino County (Redlands to Yucaipa, Big Bear, Victorville to Apple Valley, Barstow, Yucca Valley to Twentynine Palms)"
 }

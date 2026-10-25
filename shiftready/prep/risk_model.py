@@ -279,7 +279,7 @@ def main(rid="ca33"):
     coef = pd.Series(lr[-1].coef_[0], index=FEATURES).sort_values(key=abs, ascending=False)
     feats = [PLAIN[k] + (" (more risk)" if v > 0 else " (less risk)") for k, v in coef.head(6).items()]
 
-    report = {"unit": "road segments (surface streets)", "area": cfg["name"] + " and nearby county roads", "train": "2019–2021", "test": "2022–2023",
+    report = {"unit": "road segments (surface streets)", "area": cfg.get("model_area_label") or (cfg["name"] + " and nearby county roads"), "train": "2019–2021", "test": "2022–2023",
               "n_test_deaths": n_te, "n_test_deaths_night": n_te_n, "n_segments": int(surf.sum()),
               "rows": rows, "rows_night": rows_n, "comparisons": comps, "comparisons_night": comps_n, "cv_ap": cv, "chosen": best, "beats_baseline": beats, "verdict": verdict, "features": feats}
     write_json(WEB_DATA / rid / "risk_report.json", report)
