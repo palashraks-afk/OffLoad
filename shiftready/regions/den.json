@@ -1,0 +1,31 @@
+{
+  "id": "den",
+  "name": "Denver (Colorado's 1st District)",
+  "short": "CO-1",
+  "agency": "RTD",
+  "gtfs_url": "https://www.rtd-denver.com/files/gtfs/google_transit.zip",
+  "gtfs_dir": "data/raw/gtfs/den",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "08",
+    "cd": "01"
+  },
+  "state_fips": "08",
+  "county_fips": [
+    "031"
+  ],
+  "lodes_state": "co",
+  "fars_state": 8,
+  "fars_counties": [
+    31
+  ],
+  "utm": 32613,
+  "center": [
+    39.7392,
+    -104.9903
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Denver, CO",
+  "typical_service": true
+}

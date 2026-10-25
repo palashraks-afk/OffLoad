@@ -1,0 +1,31 @@
+{
+  "id": "sea",
+  "name": "Seattle (Washington's 7th District)",
+  "short": "WA-7",
+  "agency": "King County Metro",
+  "gtfs_url": "https://metro.kingcounty.gov/GTFS/google_transit.zip",
+  "gtfs_dir": "data/raw/gtfs/sea",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "53",
+    "cd": "07"
+  },
+  "state_fips": "53",
+  "county_fips": [
+    "033"
+  ],
+  "lodes_state": "wa",
+  "fars_state": 53,
+  "fars_counties": [
+    33
+  ],
+  "utm": 32610,
+  "center": [
+    47.6062,
+    -122.3321
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Seattle, WA",
+  "typical_service": true
+}

@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-regions = sys.argv[1:] or ["ca23", "ca33", "cle", "mia", "sac"]
+regions = sys.argv[1:] or ["ca23", "ca33", "cle", "mia", "sac", "den", "atl", "sea", "bos"]
 for rid in regions:
     steps = ["transit", "people", "places", "safety"]
     if (HERE.parents[1] / f"data/raw/osm/{rid}.graphml").exists():

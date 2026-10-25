@@ -12,6 +12,41 @@ sys.path.insert(0, str(Path(__file__).parent))
 from common import ROOT, WEB_DATA, hms_to_min, region, write_json  # noqa: E402
 
 
+def typical_masks(gtfs, today=None, horizon=42):
+    """For feeds that list many overlapping service periods (one-day exceptions, week-by-week schedules).
+
+    Picks, for weekdays, Saturdays and Sundays, the service pattern that is most common over the next `horizon` days
+    (starting at today, or the feed start if later) and returns {service_id: bitmask} plus the dates chosen.
+    Regions whose feed is a single schedule keep the plain behaviour in service_masks()."""
+    import datetime as dt
+    from collections import Counter
+    cal = pd.read_csv(gtfs / "calendar.txt", dtype=str)
+    cd = pd.read_csv(gtfs / "calendar_dates.txt", dtype=str) if (gtfs / "calendar_dates.txt").exists() else pd.DataFrame(columns=["service_id", "date", "exception_type"])
+    fmt = lambda x: dt.datetime.strptime(x, "%Y%m%d").date()
+    first = max(today or dt.date.today(), fmt(cal.start_date.min()))
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+
+    def active(d):
+        k = d.strftime("%Y%m%d")
+        on = {r.service_id for r in cal.itertuples() if getattr(r, days[d.weekday()]) == "1" and r.start_date <= k <= r.end_date}
+        on |= set(cd[(cd.date == k) & (cd.exception_type == "1")].service_id)
+        on -= set(cd[(cd.date == k) & (cd.exception_type == "2")].service_id)
+        return frozenset(on)
+
+    chosen, masks = {}, {}
+    for name, bit, wd in (("weekday", 1, (1, 2, 3)), ("saturday", 2, (5,)), ("sunday", 4, (6,))):
+        sets = {}
+        for i in range(horizon):
+            d = first + dt.timedelta(days=i)
+            if d.weekday() in wd:
+                sets.setdefault(active(d), []).append(d)
+        best = max(sets.items(), key=lambda kv: (len(kv[1]), -kv[1][0].toordinal()))
+        chosen[name] = best[1][0].isoformat()
+        for sid in best[0]:
+            masks[sid] = masks.get(sid, 0) | bit
+    return masks, chosen
+
+
 def service_masks(gtfs):
     cal = pd.read_csv(gtfs / "calendar.txt", dtype=str)
     masks = {}
@@ -33,6 +68,8 @@ def fares(gtfs):
     if not f.exists():
         return None
     d = pd.read_csv(f, dtype=str)
+    if "rider_category_id" not in d.columns:   # another agency's fare layout: no estimate rather than a guess
+        return None
     names = {"single": "omni_fr_single", "day": "omni_fr_day", "d7": "omni_fr_7d", "d31": "omni_fr_31d"}
     out = {}
     for who, cat in (("adult", "omni_adult"), ("reduced", "omni_sdm")):
@@ -46,9 +83,9 @@ def fares(gtfs):
     return out or None
 
 
-def load_feed(gtfs, prefix="", operator=""):
+def load_feed(gtfs, prefix="", operator="", typical=False):
     """One GTFS folder -> the five tables, with every id prefixed so several feeds can be merged without clashes."""
-    masks = {prefix + k: v for k, v in service_masks(gtfs).items()}
+    masks = {prefix + k: v for k, v in (typical_masks(gtfs)[0] if typical else service_masks(gtfs)).items()}
     routes = pd.read_csv(gtfs / "routes.txt", dtype=str).fillna("")
     routes["route_id"] = prefix + routes.route_id
     routes["operator"] = operator
@@ -78,7 +115,7 @@ def build(rid="ca33"):
     """Merges the main agency feed with any `gtfs_extra` feeds listed in the region file (for example commuter rail)."""
     cfg = region(rid)
     gtfs = ROOT / cfg["gtfs_dir"]
-    feeds = [load_feed(gtfs)] + [load_feed(ROOT / x["dir"], x["prefix"], x.get("name", x["prefix"])) for x in cfg.get("gtfs_extra", [])]
+    feeds = [load_feed(gtfs, typical=bool(cfg.get("typical_service")))] + [load_feed(ROOT / x["dir"], x["prefix"], x.get("name", x["prefix"])) for x in cfg.get("gtfs_extra", [])]
     masks = {}
     for f in feeds:
         masks.update(f[0])

@@ -59,8 +59,9 @@
     const rr = SR.d.risk_report, r = SR.d.reach;
     const src = [
       [esc(SR.d.transit.agency) + " GTFS", t("src.gtfs")], ["Census LODES 2022", t("src.lodes")], ["Census ACS 5-year", t("src.acs")],
-      ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
+      ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")],
     ];
+    if ((SR.d.pois || []).length) src.push(["CDPH", t("src.cdph")]);
     let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
     if (SR.cfg.id === "ca33" || SR.cfg.id === "ca23") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
     const sit = SR.workedExamples ? SR.workedExamples() : [];
@@ -104,10 +105,12 @@
       L("https://censusreporter.org/", X("Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)", "Census ACS de 5 años, vía Census Reporter (población, hogares sin vehículo, cómo van al trabajo)")) +
       L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", X("Census cartographic boundaries (district and tract shapes)", "Límites cartográficos del Census (formas de distritos y sectores censales)")) +
       L("https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars", X("NHTSA FARS 2019–2023 (every fatal crash, with location and light)", "NHTSA FARS 2019–2023 (cada choque mortal, con lugar y luz)")) +
-      L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", X("California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)", "California EDD, grandes empleadores, 2.ª edición 2026 (nombres, direcciones, tamaños)")) +
+      (SR.d.employers ? L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", X("California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)", "California EDD, grandes empleadores, 2.ª edición 2026 (nombres, direcciones, tamaños)")) : "") +
       L("https://www.openstreetmap.org/copyright", X("OpenStreetMap (roads, map tiles) and Nominatim (address search)", "OpenStreetMap (calles, mapa) y Nominatim (búsqueda de direcciones)")) +
-      L("https://data.chhs.ca.gov/", X("California CDPH facility list (hospitals, clinics, dialysis)", "Lista de centros de CDPH California (hospitales, clínicas, diálisis)")) +
+      ((SR.d.pois || []).length ? L("https://data.chhs.ca.gov/", X("California CDPH facility list (hospitals, clinics, dialysis)", "Lista de centros de CDPH California (hospitales, clínicas, diálisis)")) : "") +
       L("https://www.riderta.com/", X("GCRTA schedule (Cleveland)", "Horario de GCRTA (Cleveland)")) + L("https://www.miamidade.gov/transit/", X("Miami-Dade Transit schedule (Miami)", "Horario de Miami-Dade Transit (Miami)")) + L("https://www.sacrt.com/", X("SacRT schedule (Sacramento)", "Horario de SacRT (Sacramento)")) +
+      L("https://www.rtd-denver.com/", X("RTD schedule (Denver)", "Horario de RTD (Denver)")) + L("https://www.itsmarta.com/", X("MARTA schedule (Atlanta)", "Horario de MARTA (Atlanta)")) +
+      L("https://kingcounty.gov/en/dept/metro", X("King County Metro schedule (Seattle)", "Horario de King County Metro (Seattle)")) + L("https://www.mbta.com/", X("MBTA schedule (Boston)", "Horario de MBTA (Boston)")) +
       L("https://leafletjs.com/", X("Leaflet (map library)", "Leaflet (biblioteca de mapas)")) + L("https://github.com/uswds/public-sans", X("Public Sans typeface", "Tipografía Public Sans")) + "</ul>";
   }
 

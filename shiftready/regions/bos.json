@@ -1,0 +1,31 @@
+{
+  "id": "bos",
+  "name": "Boston (Massachusetts's 8th District)",
+  "short": "MA-8",
+  "agency": "MBTA",
+  "gtfs_url": "https://cdn.mbta.com/MBTA_GTFS.zip",
+  "gtfs_dir": "data/raw/gtfs/bos",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "25",
+    "cd": "08"
+  },
+  "state_fips": "25",
+  "county_fips": [
+    "025"
+  ],
+  "lodes_state": "ma",
+  "fars_state": 25,
+  "fars_counties": [
+    25
+  ],
+  "utm": 32619,
+  "center": [
+    42.3601,
+    -71.0589
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Boston, MA",
+  "typical_service": true
+}

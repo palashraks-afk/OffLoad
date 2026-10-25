@@ -1,0 +1,31 @@
+{
+  "id": "atl",
+  "name": "Atlanta (Georgia's 5th District)",
+  "short": "GA-5",
+  "agency": "MARTA",
+  "gtfs_url": "https://www.itsmarta.com/google_transit_feed/google_transit.zip",
+  "gtfs_dir": "data/raw/gtfs/atl",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "13",
+    "cd": "05"
+  },
+  "state_fips": "13",
+  "county_fips": [
+    "121"
+  ],
+  "lodes_state": "ga",
+  "fars_state": 13,
+  "fars_counties": [
+    121
+  ],
+  "utm": 32616,
+  "center": [
+    33.749,
+    -84.388
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Atlanta, GA",
+  "typical_service": true
+}
