@@ -71,3 +71,23 @@ If time runs out, cut in this order: Angle 4 (sleep line), second-region polish,
 
 ## Claims guardrails
 Say "at least", give source and year, and "my estimate" for costs. Do not say the app saves lives, prevents crashes, or reduces commute times. Do not claim EMS response findings. Do not call posted speed limits impact speeds. Death counts are not risk per person walking. Do not present the drowsy-driving studies as proof about CA-33.
+
+---
+## Addendum (2026-10-24): which district, and weather/air quality as health angles
+
+### Which district to enter
+- Rules: compete in the district where you live OR where you attend school, never both; one app per person. You cannot choose a district for being easier. Entry counts per district are not published (national: 4,650 apps across 394 districts in 2025, about 12 per district; 16 Members received more than 50 submissions: https://www.congressionalappchallenge.us/record-breaking-year-for-congressional-innovation-2025-challenge-recap/).
+- CA-33 (Pete Aguilar) is the student's home district and is listed as participating for 2026 (https://www.congressionalappchallenge.us/students/participating-districts/; recheck in the portal).
+- Recommendation: stay in CA-33. The app's data is CA-33 data. If the school is in a different district, find the school's district, ask that office how many entries it received last year, and weigh that against losing the District category.
+
+### "Wait conditions" card (student writes it; 1-2 hours)
+- Source (tested 2026-10-24, no key, returns JSON): Open-Meteo forecast (`apparent_temperature`, `uv_index`, `daily sunrise/sunset`) and Open-Meteo air quality (`us_aqi`, `pm2_5`). Credit Open-Meteo and read its terms (non-commercial use, attribution). Disclose the third-party call on the Methods page. Fail soft when offline: hide the card.
+- Show for the stop and time the user would wait: feels-like temperature, UV, air quality, and whether the walking leg is after sunset (ties to 88% of CA-33 pedestrian/cyclist deaths in the dark).
+- Use official categories only (National Weather Service heat index categories; EPA AQI categories). Wording: information, not medical advice.
+
+### Workplace heat panel for warehouse workers (information, not legal advice)
+- Cal/OSHA indoor heat illness prevention standard, Title 8 section 3396, effective 2024-07-23: baseline duties (water, cool-down area below 82 F, rest, written plan, training) where indoor temperature is 82 F or higher; additional measures at 87 F (temperature or heat index) where feasible; employers must measure and record. Sources: https://perkinscoie.com/insights/update/calosha-publishes-indoor-heat-illness-prevention-standard and https://dir.ca.gov/DOSH/HeatIllnessInfo.html (verify the current text).
+
+### What can and cannot be said about heat and health
+- Statewide heat-related ER visit rates rose about 30% from 2005-2014 to 2015-2024 (Public Health Institute analysis: https://www.phi.org/press/unhoused-californians-face-38-higher-er-risk-for-heat-illness-yet-are-nearly-invisible-in-the-data/). San Bernardino County had among the largest case counts 2015-2024 (a count, not a rate).
+- A 2024 report quoted the San Bernardino County health department saying it lacked reliable county data on heat-related deaths and ED visits. Do NOT quote a county heat-illness rate.
