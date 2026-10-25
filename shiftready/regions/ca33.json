@@ -31,7 +31,9 @@
     {
       "dir": "data/raw/gtfs/metrolink",
       "url": "https://metrolinktrains.com/globalassets/about/gtfs/gtfs.zip",
-      "prefix": "ml_"
+      "prefix": "ml_",
+      "name": "Metrolink",
+      "mode": "rail"
     }
   ],
   "agencies": "Omnitrans and Metrolink",

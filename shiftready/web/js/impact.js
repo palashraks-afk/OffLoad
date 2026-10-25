@@ -8,10 +8,13 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   // Total operating cost per vehicle revenue hour, FTA National Transit Database agency profile (Omnitrans, 2022).
-  const RATE = { ca33: { perHour: 141, year: 2022 } };
+  const RATE = { ca33: { perHour: 141, year: 2022 }, ca23: { perHour: 141, year: 2022 } };   // Omnitrans; the what-if lists only Omnitrans routes
 
   // Computed from NHTSA FARS 2019-2023 for pedestrians and cyclists killed inside the district boundary.
-  const INJURY = { ca33: { deaths: 217, yll: 6838, dark: 88, scene: 61, hour: 83, fast: 88 } };
+  const INJURY = {
+    ca33: { deaths: 217, yll: 6838, dark: 88, scene: 61, hour: 83, fast: 88 },
+    ca23: { area: "the San Bernardino County part of CA-23", area_es: "la parte de CA-23 en el condado de San Bernardino", deaths: 201, yll: 6271, dark: 84, scene: 62, hour: 81, fast: 89 },   // same method, polygon of CA-23 inside the county
+  };
 
   // ---------- pure helpers (checked by shiftready/tests/impact.test.js) ----------
   function heatCategory(f) {            // National Weather Service heat index bands
@@ -72,7 +75,7 @@
     let h = '<details class="card fold"><summary><h2>' + t("health.title") + "</h2></summary><ul>" +
       "<li>" + t("health.sleep", { a: "44.0", b: "28.8", c: "69.7", d: "52.3" }) + "</li>" +
       "<li>" + t("health.drowsy") + "</li>";
-    if (inj) h += "<li>" + t("health.injury", { c: SR.cfg.short, n: SR.num(inj.deaths), dark: inj.dark, scene: inj.scene, hour: inj.hour, fast: inj.fast, yll: SR.num(inj.yll) }) + "</li>";
+    if (inj) h += "<li>" + t("health.injury", { c: (SR.lang === "es" && inj.area_es) || inj.area || SR.cfg.short, n: SR.num(inj.deaths), dark: inj.dark, scene: inj.scene, hour: inj.hour, fast: inj.fast, yll: SR.num(inj.yll) }) + "</li>";
     h += "<li>" + t("health.speed") + "</li></ul><p class=\"small\">" + t("health.note") + " " + t("health.src") + "</p></details>";
     return h;
   }
@@ -90,10 +93,12 @@
     const c = SR.cfg, d = new Date(), ymd = "" + d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
     const st = feedStatus(c.feed_end, ymd);
     let h = '<div class="card live"><h2>' + t("live.title") + '</h2><p class="small">' + t("live.txt") + "</p>";
-    if (c.alerts_url || c.track_url) {
+    if (c.alerts_url || c.track_url || c.live_links) {
       h += '<div class="chips">';
-      if (c.alerts_url) h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(c.alerts_url) + '">' + t("live.alerts") + "</a>";
-      if (c.track_url) h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(c.track_url) + '">' + t("live.track") + "</a>";
+      const who = c.live_links ? " · " + esc(c.agency) : "";   // with several operators, say whose alerts these are
+      if (c.alerts_url) h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(c.alerts_url) + '">' + t("live.alerts") + who + "</a>";
+      if (c.track_url) h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(c.track_url) + '">' + t("live.track") + who + "</a>";
+      (c.live_links || []).forEach((x) => { h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(x.url) + '">' + esc(x.name) + "</a>"; });
       h += "</div>";
     }
     if (st === "soon" || st === "expired") h += '<p class="small"><b>' + t(st === "soon" ? "live.soon" : "live.expired", { b: fmtD(c.feed_end) }) + "</b></p>";
@@ -102,7 +107,7 @@
   }
 
   function vanpoolItem() {
-    return "<li>" + (SR.cfg.id === "ca33" ? t("help.vanpool_ca") : t("help.vanpool_gen")) + "</li>";
+    return "<li>" + (SR.cfg.id === "ca33" || SR.cfg.id === "ca23" ? t("help.vanpool_ca") : t("help.vanpool_gen")) + "</li>";
   }
 
   function costLine(vehicleHoursPerDay, people) {

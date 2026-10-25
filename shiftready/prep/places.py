@@ -35,11 +35,18 @@ def main(rid="ca33"):
 
     fi = ROOT / cfg["gtfs_dir"] / "feed_info.txt"
     feed = pd.read_csv(fi, dtype=str).iloc[0] if fi.exists() else pd.Series(dtype=str)
+    # The timetable is only as current as its shortest feed: report the earliest end date over the main and extra feeds.
+    ends = [str(feed.get("feed_end_date", ""))]
+    for x in cfg.get("gtfs_extra", []):
+        fx = ROOT / x["dir"] / "feed_info.txt"
+        if fx.exists():
+            ends.append(str(pd.read_csv(fx, dtype=str).iloc[0].get("feed_end_date", "")))
+    ends = [e for e in ends if e.isdigit() and len(e) == 8]
     write_json(WEB_DATA / rid / "region.json", {
         "id": cfg["id"], "name": cfg["name"], "short": cfg["short"], "label": cfg["label"], "agency": cfg["agency"], "center": cfg["center"],
         "zoom": cfg["zoom"], "contact_email": feed.get("feed_contact_email", ""),
-        "feed_version": feed.get("feed_version", ""), "feed_start": feed.get("feed_start_date", ""), "feed_end": feed.get("feed_end_date", ""),
-        **{k: cfg[k] for k in ("alerts_url", "track_url", "agencies") if k in cfg}})
+        "feed_version": feed.get("feed_version", ""), "feed_start": feed.get("feed_start_date", ""), "feed_end": min(ends) if ends else feed.get("feed_end_date", ""),
+        **{k: cfg[k] for k in ("alerts_url", "track_url", "agencies", "live_links") if k in cfg}})
     if cfg.get("facilities") != "cdph_ca":
         write_json(WEB_DATA / rid / "pois.json", [])
         print(len(b), "job blocks;", len(zips), "ZIPs;", len(cities), "places; no health destination file for this state")

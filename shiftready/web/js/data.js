@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   const SR = (window.SR = window.SR || {});
-  SR.region = new URLSearchParams(location.search).get("r") || "ca33";
+  SR.region = new URLSearchParams(location.search).get("r") || "ca23";
   SR.lang = "en";
   SR.d = {};
   SR.coords = { from: null, to: null };

@@ -114,9 +114,9 @@
     return '<details class="card fold"><summary><h2>' + t("week.title") + '</h2></summary><p class="small">' + t("week.sub") + '</p><div class="week">' + rows + "</div></details>";
   }
 
-  /** Legs on Metrolink trains: the agency fare file only covers the buses, so train fares are not estimated. */
-  const isRail = (l) => l.k === "bus" && /^Metrolink/.test(SR.d.transit.routes[l.route][1] || "");
-  const railCount = (m) => m.legs.filter(isRail).length;
+  /** Legs run by another operator (Metrolink, Victor Valley Transit and so on): the main agency's fare file does not cover them, so their fares are not estimated. */
+  const isOther = (l) => l.k === "bus" && !!SR.d.transit.routes[l.route][3];
+  const railCount = (m) => m.legs.filter(isOther).length;
 
   // ---------- what the trip costs, from the agency's own fare file ----------------------------------
   function costHtml(R) {
@@ -164,13 +164,23 @@
   /** One-tap demonstrations built from real places: they fill the form and run it. */
   SR.renderExamples = function () {
     const box = $("#examples"); if (!box) return;
-    const emps = (SR.d.employers && SR.d.employers.employers) || [], find = (s) => emps.find((e) => e.name.toLowerCase().includes(s));
+    const emps = (SR.d.employers && SR.d.employers.employers) || [], pois = SR.d.pois || [];
+    const all = emps.concat(pois), same = (e, s) => e.name.toLowerCase() === s;
+    const find = (s) => all.find((e) => same(e, s)) || all.find((e) => e.name.toLowerCase().includes(s));   // an exact name wins over a longer one that contains it
     const city = (n) => { const c = SR.d.places.cities[n]; return c ? { lat: c[0], lon: c[1], label: n } : null; };
-    const list = [
-      { k: "ex.night", from: city("Fontana"), to: find("amazon"), T: "22:00", end: "06:30" },
-      { k: "ex.early", from: city("Rialto"), to: find("arrowhead"), T: "06:00", end: "14:30" },
-      { k: "ex.day", from: city("Highland"), to: find("community hospital"), T: "09:00", end: "11:00" },
-    ].filter((x) => x.from && x.to);
+    const BY_REGION = {
+      ca33: [
+        { k: "ex.night", from: "Fontana", to: "amazon", T: "22:00", end: "06:30" },
+        { k: "ex.early", from: "Rialto", to: "arrowhead", T: "06:00", end: "14:30" },
+        { k: "ex.day", from: "Highland", to: "community hospital", T: "09:00", end: "11:00" },
+      ],
+      ca23: [
+        { k: "ex.night", from: "Yucaipa", to: "loma linda university health", T: "22:00", end: "06:30" },
+        { k: "ex.early", from: "Redlands", to: "loma linda university medical center", T: "06:00", end: "14:30" },
+        { k: "ex.day", from: "Hesperia", to: "victor valley global medical center", T: "09:00", end: "11:00" },
+      ],
+    };
+    const list = (BY_REGION[SR.cfg.id] || []).map((x) => Object.assign({}, x, { from: city(x.from), to: find(x.to) })).filter((x) => x.from && x.to);
     box.innerHTML = list.length ? "<h3>" + t("ex.title") + "</h3>" + list.map((x, i) => '<button type="button" class="example" data-i="' + i + '"><b>' + t(x.k) + "</b><span>" + esc(x.from.label) + " → " + esc(x.to.name) + "</span></button>").join("") : "";
     box.querySelectorAll(".example").forEach((b) => {
       b.onclick = () => {
@@ -404,7 +414,7 @@
         '<div class="kv"><div><b>' + SR.hm(mn.leave) + "</b><span>" + t("res.leave") + "</span></div>" +
         "<div><b>" + SR.hm(mn.arrive) + "</b><span>" + t("res.arrive") + "</span></div>" +
         "<div><b>" + Math.round(mn.minutes) + " min</b><span>" + t("res.door") + "</span></div>" +
-        (SR.d.transit.fares ? "<div><b>$" + ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) + "</b><span>" + t(railCount(mn) ? "res.fare_bus" : "res.fare") + "</span></div>" : "") + "</div>" +
+        (SR.d.transit.fares && mn.boardings > railCount(mn) ? "<div><b>$" + ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) + "</b><span>" + t(railCount(mn) ? "res.fare_bus" : "res.fare", { a: esc(SR.cfg.agency) }) + "</span></div>" : "") + "</div>" +
         legsHtml(mn) + riskHtml(mn, R);
       if (R.backup && R.backup.ok) {
         const late = R.m === "arrive" ? R.backup.arrive - R.T : null;

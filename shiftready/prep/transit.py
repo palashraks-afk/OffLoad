@@ -46,11 +46,12 @@ def fares(gtfs):
     return out or None
 
 
-def load_feed(gtfs, prefix=""):
+def load_feed(gtfs, prefix="", operator=""):
     """One GTFS folder -> the five tables, with every id prefixed so several feeds can be merged without clashes."""
     masks = {prefix + k: v for k, v in service_masks(gtfs).items()}
     routes = pd.read_csv(gtfs / "routes.txt", dtype=str).fillna("")
     routes["route_id"] = prefix + routes.route_id
+    routes["operator"] = operator
     trips = pd.read_csv(gtfs / "trips.txt", dtype=str)
     trips["trip_id"] = prefix + trips.trip_id
     trips["route_id"] = prefix + trips.route_id
@@ -61,6 +62,15 @@ def load_feed(gtfs, prefix=""):
                      usecols=["trip_id", "stop_id", "stop_sequence", "arrival_time", "departure_time"])
     st["trip_id"] = prefix + st.trip_id
     st["stop_id"] = prefix + st.stop_id
+    # Some agencies leave times blank at untimed stops: fill those by interpolating between the timed stops on the same trip,
+    # and drop untimed stops at the very start or end of a trip (nothing to interpolate from).
+    st["seq"] = st.stop_sequence.astype(int)
+    st = st.sort_values(["trip_id", "seq"])
+    raw = st.departure_time.fillna(st.arrival_time)
+    st["t"] = [hms_to_min(x) if isinstance(x, str) and x.strip() else float("nan") for x in raw]
+    if st.t.isna().any():
+        st["t"] = st.groupby("trip_id", sort=False).t.transform(lambda x: x.interpolate(limit_area="inside"))
+        st = st[st.t.notna()]
     return masks, routes, trips, stops, st
 
 
@@ -68,7 +78,7 @@ def build(rid="ca33"):
     """Merges the main agency feed with any `gtfs_extra` feeds listed in the region file (for example commuter rail)."""
     cfg = region(rid)
     gtfs = ROOT / cfg["gtfs_dir"]
-    feeds = [load_feed(gtfs)] + [load_feed(ROOT / x["dir"], x["prefix"]) for x in cfg.get("gtfs_extra", [])]
+    feeds = [load_feed(gtfs)] + [load_feed(ROOT / x["dir"], x["prefix"], x.get("name", x["prefix"])) for x in cfg.get("gtfs_extra", [])]
     masks = {}
     for f in feeds:
         masks.update(f[0])
@@ -89,7 +99,7 @@ def build(rid="ca33"):
         mask = masks.get(t.service_id, 0)
         if not mask or len(g) < 2:
             continue
-        times = [round(hms_to_min(x), 1) for x in g.departure_time.fillna(g.arrival_time)]
+        times = [round(float(x), 1) for x in g.t]
         steps = [int(round((b - a) * 10)) for a, b in zip(times, times[1:])]   # tenths of a minute between stops
         out_trips.append([ridx[t.route_id], mask, [sidx[s] for s in g.stop_id], times[0], steps,
                           t.trip_headsign if isinstance(t.trip_headsign, str) else ""])
@@ -98,8 +108,8 @@ def build(rid="ca33"):
         "fares": fares(gtfs),
         "stops": [[sinfo.loc[s, "stop_name"], round(float(sinfo.loc[s, "stop_lat"]), 5),
                    round(float(sinfo.loc[s, "stop_lon"]), 5)] for s in stop_ids],
-        "routes": [[r.route_short_name, r.route_long_name, "#" + r.route_color if r.route_color else ""]
-                   for r in routes.itertuples()],
+        "routes": [[r.route_short_name, r.route_long_name, "#" + r.route_color if r.route_color else ""] + ([r.operator] if r.operator else [])
+                   for r in routes.itertuples()],   # a 4th item names the operator when it is not the main agency
         "trips": out_trips,
     }
     write_json(WEB_DATA / rid / "transit.json", obj)

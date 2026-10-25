@@ -33,3 +33,21 @@ Region `sac` (SacRT, California's 7th District) built with the same pipeline: `f
 
 ## Update 2026-10-25: rail added to San Bernardino (CA-33)
 `prep/transit.py` can now merge extra feeds listed under `gtfs_extra` in a region file. CA-33 now merges Omnitrans buses with the Metrolink feed (San Bernardino, Inland Empire-Orange County, Riverside and 91 lines, plus the Redlands stops). The Omnitrans routes are unchanged; 67 stops, 7 routes and 270 trips were added. Coverage percentages did not change (tracts.json is identical), because the new stops sit where buses already reach. A San Bernardino Depot to Rancho Cucamonga trip at 4:30 pm now takes 25 minutes by train instead of about 100 by bus. Fares: the agency fare file covers Omnitrans only, so trips with a train leg show the bus fare and say the train fare is extra, and the monthly-pass comparison is hidden for them. Other agencies in the area (Riverside Transit, Victor Valley, Mountain Transit, Foothill Transit) are not merged.
+
+## Update 2026-10-25: CA-23 added and made the default (the entry district)
+Region `ca23` (California's 23rd District; the student's school, Redlands High School, is in CA-23). Built with the same pipeline and `gtfs_extra` merging.
+
+**In (all verified to download and build):** Omnitrans (main agency; valley, Redlands, Yucaipa, Loma Linda, Highland), Metrolink commuter rail (includes the Redlands stops), Victor Valley Transit (Victorville, Hesperia, Apple Valley, Adelanto, Barstow; feed `api.transloc.com/gtfs/vvta.zip`), Morongo Basin Transit (Yucca Valley, Twentynine Palms), Mountain Transit (Big Bear). 3,705 stops, 85 routes, 5,713 trips. Random-trip planner check: 154 trips, 0 failures.
+
+**Honest limits**
+- The app covers the **San Bernardino County part** of CA-23 only (the county the Census, LODES, ACS and crash files were pulled for). CA-23's northern part (Inyo County) is not included. Population in the district inside the county: 729,052; jobs 172,039.
+- **Victor Valley Transit's published timetable only runs 2026-10-25 to 2026-11-28.** The app shows the earliest end date over all feeds ("Timetable valid through 2026-11-28") and the weekly check should be re-run after that date. After 28 Nov 2026 the desert part will be out of date until a new feed is built.
+- Coverage numbers ("near a bus") count **buses only**: Metrolink is merged for trip planning but excluded from coverage (`"mode": "rail"` in the region file). Before 2026-10-25 the people step ignored extra feeds entirely; it now includes extra bus feeds. CA-33's numbers did not change because it only has Metrolink as an extra feed.
+- Fares: only Omnitrans fares are in the app. Legs on other operators are not priced; the fare card says "Omnitrans fare only (other operators extra)" and hides when no leg is Omnitrans. The monthly pass comparison is hidden when any leg is another operator. The what-if route extension lists Omnitrans routes only (the $141/hour cost figure is Omnitrans' national transit data, 2022).
+- No road-risk model layers for ca23 (needs OSM data and `osmnx`); the app hides those layers when absent. Past-death counts near stops (FARS) are included.
+- Injury statistics for CA-23 were recomputed with the same method as CA-33 (FARS 2019-2023, polygon of CA-23 inside the county): 201 people killed walking or biking, 84% in the dark, 62% died at the scene, 81% within an hour, 89% on roads posted 40 mph or higher, 6,271 years of life lost before 75. Script: `analysis/health_stats_ca23.py`; data: `data/research/ca23_health_deaths_2019_2023.csv`.
+- Employers: the EDD major-employer list is county-wide; only 4 of its employers lie inside CA-23 (Esri, Loma Linda University Health, Redlands Community Hospital, Yaamava' Resort & Casino). Quick-pick also lists hospitals, clinics and dialysis centres.
+- Not merged: Riverside Transit, Foothill Transit, Barstow Area Transit (now part of VVTA), Beaumont, Needles, and any agency in Inyo or Mono County.
+- Live alerts: the card links Omnitrans alerts and the websites of the other operators (no live feeds).
+
+Correction to the CA-33 note above: it said coverage was unchanged "because the new stops sit where buses already reach". The real reason is that the coverage step did not read the extra feed at all, and rail is now deliberately excluded.

@@ -62,7 +62,7 @@
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
     let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
-    if (SR.cfg.id === "ca33") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
+    if (SR.cfg.id === "ca33" || SR.cfg.id === "ca23") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
     h += '<div class="card"><h2>' + t("diff.title") + "</h2><ul>" + [1, 2, 3, 4, 5].map((i) => "<li>" + t("diff." + i) + "</li>").join("") + "</ul></div>";
     h += '<div class="card empabout" id="about-emp"></div>';
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
@@ -89,7 +89,7 @@
     const X = (en, es) => (SR.lang === "es" ? es : en);
     const L = (u, s) => '<li><a href="' + u + '" target="_blank" rel="noopener">' + s + "</a></li>";
     return '<ul class="srcs">' +
-      L(SR.cfg.id === "ca33" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agencies || SR.cfg.agency) + X(" GTFS schedules (the bus and train times and stops)", " horarios GTFS (horas y paradas de autobús y tren)")) +
+      L(SR.cfg.id === "ca33" || SR.cfg.id === "ca23" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agencies || SR.cfg.agency) + X(" GTFS schedules (the bus and train times and stops)", " horarios GTFS (horas y paradas de autobús y tren)")) +
       L("https://lehd.ces.census.gov/data/lodes/LODES8/", X("Census LODES 2022 (where people work and live)", "Census LODES 2022 (dónde trabaja y vive la gente)")) +
       L("https://censusreporter.org/", X("Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)", "Census ACS de 5 años, vía Census Reporter (población, hogares sin vehículo, cómo van al trabajo)")) +
       L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", X("Census cartographic boundaries (district and tract shapes)", "Límites cartográficos del Census (formas de distritos y sectores censales)")) +

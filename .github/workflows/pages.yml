@@ -20,7 +20,7 @@ jobs:
           node-version: 20
       - name: Run the checks that need only the built site
         run: |
-          for t in planner crosscheck ui_logic locate i18n pwa impact; do
+          for t in planner crosscheck ui_logic locate i18n pwa impact regions; do
             echo "== $t"; node shiftready/tests/$t.test.js
           done
   deploy:

@@ -2,10 +2,11 @@
 
 Read this file first, then `docs/HANDOFF.md`. This replaces any earlier plan you may find elsewhere in the repo.
 
-## STATUS: NO PROJECT HAS BEEN CHOSEN. WE ARE STILL FINDING THE PROJECT.
-- Do **not** build anything yet. Do **not** continue OffloadWatch (it is rejected and ineligible, see below).
-- Do **not** assume the pedestrian/cyclist idea is the project. It is only the **highest-scoring candidate so far** and the student has **not approved it**. He said he wants something more novel; stay open to finding a better one.
-- **Your current job: find the best project idea** for his criteria (below), prove it with evidence, and present a short ranked list for him to choose from. Only after he picks one do we plan and build.
+## STATUS (updated 2026-10-25): THE PROJECT IS CHOSEN AND BUILT. IT IS **SHIFT READY** (app in `shiftready/`, live at https://palashraks-afk.github.io/OffLoad/).
+- The entry is for **California's 23rd District (CA-23)**: the student's school, Redlands High School, is in CA-23. The app opens on `ca23` by default. `ca33` (his home district), Cleveland, Miami and Sacramento stay in the region switcher as extra regions.
+- `ca23` covers the San Bernardino County part of the district only (Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit, Mountain Transit). It is built by the same pipeline as every region; see `docs/ADD_REGIONS.md`.
+- Read `shiftready/README.md`, `docs/AI_USE_LOG.md` and `docs/QA_REPORT_2026-10-25.md` before changing anything. Keep the AI-use disclosure exact and never invent the student's personal story or present one region's numbers as another's.
+- OffloadWatch (the older project below) is abandoned and ineligible. The sections further down describe the earlier search for a project and are history, not instructions.
 
 ## Who and what
 - **Student:** Palash Rakshit, lives in California's 33rd Congressional District (Rep. Pete Aguilar; San Bernardino, Fontana, Rialto, Colton, Highland, Grand Terrace, north Redlands).

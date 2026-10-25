@@ -13,6 +13,7 @@ import shapefile
 from shapely.geometry import shape
 
 sys.path.insert(0, str(Path(__file__).parent))
+from transit import load_feed  # noqa: E402
 from common import ROOT, WEB_DATA, hms_to_min, region, write_json  # noqa: E402
 
 WALK_M = 400
@@ -79,22 +80,24 @@ def tract_labels(cfg):
 
 
 def stop_hours(cfg):
-    g = ROOT / cfg["gtfs_dir"]
-    cal = pd.read_csv(g / "calendar.txt", dtype=str)
-    trips = pd.read_csv(g / "trips.txt", dtype=str)
-    st = pd.read_csv(g / "stop_times.txt", dtype=str, usecols=["trip_id", "stop_id", "departure_time"])
-    stops = pd.read_csv(g / "stops.txt", dtype={"stop_id": str})[["stop_id", "stop_lat", "stop_lon"]]
-    # A bus cannot be boarded at the last stop of its trip, so only stops with a later stop count as service.
-    st["seq"] = pd.read_csv(g / "stop_times.txt", dtype=str, usecols=["stop_sequence"]).stop_sequence.astype(int).values
-    st = st.sort_values(["trip_id", "seq"])
-    st = st[st.groupby("trip_id").cumcount(ascending=False) > 0]
-    st["hour"] = st.departure_time.map(lambda s: int(hms_to_min(s) // 60) % 24)
-    out = {}
-    for name, col in (("weekday", "monday"), ("saturday", "saturday"), ("sunday", "sunday")):
-        svc = set(cal[cal[col] == "1"].service_id)
-        ids = trips[trips.service_id.isin(svc)].trip_id
-        out[name] = st[st.trip_id.isin(ids)][["stop_id", "hour"]].drop_duplicates().merge(stops, on="stop_id")
-    return out
+    """Stops and hours served, from the main agency and every extra BUS feed in the region file (commuter rail, mode "rail", is left out:
+    the headline numbers are about buses)."""
+    feeds = [("", cfg["gtfs_dir"])] + [(x["prefix"], x["dir"]) for x in cfg.get("gtfs_extra", []) if x.get("mode") != "rail"]
+    parts = {"weekday": [], "saturday": [], "sunday": []}
+    for prefix, d in feeds:
+        g = ROOT / d
+        _, _, trips, stops, st = load_feed(g, prefix)       # ids prefixed; untimed stops filled in between timed ones
+        cal = pd.read_csv(g / "calendar.txt", dtype=str)
+        cal["service_id"] = prefix + cal.service_id
+        # A bus cannot be boarded at the last stop of its trip, so only stops with a later stop count as service.
+        st = st[st.groupby("trip_id", sort=False).cumcount(ascending=False) > 0]
+        st = st.assign(hour=(st.t // 60).astype(int) % 24)
+        stops = stops[["stop_id", "stop_lat", "stop_lon"]]
+        for name, col in (("weekday", "monday"), ("saturday", "saturday"), ("sunday", "sunday")):
+            svc = set(cal[cal[col] == "1"].service_id)
+            ids = trips[trips.service_id.isin(svc)].trip_id
+            parts[name].append(st[st.trip_id.isin(ids)][["stop_id", "hour"]].drop_duplicates().merge(stops, on="stop_id"))
+    return {k: pd.concat(v, ignore_index=True) for k, v in parts.items()}
 
 
 def near(pts_lat, pts_lon, stops_df, lat0=34.1, radius=None):

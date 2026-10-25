@@ -8,7 +8,7 @@ import pytest
 APP = Path(__file__).resolve().parents[1]
 ROOT = APP.parent
 D = APP / "web/data"
-REGIONS = [r for r in ("ca33", "cle", "mia") if (D / r / "transit.json").exists()]
+REGIONS = [r for r in ("ca23", "ca33", "cle", "mia", "sac") if (D / r / "transit.json").exists()]
 
 
 def load(rid, name):
@@ -18,18 +18,32 @@ def load(rid, name):
 @pytest.mark.parametrize("rid", REGIONS)
 def test_timetable_matches_gtfs(rid):
     cfg = json.loads((APP / f"regions/{rid}.json").read_text())
-    gtfs = ROOT / cfg["gtfs_dir"]
+    folders = [ROOT / cfg["gtfs_dir"]] + [ROOT / x["dir"] for x in cfg.get("gtfs_extra", [])]   # main agency plus merged feeds
+    if not all((g / "trips.txt").exists() for g in folders):
+        pytest.skip("raw GTFS not downloaded on this machine (data/raw is not in the repo)")
     t = load(rid, "transit")
-    trips = pd.read_csv(gtfs / "trips.txt", dtype=str)
-    cal = pd.read_csv(gtfs / "calendar.txt", dtype=str)
-    active = set(cal.service_id)
+    total = active_trips = 0
+    for g in folders:
+        trips = pd.read_csv(g / "trips.txt", dtype=str)
+        active = set(pd.read_csv(g / "calendar.txt", dtype=str).service_id)
+        total += trips.trip_id.nunique()
+        active_trips += trips[trips.service_id.isin(active)].trip_id.nunique()
     # every trip we kept belongs to a service that runs on at least one weekday/Saturday/Sunday
-    assert len(t["trips"]) <= trips.trip_id.nunique()
-    assert len(t["trips"]) >= 0.9 * trips[trips.service_id.isin(active)].trip_id.nunique()
+    assert len(t["trips"]) <= total
+    assert len(t["trips"]) >= 0.9 * active_trips
     n = len(t["stops"])
     assert all(0 <= s < n for tr in t["trips"][:2000] for s in tr[2])
     # times never go backwards inside a trip (steps are non-negative)
     assert all(min(tr[4]) >= 0 for tr in t["trips"] if tr[4])
+
+
+def test_ca23_headline_numbers_are_stable():
+    r = load("ca23", "reach")
+    assert r["district_pop"] == 729052
+    wd = r["weekday"]["pop_share"]
+    assert 0.17 < wd[12] < 0.23            # about 20% near a bus at noon
+    assert wd[23] == 0.0                   # nobody near a bus at 11 pm
+    assert wd[1] == 0.0
 
 
 def test_ca33_headline_numbers_are_stable():

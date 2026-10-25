@@ -181,7 +181,7 @@
 
   function renderWhatIf() {
     const box = $("#whatif");
-    const routes = SR.d.transit.routes.map((r, i) => [i, r]).filter(([i, r]) => !/^Metrolink/.test(r[1]) && SR.d.transit.trips.some((x) => x[0] === i));   // the cost model is the bus agency's; trains are not its to extend
+    const routes = SR.d.transit.routes.map((r, i) => [i, r]).filter(([i, r]) => !r[3] && SR.d.transit.trips.some((x) => x[0] === i));   // the cost model is the main agency's; other operators' routes are not its to extend
     box.innerHTML = "<h2>" + t("wi.title") + '</h2><p class="small">' + t("wi.lead") + '</p><div class="row gap wrap">' +
       '<select id="wi-route" aria-label="' + t("wi.route") + '" style="width:auto;max-width:100%">' +
       routes.map(([i, r]) => '<option value="' + i + '">' + (r[0] ? t("wi.route") + " " + esc(r[0]) + " – " : "") + esc(r[1]) + "</option>").join("") + "</select>" +

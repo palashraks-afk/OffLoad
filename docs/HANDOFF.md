@@ -2,8 +2,8 @@
 
 Read `CLAUDE.md` first (role and rules). This file is the full context.
 
-## 0. READ THIS FIRST: NO PROJECT IS CHOSEN YET
-The student is **still looking for his project**. Sections 3-10 below describe the **leading candidate only** (pedestrian and cyclist safety). He has **not approved it** and wants something more novel. Treat those sections as research and a template, not a decision. The current job is to find the best idea (see `CLAUDE.md`, "How to find the idea"). Do not start building.
+## 0. STATUS UPDATE (2026-10-25): the project is chosen and built: Shift Ready, entered in CA-23
+Everything below this section was written during the search for a project (2026-10-18) and is kept as research. The current app is `shiftready/`; the entry is for California's 23rd District (the student's school district); CA-33, Cleveland, Miami and Sacramento remain as extra regions. See `CLAUDE.md` and `docs/ADD_REGIONS.md`.
 
 ## 1. Status
 - Deadline: Mon 2026-10-26 12:00 pm ET. Plan to submit Sun 2026-10-25. From 2026-10-18 that is 8 days.
