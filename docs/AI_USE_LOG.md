@@ -25,3 +25,5 @@ The 2026 rules require every use of AI to be fully disclosed in the submission, 
 | 2026-10-25 | Claude Code | Searched forums and news for what riders and employers say they need (docs/research/07). Added a "Check before you leave" card (official live-alert and bus-tracking links, timetable end date and expiry warning), moved the weather lookup to the boarding stop, and added a weekly timetable-change check (check_feed.py plus check-schedule.yml). Tests extended and re-run. |
 
 | 2026-10-25 | Claude Code | Novelty search (docs/research/08), added a "How is this different from a trip planner?" card in English and Spanish (About page), cache bumped to v8. |
+
+| 2026-10-25 | Claude Code | Forum scan (titles/snippets only), added "Message my boss" button (bossText in ui-plan.js), early-bus tip, forum table and a hand-made-look self-grade in docs/research/07. Cache v9. |

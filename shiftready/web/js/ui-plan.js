@@ -416,7 +416,7 @@
     h += '<div class="actions"><button id="req-open" class="btn primary" type="button">' + t("res.request") + "</button>" +
       '<button id="plan-save" class="btn ghost" type="button">' + t("saved.save") + "</button>" +
       (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + '</button><button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") +
-      '<button id="plan-share" class="btn ghost" type="button">' + t("res.share") + '</button><button id="plan-print" class="btn ghost" type="button">' + t("res.print") + "</button></div>";
+      '<button id="plan-boss" class="btn ghost" type="button">' + t("boss.btn") + '</button><button id="plan-share" class="btn ghost" type="button">' + t("res.share") + '</button><button id="plan-print" class="btn ghost" type="button">' + t("res.print") + "</button></div>";
     h += '<p class="small pad-top">' + t("res.limits", { agency: SR.cfg.agency }) + "</p>";
     return h;
   }
@@ -444,6 +444,18 @@
     }
     h += SR.impact.vanpoolItem() + "<li>" + t("help.request") + "</li></ul></details>";
     return h;
+  }
+
+  /** A short, factual note a worker can send a boss. Only uses what the plan found; invents nothing. */
+  function bossText(R) {
+    const m = R.main, b = R.to.label || "";
+    if (m.ok) {
+      let home = "";
+      if (R.wantHome) home = R.home && R.home.ok ? t("boss.home", { t: SR.hm(R.lastBus ? R.lastBus.leave : R.home.leave), e: SR.hm(R.endT) }) : t("boss.nohome", { e: SR.hm(R.endT) });
+      return t("boss.ok", { l: SR.hm(m.leave), b, r: SR.hm(m.arrive), home }).trim();
+    }
+    const a = R.alts && (R.alts.later || R.alts.earlier);
+    return t("boss.no", { b, t: SR.hm(R.T), alt: a ? t("boss.alt", { t: SR.hm(a.T) }) : t("boss.noalt") });
   }
 
   function shareText(R) {
@@ -524,6 +536,12 @@
       const txt = shareText(R);
       try { if (navigator.share) { await navigator.share({ text: txt }); return; } } catch (e) { return; }
       try { await navigator.clipboard.writeText(txt); sh.textContent = t("req.copied"); } catch (e) {}
+    };
+    const bo = $("#plan-boss");
+    if (bo) bo.onclick = async () => {
+      const txt = bossText(R);
+      try { if (navigator.share) { await navigator.share({ text: txt }); return; } } catch (e) { return; }
+      try { await navigator.clipboard.writeText(txt); bo.textContent = t("req.copied"); } catch (e) { window.prompt(t("boss.btn"), txt); }
     };
     const p = $("#plan-print"); if (p) p.onclick = () => SR.printHtml("<h1>" + SR.t("plan.title") + "</h1>" + $("#plan-result").innerHTML.replace(/<button[^>]*>.*?<\/button>/g, ""));
     document.querySelectorAll("[data-alt]").forEach((b) => {
