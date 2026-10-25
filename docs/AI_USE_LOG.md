@@ -4,6 +4,7 @@ The 2026 rules require every use of AI to be fully disclosed in the submission, 
 
 | Date | Tool / model | What I asked | What the AI did (explained / reviewed / suggested / wrote N lines of ...) | What I wrote myself | Did I understand it? |
 |---|---|---|---|---|---|
+| BEFORE 2026-10-12 | (no AI, per the student) | Student's own work before moving the project into Claude | n/a | **[STUDENT: fill in exactly what you wrote yourself: which plan sections, which files/functions, which dates. Keep the original files as proof. If this code is in the submitted app, name the files here.]** | yes |
 | 2026-10-12 to 10-18 | Claude Code (Anthropic) | Built OffloadWatch (an earlier, abandoned project) and ran research | Wrote the OffloadWatch code and research notes. **Not part of the submitted app.** | (nothing) | n/a |
 | 2026-10-18 | Claude Code (Anthropic) | Student told the assistant to write the code himself (acknowledged the rules risk) | Wrote `analysis/load_fars.py` (~60 lines): loads FARS 2019-2023, filters CA pedestrian/cyclist deaths, tags CA-33 by point-in-polygon; ran it | Directed the project, chose the idea | pending: student to explain it back |
 | 2026-10-18 | Claude Code (Anthropic) | Find the most novel project idea for CA-33 | Web research on existing tools; downloaded Omnitrans GTFS and computed service-hours stats (not part of any submitted app) | Chose direction | n/a |
