@@ -431,3 +431,11 @@ details.fold[open] > summary { margin-bottom: 8px; }
 
 #situations .sit { padding: 10px 0; border-top: 1px solid var(--line); }
 #situations .sit:first-of-type { border-top: 0; }
+
+/* trip summary: one line, not a row of equal tiles */
+.trip-line { display: flex; align-items: flex-end; gap: 14px; margin: 4px 0 2px; }
+.trip-line .tl { display: flex; flex-direction: column; }
+.trip-line small { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+.trip-line b { font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.trip-line .tl-arrow { font-size: 1.4rem; color: var(--primary); padding-bottom: 4px; }
+.trip-meta { margin: 2px 0 12px; color: var(--muted); }

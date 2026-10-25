@@ -429,10 +429,9 @@
 
     if (mn.ok) {
       h += '<div class="card"><h2>' + t("res.plan") + "</h2>" +
-        '<div class="kv"><div><b>' + SR.hm(mn.leave) + "</b><span>" + t("res.leave") + "</span></div>" +
-        "<div><b>" + SR.hm(mn.arrive) + "</b><span>" + t("res.arrive") + "</span></div>" +
-        "<div><b>" + Math.round(mn.minutes) + " min</b><span>" + t("res.door") + "</span></div>" +
-        (SR.d.transit.fares && mn.boardings > railCount(mn) ? "<div><b>$" + ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) + "</b><span>" + t(railCount(mn) ? "res.fare_bus" : "res.fare", { a: esc(SR.cfg.agency) }) + "</span></div>" : "") + "</div>" +
+        '<div class="trip-line"><span class="tl"><small>' + t("res.leave") + "</small><b>" + SR.hm(mn.leave) + '</b></span><span class="tl-arrow" aria-hidden="true">&#8594;</span><span class="tl"><small>' + t("res.arrive") + "</small><b>" + SR.hm(mn.arrive) + "</b></span></div>" +
+        '<p class="trip-meta">' + Math.round(mn.minutes) + " min " + t("res.door").toLowerCase() +
+        (SR.d.transit.fares && mn.boardings > railCount(mn) ? " · " + t(railCount(mn) ? "res.fare_line_bus" : "res.fare_line", { a: esc(SR.cfg.agency), p: ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) }) : "") + "</p>" +
         legsHtml(mn) + riskHtml(mn, R);
       if (R.backup && R.backup.ok) {
         const late = R.m === "arrive" ? R.backup.arrive - R.T : null;
