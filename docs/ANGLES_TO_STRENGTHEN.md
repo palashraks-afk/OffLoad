@@ -91,3 +91,17 @@ Say "at least", give source and year, and "my estimate" for costs. Do not say th
 ### What can and cannot be said about heat and health
 - Statewide heat-related ER visit rates rose about 30% from 2005-2014 to 2015-2024 (Public Health Institute analysis: https://www.phi.org/press/unhoused-californians-face-38-higher-er-risk-for-heat-illness-yet-are-nearly-invisible-in-the-data/). San Bernardino County had among the largest case counts 2015-2024 (a count, not a rate).
 - A 2024 report quoted the San Bernardino County health department saying it lacked reliable county data on heat-related deaths and ED visits. Do NOT quote a county heat-illness rate.
+
+---
+## Addendum 2 (2026-10-24): CA-23 vs CA-33 decision
+Facts: both CA-23 (Jay Obernolte) and CA-33 (Pete Aguilar) are listed as participating for 2026 (https://www.congressionalappchallenge.us/students/participating-districts/). The student says nobody else at Redlands High School (CA-23, school district) is entering. The CA-23 winners found for 2021-2023 (StudyTimer, CashCalc, The Newcomer) all came from Redlands High; 2024 and 2025 CA-23 winners were not found. Obernolte's office says a panel of local judges who work in software and entrepreneurship judges the district (https://obernolte.house.gov/services/congressional-app-challenge). Entry counts per district are not published. So the field in CA-23 MAY be thinner, but it is not verified: other CA-23 schools can still enter.
+
+Cost of choosing CA-23: the app's numbers are CA-33 numbers. Most of CA-23 is the High Desert (served by a different bus agency), and the app supports one bus agency per region. A CA-23 view must therefore be limited, honestly, to the part of CA-23 served by Omnitrans (Redlands, Yucaipa and nearby), and the one-sentence problem must use those numbers.
+
+How to test it cheaply (the student does this; about 1-2 hours):
+1. Copy `shiftready/regions/ca33.json` to `ca23.json`; change `id`, `name`, `short`, and `boundary.cd` to "23". Keep Omnitrans, county 071, FARS state 6 / county 71.
+2. Re-run the prep steps in `shiftready/README.md` for the new region.
+3. Check the numbers: how many CA-23 residents are inside the Omnitrans-served area, what share live near a bus at noon, 8 pm, 11 pm and 1 am. If the headline share is tiny only because the High Desert has no Omnitrans service, restrict the denominator to the Omnitrans-served part and say so on screen and in the video.
+4. Decide by tonight: if the CA-23 numbers are clean and tell a clear story, enter CA-23; otherwise enter CA-33 (the safe default).
+Also ask the truth question: if the student lives in one district and goes to school in the other, that is a real personal hook (the bus ride between them), but only use it if it is true.
+The choice is made once in the portal and cannot be undone after submission.
