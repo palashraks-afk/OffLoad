@@ -412,7 +412,7 @@
       h += '<div class="card"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
     }
 
-    h += stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml(R);
+    h += (mn.ok ? SR.impact.liveHtml() : "") + stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml(R);
     h += '<div class="actions"><button id="req-open" class="btn primary" type="button">' + t("res.request") + "</button>" +
       '<button id="plan-save" class="btn ghost" type="button">' + t("saved.save") + "</button>" +
       (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + '</button><button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") +

@@ -77,6 +77,30 @@
     return h;
   }
 
+
+  /** Compact "check live" row: official alert and tracking pages, and a warning when the timetable is about to end. */
+  function fmtD(ymd) { return ymd && ymd.length === 8 ? ymd.slice(0, 4) + "-" + ymd.slice(4, 6) + "-" + ymd.slice(6) : ymd || ""; }
+  function feedStatus(feedEnd, todayYmd) {   // "ok" | "soon" (ends within 21 days) | "expired" | null
+    if (!feedEnd || feedEnd.length !== 8) return null;
+    if (todayYmd > feedEnd) return "expired";
+    const a = Date.UTC(+feedEnd.slice(0, 4), +feedEnd.slice(4, 6) - 1, +feedEnd.slice(6)), n = Date.UTC(+todayYmd.slice(0, 4), +todayYmd.slice(4, 6) - 1, +todayYmd.slice(6));
+    return (a - n) / 864e5 <= 21 ? "soon" : "ok";
+  }
+  function liveHtml() {
+    const c = SR.cfg, d = new Date(), ymd = "" + d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+    const st = feedStatus(c.feed_end, ymd);
+    let h = '<div class="card live"><h2>' + t("live.title") + '</h2><p class="small">' + t("live.txt") + "</p>";
+    if (c.alerts_url || c.track_url) {
+      h += '<div class="chips">';
+      if (c.alerts_url) h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(c.alerts_url) + '">' + t("live.alerts") + "</a>";
+      if (c.track_url) h += '<a class="btn ghost" target="_blank" rel="noopener" href="' + esc(c.track_url) + '">' + t("live.track") + "</a>";
+      h += "</div>";
+    }
+    if (st === "soon" || st === "expired") h += '<p class="small"><b>' + t(st === "soon" ? "live.soon" : "live.expired", { b: fmtD(c.feed_end) }) + "</b></p>";
+    else if (st === "ok") h += '<p class="small">' + t("live.valid", { b: fmtD(c.feed_end) }) + "</p>";
+    return h + "</div>";
+  }
+
   function vanpoolItem() {
     return "<li>" + (SR.cfg.id === "ca33" ? t("help.vanpool_ca") : t("help.vanpool_gen")) + "</li>";
   }
@@ -102,7 +126,8 @@
     try {
       const bus = R.main.legs.find((l) => l.k === "bus");
       const when = bus ? bus.dep : R.main.leave;
-      const lat = R.from.lat.toFixed(2), lon = R.from.lon.toFixed(2);          // rounded to about 1 km
+      const bs = bus ? SR.d.transit.stops[bus.fromStop] : null;                      // weather where you will actually wait
+      const lat = (bs ? bs[1] : R.from.lat).toFixed(2), lon = (bs ? bs[2] : R.from.lon).toFixed(2);   // rounded to about 1 km
       const wx = await get("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
         "&hourly=apparent_temperature,uv_index&daily=sunrise,sunset&current=temperature_2m&temperature_unit=fahrenheit&timezone=auto&forecast_days=7");
       const date0 = pickDate(wx.daily.time, wx.current.time, R.d, when);
@@ -132,6 +157,6 @@
     } catch (e) { el.remove(); }                    // offline or blocked: show nothing
   }
 
-  SR.impact = { healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };
+  SR.impact = { liveHtml, feedStatus, healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };
   if (typeof module !== "undefined") module.exports = SR.impact;
 })();

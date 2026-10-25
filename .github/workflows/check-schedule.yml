@@ -1,0 +1,29 @@
+name: Check for a new bus timetable
+# Weekly. Compares the agency's published GTFS feed with the one the app uses and opens an issue
+# if a newer one exists or the app's timetable is about to end. It does not change the live data.
+on:
+  schedule:
+    - cron: "17 14 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compare feeds
+        id: cmp
+        continue-on-error: true
+        run: python shiftready/prep/check_feed.py | tee report.txt
+      - name: Open an issue when something needs a person
+        if: steps.cmp.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "Bus timetable needs attention ($(date -u +%Y-%m-%d))" \
+            --body "$(printf 'The weekly check found a problem. Rebuild the data with shiftready/prep/run_all.py and review.\n\n```\n%s\n```' "$(cat report.txt)")"

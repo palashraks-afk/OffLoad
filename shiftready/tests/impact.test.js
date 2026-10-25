@@ -14,4 +14,5 @@ eq(I.pickDate(dates, "2026-10-24T22:15", "saturday", 8 * 60), null, "earlier tod
 eq(I.pickDate(dates, "2026-10-24T22:15", "weekday", 8 * 60), "2026-10-26", "next weekday");
 eq(I.pickDate(dates, "2026-10-24T22:15", "sunday", 1500), "2026-10-25", "after-midnight minutes wrap");
 const c = I.costPerYear(4, 141); eq(Math.round(c.allDays), 205860, "4 bus-hours x 365 x $141"); eq(Math.round(c.weekdays), 141000, "4 x 250 x 141");
+eq(I.feedStatus("20270103", "20261025"), "ok"); eq(I.feedStatus("20261110", "20261025"), "soon"); eq(I.feedStatus("20261024", "20261025"), "expired"); eq(I.feedStatus("", "20261025"), null, "no date, no claim");
 console.log(n + " impact checks passed.");
