@@ -417,3 +417,17 @@ details.fold[open] > summary { margin-bottom: 8px; }
 #region { max-width: 190px; font-size: .85rem; }
 @media (max-width: 420px) { #region { max-width: 136px; text-overflow: ellipsis; } }
 .kv .ico { display: block; margin-bottom: 2px; color: var(--primary); }
+
+/* weather where you wait: one compact row under the verdict */
+.cond { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin: 10px 0; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); font-size: .92rem; }
+.cond .ct { font-weight: 700; flex: 1 0 100%; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.cond .ci { display: inline-flex; align-items: center; gap: 6px; }
+.cond .ci b { font-size: 1.05rem; }
+.cond .cn { flex: 1 0 100%; font-size: .78rem; color: var(--muted); }
+.cond .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--maybe); flex: none; }
+.cond .dot.danger, .cond .dot.extreme_danger { background: var(--no); }
+.cond .dot.cold { background: var(--primary); }
+.cond .ico { color: var(--primary); }
+
+#situations .sit { padding: 10px 0; border-top: 1px solid var(--line); }
+#situations .sit:first-of-type { border-top: 0; }

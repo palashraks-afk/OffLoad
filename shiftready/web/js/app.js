@@ -63,6 +63,16 @@
     ];
     let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
     if (SR.cfg.id === "ca33" || SR.cfg.id === "ca23") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
+    const sit = SR.workedExamples ? SR.workedExamples() : [];
+    if (sit.length) {
+      h += '<div class="card" id="situations"><h2>' + t("sit.title") + '</h2><p class="small">' + t("sit.lead") + "</p>" + sit.map((x) => {
+        const R = x.R, lv = R.verdict.level, hm = SR.hm;
+        const home = R.home && R.home.ok ? t("sit.home_ok", { t: hm(R.home.leave) }) : t("sit.home_no", { e: hm(R.endT) });
+        const hh = (v) => hm(+v.split(":")[0] * 60 + +v.split(":")[1]);
+        return '<div class="sit"><b>' + t(x.k) + "</b> · " + t("sit.row", { a: esc(x.from), b: esc(x.to), s: hh(x.T), e: hh(x.end) }) +
+          '<br><span class="badge ' + (lv === "yes" ? "ok" : lv === "maybe" ? "warn" : "bad") + '">' + t("v." + lv) + "</span> " + esc(R.verdict.reasons[0] || "") + " " + home + "</div>";
+      }).join("") + "<h3>" + t("sit.forum") + '</h3><ul class="small">' + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("sit.f." + i) + "</li>").join("") + '</ul><p class="small">' + t("sit.forum_note") + "</p></div>";
+    }
     h += '<div class="card"><h2>' + t("diff.title") + "</h2><ul>" + [1, 2, 3, 4, 5].map((i) => "<li>" + t("diff." + i) + "</li>").join("") + "</ul></div>";
     h += '<div class="card empabout" id="about-emp"></div>';
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";

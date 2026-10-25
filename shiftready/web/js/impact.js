@@ -123,25 +123,26 @@
 
   async function loadConditions(R) {
     const el = document.getElementById("wx");
-    if (!el || !R || !R.main || !R.main.ok) return;
+    if (!el || !R || !R.main) return;
     const get = async (url) => {
       const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 8000);
       try { const r = await fetch(url, { signal: ctl.signal }); if (!r.ok) throw new Error("bad"); return await r.json(); } finally { clearTimeout(to); }
     };
+    const off = () => { el.innerHTML = '<p class="cond small">' + t("wx.off") + "</p>"; };   // never silently vanish
     try {
-      const bus = R.main.legs.find((l) => l.k === "bus");
-      const when = bus ? bus.dep : R.main.leave;
+      const bus = R.main.ok ? R.main.legs.find((l) => l.k === "bus") : null;
+      const when = bus ? bus.dep : R.main.ok ? R.main.leave : R.T;          // no bus works: use the time you asked about
       const bs = bus ? SR.d.transit.stops[bus.fromStop] : null;                      // weather where you will actually wait
       const lat = (bs ? bs[1] : R.from.lat).toFixed(2), lon = (bs ? bs[2] : R.from.lon).toFixed(2);   // rounded to about 1 km
       const wx = await get("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
         "&hourly=apparent_temperature,uv_index&daily=sunrise,sunset&current=temperature_2m&temperature_unit=fahrenheit&timezone=auto&forecast_days=7");
       const date0 = pickDate(wx.daily.time, wx.current.time, R.d, when);
-      if (!date0) { el.remove(); return; }
+      if (!date0) { off(); return; }
       const date = addDays(date0, Math.floor(when / 1440));
       const hour = Math.floor((((when % 1440) + 1440) % 1440) / 60);
       const stamp = date + "T" + String(hour).padStart(2, "0") + ":00";
       const i = wx.hourly.time.indexOf(stamp);
-      if (i < 0) { el.remove(); return; }
+      if (i < 0) { off(); return; }
       const feels = Math.round(wx.hourly.apparent_temperature[i]), uv = wx.hourly.uv_index[i];
       const di = wx.daily.time.indexOf(date);
       const dark = di >= 0 ? (stamp < wx.daily.sunrise[di].slice(0, 16) || stamp >= wx.daily.sunset[di].slice(0, 16)) : null;
@@ -152,14 +153,15 @@
       } catch (e) { /* air quality is optional */ }
       const heat = heatCategory(feels);
       const when_txt = new Date(date + "T12:00:00Z").toLocaleDateString(SR.lang === "es" ? "es-US" : "en-US", { weekday: "long", month: "short", day: "numeric", timeZone: "UTC" });
-      let h = '<div class="card"><h2>' + t("wx.title") + '</h2><div class="kv">' +
-        "<div><b>" + feels + "°F</b><span>" + t("wx.feels") + " · " + t("wx.heat." + heat) + "</span></div>" +
-        "<div><b>" + (uv == null ? "–" : Math.round(uv)) + "</b><span>" + t("wx.uv") + (uv == null ? "" : " · " + t("wx.uv." + uvCategory(uv))) + "</span></div>" +
-        (aqi == null ? "" : "<div><b>" + aqi + "</b><span>" + t("wx.air") + " · " + t("wx.aqi." + aqiCategory(aqi)) + "</span></div>") +
-        (dark == null ? "" : "<div><b>" + (dark ? MOON : SUN) + "</b><span>" + t(dark ? "wx.dark" : "wx.day") + "</span></div>") + "</div>" +
-        '<p class="small">' + t("wx.note", { d: esc(when_txt), t: SR.hm(when) }) + "</p></div>";
+      const item = (icon, label, val, cat) => '<span class="ci">' + icon + "<span>" + (val !== "" ? "<b>" + val + "</b> " : "") + label + (cat ? (label ? " · " : "") + cat : "") + "</span></span>";
+      let h = '<div class="cond" aria-label="' + t("wx.title") + '"><span class="ct">' + t("wx.title") + "</span>" +
+        item(heat === "none" ? "" : '<span class="dot ' + heat + '"></span>', t("wx.feels"), feels + "°F", t("wx.heat." + heat)) +
+        item("", t("wx.uv"), uv == null ? "–" : Math.round(uv), uv == null ? "" : t("wx.uv." + uvCategory(uv))) +
+        (aqi == null ? "" : item("", t("wx.air"), aqi, t("wx.aqi." + aqiCategory(aqi)))) +
+        (dark == null ? "" : item(dark ? MOON : SUN, "", "", t(dark ? "wx.dark" : "wx.day"))) +
+        '<span class="cn">' + t("wx.note", { d: esc(when_txt), t: SR.hm(when) }) + "</span></div>";
       el.innerHTML = h;
-    } catch (e) { el.remove(); }                    // offline or blocked: show nothing
+    } catch (e) { off(); }
   }
 
   SR.impact = { liveHtml, feedStatus, healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };

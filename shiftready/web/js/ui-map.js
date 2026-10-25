@@ -65,10 +65,29 @@
     });
 
     halo = haloArr = []; dots = dotArr = []; tractC = tractArr = []; jobC = jobArr = [];
+    // Merged feeds (for example a commuter-rail line) can include stops far outside the district. They still work in trip
+    // plans, but drawing them would zoom the map out to Los Angeles, so only stops in or near the district are drawn.
+    const ring = [];
+    const addRings = (c) => { if (typeof c[0] === "number") return; if (typeof c[0][0] === "number") { ring.push(c); return; } c.forEach(addRings); };
+    (SR.d.boundary.features ? SR.d.boundary.features.map((f) => f.geometry.coordinates) : [(SR.d.boundary.geometry || SR.d.boundary).coordinates]).forEach(addRings);
+    const inRing = (x, y, r) => { let c = false; for (let a = 0, b = r.length - 1; a < r.length; b = a++) { if ((r[a][1] > y) !== (r[b][1] > y) && x < ((r[b][0] - r[a][0]) * (y - r[a][1])) / (r[b][1] - r[a][1]) + r[a][0]) c = !c; } return c; };
+    const verts = []; ring.forEach((r) => { for (let k = 0; k < r.length; k += 4) verts.push(r[k]); });
+    const near = (s) => ring.some((r) => inRing(s[2], s[1], r)) || verts.some((v) => Math.abs(v[0] - s[2]) < 0.12 && Math.abs(v[1] - s[1]) < 0.12);
+    const shown = [];
     SR.net.stops.forEach((s, i) => {
-      halo[i] = L.circle([s[1], s[2]], { radius: 400, stroke: false, fillColor: SR.C("--map"), fillOpacity: 0, interactive: false }).addTo(layers.halo);
-      dots[i] = L.circleMarker([s[1], s[2]], { radius: 1.5, weight: 1, color: SR.C("--map-off"), fillColor: SR.C("--map-off"), fillOpacity: 0.45 }).bindPopup(() => stopPopup(i, mday())).addTo(layers.stops);
+      const show = !ring.length || near(s);
+      halo[i] = L.circle([s[1], s[2]], { radius: 400, stroke: false, fillColor: SR.C("--map"), fillOpacity: 0, interactive: false });
+      dots[i] = L.circleMarker([s[1], s[2]], { radius: 1.5, weight: 1, color: SR.C("--map-off"), fillColor: SR.C("--map-off"), fillOpacity: 0.45 }).bindPopup(() => stopPopup(i, mday()));
+      if (show) { halo[i].addTo(layers.halo); dots[i].addTo(layers.stops); shown.push([s[1], s[2]]); }
     });
+    if (shown.length > 20) {
+      const sb = L.latLngBounds(shown);
+      SR.fitDistrict = function () {
+        const wide = window.innerWidth >= 900;
+        map.fitBounds(sb, { paddingTopLeft: wide ? [430, 70] : [10, 70], paddingBottomRight: [10, 10] });
+      };
+      SR.fitDistrict();
+    }
     SR.d.tracts.forEach((tr, i) => {
       tractC[i] = L.circleMarker([tr.lat, tr.lon], { radius: 3 + Math.sqrt(tr.pop) / 14 }).bindPopup(() => tractPopup(tr)).addTo(layers.people);
     });

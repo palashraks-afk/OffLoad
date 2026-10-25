@@ -161,6 +161,35 @@
     if (g) { SR.coords.from = g; $("#from").value = g.label; $("#from").dispatchEvent(new Event("change")); }
     return g;
   }
+  const BY_REGION = {
+    ca33: [
+      { k: "ex.night", from: "Fontana", to: "amazon", T: "22:00", end: "06:30" },
+      { k: "ex.early", from: "Rialto", to: "arrowhead", T: "06:00", end: "14:30" },
+      { k: "ex.day", from: "Highland", to: "community hospital", T: "09:00", end: "11:00" },
+    ],
+    ca23: [
+      { k: "ex.night", from: "Yucaipa", to: "loma linda university health", T: "22:00", end: "06:30" },
+      { k: "ex.early", from: "Redlands", to: "loma linda university medical center", T: "06:00", end: "14:30" },
+      { k: "ex.day", from: "Hesperia", to: "victor valley global medical center", T: "09:00", end: "11:00" },
+    ],
+  };
+
+  /** The same three example trips as the buttons, computed live, for the About page ("real situations"). */
+  SR.workedExamples = function () {
+    const emps = (SR.d.employers && SR.d.employers.employers) || [], pois = SR.d.pois || [];
+    const all = emps.concat(pois), same = (e, s) => e.name.toLowerCase() === s;
+    const find = (s) => all.find((e) => same(e, s)) || all.find((e) => e.name.toLowerCase().includes(s));
+    const mins = (s) => { const [h, m] = s.split(":"); return +h * 60 + +m; };
+    const out = [];
+    for (const x of BY_REGION[SR.cfg.id] || []) {
+      const c = SR.d.places.cities[x.from], to = find(x.to);
+      if (!c || !to) continue;
+      const R = compute({ lat: c[0], lon: c[1], label: x.from }, { lat: to.lat, lon: to.lon, label: to.name }, "weekday", "arrive", mins(x.T), true, mins(x.end), true);
+      out.push({ k: x.k, from: x.from, to: to.name, T: x.T, end: x.end, R });
+    }
+    return out;
+  };
+
   /** One-tap demonstrations built from real places: they fill the form and run it. */
   SR.renderExamples = function () {
     const box = $("#examples"); if (!box) return;
@@ -168,18 +197,6 @@
     const all = emps.concat(pois), same = (e, s) => e.name.toLowerCase() === s;
     const find = (s) => all.find((e) => same(e, s)) || all.find((e) => e.name.toLowerCase().includes(s));   // an exact name wins over a longer one that contains it
     const city = (n) => { const c = SR.d.places.cities[n]; return c ? { lat: c[0], lon: c[1], label: n } : null; };
-    const BY_REGION = {
-      ca33: [
-        { k: "ex.night", from: "Fontana", to: "amazon", T: "22:00", end: "06:30" },
-        { k: "ex.early", from: "Rialto", to: "arrowhead", T: "06:00", end: "14:30" },
-        { k: "ex.day", from: "Highland", to: "community hospital", T: "09:00", end: "11:00" },
-      ],
-      ca23: [
-        { k: "ex.night", from: "Yucaipa", to: "loma linda university health", T: "22:00", end: "06:30" },
-        { k: "ex.early", from: "Redlands", to: "loma linda university medical center", T: "06:00", end: "14:30" },
-        { k: "ex.day", from: "Hesperia", to: "victor valley global medical center", T: "09:00", end: "11:00" },
-      ],
-    };
     const list = (BY_REGION[SR.cfg.id] || []).map((x) => Object.assign({}, x, { from: city(x.from), to: find(x.to) })).filter((x) => x.from && x.to);
     box.innerHTML = list.length ? "<h3>" + t("ex.title") + "</h3>" + list.map((x, i) => '<button type="button" class="example" data-i="' + i + '"><b>' + t(x.k) + "</b><span>" + esc(x.from.label) + " → " + esc(x.to.name) + "</span></button>").join("") : "";
     box.querySelectorAll(".example").forEach((b) => {
@@ -407,7 +424,8 @@
     const icon = { yes: "✓", maybe: "!", no: "✕" }[v.level];
     const word = t("v." + v.level);
     let h = '<div class="verdict ' + v.level + '" role="status"><div class="tag"><span class="icon"><span>' + icon + "</span></span>" + word + "</div>" +
-      "<p class=\"sub\">" + v.reasons.map(esc).join(" ") + "</p></div>";
+      "<p class=\"sub\">" + v.reasons.map(esc).join(" ") + "</p></div>" + SR.impact.waitSlot();
+    setTimeout(() => SR.impact.loadConditions(R), 0);
 
     if (mn.ok) {
       h += '<div class="card"><h2>' + t("res.plan") + "</h2>" +
@@ -421,8 +439,7 @@
         h += '<h3>' + t("res.miss") + "</h3><p>" + t("res.miss_txt", { l: SR.hm(R.backup.leave), a: SR.hm(R.backup.arrive) }) +
           (late != null && late > 0 ? " <span class=\"badge warn\">" + t("res.late", { n: Math.round(late) }) + "</span>" : "") + "</p>";
       }
-      h += "</div>" + SR.impact.waitSlot();
-      setTimeout(() => SR.impact.loadConditions(R), 0);
+      h += "</div>";
     }
 
     if (R.wantHome) {
