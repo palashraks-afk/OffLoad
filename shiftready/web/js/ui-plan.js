@@ -383,7 +383,8 @@
         h += '<h3>' + t("res.miss") + "</h3><p>" + t("res.miss_txt", { l: SR.hm(R.backup.leave), a: SR.hm(R.backup.arrive) }) +
           (late != null && late > 0 ? " <span class=\"badge warn\">" + t("res.late", { n: Math.round(late) }) + "</span>" : "") + "</p>";
       }
-      h += "</div>";
+      h += "</div>" + SR.impact.waitSlot();
+      setTimeout(() => SR.impact.loadConditions(R), 0);
     }
 
     if (R.wantHome) {
@@ -410,7 +411,7 @@
       h += '<div class="card"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
     }
 
-    h += stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R);
+    h += stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml();
     h += '<div class="actions"><button id="req-open" class="btn primary" type="button">' + t("res.request") + "</button>" +
       '<button id="plan-save" class="btn ghost" type="button">' + t("saved.save") + "</button>" +
       (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + '</button><button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") +
@@ -440,7 +441,7 @@
       const n = nearHome.reduce((a, b) => a + b[1], 0);
       if (n > 0) h += "<li>" + t("help.carpool", { n: SR.num(n), a: esc(SR.tractLabel(nt.tract)) }) + "</li>";
     }
-    h += "<li>" + t("help.request") + "</li></ul></details>";
+    h += SR.impact.vanpoolItem() + "<li>" + t("help.request") + "</li></ul></details>";
     return h;
   }
 

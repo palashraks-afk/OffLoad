@@ -3,7 +3,7 @@ const fs = require("fs"), path = require("path"), assert = require("assert");
 global.window = {}; global.window.SR = {};
 eval(fs.readFileSync(path.join(__dirname, "../web/js/i18n.js"), "utf8").replace("window.SR = window.SR || {};", ""));
 const STR = global.window.SR.STR;
-const src = ["app", "ui-plan", "ui-map", "ui-city", "ui-reach"].map((f) => fs.readFileSync(path.join(__dirname, `../web/js/${f}.js`), "utf8")).join("\n") +
+const src = ["app", "ui-plan", "ui-map", "ui-city", "ui-reach", "impact"].map((f) => fs.readFileSync(path.join(__dirname, `../web/js/${f}.js`), "utf8")).join("\n") +
   fs.readFileSync(path.join(__dirname, "../web/index.html"), "utf8");
 const keys = new Set();
 for (const m of src.matchAll(/\bt\("([a-z0-9_.]+)"/g)) keys.add(m[1]);

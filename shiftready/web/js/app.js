@@ -68,7 +68,7 @@
       (SR.cfg.feed_start ? " " + t("about.valid", { a: fmtDate(SR.cfg.feed_start), b: fmtDate(SR.cfg.feed_end) }) : "") + "</p></div>";
     h += '<div class="card"><h2>' + t("about.model") + "</h2>" + (rr ? modelHtml(rr) : "<p>" + t("about.model_none") + "</p>") + "</div>";
     h += '<div class="card"><h2>' + t("about.limits") + "</h2><ul>" + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("about.lim" + i, { agency: SR.cfg.agency }) + "</li>").join("") + "</ul></div>";
-    h += '<div class="card"><h2>' + t("about.privacy") + "</h2><p>" + t("about.privacy_txt") + "</p></div>";
+    h += '<div class="card"><h2>' + t("about.privacy") + "</h2><p>" + t("about.privacy_txt") + " " + t("about.weather_txt") + "</p></div>";
     h += '<div class="card"><h2>' + t("faq.title") + "</h2>" + [1, 2, 3, 4, 5].map((n) => '<details class="faq"><summary>' + t("faq.q" + n) + "</summary><p>" + t("faq.a" + n) + "</p></details>").join("") + "</div>";
     h += '<div class="card"><h2>' + t("about.origin") + "</h2><p>" + t("about.origin_txt") + "</p></div>";
     h += '<div class="logo-card"><img src="logo.svg" width="96" height="96" alt="Shift Ready logo"><div><h2>' + t("logo.title") + '</h2><p class="small">' + t("logo.txt") + '</p><div class="row gap wrap"><button type="button" id="logo-copy" class="btn ghost sm">' + t("logo.copy") + '</button><a class="btn ghost sm" href="logo.svg" download>' + t("logo.dl") + "</a></div></div></div>";

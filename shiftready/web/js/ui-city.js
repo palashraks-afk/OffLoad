@@ -197,6 +197,7 @@
         "<div><b>" + SR.num(r.wh) + "</b><span>" + t("wi.wh") + "</span></div>" +
         "<div><b>~" + SR.num(r.vehicleHours) + "</b><span>" + t("wi.cost") + "</span></div></div>" +
         table(r.rows.map((x) => [SR.hourLabel(x.hour), SR.num(x.p), SR.num(x.j), SR.num(x.w)]), [t("wi.hour"), t("wi.col_p"), t("wi.col_j"), t("wi.col_w")]) +
+        SR.impact.costLine(r.vehicleHours, r.people) +
         '<p class="small">' + t("wi.assume", { t: SR.hm(r.rs.last), n: r.rs.tph.toFixed(1) }) + "</p>";
     };
     ["wi-route", "wi-day", "wi-end"].forEach((id) => ($("#" + id).onchange = run));

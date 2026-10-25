@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Shift Ready · The bus stops before the shift ends</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org; font-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self' https://nominatim.openstreetmap.org https://api.open-meteo.com https://air-quality-api.open-meteo.com; font-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
 <meta name="description" content="The bus stops before the shift ends. Plan around it, then fix it: check a trip against the real schedule, see where service disappears, and send a ready-made request for more.">
 <link rel="preload" href="vendor/fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="manifest.webmanifest">
@@ -213,6 +213,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/planner.js"></script>
 <script src="js/data.js"></script>
+<script src="js/impact.js"></script>
 <script src="js/geocode.js"></script>
 <script src="js/art.js"></script>
 <script src="js/ui-plan.js"></script>
