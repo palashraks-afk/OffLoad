@@ -59,6 +59,7 @@
       ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")], ["CDPH", t("src.cdph")],
     ];
     let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
+    if (SR.cfg.id === "ca33") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
     h += '<div class="card"><h2>' + t("diff.title") + "</h2><ul>" + [1, 2, 3, 4, 5].map((i) => "<li>" + t("diff." + i) + "</li>").join("") + "</ul></div>";
     h += '<div class="card empabout" id="about-emp"></div>';
     h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
