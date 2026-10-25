@@ -322,7 +322,11 @@
     };
     ["req-to", "req-subj", "req-body"].forEach((id) => ($("#" + id).oninput = update));
     update();
-    $("#req-copy").onclick = () => { navigator.clipboard && navigator.clipboard.writeText($("#req-body").value); $("#req-copy").textContent = t("req.copied"); };
+    $("#req-copy").onclick = () => {
+      const ta = $("#req-body"), done = () => { $("#req-copy").textContent = t("req.copied"); };
+      const fallback = () => { ta.select(); try { document.execCommand("copy"); done(); } catch (e) { /* user can copy by hand */ } };
+      if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(done, fallback); else fallback();
+    };
     $("#req-copy").textContent = t("req.copy");
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
   };

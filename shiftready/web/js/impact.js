@@ -60,8 +60,14 @@
     return { allDays: vehicleHoursPerDay * 365 * perHour, weekdays: vehicleHoursPerDay * 250 * perHour };
   }
 
+  const SUN = '<svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/></svg>', MOON = '<svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></svg>';
+
   // ---------- cards ----------
-  function healthHtml() {
+  function healthHtml(R) {
+    if (R && R.main && R.main.ok && R.verdict && R.verdict.level === "yes") {
+      const bus = R.main.legs.find((l) => l.k === "bus"), h0 = bus ? Math.floor((((bus.dep % 1440) + 1440) % 1440) / 60) : 12;
+      if (h0 >= 6 && h0 < 20) return "";   // easy daytime trip: skip the sleep and injury facts
+    }
     const inj = INJURY[SR.cfg.id];
     let h = '<details class="card fold"><summary><h2>' + t("health.title") + "</h2></summary><ul>" +
       "<li>" + t("health.sleep", { a: "44.0", b: "28.8", c: "69.7", d: "52.3" }) + "</li>" +
@@ -120,7 +126,7 @@
         "<div><b>" + feels + "°F</b><span>" + t("wx.feels") + " · " + t("wx.heat." + heat) + "</span></div>" +
         "<div><b>" + (uv == null ? "–" : Math.round(uv)) + "</b><span>" + t("wx.uv") + (uv == null ? "" : " · " + t("wx.uv." + uvCategory(uv))) + "</span></div>" +
         (aqi == null ? "" : "<div><b>" + aqi + "</b><span>" + t("wx.air") + " · " + t("wx.aqi." + aqiCategory(aqi)) + "</span></div>") +
-        (dark == null ? "" : "<div><b>" + (dark ? "🌙" : "☀") + "</b><span>" + t(dark ? "wx.dark" : "wx.day") + "</span></div>") + "</div>" +
+        (dark == null ? "" : "<div><b>" + (dark ? MOON : SUN) + "</b><span>" + t(dark ? "wx.dark" : "wx.day") + "</span></div>") + "</div>" +
         '<p class="small">' + t("wx.note", { d: esc(when_txt), t: SR.hm(when) }) + "</p></div>";
       el.innerHTML = h;
     } catch (e) { el.remove(); }                    // offline or blocked: show nothing

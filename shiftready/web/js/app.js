@@ -102,7 +102,7 @@
     const rows = E.map((e) => ({ e, a: SR.employerAccess(e, "weekday") }));
     const n = rows.length, at = (h) => rows.filter((r) => r.a.hours[h]).length;
     const feat = rows.filter((r) => r.e.kind === "warehouse" || r.e.kind === "health").sort((x, y) => (x.a.hours[23] - y.a.hours[23]) || x.e.name.localeCompare(y.e.name));
-    box.innerHTML = "<h2>" + t("empabout.title") + "</h2><p>" + t("empabout.lead", { n, a: at(23) + " of " + n, b: at(5) + " of " + n }) + '</p><div class="emp-mini">' +
+    box.innerHTML = "<h2>" + t("empabout.title") + "</h2><p>" + t("empabout.lead", { n, a: at(23) + (SR.lang === "es" ? " de " : " of ") + n, b: at(5) + (SR.lang === "es" ? " de " : " of ") + n }) + '</p><div class="emp-mini">' +
       feat.map((r) => "<div><b>" + esc(r.e.name) + "</b>" + SR.hourBars(r.a.hours) + '<span class="small">' + esc(r.e.city) + " · " + esc(r.e.size) + " " + t("emp.people") + " · " + (r.a.first != null ? t("map.first_last", { a: SR.hm(r.a.first), b: SR.hm(r.a.last) }) : t("emp.no_walk", { m: r.a.nearestM || "?" })) + "</span></div>").join("") + "</div>" +
       '<p class="small">' + t("emp.src") + ' <a href="' + esc(SR.d.employers.source_url) + '" target="_blank" rel="noopener">' + esc(SR.d.employers.source) + "</a></p>";
   }

@@ -169,11 +169,11 @@
     const startPt = reverse ? to : from, endPt = reverse ? from : to;
     const t0 = reverse ? -opts.arriveBy : opts.depart;
     const start = net.near(startPt.lat, startPt.lon, maxWalk).map((x) => ({ s: x.s, t: t0 + walkMinutes(x.d) }));
-    if (!start.length) return { ok: false, reason: "no_stop_near_start" };
+    if (!start.length) return { ok: false, reason: reverse ? "no_stop_near_end" : "no_stop_near_start" };
     const res = scan(net, C, start, t0 + 360);
     let best = null;
     const endStops = net.near(endPt.lat, endPt.lon, maxWalk);
-    if (!endStops.length) return { ok: false, reason: "no_stop_near_end" };
+    if (!endStops.length) return { ok: false, reason: reverse ? "no_stop_near_start" : "no_stop_near_end" };
     for (const x of endStops) {
       const t = res.arr[x.s] + walkMinutes(x.d);
       if (t < (best ? best.t : Infinity)) best = { s: x.s, t, d: x.d };

@@ -65,7 +65,7 @@
 
   SR.kind = function (k) { const s = SR.STR[SR.lang]; return (s && s["kind." + k]) || k; };
   SR.stopName = function (i) { return SR.d.transit.stops[i][0]; };
-  SR.routeName = function (r) { const x = SR.d.transit.routes[r]; return x[0]; };
+  SR.routeName = function (r) { const x = SR.d.transit.routes[r]; return x[0] || String(x[1] || "").split(" ")[0] || "Bus"; };
   /** CSS variables for a route's own colour, with a readable text colour. */
   SR.routeStyle = function (r) {
     const c = (SR.d.transit.routes[r][2] || "").replace("#", "");

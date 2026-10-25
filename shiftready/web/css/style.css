@@ -412,3 +412,8 @@ details.fold[open] > summary { margin-bottom: 8px; }
 .mark .moon { fill: var(--amber); }
 #theme svg { display: block; }
 :root[data-theme="dark"] #theme .sun, :root:not([data-theme="dark"]) #theme .moon-i { display: none; }
+
+/* region picker and weather icons */
+#region { max-width: 190px; font-size: .85rem; }
+@media (max-width: 420px) { #region { max-width: 120px; text-overflow: ellipsis; } }
+.kv .ico { display: block; margin-bottom: 2px; color: var(--primary); }

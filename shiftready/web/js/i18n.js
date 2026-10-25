@@ -3,12 +3,12 @@ window.SR = window.SR || {};
 window.SR.STR = {
 en: {
   "health.title": "Why night trips matter for health",
-  "health.sleep": "Night-shift workers are more likely to sleep 6 hours or less: {a}% vs {b}% for day-shift workers (CDC, 2010). On night shifts in transportation and warehousing it was {c}%, in health care {d}%.",
-  "health.drowsy": "After a night shift, 37.5% of 16 drivers had a near-crash on the drive home and none did after a normal night's sleep (small track study, PNAS 2015). A National Sleep Foundation poll found shift workers about 3 times as likely to drive drowsy.",
+  "health.sleep": "Night-shift workers are more likely to sleep 6 hours or less: {a}% vs {b}% for day-shift workers (CDC, 2012). On night shifts in transportation and warehousing it was {c}%, in health care {d}%.",
+  "health.drowsy": "After a night shift, 37.5% of 16 drivers had a near-crash on the drive home and none did after a normal night's sleep (small track study, PNAS 2016). A National Sleep Foundation poll found shift workers about 3 times as likely to drive drowsy.",
   "health.injury": "In {c}, {n} people walking or biking were killed from 2019 to 2023: {dark}% in the dark, {scene}% died at the scene ({hour}% within an hour), {fast}% on roads posted 40 mph or higher, and about {yll} years of life lost before age 75 (NHTSA crash data).",
   "health.speed": "If a car hits a person on foot, the chance of death is about 10% at 23 mph, 50% at 42 mph and 90% at 58 mph (AAA Foundation, 2011).",
   "health.note": "Studies show links, not proof about your trip. This is information, not medical advice.",
-  "health.src": "Sources: CDC MMWR 2011; PNAS 2015; National Sleep Foundation; AAA Foundation (Tefft 2011); NHTSA FARS.",
+  "health.src": "Sources: CDC MMWR 2012; PNAS 2016; National Sleep Foundation; AAA Foundation (Tefft 2011); NHTSA FARS.",
   "help.vanpool_ca": "Share a vanpool: SBCTA's SB Loop program helps pay up to $600 a month per vanpool (5 to 15 seats, 30 or more miles round trip, at least 70% full). Call (833) 743-3742 to check the current rules.",
   "help.vanpool_gen": "Ask your employer about a vanpool, shuttle or ride-matching program.",
   "wi.cost_year": "Rough cost: about ${a} a year if it runs every day, or about ${b} on weekdays only, at about ${r} per bus-hour ({agency}, {y} national transit data). It ignores fares and fuel differences.",
@@ -196,18 +196,18 @@ en: {
   "about.lim3": "Neighborhood and job figures use tract or block centers, not exact addresses.", "about.lim4": "Death counts show where people were killed, not how risky a place is per person walking.",
   "about.lim5": "Only fatal crashes are in the data (NHTSA FARS). Crashes with injuries are not.", "about.lim6": "A walking note never means a place is safe. Use the best route you can find.",
   "about.privacy": "Privacy", "about.privacy_txt": "No account, no tracking, and nothing is sent to a server we run. Your places, and a saved commute if you choose one, stay in this browser. Typing a street address sends that text to OpenStreetMap Nominatim to find it. ZIP codes and city names work without it.",
-  "about.ai": "Credits and AI use", "about.ai_txt": "Built with Leaflet and OpenStreetMap, Inter typeface, Python, JavaScript. An AI assistant (Claude Code by Anthropic) helped build this project. The student directed it and is responsible for it. See the submission for the full AI-use disclosure.",
+  "about.ai": "Credits and AI use", "about.ai_txt": "Built with Leaflet and OpenStreetMap, Public Sans typeface, Python, JavaScript. An AI assistant (Claude Code by Anthropic) helped build this project. The student directed it and is responsible for it. See the submission for the full AI-use disclosure.",
   "about.es_note": "The Spanish text has not been reviewed by a native speaker yet.",
   "err.title": "The data did not load", "err.txt": "Open this page from a web server (for example the GitHub Pages link), not by double-clicking the file."
 },
 es: {
   "health.title": "Por qué los viajes de noche importan para la salud",
-  "health.sleep": "Quienes trabajan de noche tienen más probabilidad de dormir 6 horas o menos: {a}% frente a {b}% de quienes trabajan de día (CDC, 2010). En turnos de noche de transporte y almacenes fue {c}%, y en atención médica {d}%.",
-  "health.drowsy": "Después de un turno de noche, 37.5% de 16 conductores tuvo un casi accidente al manejar a casa, y ninguno lo tuvo después de una noche normal de sueño (estudio pequeño en pista, PNAS 2015). Una encuesta de la National Sleep Foundation encontró que quienes hacen turnos manejan con sueño unas 3 veces más.",
+  "health.sleep": "Quienes trabajan de noche tienen más probabilidad de dormir 6 horas o menos: {a}% frente a {b}% de quienes trabajan de día (CDC, 2012). En turnos de noche de transporte y almacenes fue {c}%, y en atención médica {d}%.",
+  "health.drowsy": "Después de un turno de noche, 37.5% de 16 conductores tuvo un casi accidente al manejar a casa, y ninguno lo tuvo después de una noche normal de sueño (estudio pequeño en pista, PNAS 2016). Una encuesta de la National Sleep Foundation encontró que quienes hacen turnos manejan con sueño unas 3 veces más.",
   "health.injury": "En {c}, {n} personas que caminaban o iban en bicicleta murieron de 2019 a 2023: {dark}% en la oscuridad, {scene}% murió en el lugar ({hour}% en menos de una hora), {fast}% en calles con límite de 40 mph o más, y unos {yll} años de vida perdidos antes de los 75 (datos de choques de NHTSA).",
   "health.speed": "Si un carro golpea a una persona a pie, la probabilidad de morir es de cerca de 10% a 23 mph, 50% a 42 mph y 90% a 58 mph (AAA Foundation, 2011).",
   "health.note": "Los estudios muestran relaciones, no pruebas sobre tu viaje. Es información, no consejo médico.",
-  "health.src": "Fuentes: CDC MMWR 2011; PNAS 2015; National Sleep Foundation; AAA Foundation (Tefft 2011); NHTSA FARS.",
+  "health.src": "Fuentes: CDC MMWR 2012; PNAS 2016; National Sleep Foundation; AAA Foundation (Tefft 2011); NHTSA FARS.",
   "help.vanpool_ca": "Comparte una vanpool: el programa SB Loop de SBCTA ayuda a pagar hasta $600 al mes por vanpool (de 5 a 15 asientos, 30 o más millas ida y vuelta, al menos 70% lleno). Llama al (833) 743-3742 para ver las reglas actuales.",
   "help.vanpool_gen": "Pregunta a tu empleador por una vanpool, un transporte compartido o un programa para compartir viajes.",
   "wi.cost_year": "Costo aproximado: unos ${a} al año si funciona todos los días, o unos ${b} solo entre semana, a unos ${r} por hora de autobús ({agency}, datos nacionales de {y}). No incluye tarifas ni diferencias de combustible.",
@@ -395,7 +395,7 @@ es: {
   "about.lim3": "Las cifras de vecindarios y empleos usan centros de tramos o bloques, no direcciones exactas.", "about.lim4": "Los conteos de muertes muestran dónde murieron personas, no qué tan riesgoso es un lugar por persona que camina.",
   "about.lim5": "Solo hay accidentes mortales en los datos (NHTSA FARS). No los accidentes con heridos.", "about.lim6": "Una nota de caminata nunca significa que un lugar sea seguro. Usa la mejor ruta que encuentres.",
   "about.privacy": "Privacidad", "about.privacy_txt": "Sin cuenta, sin rastreo y nada se envía a un servidor nuestro. Tus lugares, y un trayecto guardado si lo eliges, se quedan en este navegador. Al escribir una dirección, ese texto se envía a OpenStreetMap Nominatim para encontrarla. Los códigos postales y los nombres de ciudades funcionan sin eso.",
-  "about.ai": "Créditos y uso de IA", "about.ai_txt": "Hecho con Leaflet y OpenStreetMap, tipografía Inter, Python y JavaScript. Un asistente de IA (Claude Code de Anthropic) ayudó a construir este proyecto. El estudiante lo dirigió y es responsable de él. Consulta la entrega para la divulgación completa del uso de IA.",
+  "about.ai": "Créditos y uso de IA", "about.ai_txt": "Hecho con Leaflet y OpenStreetMap, tipografía Public Sans, Python y JavaScript. Un asistente de IA (Claude Code de Anthropic) ayudó a construir este proyecto. El estudiante lo dirigió y es responsable de él. Consulta la entrega para la divulgación completa del uso de IA.",
   "about.es_note": "El texto en español todavía no ha sido revisado por un hablante nativo.",
   "err.title": "No se cargaron los datos", "err.txt": "Abre esta página desde un servidor web (por ejemplo el enlace de GitHub Pages), no haciendo doble clic en el archivo."
 }

@@ -117,8 +117,9 @@
   // ---------- what the trip costs, from the agency's own fare file ----------------------------------
   function costHtml(R) {
     const F = SR.d.transit.fares; if (!F || !R.main.ok) return "";
-    const rides = R.main.boardings * (R.wantHome ? 2 : 1) * 22;   // 22 working days a month
-    const pay = rides * F.adult.single;
+    const perDay = R.main.boardings * (R.wantHome ? 2 : 1);
+    const rides = perDay * 22;   // 22 working days a month
+    const pay = 22 * Math.min(perDay * F.adult.single, F.adult.day || Infinity);   // a day pass caps the daily cost
     const best = Math.min(pay, F.adult.d31);
     let h = '<details class="card fold"><summary><h2>' + t("cost.title") + '</h2></summary><div class="kv"><div><b>$' + F.adult.single.toFixed(2) + "</b><span>" + t("cost.single") + "</span></div>" +
       "<div><b>$" + F.adult.d31.toFixed(0) + "</b><span>" + t("cost.d31") + "</span></div><div><b>$" + pay.toFixed(0) + "</b><span>" + t("cost.pay", { n: rides }) + "</span></div></div>";
@@ -411,7 +412,7 @@
       h += '<div class="card"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
     }
 
-    h += stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml();
+    h += stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml(R);
     h += '<div class="actions"><button id="req-open" class="btn primary" type="button">' + t("res.request") + "</button>" +
       '<button id="plan-save" class="btn ghost" type="button">' + t("saved.save") + "</button>" +
       (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + '</button><button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") +
