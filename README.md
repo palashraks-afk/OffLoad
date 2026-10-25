@@ -1,4 +1,17 @@
-> **STOP: read `CLAUDE.md` first.** OffloadWatch (below) is an **abandoned, rejected project** written by an AI assistant. It is **not** the student's contest entry and must not be continued or submitted. **No new project has been chosen yet; the student is still finding one.** Do not build anything until he picks.
+# Shift Ready
+
+**The bus stops before the shift ends. Plan around it. Then fix it.**
+
+A free web app (English and Spanish, works on phones) that checks the real bus schedule for a shift or an appointment, shows where service disappears at night and on weekends, and writes a ready-to-send request for better service. Built by Palash Rakshit for the 2026 Congressional App Challenge.
+
+- **Live app:** https://palashraks-afk.github.io/OffLoad/
+- **App code and how it works:** [`shiftready/`](shiftready/README.md)
+- **How AI was used (disclosure log):** [`docs/AI_USE_LOG.md`](docs/AI_USE_LOG.md)
+- **Research and evidence:** [`docs/research/`](docs/research/)
+
+> *For AI assistants:* read `CLAUDE.md` first. The older project below (OffloadWatch) was abandoned and is kept only as an archive; it is not part of this entry.
+
+---
 
 # OffloadWatch (abandoned; reference only)
 
