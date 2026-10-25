@@ -1,117 +1,119 @@
 {
-  "id": "ca23",
-  "name": "California's 23rd District",
-  "short": "CA-23",
-  "agency": "Omnitrans",
-  "gtfs_dir": "data/raw/gtfs/omnitrans",
-  "boundary": {
-    "type": "cd119",
-    "state_fips": "06",
-    "cd": "23"
-  },
+ "id": "ca23",
+ "name": "California's 23rd District",
+ "short": "CA-23",
+ "agency": "Omnitrans",
+ "gtfs_dir": "data/raw/gtfs/omnitrans",
+ "boundary": {
+  "type": "cd119",
   "state_fips": "06",
-  "county_fips": [
-    "071"
+  "cd": "23"
+ },
+ "state_fips": "06",
+ "county_fips": [
+  "071"
+ ],
+ "lodes_state": "ca",
+ "fars_state": 6,
+ "fars_counties": [
+  71
+ ],
+ "center": [
+  34.25,
+  -117.15
+ ],
+ "zoom": 9,
+ "utm": 32611,
+ "gtfs_url": "http://www.omnitrans.org/google/google_transit.zip",
+ "facilities": "cdph_ca",
+ "label": "Redlands, CA",
+ "gtfs_extra": [
+  {
+   "dir": "data/raw/gtfs/metrolink",
+   "url": "https://metrolinktrains.com/globalassets/about/gtfs/gtfs.zip",
+   "prefix": "ml_",
+   "name": "Metrolink",
+   "mode": "rail"
+  },
+  {
+   "dir": "data/raw/gtfs/vvta",
+   "url": "https://api.transloc.com/gtfs/vvta.zip",
+   "prefix": "vv_",
+   "name": "Victor Valley Transit"
+  },
+  {
+   "dir": "data/raw/gtfs/morongo",
+   "url": "https://data.trilliumtransit.com/gtfs/morongobasin-ca-us/morongobasin-ca-us.zip",
+   "prefix": "mb_",
+   "name": "Morongo Basin Transit"
+  },
+  {
+   "dir": "data/raw/gtfs/bigbear",
+   "url": "http://data.trilliumtransit.com/gtfs/bigbear-ca-us/bigbear-ca-us.zip",
+   "prefix": "bb_",
+   "name": "Mountain Transit"
+  }
+ ],
+ "agencies": "Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",
+ "alerts_url": "https://omnitrans.org/plan-a-trip/alerts/",
+ "track_url": "https://omnitrans.org/plan-a-trip/track-your-bus/",
+ "live_links": [
+  {
+   "name": "Victor Valley Transit",
+   "url": "https://www.vvta.org/"
+  },
+  {
+   "name": "Morongo Basin Transit",
+   "url": "https://www.mbtabus.com/"
+  },
+  {
+   "name": "Mountain Transit",
+   "url": "https://mountaintransit.org/"
+  },
+  {
+   "name": "Metrolink",
+   "url": "https://metrolinktrains.com/"
+  }
+ ],
+ "osm_tiles": [
+  [
+   34.0,
+   -117.35,
+   34.18,
+   -117.15
   ],
-  "lodes_state": "ca",
-  "fars_state": 6,
-  "fars_counties": [
-    71
+  [
+   34.0,
+   -117.15,
+   34.18,
+   -116.95
   ],
-  "center": [
-    34.25,
-    -117.15
+  [
+   34.38,
+   -117.45,
+   34.62,
+   -117.15
   ],
-  "zoom": 9,
-  "utm": 32611,
-  "gtfs_url": "http://www.omnitrans.org/google/google_transit.zip",
-  "facilities": "cdph_ca",
-  "label": "Redlands, CA",
-  "gtfs_extra": [
-    {
-      "dir": "data/raw/gtfs/metrolink",
-      "url": "https://metrolinktrains.com/globalassets/about/gtfs/gtfs.zip",
-      "prefix": "ml_",
-      "name": "Metrolink",
-      "mode": "rail"
-    },
-    {
-      "dir": "data/raw/gtfs/vvta",
-      "url": "https://api.transloc.com/gtfs/vvta.zip",
-      "prefix": "vv_",
-      "name": "Victor Valley Transit"
-    },
-    {
-      "dir": "data/raw/gtfs/morongo",
-      "url": "https://data.trilliumtransit.com/gtfs/morongobasin-ca-us/morongobasin-ca-us.zip",
-      "prefix": "mb_",
-      "name": "Morongo Basin Transit"
-    },
-    {
-      "dir": "data/raw/gtfs/bigbear",
-      "url": "http://data.trilliumtransit.com/gtfs/bigbear-ca-us/bigbear-ca-us.zip",
-      "prefix": "bb_",
-      "name": "Mountain Transit"
-    }
+  [
+   34.84,
+   -117.12,
+   34.94,
+   -116.95
   ],
-  "agencies": "Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",
-  "alerts_url": "https://omnitrans.org/plan-a-trip/alerts/",
-  "track_url": "https://omnitrans.org/plan-a-trip/track-your-bus/",
-  "live_links": [
-    {
-      "name": "Victor Valley Transit",
-      "url": "https://www.vvta.org/"
-    },
-    {
-      "name": "Morongo Basin Transit",
-      "url": "https://www.mbtabus.com/"
-    },
-    {
-      "name": "Mountain Transit",
-      "url": "https://mountaintransit.org/"
-    },
-    {
-      "name": "Metrolink",
-      "url": "https://metrolinktrains.com/"
-    }
+  [
+   34.2,
+   -117.0,
+   34.3,
+   -116.7
   ],
-  "osm_tiles": [
-    [
-      34.0,
-      -117.35,
-      34.18,
-      -117.15
-    ],
-    [
-      34.0,
-      -117.15,
-      34.18,
-      -116.95
-    ],
-    [
-      34.38,
-      -117.45,
-      34.62,
-      -117.15
-    ],
-    [
-      34.84,
-      -117.12,
-      34.94,
-      -116.95
-    ],
-    [
-      34.2,
-      -117.0,
-      34.3,
-      -116.7
-    ],
-    [
-      34.05,
-      -116.5,
-      34.25,
-      -115.95
-    ]
-  ],
-  "model_area_label": "the populated parts of California's 23rd District in San Bernardino County (Redlands to Yucaipa, Big Bear, Victorville to Apple Valley, Barstow, Yucca Valley to Twentynine Palms)"
+  [
+   34.05,
+   -116.5,
+   34.25,
+   -115.95
+  ]
+ ],
+ "model_area_label": "the populated parts of California's 23rd District in San Bernardino County (Redlands to Yucaipa, Big Bear, Victorville to Apple Valley, Barstow, Yucca Valley to Twentynine Palms)",
+ "scope": "the San Bernardino County part of CA-23",
+ "scope_es": "la parte de CA-23 en el condado de San Bernardino"
 }

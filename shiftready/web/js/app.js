@@ -5,6 +5,7 @@
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
+  SR.area = function () { return (SR.lang === "es" && SR.cfg.scope_es) || SR.cfg.scope || SR.cfg.short; };
   SR.t = function (key, vars) {
     let s = (SR.STR[SR.lang] && SR.STR[SR.lang][key]) || SR.STR.en[key] || key;
     if (vars) s = s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? vars[k] : "{" + k + "}"));
@@ -45,9 +46,9 @@
     const r = SR.d.reach, wd = r.weekday, dth = SR.d.deaths || [], dark = dth.length ? dth.filter((d) => d[4]).length / dth.length : null;
     const noCar = SR.d.tracts.filter((x) => x.in_district).reduce((s, x) => s + x.hh_nocar, 0);
     const P = (k, v) => "<div><b>" + t("problem." + k + "_h") + "</b><span>" + t("problem." + k, v) + "</span></div>";
-    return '<div class="problem"><h2>' + t("problem.title") + "</h2><p>" + t("problem.lead", { c: SR.cfg.short, a: SR.pct(wd.pop_share[12], 0), b: SR.pct(wd.pop_share[23], 0), d: SR.pct(wd.pop_share[1], 0) }) + "</p>" +
+    return '<div class="problem"><h2>' + t("problem.title") + "</h2><p>" + t("problem.lead", { c: SR.area(), a: SR.pct(wd.pop_share[12], 0), b: SR.pct(wd.pop_share[23], 0), d: SR.pct(wd.pop_share[1], 0) }) + "</p>" +
       '<div class="pgrid">' +
-      P("who", { j: SR.num(r.district_trans_jobs), c: SR.cfg.short, h: SR.num(noCar), w: SR.pct(r.bus_commute_share, 1) }) +
+      P("who", { j: SR.num(r.district_trans_jobs), c: SR.area(), h: SR.num(noCar), w: SR.pct(r.bus_commute_share, 1) }) +
       P("data", { a: SR.pct(wd.pop_share[20], 0), b: SR.pct(wd.pop_share[22], 0), c: SR.pct(wd.pop_share[23], 0), s: SR.pct(r.saturday.pop_share[23], 0) }) +
       P("cost", { k: dark != null ? SR.pct(dark, 0) : "most" }) +
       P("gap", {}) + '</div><div class="art" data-art="network"></div></div>' +
@@ -141,13 +142,13 @@
     const hb = '<div class="hbars">' + rows.map((x) => "<div><span>" + esc(x[0].split(",")[0]) + '</span><span class="bar ' + (x[2] ? "you" : "") + '" style="width:' + Math.max(2, x[1] * 100) + '%"></span><span>' + SR.pct(x[1], 0) + "</span></div>").join("") + "</div>";
     const N = (big, text, src, extra, cls) => '<div class="num ' + (cls || "") + '"><b>' + big + "</b><p>" + text + "</p>" + (extra || "") + "<small>" + src + "</small></div>";
     box.innerHTML = '<h2 class="sec">' + t("nums.title") + "</h2>" + '<div class="numgrid">' +
-      N(SR.pct(wd.pop_share[23], 0), t("nums.n1", { c: SR.cfg.short }), t("nums.s_sched"), spark, "wide2") +
+      N(SR.pct(wd.pop_share[23], 0), t("nums.n1", { c: SR.area() }), t("nums.s_sched"), spark, "wide2") +
       N(SR.pct(wd.pop_share[1], 0), t("nums.n2"), t("nums.s_sched")) +
       N(SR.pct(lateShare, 0), t("nums.n3"), t("nums.s_gtfs")) +
       N(SR.pct(earlyShare, 1), t("nums.n4"), t("nums.s_gtfs")) +
-      N(SR.num(noCar), t("nums.n5", { c: SR.cfg.short, p: SR.pct(r.hh_nocar_share, 1) }), "Census ACS") +
+      N(SR.num(noCar), t("nums.n5", { c: SR.area(), p: SR.pct(r.hh_nocar_share, 1) }), "Census ACS") +
       N(SR.pct(r.bus_commute_share, 1), t("nums.n6"), "Census ACS") +
-      N(SR.num(r.district_trans_jobs), t("nums.n7", { c: SR.cfg.short, p: SR.pct(wd.trans_jobs_share_district[23], 0) }), "Census LODES 2022") +
+      N(SR.num(r.district_trans_jobs), t("nums.n7", { c: SR.area(), p: SR.pct(wd.trans_jobs_share_district[23], 0) }), "Census LODES 2022") +
       (dth.length ? N(SR.num(dth.length), t("nums.n8", { d: SR.pct(dark / dth.length, 0) }), "NHTSA FARS 2019–2023") : "") +
       (saf.length ? N(SR.pct(nightStops / saf.length, 0), t("nums.n9", { a: SR.num(nightStops), b: SR.num(saf.length) }), "NHTSA FARS + schedule") : "") +
       (rows.length > 1 ? N(SR.pct(wd.pop_share[23], 0), t("nums.n10"), t("nums.s_sched"), hb, "wide2") : "") +
@@ -166,8 +167,8 @@
     }
     const cmp = others.map((o) => esc(o.r.label) + " " + SR.pct(o.w.pop_share[23], 0)).join(", ");
     box.innerHTML = "<h2>" + t("find.title") + "</h2><ul>" +
-      "<li>" + t("find.f1", { c: SR.cfg.short, a: SR.pct(wd.pop_share[12]), b: SR.pct(wd.pop_share[23], 0), d: SR.pct(wd.pop_share[1], 0) }) + (cmp ? " " + t("find.f1b", { o: cmp }) : "") + "</li>" +
-      "<li>" + t("find.f2", { c: SR.cfg.short, a: SR.pct(wd.trans_jobs_share_district[12], 0), b: SR.pct(wd.trans_jobs_share_district[23], 0),
+      "<li>" + t("find.f1", { c: SR.area(), a: SR.pct(wd.pop_share[12]), b: SR.pct(wd.pop_share[23], 0), d: SR.pct(wd.pop_share[1], 0) }) + (cmp ? " " + t("find.f1b", { o: cmp }) : "") + "</li>" +
+      "<li>" + t("find.f2", { c: SR.area(), a: SR.pct(wd.trans_jobs_share_district[12], 0), b: SR.pct(wd.trans_jobs_share_district[23], 0),
         a8: SR.pct((here.sensitivity_800m || { 12: wd.trans_jobs_share_district[12] })["12"].trans_jobs_share_district, 0), b8: SR.pct((here.sensitivity_800m || { 23: wd.trans_jobs_share_district[23] })["23"].trans_jobs_share_district, 0) }) + "</li>" +
       (SR.d.risk_report ? "<li>" + t("find.f3") + "</li>" : "") + "</ul><p class=\"small\">" + t("find.note") + "</p>";
   }
@@ -189,7 +190,7 @@
     applyStatic();
     const wd = SR.d.reach.weekday;
     const sens = SR.d.reach.sensitivity_800m;
-    $("#hero").innerHTML = "<b>" + SR.pct(wd.pop_share[23], 0) + "</b><span>" + t("plan.hero", { c: SR.cfg.short }) + "</span>";
+    $("#hero").innerHTML = "<b>" + SR.pct(wd.pop_share[23], 0) + "</b><span>" + t("plan.hero", { c: SR.area() }) + "</span>";
     SR.initPlan();
     SR.renderExamples();
     SR.initCity();
