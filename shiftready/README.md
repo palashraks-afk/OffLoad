@@ -48,4 +48,4 @@ node shiftready/tests/i18n.test.js        # English/Spanish keys and placeholder
 One bus agency per region; no rail, delays or detours; walking is straight line x 1.3; tract/block centers stand in for homes and jobs; deaths are past fatal crashes (FARS), not risk per person walking; Spanish text not yet reviewed by a native speaker.
 
 ## Data
-Omnitrans / GCRTA / Miami-Dade Transit GTFS; Census ACS 5-year (via Census Reporter), LODES 2022, TIGER cartographic boundaries; NHTSA FARS 2019-2023; OpenStreetMap (ODbL); CDPH facility list (California). Leaflet, Inter typeface.
+Omnitrans, Metrolink, GCRTA, Miami-Dade Transit and SacRT GTFS; Census ACS 5-year (via Census Reporter), LODES 2022, TIGER cartographic boundaries; NHTSA FARS 2019-2023; OpenStreetMap (ODbL); CDPH facility list (California). Leaflet, Inter typeface.

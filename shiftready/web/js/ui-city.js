@@ -181,7 +181,7 @@
 
   function renderWhatIf() {
     const box = $("#whatif");
-    const routes = SR.d.transit.routes.map((r, i) => [i, r]).filter(([i]) => SR.d.transit.trips.some((x) => x[0] === i));
+    const routes = SR.d.transit.routes.map((r, i) => [i, r]).filter(([i, r]) => !/^Metrolink/.test(r[1]) && SR.d.transit.trips.some((x) => x[0] === i));   // the cost model is the bus agency's; trains are not its to extend
     box.innerHTML = "<h2>" + t("wi.title") + '</h2><p class="small">' + t("wi.lead") + '</p><div class="row gap wrap">' +
       '<select id="wi-route" aria-label="' + t("wi.route") + '" style="width:auto;max-width:100%">' +
       routes.map(([i, r]) => '<option value="' + i + '">' + (r[0] ? t("wi.route") + " " + esc(r[0]) + " – " : "") + esc(r[1]) + "</option>").join("") + "</select>" +
@@ -318,7 +318,7 @@
     $("#req-subj").value = t("req.subject", { agency: SR.cfg.agency });
     $("#req-body").value = body;
     const update = () => {
-      $("#req-mail").href = "mailto:" + encodeURIComponent($("#req-to").value) + "?subject=" + encodeURIComponent($("#req-subj").value) + "&body=" + encodeURIComponent($("#req-body").value);
+      $("#req-mail").href = "mailto:" + encodeURIComponent($("#req-to").value).replace(/%40/g, "@") + "?subject=" + encodeURIComponent($("#req-subj").value) + "&body=" + encodeURIComponent($("#req-body").value);
     };
     ["req-to", "req-subj", "req-body"].forEach((id) => ($("#" + id).oninput = update));
     update();

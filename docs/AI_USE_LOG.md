@@ -31,3 +31,5 @@ The 2026 rules require every use of AI to be fully disclosed in the submission, 
 | 2026-10-25 | Claude Code | Deep evidence note (docs/research/09), statistics card (BLS, county indicators, Urban Institute), Sacramento region built with the existing pipeline (data from SacRT GTFS, Census LODES/ACS, FARS), planner tie-break for zero-dwell stops, region-aware schedule source line. Cache v11. |
 
 | 2026-10-25 | Claude Code | Merged Metrolink (rail) into the CA-33 timetable (multi-feed support in prep/transit.py), rebuilt the stop-dependent data, label "Omnitrans and Metrolink", train legs excluded from fare estimates. All tests pass. Cache v13. |
+
+| 2026-10-25 | Claude Code (QA fork) | Full test pass over all screens, languages, viewports and the four regions; 12 issues fixed (language switch re-render, Spanish aria-labels, dark-mode contrast, same-place message, label and statistic fixes, rail-related label fixes); report in docs/QA_REPORT_2026-10-25.md. Cache v14. |

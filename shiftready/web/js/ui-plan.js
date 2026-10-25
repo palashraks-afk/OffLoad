@@ -201,23 +201,45 @@
     const out = $("#plan-result"), go = $("#plan-form button[type=submit]");
     go.disabled = true; const label = go.textContent; go.textContent = t("plan.working");
     out.innerHTML = '<div class="empty">' + t("plan.working") + "</div>";
+    if (!$("#from").value.trim() || !$("#to").value.trim()) {
+      out.innerHTML = '<div class="verdict maybe"><div class="tag"><span class="icon">!</span>' + t("plan.need_both") + "</div></div>";
+      go.disabled = false; go.textContent = label;
+      return;
+    }
     const [from, to] = await Promise.all([resolve("from"), resolve("to")]);
     if (!from || !to) {
       out.innerHTML = '<div class="verdict maybe"><div class="tag"><span class="icon">!</span>' + t("plan.need_places") + "</div></div>";
       go.disabled = false; go.textContent = label;
       return;
     }
+    for (const g of [from, to]) {   // a typed place can match a far-away namesake: say so instead of "no bus"
+      const chk = await SR.regionCheck(g.lat, g.lon);
+      if (!chk.inside) {
+        out.innerHTML = '<div class="verdict maybe"><div class="tag"><span class="icon">!</span>' + t("plan.outside", { p: esc(g.label || ""), n: chk.km, r: esc(SR.cfg.short) }) + "</div></div>";
+        go.disabled = false; go.textContent = label;
+        return;
+      }
+    }
     const d = day(), m = mode(), T = SR.parseTime($("#time").value);
     const wantHome = $("#want-home").checked;
     let endT = SR.parseTime($("#end-time").value);
     const R = compute(from, to, d, m, T, wantHome, endT);
-    SR.lastPlan = R;
+    R.rid = SR.cfg.id; SR.lastPlan = R;
     out.innerHTML = render(R);
     out.classList.add("stagger");
     bindResult(R);
     go.disabled = false; go.textContent = label;
     out.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+
+  /** After a language switch: draw the result already on screen again in the new language. */
+  SR.rerenderPlan = function () {
+    const out = $("#plan-result"), R = SR.lastPlan;
+    if (!R || R.rid !== SR.cfg.id || !out || !out.querySelector(".verdict")) return;
+    R.verdict = verdict(R);   // its reasons are stored as text, so rebuild them in the new language
+    out.innerHTML = render(R);
+    bindResult(R);
+  };
 
   /** Plan one trip. "Be there by T" asks for a bus that gets you there MIN_SLACK minutes early; only if none exists do we accept a tighter one. */
   function planMain(from, to, d, m, T) {
@@ -257,6 +279,7 @@
     const reasons = [];
     const mn = R.main;
     if (!mn.ok) {
+      if (Planner.hav(R.from.lat, R.from.lon, R.to.lat, R.to.lon) < 800) return { level: "no", reasons: [t("why.walk_only")] };   // close enough to walk: say so, not "no bus"
       const key = mn.reason === "no_stop_near_start" ? "why.no_stop_start" : mn.reason === "no_stop_near_end" ? "why.no_stop_end" : "why.no_bus";
       return { level: "no", reasons: [t(key)] };
     }
@@ -545,7 +568,7 @@
     if (bo) bo.onclick = async () => {
       const txt = bossText(R);
       try { if (navigator.share) { await navigator.share({ text: txt }); return; } } catch (e) { return; }
-      try { await navigator.clipboard.writeText(txt); bo.textContent = t("req.copied"); } catch (e) { window.prompt(t("boss.btn"), txt); }
+      try { await navigator.clipboard.writeText(txt); bo.textContent = t("req.copied"); } catch (e) { try { window.prompt(t("boss.btn"), txt); } catch (e2) { /* no clipboard and no prompt: nothing more to offer */ } }
     };
     const p = $("#plan-print"); if (p) p.onclick = () => SR.printHtml("<h1>" + SR.t("plan.title") + "</h1>" + $("#plan-result").innerHTML.replace(/<button[^>]*>.*?<\/button>/g, ""));
     document.querySelectorAll("[data-alt]").forEach((b) => {

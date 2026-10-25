@@ -22,6 +22,9 @@
     document.querySelectorAll("[data-i18n]").forEach((el) => (el.textContent = t(el.dataset.i18n)));
     document.querySelectorAll("[data-i18n-ph]").forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
     document.querySelectorAll("[data-i18n-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+    const aria = { region: "aria.region", from: "aria.from", to: "aria.to", "to-quick": "aria.quick", "r-day": "aria.day", "r-budget": "aria.budget", "reach-map": "aria.reachmap", map: "aria.map", "m-search": "aria.search" };
+    Object.keys(aria).forEach((id) => { const el = document.getElementById(id); if (el) el.setAttribute("aria-label", t(aria[id])); });
+    document.title = "Shift Ready · " + t("brand.slogan").split(". ")[0];
     $("#lang").textContent = SR.lang === "en" ? "Español" : "English";
   }
 
@@ -83,18 +86,19 @@
   }
 
   function sourcesHtml() {
+    const X = (en, es) => (SR.lang === "es" ? es : en);
     const L = (u, s) => '<li><a href="' + u + '" target="_blank" rel="noopener">' + s + "</a></li>";
     return '<ul class="srcs">' +
-      L(SR.cfg.id === "ca33" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agencies || SR.cfg.agency) + " GTFS schedules (the bus and train times and stops)") +
-      L("https://lehd.ces.census.gov/data/lodes/LODES8/", "Census LODES 2022 (where people work and live)") +
-      L("https://censusreporter.org/", "Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)") +
-      L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", "Census cartographic boundaries (district and tract shapes)") +
-      L("https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars", "NHTSA FARS 2019–2023 (every fatal crash, with location and light)") +
-      L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", "California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)") +
-      L("https://www.openstreetmap.org/copyright", "OpenStreetMap (roads, map tiles) and Nominatim (address search)") +
-      L("https://data.chhs.ca.gov/", "California CDPH facility list (hospitals, clinics, dialysis)") +
-      L("https://www.riderta.com/", "GCRTA schedule (Cleveland)") + L("https://www.miamidade.gov/transit/", "Miami-Dade Transit schedule (Miami)") + L("https://www.sacrt.com/", "SacRT schedule (Sacramento)") +
-      L("https://leafletjs.com/", "Leaflet (map library)") + L("https://github.com/uswds/public-sans", "Public Sans typeface") + "</ul>";
+      L(SR.cfg.id === "ca33" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agencies || SR.cfg.agency) + X(" GTFS schedules (the bus and train times and stops)", " horarios GTFS (horas y paradas de autobús y tren)")) +
+      L("https://lehd.ces.census.gov/data/lodes/LODES8/", X("Census LODES 2022 (where people work and live)", "Census LODES 2022 (dónde trabaja y vive la gente)")) +
+      L("https://censusreporter.org/", X("Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)", "Census ACS de 5 años, vía Census Reporter (población, hogares sin vehículo, cómo van al trabajo)")) +
+      L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", X("Census cartographic boundaries (district and tract shapes)", "Límites cartográficos del Census (formas de distritos y sectores censales)")) +
+      L("https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars", X("NHTSA FARS 2019–2023 (every fatal crash, with location and light)", "NHTSA FARS 2019–2023 (cada choque mortal, con lugar y luz)")) +
+      L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", X("California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)", "California EDD, grandes empleadores, 2.ª edición 2026 (nombres, direcciones, tamaños)")) +
+      L("https://www.openstreetmap.org/copyright", X("OpenStreetMap (roads, map tiles) and Nominatim (address search)", "OpenStreetMap (calles, mapa) y Nominatim (búsqueda de direcciones)")) +
+      L("https://data.chhs.ca.gov/", X("California CDPH facility list (hospitals, clinics, dialysis)", "Lista de centros de CDPH California (hospitales, clínicas, diálisis)")) +
+      L("https://www.riderta.com/", X("GCRTA schedule (Cleveland)", "Horario de GCRTA (Cleveland)")) + L("https://www.miamidade.gov/transit/", X("Miami-Dade Transit schedule (Miami)", "Horario de Miami-Dade Transit (Miami)")) + L("https://www.sacrt.com/", X("SacRT schedule (Sacramento)", "Horario de SacRT (Sacramento)")) +
+      L("https://leafletjs.com/", X("Leaflet (map library)", "Leaflet (biblioteca de mapas)")) + L("https://github.com/uswds/public-sans", X("Public Sans typeface", "Tipografía Public Sans")) + "</ul>";
   }
 
   /** The problem at named workplaces: which of the biggest employers have a bus when shifts change. */
@@ -111,7 +115,7 @@
 
   async function fillNumbers() {
     const box = $("#numbers"), r = SR.d.reach, wd = r.weekday, tr = SR.d.transit;
-    const bit = Planner.DAY_BIT.weekday, trips = tr.trips.filter((x) => x[1] & bit);
+    const bit = Planner.DAY_BIT.weekday, trips = tr.trips.filter((x) => (x[1] & bit) && !/^Metrolink/.test(tr.routes[x[0]][1]));   // these two numbers are about buses
     const lateShare = trips.filter((x) => x[3][x[3].length - 1] >= 22 * 60).length / trips.length;
     const earlyShare = trips.filter((x) => x[3][0] < 5 * 60).length / trips.length;
     const noCar = SR.d.tracts.filter((x) => x.in_district).reduce((s, x) => s + x.hh_nocar, 0);
@@ -161,7 +165,7 @@
   }
 
   function modelHtml(rr) {
-    return "<p>" + t("about.model_txt", { train: rr.train, test: rr.test, n: rr.n_test_deaths, area: esc(rr.area) }) + "</p>" + modelTable(rr.rows) +
+    return (SR.lang === "es" ? '<p class="small">' + t("about.tech_en") + "</p>" : "") + "<p>" + t("about.model_txt", { train: rr.train, test: rr.test, n: rr.n_test_deaths, area: esc(rr.area) }) + "</p>" + modelTable(rr.rows) +
       "<p><b>" + (rr.beats_baseline ? t("about.beats") : t("about.not_beats")) + "</b> " + esc(rr.verdict || "") + "</p>" +
       (rr.rows_night ? "<h3>" + t("about.night", { n: rr.n_test_deaths_night }) + "</h3>" + modelTable(rr.rows_night) : "") +
       (rr.features ? '<p class="small">' + t("about.features") + ": " + rr.features.map(esc).join("; ") + "</p>" : "") +
@@ -195,6 +199,7 @@
     const keep = { from: $("#from").value, to: $("#to").value, time: $("#time").value, end: $("#end-time").value };
     renderAll();
     $("#from").value = keep.from; $("#to").value = keep.to; $("#time").value = keep.time; $("#end-time").value = keep.end;
+    if (SR.rerenderPlan) SR.rerenderPlan();
   };
 
   /** "Install the app": the browser's own prompt where it exists, a one-line hint on iPhone, nothing once installed. */
