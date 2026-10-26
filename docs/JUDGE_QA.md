@@ -37,7 +37,7 @@ AI: wrote the Python data pipeline, the trip planner, the road-risk model and it
 "I am not going to hide that the AI wrote most of the code. I used it openly and logged every session so the judges can decide. My contribution is the idea, the direction, the decisions about what is true and what to claim, and the original work I did before AI; I can explain the planner step by step." Do not argue that the rules do not apply. Let them decide.
 
 **9. Can you show me the code and run it?**
-Yes. It is public at github.com/palashraks-afk/OffLoad. Open `shiftready/web/js/planner.js` (251 lines) and walk through "sort all bus hops by time and scan once"; show `tests/planner.test.js`; run `node shiftready/tests/planner.test.js`.
+Yes. It is public at github.com/palashraks-afk/ShiftReady. Open `shiftready/web/js/planner.js` (251 lines) and walk through "sort all bus hops by time and scan once"; show `tests/planner.test.js`; run `node shiftready/tests/planner.test.js`.
 
 **10. Is there AI inside the app?**
 No generative AI runs in the app. The planner is a fixed algorithm. The "model" is an ordinary machine-learning classifier (logistic regression or boosted trees, whichever scored better in training) that scores road segments, trained once and shipped as a data file. An AI assistant helped build the project; it is not running when someone uses it.

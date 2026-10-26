@@ -1,6 +1,6 @@
 # Shift Ready: method note
 
-**Date:** 2026-10-25. **Author:** Palash Rakshit (student, Redlands High School). **App:** https://palashraks-afk.github.io/OffLoad/ **Code, data, tests:** https://github.com/palashraks-afk/OffLoad
+**Date:** 2026-10-25. **Author:** Palash Rakshit (student, Redlands High School). **App:** https://palashraks-afk.github.io/ShiftReady/ **Code, data, tests:** https://github.com/palashraks-afk/ShiftReady
 Built with an AI assistant (Claude Code, Anthropic) under the author's direction; every use is logged in `docs/AI_USE_LOG.md`.
 
 ## The problem
@@ -26,4 +26,4 @@ For a worker: a yes / partly / no answer for one real shift, the trip, the last 
 Timetables only: no delays, detours, strikes or holiday changes (the app links to the agency's live alerts). The main district's numbers cover only the San Bernardino County part of California's 23rd District. Worker home areas are tract-level; per-employer answers need data not available here. No study found shows that better bus service creates jobs; the health facts come from published studies listed in the app's About page with their limits. The Spanish text has not been reviewed by a native speaker. Open tables: `shiftready/web/data/open/` (CC BY 4.0).
 
 ## How to cite
-Rakshit, P. (2026). *Shift Ready: checking a work shift against the bus and train timetable* [software and method note]. https://palashraks-afk.github.io/OffLoad/ (accessed YYYY-MM-DD).
+Rakshit, P. (2026). *Shift Ready: checking a work shift against the bus and train timetable* [software and method note]. https://palashraks-afk.github.io/ShiftReady/ (accessed YYYY-MM-DD).

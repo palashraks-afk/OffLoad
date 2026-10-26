@@ -5,7 +5,7 @@
 A free web app (English and Spanish, works on phones) that checks the real bus schedule for a shift or an appointment, shows where service disappears at night and on weekends, and writes a ready-to-send request for better service. Built by Palash Rakshit for the 2026 Congressional App Challenge.
 
 - **Entered in:** California's 23rd District (the student's school district). The app opens on CA-23; CA-33, Cleveland, Miami, Sacramento, Denver, Atlanta, Seattle, Boston, Philadelphia, Chicago and Houston are extra regions.
-- **Live app:** https://palashraks-afk.github.io/OffLoad/
+- **Live app:** https://palashraks-afk.github.io/ShiftReady/
 - **App code and how it works:** [`shiftready/`](shiftready/README.md)
 - **How AI was used (disclosure log):** [`docs/AI_USE_LOG.md`](docs/AI_USE_LOG.md)
 - **Research and evidence:** [`docs/research/`](docs/research/)

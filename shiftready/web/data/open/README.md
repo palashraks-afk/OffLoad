@@ -1,6 +1,6 @@
 # Shift Ready open data: bus and train coverage by hour
 
-Processed tables from Shift Ready (https://palashraks-afk.github.io/OffLoad/), a free app that checks a work shift against the bus and train timetable. Code and notes: https://github.com/palashraks-afk/OffLoad
+Processed tables from Shift Ready (https://palashraks-afk.github.io/ShiftReady/), a free app that checks a work shift against the bus and train timetable. Code and notes: https://github.com/palashraks-afk/ShiftReady
 
 ## Files
 | File | What it holds |
@@ -32,7 +32,7 @@ Timetables (GTFS) are turned into a list of trips. For each Census tract centre 
 The processed tables in this folder are released under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/): share and adapt with credit. The underlying sources keep their own terms (agency timetable terms, U.S. Census public data, OpenStreetMap ODbL where used). The data come with no warranty; check the agency's live information before travelling.
 
 ## How to cite
-Rakshit, P. (2026). *Shift Ready: bus and train coverage by hour, nine U.S. regions* [data set]. https://palashraks-afk.github.io/OffLoad/data/open/ (accessed YYYY-MM-DD).
+Rakshit, P. (2026). *Shift Ready: bus and train coverage by hour, nine U.S. regions* [data set]. https://palashraks-afk.github.io/ShiftReady/data/open/ (accessed YYYY-MM-DD).
 
 ## Changelog
 - 2026-10-25: first release, nine regions, built from the timetables listed in each region's `region.json`.

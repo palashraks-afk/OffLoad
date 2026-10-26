@@ -2,7 +2,7 @@
 
 Read this file first, then `docs/HANDOFF.md`. This replaces any earlier plan you may find elsewhere in the repo.
 
-## STATUS (updated 2026-10-25): THE PROJECT IS CHOSEN AND BUILT. IT IS **SHIFT READY** (app in `shiftready/`, live at https://palashraks-afk.github.io/OffLoad/).
+## STATUS (updated 2026-10-25): THE PROJECT IS CHOSEN AND BUILT. IT IS **SHIFT READY** (app in `shiftready/`, live at https://palashraks-afk.github.io/ShiftReady/).
 - The entry is for **California's 23rd District (CA-23)**: the student's school, Redlands High School, is in CA-23. The app opens on `ca23` by default. `ca33` (his home district), Cleveland, Miami and Sacramento stay in the region switcher as extra regions.
 - `ca23` covers the San Bernardino County part of the district only (Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit, Mountain Transit). It is built by the same pipeline as every region; see `docs/ADD_REGIONS.md`.
 - Read `shiftready/README.md`, `docs/AI_USE_LOG.md` and `docs/QA_REPORT_2026-10-25.md` before changing anything. Keep the AI-use disclosure exact and never invent the student's personal story or present one region's numbers as another's.

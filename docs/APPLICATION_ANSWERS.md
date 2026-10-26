@@ -7,7 +7,7 @@ Each answer is 380 to 400 words. Every fact is from the live app, the research n
 - **Languages:** JavaScript, Python. Tick "Other" for HTML and CSS.
 - **Platform:** Web
 - **Video link:** your public https link, once the video is uploaded
-- **Link to project (optional):** https://palashraks-afk.github.io/OffLoad/ (the code is at https://github.com/palashraks-afk/OffLoad)
+- **Link to project (optional):** https://palashraks-afk.github.io/ShiftReady/ (the code is at https://github.com/palashraks-afk/ShiftReady)
 - **Congressional Certification:** optional. The repo is public, so you can opt in.
 - **Where did you do most of the coding:** At Home (change it if you did most of it somewhere else)
 - **Date coding completed:** 10/26/2026

@@ -56,7 +56,7 @@
       "<div><b>" + t("flow.3") + "</b><span>" + t("flow.3s") + "</span></div><div><b>" + t("flow.4") + "</b><span>" + t("flow.4s") + "</span></div></div>";
   }
 
-  const GH = "https://github.com/palashraks-afk/OffLoad";
+  const GH = "https://github.com/palashraks-afk/ShiftReady";
 
   // Each agency's published timetable (GTFS) file, as listed in shiftready/regions/*.json. All checked 2026-10-25.
   const FEEDS = {

@@ -3,7 +3,7 @@
 Rules: 1 to 3 minutes, public link starting with https (YouTube is easiest), show the app working, say your name, the app's name and what it is for. Only say things that are true for you. Numbers below are from the live app on 2026-10-25; if the app changes, read the numbers off the screen on the day you record.
 
 ## How to record (easiest way)
-1. Open https://palashraks-afk.github.io/OffLoad/ in Chrome. Press F12, click the phone icon (device toolbar) and pick a phone size, so the app looks like it does on a phone. Or just use the app on your actual phone.
+1. Open https://palashraks-afk.github.io/ShiftReady/ in Chrome. Press F12, click the phone icon (device toolbar) and pick a phone size, so the app looks like it does on a phone. Or just use the app on your actual phone.
 2. Screen record with your voice:
    - Windows: press Windows + Alt + R (Xbox Game Bar), or Windows + G and click Record.
    - iPhone: Control Center, Screen Recording (turn the microphone on). Android: Quick Settings, Screen record.
