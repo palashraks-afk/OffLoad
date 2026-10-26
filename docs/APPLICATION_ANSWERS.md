@@ -88,7 +88,7 @@ The data also leaves things out. It cannot tell me what it feels like to wait at
 
 A simple answer takes a lot of work. Behind the words Yes, Partly or No there are five transit agencies, a planner that has to search backward in time, tests, and more fixes than I can count. Making it simple for a person took more effort than making it complicated would have.
 
-I also got better at working with an AI tool. It was fast and it was sometimes wrong. The only way to catch the mistakes was to test its work and keep asking until I understood it myself. I learned to say clearly what I wanted, check what came back and keep a record of what it did.
+I also got better at working with an AI tool. It was fast and it was sometimes wrong. The only way to catch the mistakes was to test its work and keep asking until I understood it myself. I learned to say clearly what I wanted, check what came back and keep a record of what it did. It also taught me to double check every number before I say it out loud.
 
 What I take away most is how much a student can do with something in their own town. Something I first noticed on the way home, workers at bus stops and a memorial on a road near my house, turned into numbers I can check and a tool people can use. I would like to see someone do the same for their own city.
 
