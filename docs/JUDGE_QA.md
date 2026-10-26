@@ -91,7 +91,7 @@ Every hop of every bus between two neighboring stops is a "connection." The plan
 Number of people who can complete a shift check without help; whether managers change a start time or schedule a vanpool; whether agencies respond to the requests. Today there is no measured outcome, and I would not claim one.
 
 **25. What are the limits?**
-No live delays; walking times are estimates; Spanish has not been reviewed by a native speaker; the app covers the San Bernardino County part of CA-23 only (not the Inyo County end); the Victor Valley timetable runs only to 2026-11-28, so the desert part needs a refresh; fares are priced only for Omnitrans (the app says so); employer answers are per job area, not per employer; the new cities have no road-risk layers.
+No live delays; walking times are estimates; Spanish has not been reviewed by a native speaker; the app covers the San Bernardino County part of CA-23 only (not the small Kern County part around California City); the Victor Valley timetable runs only to 2026-11-28, so the desert part needs a refresh; fares are priced only for Omnitrans (the app says so); employer answers are per job area, not per employer; the new cities have no road-risk layers.
 
 **26. Does it just tell people the bus is bad?**
 No. It says what works, what does not, and what to try: an earlier or later time, the backup bus, a vanpool, a note to the boss, a request to the agency with the numbers. The employer tab ends with concrete actions, each tied to a number the tab shows.
@@ -110,7 +110,7 @@ No, and the app says so. Each fact has a source and its limits on the About page
 ## What's next
 
 **30. What would you do with another year?**
-Live delays where agencies publish them; real testing with workers, managers and the transit agency; the Inyo County end and more agencies (Riverside Transit, Foothill); a native-speaker Spanish review; stop shade and lighting; leave-on-time alerts; and sending the numbers to Omnitrans, Victor Valley and SBCTA to see whether they change a schedule.
+Live delays where agencies publish them; real testing with workers, managers and the transit agency; the small Kern County part around California City and more agencies (Kern Transit, Riverside Transit, Beaumont); a native-speaker Spanish review; stop shade and lighting; leave-on-time alerts; and sending the numbers to Omnitrans, Victor Valley and SBCTA to see whether they change a schedule.
 
 ---
 

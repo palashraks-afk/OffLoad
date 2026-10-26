@@ -53,7 +53,7 @@ Small things mattered too: train stops far away made the map zoom out to Los Ang
 ## 4. What would you improve in version 2.0? (about 220 words)
 1. Live delays. Right now the app uses the published timetable and sends people to the agency's live alerts and bus tracking. Version 2.0 would show real-time bus positions and delays where agencies publish them openly, and warn about strike and holiday days.
 2. Real testing with people. I would sit with shift workers and managers, watch them use it, and fix what confuses them. I would measure whether it changes what they do.
-3. All of my district. Today the app covers the San Bernardino County part of California's 23rd. I would add the Inyo County end, the desert stretches between towns, and more agencies, including Riverside Transit and Foothill Transit.
+3. All of my district. Today the app covers the San Bernardino County part of California's 23rd. I would add the small Kern County part around California City, the desert stretches between towns, and more agencies, including Kern Transit, Riverside Transit and Beaumont Transit.
 4. Leave-on-time alerts: a reminder on the phone, "leave now to make your bus."
 5. Stop conditions: shade, lighting and shelters, so a rider knows what the wait is like at night or in heat.
 6. Better Spanish. A native speaker should review all the Spanish text, and I would add other languages used in the district.

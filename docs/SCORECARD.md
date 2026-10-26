@@ -4,7 +4,7 @@ Scores are my estimates, 1-5, with the evidence. They are not judges' scores. A 
 
 | Criterion | Score | Evidence | What caps it |
 |---|---|---|---|
-| District (CA-23) | 4 | Default region is CA-23; population 729,052 and jobs 172,039 (San Bernardino County part); five agencies merged (Omnitrans, Metrolink, Victor Valley, Morongo Basin, Mountain Transit); CA-23 road-risk layers; 201 pedestrian/cyclist deaths inside CA-23 (FARS 2019-2023) | Inyo County part and desert stretches not covered; Victor Valley's timetable ends 2026-11-28 |
+| District (CA-23) | 4 | Default region is CA-23; population 729,052 and jobs 172,039 (San Bernardino County part); five agencies merged (Omnitrans, Metrolink, Victor Valley, Morongo Basin, Mountain Transit); CA-23 road-risk layers; 201 pedestrian/cyclist deaths inside CA-23 (FARS 2019-2023) | small Kern County part around California City and desert stretches not covered; Victor Valley's timetable ends 2026-11-28 |
 | Impact | 3.5 | Sourced problem (BLS, county indicators, Urban Institute, PNAS); per-trip verdict, plan B, message to boss, request to the agency, employer view, vanpool, cost | No real users and no measured outcome yet; needs 3-5 real worker or manager tests |
 | Novel | 3.5-4 | docs/research/10: no free worker-facing tool found that combines both-direction shift check, health and stop-safety context, employer view and request letter | Close neighbors exist (Shift Atlanta, Denver Reddit analysis, equity dashboards); search was limited |
 | Works | 4 | Live site checked; 8 node suites incl. 110 region checks, 18 Python tests, random real-trip checks in 8 regions; English and Spanish | No live delays; Spanish not native-reviewed; no real-phone, Safari, screen-reader or GPS tests |
