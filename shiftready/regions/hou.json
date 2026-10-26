@@ -1,0 +1,31 @@
+{
+  "id": "hou",
+  "name": "Houston (Texas' 18th District)",
+  "short": "TX-18",
+  "agency": "METRO",
+  "gtfs_url": "https://metro.resourcespace.com/pages/download.php?ref=4835&ext=zip",
+  "gtfs_dir": "data/raw/gtfs/hou",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "48",
+    "cd": "18"
+  },
+  "state_fips": "48",
+  "county_fips": [
+    "201"
+  ],
+  "lodes_state": "tx",
+  "fars_state": 48,
+  "fars_counties": [
+    201
+  ],
+  "utm": 32615,
+  "center": [
+    29.7604,
+    -95.3698
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Houston, TX",
+  "typical_service": true
+}

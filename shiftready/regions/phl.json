@@ -1,0 +1,41 @@
+{
+  "id": "phl",
+  "name": "Philadelphia (Pennsylvania's 3rd District)",
+  "short": "PA-3",
+  "agency": "SEPTA",
+  "gtfs_url": "https://www3.septa.org/developer/google_bus.zip",
+  "gtfs_dir": "data/raw/gtfs/phl",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "42",
+    "cd": "03"
+  },
+  "state_fips": "42",
+  "county_fips": [
+    "101"
+  ],
+  "lodes_state": "pa",
+  "fars_state": 42,
+  "fars_counties": [
+    101
+  ],
+  "utm": 32618,
+  "center": [
+    39.9526,
+    -75.1652
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Philadelphia, PA",
+  "typical_service": true,
+  "gtfs_extra": [
+    {
+      "dir": "data/raw/gtfs/phl_rail",
+      "url": "https://www3.septa.org/developer/google_rail.zip",
+      "prefix": "rl_",
+      "name": "SEPTA Regional Rail",
+      "mode": "rail"
+    }
+  ],
+  "agencies": "SEPTA bus and SEPTA Regional Rail"
+}

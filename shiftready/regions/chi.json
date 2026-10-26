@@ -1,0 +1,31 @@
+{
+  "id": "chi",
+  "name": "Chicago (Illinois' 7th District)",
+  "short": "IL-7",
+  "agency": "CTA",
+  "gtfs_url": "https://www.transitchicago.com/downloads/sch_data/google_transit.zip",
+  "gtfs_dir": "data/raw/gtfs/chi",
+  "boundary": {
+    "type": "cd119",
+    "state_fips": "17",
+    "cd": "07"
+  },
+  "state_fips": "17",
+  "county_fips": [
+    "031"
+  ],
+  "lodes_state": "il",
+  "fars_state": 17,
+  "fars_counties": [
+    31
+  ],
+  "utm": 32616,
+  "center": [
+    41.8781,
+    -87.6298
+  ],
+  "zoom": 11,
+  "model_area": "county",
+  "label": "Chicago, IL",
+  "typical_service": true
+}

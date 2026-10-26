@@ -71,6 +71,9 @@
     atl: [["MARTA (Atlanta)", "https://www.itsmarta.com/google_transit_feed/google_transit.zip"]],
     sea: [["King County Metro (Seattle)", "https://metro.kingcounty.gov/GTFS/google_transit.zip"]],
     bos: [["MBTA (Boston)", "https://cdn.mbta.com/MBTA_GTFS.zip"]],
+    phl: [["SEPTA bus (Philadelphia)", "https://www3.septa.org/developer/google_bus.zip"], ["SEPTA Regional Rail", "https://www3.septa.org/developer/google_rail.zip"]],
+    chi: [["CTA (Chicago)", "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"]],
+    hou: [["METRO (Houston)", "https://metro.resourcespace.com/pages/download.php?ref=4835&ext=zip"]],
   };
   const isCA = () => SR.cfg.id === "ca33" || SR.cfg.id === "ca23";
   const link = (u, s) => '<a href="' + u + '" target="_blank" rel="noopener">' + s + "</a>";

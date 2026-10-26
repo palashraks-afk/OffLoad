@@ -75,3 +75,18 @@ Validation design unchanged (train 2019-2021, test 2022-2023, **132 test deaths,
 - **Second model (pre-registered in docs/research/21_second_model_plan.md before it was run):** shallow, class-weighted boosted trees. **Not adopted in either district.** CA-23: 83% vs 86% at the top 20% (-3, interval -8 to +2) and 54% vs 65% at the top 10% (-11, interval -21 to -2). CA-33: 76% vs 76% at the top 20% (-1) and 58% vs 57% at the top 10% (+1): neither condition met. Output: `web/data/<id>/risk_second.json` (prep/risk_second.py).
 - **Calibration of the ranking:** roads cut into ten groups of equal length by predicted risk, 2022-2023 deaths per 100 km. CA-23: rank correlation 0.92, 2 of 9 steps went the wrong way. CA-33: 0.98, 1 of 9. Highest-risk group: 3.6 deaths per 100 km in CA-23 and 5.8 in CA-33, against about 0 in the lowest groups. This checks the ranking only, not absolute probabilities. Output: `risk_calibration.json`.
 - **External validation re-run on the new roads and stops:** CA-33 to CA-23: worse (72% vs 65% at the top 20%, +7, interval -2 to +15; 45% vs 62% at the top 10%, -17, interval -27 to -8). Cleveland to CA-23: tie. CA-23 to CA-33: partial (84% vs 57% at the top 20%, +27, interval +19 to +36; tie at the top 10%).
+
+## Update 2026-10-26: Philadelphia, Chicago and Houston added; CA-23 agency check (data-coverage pass)
+**Added (open timetable links, no key):**
+| Region | Agency (feed) | People within a 5-minute walk of a bus at 11 PM (weekday) | Notes |
+|---|---|---|---|
+| Philadelphia (PA-3) | SEPTA bus + SEPTA Regional Rail (two feeds, merged) | 97% | `transit.json` is 16.6 MB; 97% at every hour is because the dense stop network is served in every hour by some bus; "a bus in the hour" is not frequency |
+| Chicago (IL-7) | CTA | 71% | `transit.json` is 22.4 MB, the largest; slow on a weak phone connection |
+| Houston (TX-18) | METRO Houston | 33% on Sunday, see region for weekday | the download link comes from a file-sharing page and may change |
+New regions have no road-risk layers, hospital or employer lists, or fares.
+**Code changes:** `prep/fetch_region.py` now downloads `gtfs_extra` feeds; `prep/transit.py` tolerates feeds with no `trip_headsign` column (CTA). Existing regions' output is unchanged.
+**Random-trip check on the new cities** needed two adaptations of the CA-33 test: it assumes no service at 2 a.m. (these are 24-hour cities) and it picks stops 2+ apart on a trip, which in dense cities can be closer than 800 m, where walking is the right answer. With those two changes: Philadelphia 95, Chicago 92, Houston 101 random real trips passed in both directions.
+
+**CA-23: agencies checked and not added**
+- The district is the San Bernardino County part plus a small Kern County part around California City (the district boundary stops at 35.81 degrees north; Ridgecrest, Bishop and all of Inyo County are outside; an earlier note saying "Inyo County end" was wrong).
+- Kern Transit (open feed, serves California City, 27 stops in or near the district), Riverside Transit Agency (5 MB, serves Riverside County outside the district) and Beaumont Transit (outside the district) have open feeds. Foothill Transit and Needles Area Transit have no stops in or near the district. **None was merged:** rebuilding CA-23's stops would change the stop numbering that the road-risk outputs (safety.json risk column) depend on while another pass was rewriting those outputs, and the gain is small (about 14,000 people in California City). Do it as a separate, careful step: rebuild transit, people, places, safety, then re-run `prep/risk_model.py ca23`, and check `risk_report.json` is unchanged.

@@ -138,8 +138,9 @@ def build(rid="ca33"):
             continue
         times = [round(float(x), 1) for x in g.t]
         steps = [int(round((b - a) * 10)) for a, b in zip(times, times[1:])]   # tenths of a minute between stops
+        # some feeds (CTA) have no trip_headsign column, so use .get
         out_trips.append([ridx[t.route_id], mask, [sidx[s] for s in g.stop_id], times[0], steps,
-                          t.trip_headsign if isinstance(t.trip_headsign, str) else ""])
+                          t.get("trip_headsign") if isinstance(t.get("trip_headsign"), str) else ""])
     obj = {
         "agency": cfg["agency"],
         "fares": fares(gtfs),

@@ -44,6 +44,12 @@ def main(rid):
         get(cfg["gtfs_url"], g.with_suffix(".zip"), 100_000)
         g.mkdir(parents=True, exist_ok=True)
         zipfile.ZipFile(g.with_suffix(".zip")).extractall(g)
+    for x in cfg.get("gtfs_extra", []):                      # merged feeds (for example commuter rail)
+        gx = ROOT / x["dir"]
+        if not (gx / "stop_times.txt").exists():
+            get(x["url"], gx.with_suffix(".zip"), 20_000)
+            gx.mkdir(parents=True, exist_ok=True)
+            zipfile.ZipFile(gx.with_suffix(".zip")).extractall(gx)
     st = cfg["lodes_state"]
     d = raw / "lodes" / st
     for kind, name in (("wac", f"{st}_wac_S000_JT00_2022"), ("od", f"{st}_od_main_JT00_2022")):
