@@ -106,4 +106,4 @@ I also learned that something I first noticed on the way home, workers at bus st
 - Video is public and the link starts with https.
 - Every number you say in the video matches the live app that day.
 - Cover photo is a 600x800 JPEG.
-- Submit before Mon 2026-10-26 9:00 am Pacific (noon Eastern). Aim for 8:00.
+- Deadline: sources disagree. The official rules PDF and most House office pages say Mon 2026-10-26 at 12:00 pm Eastern (9:00 am Pacific). The student registration page says 9:00 pm Eastern (6:00 pm Pacific). Treat 9:00 am Pacific as the real deadline and submit by 8:00 am. If the portal shows a later time, that is only extra margin.

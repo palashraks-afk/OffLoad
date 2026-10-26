@@ -16,7 +16,7 @@ Judges can request the app and source code to verify it works as stated; refusin
 What this means: judges see first your **video and your written answers**, not the live app. The video's job is to make the idea clear in under three minutes and show it working; the answers' job is to show effort and understanding. Be ready for a request to explain or run the code.
 
 ## Timeline
-- Submissions close Monday 2026-10-26 at 12:00 pm Eastern (9:00 am Pacific).
+- Submissions close Monday 2026-10-26. The official rules PDF (section 5) and the offices of Reps. Lieu, Case, Baird and Boyle say 12:00 pm Eastern (9:00 am Pacific). The student registration page (congressionalappchallenge.us/students/student-registration/) says 9:00 pm Eastern (6:00 pm Pacific). Because they disagree, plan for the earlier time.
 - District winners are chosen by the Member's office; in 2025 the national recap said Members select winners between November 15 and December 31. Winners are announced by the Member; the national team may not reveal results before the embargo on **2027-01-15** (rules 8).
 - #HouseOfCode, the demo celebration at the U.S. Capitol, is held each spring (the 2026 one drew over 1,000 attendees; next is Spring 2027).
 
