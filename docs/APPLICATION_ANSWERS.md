@@ -69,11 +69,11 @@ Yes. I used Claude Code, an AI assistant from Anthropic, to help build the app a
 
 I had the original plan and wrote the early code for the mapping and matching idea before I used AI. I no longer have those files. Claude Code helped me turn that idea into the working app. It wrote most of the current code under my direction: the data preparation, the trip planner, the road-risk model, the web pages, the English and Spanish text and the tests. It also helped me find sources, read public data and draft and edit these written answers.
 
-I chose the problem and the district. I decided which data to use and what the app should and should not claim. For example it never says it saves lives, and I dropped a cost figure that could not be traced to a real study. I told the assistant what to build, read the results, asked for changes when something looked wrong and decided which numbers to show.
+I chose the problem and the district. I found the public bus timetable data for some of the cities and worked with the assistant to build the intake system that pulls it in through the agencies' download links and APIs. I decided which data to use and what the app should and should not claim. For example it never says it saves lives, and I dropped a cost figure that could not be traced to a real study. I told the assistant what to build, read the results, asked for changes when something looked wrong and decided which numbers to show.
 
 I checked the assistant's work in several ways. Every number in the app comes from a public source I can link to. There are automated tests: a second program that agrees with the planner on 720 of 720 checks, 138 random real trips run in both directions and a click-through test in a real browser. When a test failed or a result looked off it was fixed, or I changed what the page says.
 
-Every session with the assistant is written down in a public log in the project (docs/AI_USE_LOG.md) with the date, what I asked for and what it did. The project also holds notes on how the code works and the research behind the numbers. I can show the code and explain how the planner works if the judges ask.
+Every session with the assistant is written down in a public log in the project (docs/AI_USE_LOG.md) with the date, what I asked for and what it did. I can show the code and explain how the planner works if the judges ask.
 
 The app says what it cannot do. It cannot see live delays, its Spanish still needs a native speaker's review and the road model ranks roads but does not predict any person.
 
