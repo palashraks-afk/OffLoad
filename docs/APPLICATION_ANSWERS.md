@@ -24,6 +24,8 @@ You type where you live, where you work and when you need to be there. If you li
 
 Then it helps you do something about it. One tap writes a short note to your boss with the bus you can actually catch. Another writes a request to the transit agency using the numbers it just found. Managers get a page that shows which start times their workers can reach, and what a later last trip would cost.
 
+What makes it different: Google Maps, Transit and Moovit are built around leaving now. Some job sites show a commute time, but only one way. Employer commute programs are services you hire. Shift Ready starts from the end of the shift, checks the ride home, shows the weather and safety facts for a night trip, and then gives the worker and the manager something to do about it. I looked at transit planners, job sites, gig-shift apps and past Congressional App Challenge winners and did not find a free tool that does all of that.
+
 It works in English and Spanish, needs no account and runs on a phone. The same method runs for eleven other places, from Sacramento to Seattle and Boston, and the data is free to download.
 
 ## 2. What inspired you?
