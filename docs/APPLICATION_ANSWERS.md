@@ -14,7 +14,7 @@ Each answer is 380 to 400 words. Every fact is from the live app, the research n
 - **School or club project:** No
 - **Teacher or mentor name and email:** leave empty
 - **Ambassador email:** leave empty unless one referred you
-- **Cover photo:** docs/cover/cover_home_600x800.jpg
+- **Cover photo:** docs/cover/cover_final_600x800.jpg
 
 ## 1. What does your app do?
 Shift Ready checks whether the bus will work for a shift and for the ride home. About 15 of every 100 US workers usually work evenings, nights or other hours outside the day (Bureau of Labor Statistics). In the San Bernardino County part of California's 23rd District live 729,052 people. About 20% of them live within a five minute walk of a bus at noon. At 10 PM it is 1.8% and at 11 PM it is none. The district has 6,383 warehouse and transport jobs. 34% of them are near a bus at noon and none at 11 PM.
