@@ -7,20 +7,76 @@
   "start_url": "./index.html?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "background_color": "#13171d",
   "theme_color": "#13171d",
-  "categories": ["travel", "navigation", "utilities"],
+  "categories": [
+    "travel",
+    "navigation",
+    "utilities"
+  ],
   "icons": [
-    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
   ],
   "shortcuts": [
-    { "name": "Plan a trip", "url": "./index.html?tab=plan", "icons": [{ "src": "icons/maskable-192.png", "sizes": "192x192" }] },
-    { "name": "Map", "url": "./index.html?tab=map", "icons": [{ "src": "icons/maskable-192.png", "sizes": "192x192" }] },
-    { "name": "Employers", "url": "./index.html?tab=city", "icons": [{ "src": "icons/maskable-192.png", "sizes": "192x192" }] }
+    {
+      "name": "Plan a trip",
+      "url": "./index.html?tab=plan",
+      "icons": [
+        {
+          "src": "icons/maskable-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Map",
+      "url": "./index.html?tab=map",
+      "icons": [
+        {
+          "src": "icons/maskable-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Employers",
+      "url": "./index.html?tab=city",
+      "icons": [
+        {
+          "src": "icons/maskable-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

@@ -739,3 +739,42 @@ details.ev > summary:focus-visible { outline: 3px solid color-mix(in srgb, var(-
   body.print-map #tab-map, body.print-map .map-shell { position: static !important; height: 120mm !important; width: 100% !important; }
   body.print-map #map { height: 120mm !important; width: 100% !important; }
 }
+
+/* ---- phones: iOS Safari and Android Chrome ---------------------------------------------------------
+   iOS zooms the whole page when a text box under 16px is focused; short mobile browsers hide part of a 100vh
+   box behind the address bar (dvh follows the visible height); notches and home bars need safe-area padding;
+   thumbs need 44px targets (Apple and Google both recommend 44-48px). */
+html { -webkit-tap-highlight-color: transparent; }
+button, a, select, summary, label, [role="button"] { touch-action: manipulation; }
+header.top { padding-top: calc(8px + env(safe-area-inset-top)); padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+.tabbar { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+main { padding-left: max(0px, env(safe-area-inset-left)); padding-right: max(0px, env(safe-area-inset-right)); }
+@supports (height: 100dvh) {
+  .tab-map #map { height: 60dvh; }
+  @media (max-width: 899px) { .tab-map #map { height: 52dvh; } }
+  @media (min-width: 900px) { #map, #reach-map { height: calc(100dvh - 110px); } .tab-map #map { height: calc(100dvh - 62px); } }
+}
+@media (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea { font-size: 16px; }
+  .chip, .chips > button, #loc, #lang, #region, .iconbtn, .btn, summary, .tabbar button, .examples button, button.example { min-height: 44px; }
+  .iconbtn { min-width: 44px; }
+  .brand, .skip:focus { min-height: 44px; display: inline-flex; align-items: center; }
+  .leaflet-bar a, .leaflet-touch .leaflet-bar a { width: 40px; height: 40px; line-height: 40px; }
+}
+@media (max-width: 360px) {
+  .trip-line b { font-size: 1.6rem; }
+  .hero-band h1 { font-size: 1.6rem; }
+  #region { max-width: 110px; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .tabbar { position: static; }
+  .tab-map #map { height: 80vh; min-height: 260px; }
+}
+@media (pointer: coarse) {
+  #region, #to-quick, #end-time, #time { font-size: 16px; }
+  button[id^="m-"], .btn.sm, .btn.ghost.sm, .ab-toc a, .ds-feeds a, .ds a, .own a { min-height: 44px; display: inline-flex; align-items: center; }
+  .ab-toc a, .ds-feeds a { padding-top: 6px; padding-bottom: 6px; }
+}
+@media (max-width: 360px) {
+  .tabbar button { font-size: .66rem; padding-left: 2px; padding-right: 2px; white-space: nowrap; letter-spacing: 0; }
+}
