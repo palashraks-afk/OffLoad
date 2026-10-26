@@ -687,3 +687,55 @@ details.ev > summary:focus-visible { outline: 3px solid color-mix(in srgb, var(-
 @media (min-width: 640px) { .emp-tools { grid-template-columns: minmax(0, 1fr) auto; } }
 .emp-rows .hbar { max-width: 100%; }
 .tag { color: var(--ink); }
+
+/* employers: swap-the-start-time tool, comparison table (own block) */
+.swap-block { margin: 18px 0; padding: 14px 0; border-top: 2px solid var(--ink); }
+.swap-block h2 { margin: 0 0 4px; }
+.swap-block .dayrows { margin: 8px 0; padding-left: 18px; }
+.cmp .scopeline { display: block; color: var(--muted); font-weight: 400; margin-top: 2px; }
+.th-sort { all: unset; cursor: pointer; font-weight: 700; padding: 6px 2px; min-height: 44px; display: inline-flex; align-items: center; }
+.th-sort:hover { text-decoration: underline; }
+.th-sort:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.cmp-sort { margin: 8px 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.cmp-sort select { flex: 1 1 200px; min-height: 44px; }
+.cmp-sort .btn { min-height: 44px; }
+@media (min-width: 700px) { .cmp-sort { display: none; } }
+
+/* ===== map controls, Reach, print (plan/map pass) ===== */
+.m-emp { margin: 0 0 10px; }
+.m-emp input { width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; }
+.mp-share { margin: 8px 0 4px; }
+.sw-reach { background: color-mix(in srgb, var(--primary) 35%, transparent); border: 1.5px solid var(--primary); border-radius: 50%; }
+.sw-nodata { width: 8px !important; height: 8px !important; border-radius: 50%; background: var(--muted); opacity: .55; }
+.emp-now { margin: 6px 0; font-weight: 700; }
+.emp-now.yes { color: var(--yes); } .emp-now.no { color: var(--no); }
+.hour-table { width: 100%; border-collapse: collapse; font-size: .88rem; margin-top: 6px; }
+.hour-table th, .hour-table td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--line); }
+.hour-table td { font-variant-numeric: tabular-nums; }
+/* the hour slider: a filled track that grows through the day */
+.mp-time input[type=range], #r-time-range { -webkit-appearance: none; appearance: none; height: 28px; background: transparent; accent-color: var(--primary); }
+.mp-time input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--primary) var(--p, 0%), var(--line-strong) var(--p, 0%)); }
+.mp-time input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--line-strong); }
+.mp-time input[type=range]::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--primary); }
+.mp-time input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8px; border-radius: 50%; background: var(--surface); border: 3px solid var(--primary); box-shadow: 0 1px 3px rgba(15, 23, 42, .25); }
+.mp-time input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--surface); border: 3px solid var(--primary); }
+.mp-time input[type=range]:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 45%, transparent); outline-offset: 2px; border-radius: 8px; }
+.big-num { transition: color .2s; }
+@media (prefers-reduced-motion: reduce) { .big-num, .mp-time input[type=range]::-webkit-slider-runnable-track { transition: none; } }
+/* Reach: a form and its answer, not two identical boxes */
+#tab-reach .g-ctl.card, #tab-reach .g-out.card { background: transparent; box-shadow: none; border: 0; border-radius: 0; padding-left: 0; padding-right: 0; }
+#tab-reach .g-ctl.card { border-top: 2px solid var(--ink); padding-top: 14px; }
+#tab-reach .g-out.card { border-left: 4px solid var(--primary); padding-left: 16px; border-radius: 0; }
+#tab-reach .g-ctl select, #tab-reach .g-ctl input[type=time] { min-height: 44px; }
+#tab-reach #r-go { min-height: 44px; }
+/* print: the map view as a clean sheet */
+#print-map-head { display: none; }
+@media print {
+  body.print-map header, body.print-map .tabbar, body.print-map #offline, body.print-map .map-panel, body.print-map .map-search, body.print-map #m-back, body.print-map #m-toast, body.print-map .leaflet-control-container { display: none !important; }
+  body.print-map #print-map-head { display: block; padding: 0 0 12px; color: #000; }
+  body.print-map #print-map-head h1 { font-size: 18pt; margin: 0 0 6px; }
+  body.print-map #print-map-head ul { columns: 2; padding-left: 18px; margin: 6px 0; font-size: 10pt; }
+  body.print-map .tab:not(#tab-map) { display: none !important; }
+  body.print-map #tab-map, body.print-map .map-shell { position: static !important; height: 120mm !important; width: 100% !important; }
+  body.print-map #map { height: 120mm !important; width: 100% !important; }
+}

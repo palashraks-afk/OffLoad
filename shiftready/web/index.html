@@ -141,6 +141,10 @@
       <button type="button" id="m-back" class="btn primary sm back" hidden data-i18n="map.back">← Back to my trip</button>
       <div class="map-panel">
         <p class="mp-prompt" data-i18n="map.prompt">Where can you ride at this hour? Move the slider.</p>
+        <form id="m-emp-form" class="m-emp" role="search" hidden>
+          <input id="m-emp" list="m-emp-list" type="search" autocomplete="off" placeholder="Find an employer" data-i18n-ph="map.emp_search" aria-label="Find an employer">
+          <datalist id="m-emp-list"></datalist>
+        </form>
         <div class="mp-head">
           <div class="seg small" role="radiogroup" aria-label="Day">
             <label><input type="radio" name="mday" value="weekday" checked><span data-i18n="day.weekday">Weekday</span></label>
@@ -160,10 +164,17 @@
           <li><i class="sw sw-run"></i><span data-i18n="map.lg_run">Bus stop with a bus running now</span></li>
           <li><i class="sw sw-off"></i><span data-i18n="map.lg_off">Bus stop with no bus now</span></li>
           <li id="lg-trip" hidden><i class="sw sw-trip"></i><span data-i18n="map.lg_trip">Your trip</span></li>
+          <li id="lg-reach" hidden><i class="sw sw-reach"></i><span>Reachable within an hour</span></li>
+          <li id="lg-nodata" hidden><i class="sw sw-nodata"></i><span data-i18n="map.lg_nodata">Not measured: no neighborhood or stop data loaded here</span></li>
         </ul>
         <details class="mp-layers" id="layers-d"><summary data-i18n="map.layers_sum">Layers (what to show)</summary>
           <div id="layers" class="chips layerchips" role="group" aria-label="Layers"></div></details>
         <div class="row gap wrap mp-views"><button type="button" id="m-busy" class="btn ghost sm" data-i18n="map.busy">Zoom to where the buses are</button><button type="button" id="m-whole" class="btn ghost sm" data-i18n="map.whole">Show the whole district</button></div>
+        <div class="row gap wrap mp-share">
+          <button type="button" id="m-share" class="btn ghost sm" data-i18n="map.share_btn">Copy link to this view</button>
+          <button type="button" id="m-print" class="btn ghost sm" data-i18n="map.print_btn">Print or save as PDF</button>
+        </div>
+        <details class="mp-more" id="m-table"><summary data-i18n="map.table_sum">Table instead of map</summary><div id="m-table-out"></div></details>
         <details class="mp-more"><summary data-i18n="map.more">More</summary><div id="health"></div><div id="curve"></div></details>
       </div>
       <div id="map-loading" class="map-loading" role="status" data-i18n="map.loading">Loading the map…</div>
@@ -178,6 +189,7 @@
       <div class="decision" id="decision"></div>
       <div class="acts-block" id="actions"></div>
     </div>
+    <div class="swap-block" id="startswap"></div>
     <div class="agency-block" id="agency"></div>
     <h2 class="ev-h2" data-i18n="city.more">More evidence</h2>
     <div class="evidence">

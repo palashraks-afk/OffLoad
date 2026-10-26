@@ -87,6 +87,22 @@
       dots[i] = L.circleMarker([s[1], s[2]], { radius: 1.5, weight: 1, color: SR.C("--map-off"), fillColor: SR.C("--map-off"), fillOpacity: 0.45 }).bindPopup(() => stopPopup(i, mday()));
       if (show) { halo[i].addTo(layers.halo); dots[i].addTo(layers.stops); shown.push([s[1], s[2]]); }
     });
+    // Parts of the district with no neighbourhood or stop data loaded nearby are shown as grey dots: "not measured", which is different from "no service".
+    layers.nodata = L.layerGroup().addTo(map);
+    (function () {
+      if (!ring.length) return;
+      const pts = SR.d.tracts.map((x) => [x.lat, x.lon]).concat(shown);
+      let la0 = 90, la1 = -90, lo0 = 180, lo1 = -180;
+      ring.forEach((r) => r.forEach((v) => { la0 = Math.min(la0, v[1]); la1 = Math.max(la1, v[1]); lo0 = Math.min(lo0, v[0]); lo1 = Math.max(lo1, v[0]); }));
+      let n = 0;
+      for (let la = la0; la <= la1; la += 0.06) for (let lo = lo0; lo <= lo1; lo += 0.06) {
+        if (!ring.some((r) => inRing(lo, la, r))) continue;
+        if (pts.some((q) => Math.abs(q[0] - la) < 0.17 && Math.abs(q[1] - lo) < 0.17)) continue;
+        L.circleMarker([la, lo], { radius: 2, weight: 0, fillColor: SR.C("--muted"), fillOpacity: 0.55, interactive: false }).addTo(layers.nodata); n++;
+      }
+      const lg = $("#lg-nodata"); if (lg && n) lg.hidden = false;
+      if (!n) { map.removeLayer(layers.nodata); layers.nodata = null; }
+    })();
     if (shown.length > 20) {
       // Open on the part of the district where the buses are: the middle 94% of stops by latitude and longitude, so a few far-off
       // stops (desert towns, a distant rail station) do not push the busy area into a corner.
@@ -112,6 +128,42 @@
       jobArr.push(c);
     });
     layerChips();
+    // search employers by name or city; choosing one flies there and opens its popup
+    const emps = (SR.d.employers && SR.d.employers.employers) || [];
+    const ef = $("#m-emp-form");
+    if (ef) {
+      ef.hidden = !emps.length;
+      $("#m-emp-list").innerHTML = emps.map((e) => '<option value="' + esc(e.name) + '">' + esc(e.address || "") + "</option>").join("");
+      const go = () => {
+        const q = $("#m-emp").value.trim().toLowerCase(); if (!q) return;
+        const e = emps.find((x) => x.name.toLowerCase() === q) || emps.find((x) => (x.name + " " + (x.address || "")).toLowerCase().includes(q));
+        if (!e) return toast(t("map.emp_none"));
+        const chip = document.querySelector('#layers [data-layer="employers"]');
+        if (chip && chip.getAttribute("aria-pressed") !== "true") chip.click();
+        map.flyTo([e.lat, e.lon], 15);
+        setTimeout(() => e._marker && e._marker.openPopup(), 700);
+      };
+      ef.onsubmit = (ev) => { ev.preventDefault(); go(); };
+      $("#m-emp").onchange = go;
+    }
+    $("#m-share").onclick = async () => {
+      const u = new URL(location.href); u.search = "";
+      const on = [...document.querySelectorAll("#layers [aria-pressed=true]")].map((b) => b.dataset.layer).join(",");
+      u.searchParams.set("r", SR.cfg.id); u.searchParams.set("tab", "map"); u.searchParams.set("day", mday()); u.searchParams.set("h", $("#hour").value); u.searchParams.set("layers", on);
+      try { await navigator.clipboard.writeText(u.toString()); toast(t("map.link_copied")); } catch (e) { window.prompt(t("map.share"), u.toString()); }
+    };
+    $("#m-print").onclick = () => { printSheet(); };
+    $("#m-table").addEventListener("toggle", () => { if ($("#m-table").open) tableOut(); });
+    // restore a shared view (?day=&h=&layers=)
+    (function () {
+      const q = new URLSearchParams(location.search), d = q.get("day"), h = q.get("h"), ls = q.get("layers");
+      if (d && ["weekday", "saturday", "sunday"].includes(d)) document.querySelector("input[name=mday][value=" + d + "]").checked = true;
+      if (h != null && +h >= 0 && +h <= 23) $("#hour").value = +h;
+      if (ls != null) {
+        const want = ls.split(",");
+        document.querySelectorAll("#layers button").forEach((b) => { const on = want.includes(b.dataset.layer); if ((b.getAttribute("aria-pressed") === "true") !== on) b.click(); });
+      }
+    })();
     $("#hour").oninput = update;
     document.querySelectorAll("input[name=mday]").forEach((r) => (r.onchange = update));
     $("#m-play").innerHTML = ICON.play;
@@ -147,6 +199,63 @@
     setTimeout(() => { map.invalidateSize(); SR.fitDistrict(); }, 60);
   };
 
+  // ---------- where can I get by...? shared by the large map and the inline trip map ----------
+  let tractNear = null;
+  /** Neighbourhoods reachable by bus and walking: leave the origin at `depart`, arrive at a tract's stop by `limit` (minutes of the day). */
+  SR.reachTracts = function (origin, day, depart, limit) {
+    const arr = Planner.earliestArrivals(SR.net, origin, day, depart, 800, 120);
+    if (!tractNear) tractNear = SR.d.tracts.map((tr) => SR.net.near(tr.lat, tr.lon, 800));
+    const out = [];
+    SR.d.tracts.forEach((tr, i) => {
+      if (tractNear[i].some((x) => arr[x.s] + Planner.walkMinutes(x.d) <= limit)) out.push(tr);
+    });
+    return out;
+  };
+  function reachLayer(list) {
+    const g = L.layerGroup();
+    list.forEach((tr) => L.circleMarker([tr.lat, tr.lon], { radius: 4 + Math.sqrt(tr.pop) / 22, color: SR.C("--primary"), weight: 1.5, fillColor: SR.C("--primary"), fillOpacity: 0.35, interactive: false }).addTo(g));
+    return g;
+  }
+  /** Large map: from a tapped spot at the slider's hour, which neighbourhoods can you reach within 60 minutes? */
+  function showReachFrom(ll) {
+    const day = mday(), h = +$("#hour").value, depart = h * 60;
+    if (layers.reach) map.removeLayer(layers.reach);
+    const list = SR.reachTracts({ lat: ll.lat, lon: ll.lng }, day, depart, depart + 60);
+    layers.reach = reachLayer(list).addTo(map);
+    const lg = $("#lg-reach"); if (lg) { lg.hidden = false; lg.querySelector("span").textContent = t("map.lg_reach", { n: list.length, h: SR.hourLabel(h) }); }
+    map.closePopup();
+    toast(t("map.reach_done", { n: list.length, h: SR.hourLabel(h) }));
+  }
+
+  /** Text version of the map: how many stops have a bus running within a 5-minute walk of a place, hour by hour. */
+  function tableOut() {
+    const day = mday(), c = spot ? { lat: spot.lat, lng: spot.lng } : map.getCenter();
+    const near = SR.net.near(c.lat, c.lng, 400).map((x) => x.s), inf = SR.stopInfo(day), A = SR.activeStops(day);
+    let rows = "";
+    for (let h = 0; h < 24; h++) {
+      const n = near.filter((s) => A[h][s]).length;
+      rows += "<tr><th scope=\"row\">" + SR.hourLabel(h) + "</th><td>" + n + "</td></tr>";
+    }
+    const last = near.reduce((m, s) => (isFinite(inf.last[s]) ? Math.max(m, inf.last[s]) : m), -1);
+    $("#m-table-out").innerHTML = "<p class=\"small\">" + t("map.table_for", { p: c.lat.toFixed(3) + ", " + c.lng.toFixed(3), n: near.length }) + (last >= 0 ? " " + t("spot.last", { t: SR.hm(last) }) : "") + "</p>" +
+      "<table class=\"hour-table\"><caption class=\"sr-only\">" + t("map.table_cap") + "</caption><thead><tr><th scope=\"col\">" + t("map.table_hour") + "</th><th scope=\"col\">" + t("map.table_stops") + "</th></tr></thead><tbody>" + rows + "</tbody></table>";
+  }
+
+  /** Print or save as PDF: a clean sheet with the headline numbers and the legend, then the map as it is on screen. */
+  function printSheet() {
+    const day = mday(), h = +$("#hour").value, r = SR.d.reach[day];
+    const lg = [...document.querySelectorAll(".map-panel .lg li:not([hidden]) span")].map((x) => "<li>" + esc(x.textContent) + "</li>").join("");
+    document.body.classList.add("print-map");
+    const done = () => { document.body.classList.remove("print-map"); window.removeEventListener("afterprint", done); const o = $("#print-map-head"); if (o) o.remove(); };
+    window.addEventListener("afterprint", done);
+    const old = $("#print-map-head"); if (old) old.remove();
+    const hd = document.createElement("div"); hd.id = "print-map-head";
+    hd.innerHTML = "<h1>" + esc(SR.cfg.name || SR.cfg.short) + ": " + t("map.print_title", { d: t("day." + day), h: SR.hourLabel(h) }) + "</h1><p>" + t("map.hour_sub", { p: SR.pct(r.pop_share[h], r.pop_share[h] < 0.1 ? 1 : 0), h: SR.hourLabel(h), n: SR.pct(r.pop_share[12]) }) + "</p><ul>" + lg + "</ul><p class=\"small\">" + t("map.print_src", { u: location.origin + location.pathname }) + "</p>";
+    document.body.prepend(hd);
+    map.invalidateSize();
+    setTimeout(() => window.print(), 200);
+  }
+
   function toast(msg) {
     const n = $("#m-toast"); n.textContent = msg; n.hidden = false;
     clearTimeout(n._t); n._t = setTimeout(() => (n.hidden = true), 3500);
@@ -155,7 +264,8 @@
   function layerChips() {
     const items = [["halo", t("map.l_halo"), true], ["stops", t("map.l_stops"), true], ["employers", SR.d.employers ? t("map.l_emp") : null, false], ["people", t("map.l_people"), true],
       ["jobs", t("map.l_jobs"), false], ["corridors", SR.d.risk_lines ? t("map.l_corridors") : null, false],
-      ["deaths", SR.d.deaths && SR.d.deaths.length ? t("map.l_deaths") : null, false], ["health", SR.d.pois.length ? t("map.l_health") : null, false]].filter((x) => x[1]);
+      ["deaths", SR.d.deaths && SR.d.deaths.length ? t("map.l_deaths") : null, false], ["health", SR.d.pois.length ? t("map.l_health") : null, false],
+      ["nodata", layers.nodata ? t("map.l_nodata") : null, true]].filter((x) => x[1]);
     const box = $("#layers");
     box.innerHTML = items.map((i) => '<button type="button" class="tog" aria-pressed="' + i[2] + '" data-layer="' + i[0] + '">' + i[1] + "</button>").join("");
     box.querySelectorAll("button").forEach((b) => {
@@ -167,17 +277,24 @@
     });
   }
 
+  const reduceMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function togglePlay() {
-    const b = $("#m-play");
+    const b = $("#m-play"), r = $("#hour");
     if (timer) { clearInterval(timer); timer = null; b.innerHTML = ICON.play; b.setAttribute("aria-label", t("map.play")); return; }
+    if (reduceMotion()) { r.value = (+r.value + 1) % 24; update(); toast(t("map.reduced")); return; }   // no automatic motion: one step per press
     b.innerHTML = ICON.pause; b.setAttribute("aria-label", t("map.pause"));
-    timer = setInterval(() => { const r = $("#hour"); r.value = (+r.value + 1) % 24; update(); }, 650);
+    r.value = 4; update();
+    timer = setInterval(() => {
+      if (+r.value >= 23) { clearInterval(timer); timer = null; b.innerHTML = ICON.play; b.setAttribute("aria-label", t("map.play")); return; }
+      r.value = +r.value + 1; update();
+    }, 600);
   }
 
   function update() {
     if (!ready) return;
     const day = mday(), h = +$("#hour").value;
     $("#hour-label").textContent = SR.hourLabel(h);
+    $("#hour").style.setProperty("--p", (h / 23 * 100).toFixed(1) + "%");
     const act = SR.activeStops(day)[h];
 
     // The layers are built once; each hour only restyles them (cheap, so "play the day" stays smooth).
@@ -205,6 +322,7 @@
     });
     stats(day, h);
     if (spot) spotReport(spot, true);
+    const tb = $("#m-table"); if (tb && tb.open) tableOut();
   }
 
   function tractPopup(tr) {
@@ -237,12 +355,13 @@
     if (live.length) html += "<p>" + esc(SR.stopName(live[0].s)) + " · " + Math.round(live[0].d * 1.3) + " m · " + (isFinite(inf.last[live[0].s]) ? t("spot.last", { t: SR.hm(inf.last[live[0].s]) }) : "") + "</p>";
     else if (nearest) html += "<p>" + t("spot.nearest", { s: esc(SR.stopName(nearest.s)), m: Math.round(nearest.d * 1.3) }) + "</p>";
     html += '<ul class="plain"><li>' + t("spot.jobs", { n: SR.num(jobs), w: SR.num(trans) }) + "</li><li>" + t("spot.deaths", { n: night, m: all }) + "</li></ul>" +
-      '<div class="row gap wrap"><button type="button" class="btn ghost sm" data-go="plan">' + t("spot.plan") + '</button><button type="button" class="btn ghost sm" data-go="reach">' + t("spot.reach") + "</button></div>";
+      '<div class="row gap wrap"><button type="button" class="btn ghost sm" data-go="plan">' + t("spot.plan") + '</button><button type="button" class="btn ghost sm" data-go="reach">' + t("spot.reach") + '</button><button type="button" class="btn ghost sm" data-go="area">' + t("map.area_btn") + "</button></div>";
     el.innerHTML = html;
     el.querySelectorAll("[data-go]").forEach((b) => {
       b.onclick = () => {
         const p = { lat: ll.lat, lon: ll.lng, label: t("plan.dropped") };
         if (b.dataset.go === "plan") { SR.coords.from = p; $("#from").value = p.label; SR.showTab("plan"); }
+        else if (b.dataset.go === "area") showReachFrom(ll);
         else { $("#r-from").value = p.label; SR.setReachOrigin(p); SR.showTab("reach"); }
       };
     });
@@ -255,7 +374,8 @@
   function employerPopup(e) {
     const day = mday(), a = SR.employerAccess(e, day), el = document.createElement("div");
     const at = (h) => (a.hours[h] ? "●" : "○");
-    el.innerHTML = "<b>" + esc(e.name) + "</b><br><span class=\"small\">" + esc(e.address) + "</span><p>" + t("emp.size", { s: esc(e.size) }) + "</p>" + SR.hourBars(a.hours) +
+    const hh = +($("#hour") || { value: 22 }).value, here = a.hours[hh];
+    el.innerHTML = "<b>" + esc(e.name) + "</b><br><span class=\"small\">" + esc(e.address) + '</span><p class="emp-now ' + (here ? "yes" : "no") + '">' + t(here ? "emp.at_yes" : "emp.at_no", { h: SR.hourLabel(hh) }) + "</p><p>" + t("emp.size", { s: esc(e.size) }) + "</p>" + SR.hourBars(a.hours) +
       '<p class="small">' + t("emp.times", { a: at(5), b: at(14), c: at(22), d: at(23) }) + "</p>" +
       "<p>" + (a.first != null ? t("map.first_last", { a: SR.hm(a.first), b: SR.hm(a.last) }) : t("emp.no_walk", { m: a.nearestM || "?" })) + "</p>" +
       '<div class="row gap wrap"><button type="button" class="btn ghost sm" data-go="to">' + t("emp.plan_to") + '</button><button type="button" class="btn ghost sm" data-go="reach">' + t("spot.reach") + "</button></div>";
@@ -394,6 +514,20 @@
     const fit = () => { m.invalidateSize(); m.fitBounds(d.bounds, { padding: [26, 26], maxZoom: 16 }); };
     fit(); setTimeout(fit, 120);
     const fb = document.getElementById("tm-fit"); if (fb) fb.onclick = fit;
+    const ab = document.getElementById("tm-area");
+    if (ab) {
+      let areaL = null;
+      ab.onclick = () => {
+        const on = ab.getAttribute("aria-pressed") !== "true";
+        ab.setAttribute("aria-pressed", on); ab.textContent = t(on ? "tm.area_off" : "tm.area");
+        const note = document.getElementById("tm-area-note"); if (note) note.hidden = !on;
+        if (areaL) { m.removeLayer(areaL); areaL = null; }
+        if (!on) return;
+        const depart = R.m === "arrive" ? R.T - 75 : R.T, limit = R.m === "arrive" ? R.T : R.T + 60;
+        areaL = reachLayer(SR.reachTracts(R.from, R.d, depart, limit)).addTo(m);
+        areaL.eachLayer((x) => x.bringToBack && x.bringToBack());
+      };
+    }
     const hb = document.getElementById("tm-home");
     if (hb && d.home) {
       d.home.addTo(m);

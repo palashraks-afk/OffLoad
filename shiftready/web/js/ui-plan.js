@@ -426,8 +426,8 @@
     const n = R.main.legs.filter((l) => l.k === "bus").length, hasHome = R.wantHome && R.home && R.home.ok;
     return '<div class="trip-map-card"><div class="tm-head"><b>' + t("tm.title") + '</b><span class="tm-actions">' +
       (hasHome ? '<button type="button" id="tm-home" class="tog sm" aria-pressed="true">' + t("tm.home") + "</button>" : "") +
-      '<button type="button" id="tm-fit" class="tog sm">' + t("tm.fit") + "</button></span></div>" +
-      '<div id="trip-map" role="img" aria-label="' + esc(t("tm.alt", { n })) + '"></div><p id="tm-note" class="small" hidden>' + t("map.noroom") + "</p></div>";
+      '<button type="button" id="tm-area" class="tog sm" aria-pressed="false">' + t("tm.area") + '</button><button type="button" id="tm-fit" class="tog sm">' + t("tm.fit") + "</button></span></div>" +
+      '<div id="trip-map" role="img" aria-label="' + esc(t("tm.alt", { n })) + '"></div><p id="tm-note" class="small" hidden>' + t("map.noroom") + '</p><p id="tm-area-note" class="small" hidden>' + t("tm.area_note", { t: SR.hm(R.m === "arrive" ? R.T : R.T + 60) }) + "</p></div>";
   }
 
   /**
