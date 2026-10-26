@@ -82,7 +82,7 @@ Validation design unchanged (train 2019-2021, test 2022-2023, **132 test deaths,
 |---|---|---|---|
 | Philadelphia (PA-3) | SEPTA bus + SEPTA Regional Rail (two feeds, merged) | 97% | `transit.json` is 16.6 MB; 97% at every hour is because the dense stop network is served in every hour by some bus; "a bus in the hour" is not frequency |
 | Chicago (IL-7) | CTA | 71% | `transit.json` is 22.4 MB, the largest; slow on a weak phone connection |
-| Houston (TX-18) | METRO Houston | 33% on Sunday, see region for weekday | the download link comes from a file-sharing page and may change |
+| Houston (TX-18) | METRO Houston | 33% (39% at noon) | the download link comes from a file-sharing page and may change |
 New regions have no road-risk layers, hospital or employer lists, or fares.
 **Code changes:** `prep/fetch_region.py` now downloads `gtfs_extra` feeds; `prep/transit.py` tolerates feeds with no `trip_headsign` column (CTA). Existing regions' output is unchanged.
 **Random-trip check on the new cities** needed two adaptations of the CA-33 test: it assumes no service at 2 a.m. (these are 24-hour cities) and it picks stops 2+ apart on a trip, which in dense cities can be closer than 800 m, where walking is the right answer. With those two changes: Philadelphia 95, Chicago 92, Houston 101 random real trips passed in both directions.
