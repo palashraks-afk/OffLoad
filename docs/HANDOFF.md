@@ -117,3 +117,6 @@ Cut order if behind: second city, hazard report, routing, Spanish polish, brief 
 - OffloadWatch code is in `site/` and `pipeline/` (26 tests pass; `python pipeline/run.py` rebuilds; GitHub Pages workflow exists but Pages was never enabled). It is reference only.
 - A scheduled data-update workflow for OffloadWatch exists (`.github/workflows/update-data.yml`); consider disabling it so it does not open issues for a project that is not being submitted.
 - The earlier session's large temporary downloads were deleted; re-fetch with the commands above.
+
+## Authorship note (2026-10-25, student's account)
+The student says he had the original plan and the original code for the original mapping-and-matching idea before AI was used, then used AI to polish it and to do background research, and that the original files are now lost. This is recorded as his statement, not as verified fact. The current app code was written by an AI assistant under his direction (see docs/AI_USE_LOG.md). Do not describe any file in this repository as written by the student unless he points to it and can explain it.
