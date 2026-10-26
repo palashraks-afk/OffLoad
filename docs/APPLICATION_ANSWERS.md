@@ -80,17 +80,17 @@ The app says what it cannot do yet. It cannot see live delays, its Spanish still
 I know the contest rules say AI can support a project but cannot be all of the technical work. The idea, the direction and the decisions about what to say are mine. Some of my original code from the first version was lost, so I rebuilt those parts with Claude Code.
 
 ## 6. What did you learn or take away from participating in the Congressional App Challenge?
-I learned that a bus timetable is public data, so anyone can check whether a job is reachable before taking it. I had walked and ridden past bus stops for years without thinking about what the schedule meant for the people waiting at them. Once I could see the numbers by the hour the drop at night was hard to ignore.
+Before this project I had ridden past bus stops for years without thinking about the people waiting at them. A bus timetable is public. Anyone can look it up and see whether a job is reachable before taking it. Once I put the numbers by the hour, the drop at night was hard to ignore. At noon about one in five people live near a bus. By 10 PM it is almost no one.
 
-I learned that a number is only useful if you say how it could be wrong. The road-risk model looked good at the top fifth of roads and only tied a simple guess at the top tenth. When it was tested on a district it had never seen the result was mixed. I put all of that on the page. I think that makes the app easier to trust and I would do it again.
+Numbers can mislead if you hide how they could be wrong. My road-risk model did well in the top fifth of roads and only tied a simple guess in the top tenth. On a district it had never seen the result was mixed. I put all of that on the page. It made the app easier to trust and I would do it again.
 
-I learned that the people who ride the bus know things the data cannot show. The data cannot tell me what it feels like to wait at a stop in the dark or whether a bus really shows up. That is why I want to talk to workers and managers next, and why the app sends people to the agency's live alerts and does not pretend to see delays.
+The data also leaves things out. It cannot tell me what it feels like to wait at a stop in the dark, or whether the bus really shows up. Riders know that. So the app sends people to the agency's live alerts instead of pretending to see delays, and the next thing I want to do is talk to workers and managers.
 
-I learned how much work goes into a simple answer. Behind the words Yes, Partly or No there are five transit agencies, a planner that runs backward in time, tests and a lot of fixes. Making the answer simple for a person took more effort than making it complicated.
+A simple answer takes a lot of work. Behind the words Yes, Partly or No there are five transit agencies, a planner that has to search backward in time, tests, and more fixes than I can count. Making it simple for a person took more effort than making it complicated would have.
 
-I also learned how to work with an AI assistant. It was fast but it made mistakes, and the only way to find them was to test its work and ask questions until it made sense to me. I learned to say what I wanted, check what came back and keep a record of what the assistant did.
+I also got better at working with an AI tool. It was fast and it was sometimes wrong. The only way to catch the mistakes was to test its work and keep asking until I understood it myself. I learned to say clearly what I wanted, check what came back and keep a record of what it did.
 
-Most of all I learned that a student can look at something in their own town, find real numbers and build something other people can use to ask for change. Something I first noticed on the way home, workers at bus stops and a memorial on a road near my house, turned into numbers I can check and a tool people can use. I would like to see someone do the same for their own city.
+What I take away most is how much a student can do with something in their own town. Something I first noticed on the way home, workers at bus stops and a memorial on a road near my house, turned into numbers I can check and a tool people can use. I would like to see someone do the same for their own city.
 
 ## Notes for you
 - Answer 2 uses what you told me: you rode home from soccer practice and passed bus stops with workers waiting, you started noticing it more often, and then you passed a memorial about a mile from your house for a person who died in a hit-and-run at night. If you remember a detail, such as the time of day, you can add one sentence. Keep it true.
