@@ -183,7 +183,22 @@
       "<p><b>" + (rr.beats_baseline ? t("about.beats") : t("about.not_beats")) + "</b> " + esc(rr.verdict || "") + "</p>" +
       (rr.rows_night ? "<h3>" + t("about.night", { n: rr.n_test_deaths_night }) + "</h3>" + modelTable(rr.rows_night) : "") +
       (rr.features ? '<p class="small">' + t("about.features") + ": " + rr.features.map(esc).join("; ") + "</p>" : "") +
-      (rr.second_region ? '<p class="small"><b>' + t("about.second") + "</b> " + esc(rr.second_region) + "</p>" : "");
+      (rr.second_region ? '<p class="small"><b>' + t("about.second") + "</b> " + esc(rr.second_region) + "</p>" : "") + externalHtml();
+  }
+
+  /** Tests of the model on a district it never saw (prep/risk_external.py). Shown whatever the result. */
+  function externalHtml() {
+    const ex = SR.d.risk_external;
+    if (!ex || !ex.tests || !ex.tests.length) return "";
+    const pc = (v) => SR.pct(v, 0), pts = (v) => (v >= 0 ? "+" : "−") + Math.abs(Math.round(v * 100));
+    return "<h3>" + t("ext.title") + "</h3>" + ex.tests.map((x) => {
+      const m = x.rows.find((r) => r.name.indexOf("Model trained") === 0), c10 = x.comparisons.find((c) => c.q === 0.1), c20 = x.comparisons.find((c) => c.q === 0.2);
+      const b = x.rows.find((r) => r.name === c10.baseline);
+      const word = { better: t("ext.beats"), partial: t("ext.partial"), mixed: t("ext.mixed"), worse: t("ext.worse"), tie: t("ext.tie") }[x.outcome] || t("ext.tie");
+      const ref = x.in_district_reference ? " " + t("ext.ref", { b: esc(x.tested_on.short), r: pc(x.in_district_reference.cap20) }) : "";
+      return "<p>" + t("ext.txt", { a: esc(x.trained_on.short), b: esc(x.tested_on.short), n: x.n_test_deaths, m20: pc(m.cap20), b20: pc(b.cap20), d20: pts(c20.diff), l20: pts(c20.ci[0]), h20: pts(c20.ci[1]),
+        m10: pc(m.cap10), b10: pc(b.cap10), d10: pts(c10.diff), l10: pts(c10.ci[0]), h10: pts(c10.ci[1]) }) + " <b>" + word + "</b>" + ref + "</p>";
+    }).join("") + '<p class="small">' + t("ext.note", { b: esc(ex.tests[0].tested_on.short) }) + "</p>";
   }
 
   function renderAll() {
