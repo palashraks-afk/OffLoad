@@ -89,7 +89,40 @@
     const a = Date.UTC(+feedEnd.slice(0, 4), +feedEnd.slice(4, 6) - 1, +feedEnd.slice(6)), n = Date.UTC(+todayYmd.slice(0, 4), +todayYmd.slice(4, 6) - 1, +todayYmd.slice(6));
     return (a - n) / 864e5 <= 21 ? "soon" : "ok";
   }
-  function liveHtml() {
+  // US federal holidays (observed dates), 2026-2027. Used only to say "service may be reduced"; never to claim a schedule.
+  const HOLIDAYS = {
+    "2026-01-01": "New Year's Day", "2026-01-19": "Martin Luther King Jr. Day", "2026-02-16": "Presidents' Day", "2026-05-25": "Memorial Day",
+    "2026-06-19": "Juneteenth", "2026-07-03": "Independence Day (observed)", "2026-09-07": "Labor Day", "2026-10-12": "Columbus / Indigenous Peoples' Day",
+    "2026-11-11": "Veterans Day", "2026-11-26": "Thanksgiving", "2026-12-25": "Christmas Day",
+    "2027-01-01": "New Year's Day", "2027-01-18": "Martin Luther King Jr. Day", "2027-02-15": "Presidents' Day", "2027-05-31": "Memorial Day",
+    "2027-06-18": "Juneteenth (observed)", "2027-07-05": "Independence Day (observed)", "2027-09-06": "Labor Day", "2027-10-11": "Columbus / Indigenous Peoples' Day",
+    "2027-11-11": "Veterans Day", "2027-11-25": "Thanksgiving", "2027-12-24": "Christmas Day (observed)", "2027-12-31": "New Year's Day (observed)"
+  };
+  const ymdOf = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  /** The next calendar date (today included) that is a weekday, Saturday or Sunday, as a local Date. */
+  function nextDateOf(dayType, from) {
+    const d = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+    for (let i = 0; i < 8; i++) {
+      const w = d.getDay(), t0 = w === 0 ? "sunday" : w === 6 ? "saturday" : "weekday";
+      if (t0 === dayType) return d;
+      d.setDate(d.getDate() + 1);
+    }
+    return d;
+  }
+  /** {name, date, rel: "on" | "before" | "after"} when the date is a federal holiday or the day before/after one, else null. */
+  function holidayNear(date) {
+    const day = (n) => { const x = new Date(date.getFullYear(), date.getMonth(), date.getDate() + n); return ymdOf(x); };
+    if (HOLIDAYS[day(0)]) return { name: HOLIDAYS[day(0)], date: day(0), rel: "on" };
+    if (HOLIDAYS[day(1)]) return { name: HOLIDAYS[day(1)], date: day(1), rel: "before" };    // the holiday is tomorrow
+    if (HOLIDAYS[day(-1)]) return { name: HOLIDAYS[day(-1)], date: day(-1), rel: "after" };  // the holiday was yesterday
+    return null;
+  }
+  function holidayNote(dayType, now) {
+    const h = holidayNear(nextDateOf(dayType, now || new Date()));
+    return h ? '<p class="small holiday"><b>' + t("live.hol." + h.rel, { h: esc(h.name), d: h.date }) + "</b></p>" : "";
+  }
+
+  function liveHtml(R) {
     const c = SR.cfg, d = new Date(), ymd = "" + d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
     const st = feedStatus(c.feed_end, ymd);
     let h = '<div class="card live"><h2>' + t("live.title") + '</h2><p class="small">' + t("live.txt") + "</p>";
@@ -103,6 +136,7 @@
     }
     if (st === "soon" || st === "expired") h += '<p class="small"><b>' + t(st === "soon" ? "live.soon" : "live.expired", { b: fmtD(c.feed_end) }) + "</b></p>";
     else if (st === "ok") h += '<p class="small">' + t("live.valid", { b: fmtD(c.feed_end) }) + "</p>";
+    h += holidayNote((R && R.d) || "weekday");
     return h + "</div>";
   }
 
@@ -164,6 +198,6 @@
     } catch (e) { off(); }
   }
 
-  SR.impact = { liveHtml, feedStatus, healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };
+  SR.impact = { holidayNear, nextDateOf, holidayNote, liveHtml, feedStatus, healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };
   if (typeof module !== "undefined") module.exports = SR.impact;
 })();

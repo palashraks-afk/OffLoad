@@ -12,6 +12,7 @@ const SR = ctx.SR;
 SR.lang = "en"; SR.t = (k, v) => { let s = SR.STR.en[k] || k; if (v) s = s.replace(/\{(\w+)\}/g, (_, x) => (v[x] != null ? v[x] : "{" + x + "}")); return s; };
 SR.d = { places: { cities: { Fontana: [34.0922, -117.435], Rialto: [34.1, -117.37] }, zips: {} }, boundary: { geometry: { coordinates: [] } } };
 SR.cfg = { center: [34.0905, -117.3], short: "CA-33" };
+SR.cfg.center = [34.0905, -117.3];
 SR.nearestPlace = (lat, lon) => "Fontana";
 SR.getRegions = async () => [{ id: "ca33", label: "San Bernardino, CA", center: [34.0905, -117.3] }, { id: "cle", label: "Cleveland, OH", center: [41.49, -81.68] }];
 SR.region = "ca33";
@@ -52,5 +53,13 @@ const geo = (script) => { let i = 0; ctx.navigator.geolocation = { getCurrentPos
   g = await SR.useMyLocation({ say: (m, k) => said.push(m) }); ok(g === null && /blocked/.test(said[1]), "denied shows how to fix it");
   said.length = 0; geo([{ ok: [41.5, -81.7] }]);
   g = await SR.useMyLocation({ say: (m, k, act) => said.push(typeof act) }); ok(g === null && said[1] === "function", "other region offers a switch button");
+
+  // a typed name that matches a far-away namesake: the nearest match wins; "ZIP 12345" works offline
+  const far2 = [{ lat: "38.25", lon: "-122.04", display_name: "Fairfield Car Wash" }, { lat: "38.58", lon: "-121.49", display_name: "Sacramento Shop" }];
+  ok(SR.pickNearest(far2, [38.5816, -121.4944]).display_name === "Sacramento Shop", "nearest match wins over the search's first");
+  ok(SR.pickNearest(far2, null).display_name === "Fairfield Car Wash" && SR.pickNearest([], [1, 1]) === null, "no centre keeps the order; empty gives null");
+  SR.d.places.zips = { "95811": [38.5864, -121.4806] };
+  const z1 = await SR.geocode("ZIP 95811"), z2 = await SR.geocode("zip code: 95811"), z3 = await SR.geocode("95811");
+  ok(z1 && z1.label === "ZIP 95811" && z2 && z2.label === "ZIP 95811" && z3 && z3.label === "ZIP 95811", "ZIP with or without the word ZIP is found offline");
   console.log(n + " location checks passed.");
 })().catch((e) => { console.error(e); process.exit(1); });

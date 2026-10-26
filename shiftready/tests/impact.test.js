@@ -15,4 +15,10 @@ eq(I.pickDate(dates, "2026-10-24T22:15", "weekday", 8 * 60), "2026-10-26", "next
 eq(I.pickDate(dates, "2026-10-24T22:15", "sunday", 1500), "2026-10-25", "after-midnight minutes wrap");
 const c = I.costPerYear(4, 141); eq(Math.round(c.allDays), 205860, "4 bus-hours x 365 x $141"); eq(Math.round(c.weekdays), 141000, "4 x 250 x 141");
 eq(I.feedStatus("20270103", "20261025"), "ok"); eq(I.feedStatus("20261110", "20261025"), "soon"); eq(I.feedStatus("20261024", "20261025"), "expired"); eq(I.feedStatus("", "20261025"), null, "no date, no claim");
+// holidays: federal list, day before and after, next matching date
+const D = (y, m, d) => new Date(y, m - 1, d);
+eq(I.holidayNear(D(2026, 11, 26)).rel, "on", "Thanksgiving 2026"); eq(I.holidayNear(D(2026, 11, 25)).rel, "before"); eq(I.holidayNear(D(2026, 11, 27)).rel, "after");
+eq(I.holidayNear(D(2026, 10, 25)), null, "an ordinary Sunday"); eq(I.holidayNear(D(2027, 7, 5)).name, "Independence Day (observed)"); eq(I.holidayNear(D(2026, 7, 3)).rel, "on", "July 3 2026 is the observed day");
+eq(I.nextDateOf("weekday", D(2026, 10, 24)).getDate(), 26, "next weekday after Saturday Oct 24 is Monday Oct 26"); eq(I.nextDateOf("sunday", D(2026, 10, 24)).getDate(), 25);
+eq(/live\.hol\.before/.test(I.holidayNote("weekday", D(2026, 11, 25))), true, "note appears the day before Thanksgiving"); eq(I.holidayNote("weekday", D(2026, 10, 26)), "");
 console.log(n + " impact checks passed.");

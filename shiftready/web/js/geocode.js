@@ -5,6 +5,18 @@
   const SR = window.SR;
   const cache = new Map();
 
+  /** Of several search matches, the one closest to the region centre (a typed name can match a namesake far away). */
+  SR.pickNearest = function (results, centre) {
+    if (!results || !results.length) return null;
+    if (!centre) return results[0];
+    let best = null, bd = Infinity;
+    results.forEach((x, i) => {
+      const d = Planner.hav(+x.lat, +x.lon, centre[0], centre[1]) + i * 50;   // the search's own order breaks near-ties
+      if (d < bd) { bd = d; best = x; }
+    });
+    return best;
+  };
+
   SR.geocode = async function (text) {
     const q = (text || "").trim();
     if (!q) return null;
@@ -25,11 +37,12 @@
         const lons = b.filter((_, i) => i % 2 === 0), lats = b.filter((_, i) => i % 2 === 1);
         const pad = 0.25;
         const box = [Math.min(...lons) - pad, Math.max(...lats) + pad, Math.max(...lons) + pad, Math.min(...lats) - pad].join(",");
-        const u = "https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&viewbox=" + box +
+        const u = "https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=us&viewbox=" + box +
           "&bounded=1&q=" + encodeURIComponent(q);
         const r = await fetch(u, { headers: { "Accept-Language": SR.lang } });
         const j = await r.json();
-        if (j && j[0]) out = { lat: +j[0].lat, lon: +j[0].lon, label: j[0].display_name.split(",").slice(0, 3).join(","), approx: false };
+        const best = SR.pickNearest(j, SR.cfg.center);   // a name can match a far-away namesake: take the match nearest to us
+        if (best) out = { lat: +best.lat, lon: +best.lon, label: best.display_name.split(",").slice(0, 3).join(","), approx: false };
       } catch (e) { out = null; }
       if (!out && zip && SR.d.places.zips[zip[1]]) {
         const z = SR.d.places.zips[zip[1]];

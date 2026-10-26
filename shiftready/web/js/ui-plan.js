@@ -242,7 +242,9 @@
     for (const g of [from, to]) {   // a typed place can match a far-away namesake: say so instead of "no bus"
       const chk = await SR.regionCheck(g.lat, g.lon);
       if (!chk.inside) {
-        out.innerHTML = '<div class="verdict maybe"><div class="tag"><span class="icon">!</span>' + t("plan.outside", { p: esc(g.label || ""), n: chk.km, r: esc(SR.cfg.short) }) + "</div></div>";
+        out.innerHTML = '<div class="verdict maybe"><div class="tag"><span class="icon">!</span>' + t("plan.outside", { p: esc(g.label || ""), n: chk.km, r: esc(SR.cfg.short) }) + "</div>" +
+          (chk.suggest ? '<p class="sub">' + t("loc.other_region", { r: esc(chk.suggest.label) }) + ' <button type="button" class="link" id="outside-switch">' + t("loc.switch") + "</button></p>" : "") + "</div>";
+        const sw = $("#outside-switch"); if (sw) sw.onclick = () => { location.search = "?r=" + chk.suggest.id; };
         go.disabled = false; go.textContent = label;
         return;
       }
@@ -474,7 +476,7 @@
       h += '<div class="card plain"><h2>' + t("res.alts") + "</h2><p>" + t("res.no_alts") + "</p></div>";
     }
 
-    h += (mn.ok ? SR.impact.liveHtml() : "") + stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml(R);
+    h += (mn.ok ? SR.impact.liveHtml(R) : "") + stripHtml(R) + weekHtml(R) + costHtml(R) + helpHtml(R) + SR.impact.healthHtml(R);
     h += '<div class="actions"><button id="req-open" class="btn primary" type="button">' + t("res.request") + "</button>" +
       '<button id="plan-save" class="btn ghost" type="button">' + t("saved.save") + "</button>" +
       (mn.ok ? '<button id="plan-map" class="btn ghost" type="button">' + t("res.showmap") + '</button><button id="plan-cal" class="btn ghost" type="button">' + t("res.cal") + '</button><button id="plan-card" class="btn ghost" type="button">' + t("res.card") + "</button>" : "") +
