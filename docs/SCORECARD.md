@@ -20,3 +20,16 @@ Scores are my estimates, 1-5, with the evidence. They are not judges' scores. A 
 3. ML / biomed: more test years (2024 FARS when released) and the missing desert roads. (Later)
 4. Novel: finish the unchecked parts of docs/research/10 (job-site commute filters, gig-shift apps).
 5. Looks: vary card styles, a custom hero. (Optional)
+
+## Update, evening of 2026-10-25 (after the map, Employers and About work; live site v35 checked)
+| Criterion | Score | Why it moved or did not |
+|---|---|---|
+| District (CA-23) | 4 | Unchanged. Employers tab now scoped to the San Bernardino County part of CA-23, with in-district job areas |
+| Impact | 3.5-4 | Employers tab now answers one decision and offers five actions and a printable brief; still no real users |
+| Novel | 3.5 | Research found commute-time features on job sites and Google's job search, so "no commute tools exist" is false; the shift-end, ride-home, request-letter combination is still not found |
+| Works | 4 | All tabs, trip map, weather, boss note, 9 regions load on the live site with no console errors; no live delays |
+| ML / biomed | 3.5 | External validation mixed (docs/research and About); evidence page now lists verified facts with limits |
+| Nationwide | 4 | Unchanged |
+| Mapping | 4-4.5 | Trip map now inside the Plan result; Map tab has prompt, legend, lost-since-noon layer, spoken slider |
+| Challenge fit | 3 | Student states he wrote some original code and used AI to polish it and for research; his pre-AI code is not in this repo's history and must be located and committed to be checkable |
+| Looks hand-made | 4-4.5 | About and Employers rebuilt with different layouts by purpose; Plan result redesigned earlier |
