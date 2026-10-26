@@ -17,9 +17,9 @@ Each answer is 380 to 400 words. Every fact is from the live app, the research n
 - **Cover photo:** docs/cover/cover_final_600x800.jpg
 
 ## 1. What does your app do?
-Shift Ready checks whether the bus will work for a shift and for the ride home. About 15 of every 100 US workers usually work evenings, nights or other hours outside the day (Bureau of Labor Statistics). In the San Bernardino County part of California's 23rd District live 729,052 people. About 20% of them live within a five minute walk of a bus at noon. At 10 PM it is 1.8% and at 11 PM it is none. The district has 6,383 warehouse and transport jobs. 34% of them are near a bus at noon and none at 11 PM.
+Shift Ready checks whether the bus will work for a shift and for the ride home. About 15 of every 100 US workers work evenings, nights or other hours outside the day (Bureau of Labor Statistics). In the San Bernardino County part of California's 23rd District live 729,052 people. About 20% of them live within a five minute walk of a bus at noon. At 10 PM it is 1.8%, and by 11 PM no neighborhood in the district has a bus within that walk. The district has 6,383 warehouse and transport jobs. 34% of them are near a bus at noon and none at 11 PM.
 
-A worker can take a job and find out on the first night that the last bus left an hour ago. Then the choices are a ride they pay for or driving tired. In my district 84% of the 201 people walking or biking who were killed from 2019 to 2023 died in the dark.
+A worker can take a job and find out on the first night that the last bus is gone. The choices are a ride they pay for or driving tired. In my district 84% of the 201 people walking or biking who were killed from 2019 to 2023 died in the dark.
 
 You enter where you live, where you work and when you must arrive. You can add when the shift ends. The app checks the real timetables of Omnitrans, Metrolink, Victor Valley, Morongo Basin and Mountain Transit. It answers Yes, Partly or No and shows the ride home and the last bus. If the answer is No it shows the closest times that work and the next bus if you miss one. A map in the result shows every leg of the trip. The Map tab shows hour by hour where service disappears.
 
