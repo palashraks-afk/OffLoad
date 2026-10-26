@@ -14,7 +14,7 @@ Rules: 1 to 3 minutes, public link starting with https (YouTube is easiest), sho
 ## Script (read it in your own words; the [brackets] are yours)
 **0:00 Who and what (10 sec).** "Hi, I'm Palash Rakshit from Redlands High School. This is Shift Ready, my app for California's 23rd district."
 
-**0:10 Why (15 sec).** "[Your real reason in one or two sentences. Do not invent it.]"
+**0:10 Why (15 sec).** "I used to ride home from soccer practice and pass bus stops with workers waiting at them. [Add one true detail.] I started wondering how they got home once the buses stopped running."
 
 **0:25 The problem in one sentence (15 sec).** "In the San Bernardino County part of our district, about one in five people live within a five-minute walk of a bus at noon, but none do at 11 PM. A worker whose shift ends at night can't get home, and nothing tells them, or their boss, before they take the job."
 (Show the first screen with the big "0%".)
