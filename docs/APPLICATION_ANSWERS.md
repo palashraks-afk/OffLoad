@@ -46,7 +46,7 @@ Bus timetables are not all alike. My district is served by five agencies (Omnitr
 
 The crash data had traps: hidden characters at the start of files, a different layout every year, and some records without a location. The public map server refused my computer, so I used smaller map boxes and a mirror server.
 
-Honest results were harder than good-looking ones. The road-risk model beats a "past deaths on the same road" baseline in the top 20% of road length (87% of later deaths against 68%) but only ties it in the top 10%, and the test set is small. I report both.
+Honest results were harder than good-looking ones. The road-risk model beats a "past deaths on the same road" baseline in the top 20% of road length (86% of later deaths against 65%) but only ties it in the top 10%, and the test set is small. I report both.
 
 Small things mattered too: train stops far away made the map zoom out to Los Angeles, and a phone shows only a few words of a long city name.
 

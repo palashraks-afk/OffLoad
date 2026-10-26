@@ -230,7 +230,38 @@
       "<p><b>" + (rr.beats_baseline ? t("about.beats") : t("about.not_beats")) + "</b> " + esc(rr.verdict || "") + "</p>" +
       (rr.rows_night ? "<h3>" + t("about.night", { n: rr.n_test_deaths_night }) + "</h3>" + modelTable(rr.rows_night) : "") +
       (rr.features ? '<p class="small">' + t("about.features") + ": " + rr.features.map(esc).join("; ") + "</p>" : "") +
-      (rr.second_region ? '<p class="small"><b>' + t("about.second") + "</b> " + esc(rr.second_region) + "</p>" : "") + externalHtml();
+      (rr.second_region ? '<p class="small"><b>' + t("about.second") + "</b> " + esc(rr.second_region) + "</p>" : "") + secondHtml() + calibrationHtml() + externalHtml();
+  }
+
+
+  /** The pre-registered second model (prep/risk_second.py): shown whether or not it was adopted. */
+  function secondHtml() {
+    const s = SR.d.risk_second;
+    if (!s || !s.rows) return "";
+    const pc = (v) => SR.pct(v, 0), pts = (v) => (v >= 0 ? "+" : "−") + Math.abs(Math.round(v * 100));
+    const c20 = s.comparisons.find((c) => c.vs === "shown" && c.q === 0.2), c10 = s.comparisons.find((c) => c.vs === "shown" && c.q === 0.1);
+    const a = s.rows[0], b = s.rows[2];
+    return "<h3>" + t("sec.title") + "</h3><p>" + t("sec.txt", { n: s.n_test_deaths, shown: ({ logistic: SR.lang === "es" ? "logístico" : "logistic", "boosted trees": SR.lang === "es" ? "árboles potenciados" : "boosted trees" })[s.displayed_model] || esc(s.displayed_model), b20: pc(b.cap20), a20: pc(a.cap20), d20: pts(c20.diff), l20: pts(c20.ci[0]), h20: pts(c20.ci[1]),
+      b10: pc(b.cap10), a10: pc(a.cap10), d10: pts(c10.diff) }) + " <b>" + (s.adopted ? t("sec.adopted") : t("sec.not_adopted")) + "</b></p>" +
+      '<p class="small">' + t("sec.rule") + "</p>";
+  }
+
+  /** Calibration of the ranking: deaths per 100 km of road in ten equal-length groups, lowest to highest predicted risk. */
+  function calibrationHtml() {
+    const c = SR.d.risk_calibration;
+    if (!c || !c.deciles) return "";
+    const rates = c.deciles.map((x) => x.per100km), max = Math.max.apply(null, rates) || 1, W = 320, H = 120, bw = 24, gap = 8;
+    const bars = rates.map((v, i) => {
+      const h = Math.round((v / max) * (H - 24));
+      return '<rect x="' + (i * (bw + gap) + 4) + '" y="' + (H - 16 - h) + '" width="' + bw + '" height="' + h + '" rx="2" fill="currentColor" opacity="' + (0.35 + 0.065 * i) + '"/>' +
+        '<text x="' + (i * (bw + gap) + 4 + bw / 2) + '" y="' + (H - 3) + '" text-anchor="middle" font-size="9">' + (i + 1) + "</text>";
+    }).join("");
+    const desc = t("cal.alt", { rho: c.spearman, w: c.wrong_way_pairs });
+    const rows = c.deciles.map((x) => "<tr><th>" + x.decile + "</th><td>" + SR.num(x.km) + "</td><td>" + x.deaths + "</td><td>" + x.per100km + "</td></tr>").join("");
+    return "<h3>" + t("cal.title") + "</h3><p>" + t("cal.txt", { n: c.n_test_deaths }) + '</p><figure class="cal"><svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc(desc) + '" width="100%" style="max-width:420px;color:var(--primary)">' + bars + "</svg>" +
+      "<figcaption class=\"small\">" + t("cal.cap") + " " + t("cal.read", { rho: c.spearman, w: c.wrong_way_pairs }) + "</figcaption></figure>" +
+      "<details><summary class=\"small\">" + t("cal.table") + "</summary><table class=\"small\"><thead><tr><th>#</th><th>km</th><th>" + t("cal.deaths") + "</th><th>" + t("cal.rate") + "</th></tr></thead><tbody>" + rows + "</tbody></table></details>" +
+      '<p class="small">' + c.note.replace(/&/g, "&amp;") + "</p>";
   }
 
   /** Tests of the model on a district it never saw (prep/risk_external.py). Shown whatever the result. */

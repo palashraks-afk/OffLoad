@@ -10,7 +10,7 @@
   SR.C = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
   const FILES = ["transit", "tracts", "reach", "sheds", "blocks", "boundary", "places", "pois"];
-  const OPTIONAL = ["safety", "risk_report", "risk_external", "deaths", "corridors", "risk_lines", "region", "employers"];
+  const OPTIONAL = ["safety", "risk_report", "risk_external", "risk_second", "risk_calibration", "deaths", "corridors", "risk_lines", "region", "employers"];
 
   async function getJSON(path, optional) {
     try {
