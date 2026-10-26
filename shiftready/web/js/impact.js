@@ -144,6 +144,8 @@
     return "<li>" + (SR.cfg.id === "ca33" || SR.cfg.id === "ca23" ? t("help.vanpool_ca") : t("help.vanpool_gen")) + "</li>";
   }
 
+  function hasRate() { return !!RATE[SR.cfg.id]; }
+
   function costLine(vehicleHoursPerDay, people) {
     const r = RATE[SR.cfg.id];
     if (!r || !(vehicleHoursPerDay > 0)) return "";
@@ -198,6 +200,6 @@
     } catch (e) { off(); }
   }
 
-  SR.impact = { holidayNear, nextDateOf, holidayNote, liveHtml, feedStatus, healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };
+  SR.impact = { hasRate, holidayNear, nextDateOf, holidayNote, liveHtml, feedStatus, healthHtml, vanpoolItem, costLine, waitSlot, loadConditions, heatCategory, aqiCategory, uvCategory, dayType, addDays, pickDate, costPerYear };
   if (typeof module !== "undefined") module.exports = SR.impact;
 })();

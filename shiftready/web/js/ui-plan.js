@@ -430,6 +430,31 @@
       '<div id="trip-map" role="img" aria-label="' + esc(t("tm.alt", { n })) + '"></div><p id="tm-note" class="small" hidden>' + t("map.noroom") + "</p></div>";
   }
 
+  /**
+   * "Fix this trip": when there is no ride home, what would it take for the main agency to run the route you came on
+   * late enough? Same method as the Employers what-if (extra trips per hour x average trip time), priced with the
+   * national per-vehicle-hour cost. An estimate; other operators' routes are not priced.
+   */
+  function fixTripHtml(R) {
+    if (!R.wantHome || !R.main.ok || (R.home && R.home.ok) || !SR.impact.hasRate()) return "";
+    const bus = R.main.legs.filter((l) => l.k === "bus").pop();
+    if (!bus || SR.d.transit.routes[bus.route][3]) return "";
+    const bit = Planner.DAY_BIT[R.d], trips = SR.d.transit.trips.filter((x) => x[0] === bus.route && (x[1] & bit));
+    if (!trips.length) return "";
+    let last = 0, dur = 0;
+    trips.forEach((x) => { last = Math.max(last, x[3][x[3].length - 1]); dur += x[3][x[3].length - 1] - x[3][0]; });
+    const newEnd = R.endT + 30;                       // the last bus would need to leave about when the shift ends
+    if (newEnd <= last) return "";
+    const lastHour = Math.floor((last - 1) / 60);
+    const tph = trips.filter((x) => Math.floor(x[3][0] / 60) === lastHour - 1 || Math.floor(x[3][0] / 60) === lastHour).length / 2;
+    let added = 0;
+    for (let tm = Math.ceil(last / 60) * 60; tm < newEnd; tm += 60) added += tph * 2;
+    const vh = (added * (dur / trips.length)) / 60;
+    if (!(vh > 0)) return "";
+    return '<div class="notice fix"><b>' + t("fix.title") + "</b> " + t("fix.lead", { r: esc(SR.routeName(bus.route)), t: SR.hm(newEnd), e: SR.hm(R.endT) }) +
+      SR.impact.costLine(vh, 0) + "</div>";
+  }
+
   function render(R) {
     const v = R.verdict, mn = R.main;
     const icon = { yes: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>', maybe: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v8M12 18.2v.1"/></svg>', no: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>' }[v.level];
@@ -461,6 +486,7 @@
         h += '<p><span class="badge bad">' + t("res.no_ride_home") + "</span> " + t("res.no_ride_home_txt", { t: SR.hm(R.endT) }) + "</p>";
         if (R.homeLater) h += "<p>" + t("res.next_home_txt", { t: SR.hm(R.homeLater.leave) }) + "</p>";
         if (R.lastBus) h += "<p>" + t("res.lastbus_txt", { t: SR.hm(R.lastBus.leave) }) + "</p>";
+        h += fixTripHtml(R);
       }
       h += "</div>";
     }
