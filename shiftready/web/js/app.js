@@ -56,63 +56,109 @@
       "<div><b>" + t("flow.3") + "</b><span>" + t("flow.3s") + "</span></div><div><b>" + t("flow.4") + "</b><span>" + t("flow.4s") + "</span></div></div>";
   }
 
+  const GH = "https://github.com/palashraks-afk/OffLoad";
+
+  // Each agency's published timetable (GTFS) file, as listed in shiftready/regions/*.json. All checked 2026-10-25.
+  const FEEDS = {
+    ca23: [["Omnitrans (buses, sbX)", "http://www.omnitrans.org/google/google_transit.zip"], ["Metrolink (commuter rail, Arrow)", "https://metrolinktrains.com/globalassets/about/gtfs/gtfs.zip"],
+      ["Victor Valley Transit Authority", "https://api.transloc.com/gtfs/vvta.zip"], ["Morongo Basin Transit Authority", "https://data.trilliumtransit.com/gtfs/morongobasin-ca-us/morongobasin-ca-us.zip"],
+      ["Mountain Transit (Big Bear)", "http://data.trilliumtransit.com/gtfs/bigbear-ca-us/bigbear-ca-us.zip"]],
+    ca33: [["Omnitrans (buses, sbX)", "http://www.omnitrans.org/google/google_transit.zip"], ["Metrolink (commuter rail, Arrow)", "https://metrolinktrains.com/globalassets/about/gtfs/gtfs.zip"]],
+    cle: [["GCRTA (Cleveland)", "https://www.riderta.com/sites/default/files/gtfs/latest/google_transit.zip"]],
+    mia: [["Miami-Dade Transit", "https://www.miamidade.gov/transit/googletransit/current/google_transit.zip"]],
+    sac: [["SacRT (Sacramento)", "https://apps.sacrt.com/gtfs/srtd/google_transit.zip"]],
+    den: [["RTD (Denver)", "https://www.rtd-denver.com/files/gtfs/google_transit.zip"]],
+    atl: [["MARTA (Atlanta)", "https://www.itsmarta.com/google_transit_feed/google_transit.zip"]],
+    sea: [["King County Metro (Seattle)", "https://metro.kingcounty.gov/GTFS/google_transit.zip"]],
+    bos: [["MBTA (Boston)", "https://cdn.mbta.com/MBTA_GTFS.zip"]],
+  };
+  const isCA = () => SR.cfg.id === "ca33" || SR.cfg.id === "ca23";
+  const link = (u, s) => '<a href="' + u + '" target="_blank" rel="noopener">' + s + "</a>";
+
+  /** Ten facts that were read from their sources on 2026-10-25 (docs/research/19_evidence_summary.md), each with what it cannot show. */
+  function evidenceHtml() {
+    const U = {
+      1: "https://www.bls.gov/news.release/flex2.nr0.htm", 2: "https://www.cdc.gov/mmwr/preview/mmwrhtml/mm6116a2.htm", 3: "https://www.pnas.org/doi/10.1073/pnas.1510383112",
+      4: "https://www.urban.org/features/unequal-commute", 5: "https://www.iihs.org/topics/fatality-statistics/detail/pedestrians", 6: "https://aaafoundation.org/impact-speed-pedestrians-risk-severe-injury-death/",
+      7: "https://www.worldtransitresearch.info/research/11390", 8: "https://blogs.worldbank.org/impactevaluations/taking-the-bus-to-opportunity-guest-post-by-david-phillips",
+      9: "https://omnitrans.org/wp-content/uploads/2025/06/Service-Plan-FY-2026.pdf", 10: "https://www.americanprogress.org/article/there-are-significant-business-costs-to-replacing-employees/",
+    };
+    const ids = [1, 2, 3, 4, 5, 6, 7, 8, 10].concat(isCA() ? [9] : []);
+    return '<ol class="ledger">' + ids.map((i) => '<li><span class="lf">' + t("ev." + i + ".f") + "</span><div><p>" + t("ev." + i + ".t") + '</p><p class="ll"><b>' + t("ev.limit") + "</b> " + t("ev." + i + ".l") +
+      ' <span class="ls">' + link(U[i], t("ev." + i + ".s")) + "</span></p></div></li>").join("") + "</ol>" +
+      '<div class="ev-not"><h3>' + t("evn.title") + "</h3><ul>" + [1, 2, 3, 4].map((i) => "<li>" + t("evn." + i) + "</li>").join("") + "</ul></div>" +
+      '<p class="small">' + link(GH + "/blob/main/docs/research/19_evidence_summary.md", "docs/research/19_evidence_summary.md") + " · " + link(GH + "/tree/main/docs/research", t("ds.own.res")) + "</p>";
+  }
+
+  /** Every dataset, with a link, what it is used for, its version and its terms. */
+  function dataHtml() {
+    const rows = [["lodes", "https://lehd.ces.census.gov/data/lodes/LODES8/"], ["acs", "https://censusreporter.org/"], ["tiger", "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html"],
+      ["fars", "https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars"], ["osm", "https://www.openstreetmap.org/copyright"]];
+    if ((SR.d.pois || []).length) rows.push(["cdph", "https://data.chhs.ca.gov/"]);
+    rows.push(["wx", "https://open-meteo.com/en/docs"], ["bls", "https://www.bls.gov/news.release/flex2.nr0.htm"]);
+    if (isCA()) rows.push(["ntd", "https://www.transit.dot.gov/ntd"], ["sbc", "https://indicators.sbcounty.gov/transportation/mobility/"]);
+    const feeds = FEEDS[SR.cfg.id] || [];
+    const reg = SR.cfg.short || SR.cfg.id;
+    let h = '<p class="ab-lead">' + t("ds.lead") + "</p>" +
+      '<div class="ds-feeds"><h3>' + t("ds.feeds", { r: esc(reg) }) + "</h3><ul>" + feeds.map((f) => "<li>" + link(f[1], esc(f[0])) + "</li>").join("") + "</ul>" +
+      '<p class="small">' + t("ds.feeds_note") + (SR.cfg.feed_start ? " " + t("ds.feedwin", { a: fmtDate(SR.cfg.feed_start), b: fmtDate(SR.cfg.feed_end) }) : "") + "</p></div>" +
+      "<h3>" + t("ds.general") + '</h3><dl class="ds">' + rows.map((r) => "<div><dt>" + link(r[1], t("ds." + r[0] + ".n")) + "</dt><dd>" + t("ds." + r[0] + ".u") +
+        '<span class="dsm"><b>' + t("ds.vintage") + ":</b> " + t("ds." + r[0] + ".v") + " · <b>" + t("ds.terms") + ":</b> " + t("ds." + r[0] + ".t") + "</span></dd></div>").join("") + "</dl>" +
+      "<h3>" + t("ds.own") + '</h3><p class="small">' + t("ds.own_note") + '</p><ul class="own">' +
+      "<li>" + link(GH + "/tree/main/shiftready/web/data/" + SR.cfg.id, t("ds.own.data")) + "</li>" +
+      "<li>" + link(GH + "/tree/main/shiftready/prep", t("ds.own.prep")) + "</li>" +
+      "<li>" + link(GH + "/tree/main/shiftready/tests", t("ds.own.tests")) + "</li>" +
+      "<li>" + link(GH + "/blob/main/docs/AI_USE_LOG.md", t("ds.own.ai")) + "</li>" +
+      "<li>" + link(GH + "/tree/main/docs/research", t("ds.own.res")) + "</li>" +
+      "<li>" + link(GH + "/blob/main/docs/SCORECARD.md", t("ds.own.score")) + "</li></ul>";
+    return h;
+  }
+
+  function checksHtml() {
+    return '<ol class="steps">' + [1, 2, 3, 4].map((i) => "<li>" + t("ck." + i) + "</li>").join("") + '</ol><p class="ab-callout">' + t("ck.cannot") + "</p>";
+  }
+
   function renderAbout() {
-    const rr = SR.d.risk_report, r = SR.d.reach;
-    const src = [
-      [esc(SR.d.transit.agency) + " GTFS", t("src.gtfs")], ["Census LODES 2022", t("src.lodes")], ["Census ACS 5-year", t("src.acs")],
-      ["NHTSA FARS 2019–2023", t("src.fars")], ["OpenStreetMap", t("src.osm")],
-    ];
-    if ((SR.d.pois || []).length) src.push(["CDPH", t("src.cdph")]);
-    let h = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><div class="card"><h2>' + t("about.what") + "</h2><p>" + t("about.what_txt") + "</p></div>";
-    if (SR.cfg.id === "ca33" || SR.cfg.id === "ca23") h += '<div class="card"><h2>' + t("ang.title") + "</h2><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
+    const rr = SR.d.risk_report;
     const sit = SR.workedExamples ? SR.workedExamples() : [];
+    const sec = (id, inner) => '<section class="ab-sec" id="a-' + id + '"><h2 class="ab-h">' + t("ab.n." + id) + "</h2>" + inner + "</section>";
+    let problem = problemHtml() + '<div id="numbers"></div><div class="card" id="findings"></div><p class="ab-lead">' + t("about.what_txt") + "</p>";
+    if (isCA()) problem += '<div class="ab-more"><h3>' + t("ang.title") + "</h3><ul>" + [1, 4, 2, 3].map((i) => "<li>" + t("ang." + i) + "</li>").join("") + '</ul><p class="small">' + t("ang.src") + "</p></div>";
+    problem += '<div class="card empabout" id="about-emp"></div>';
+    let situations = "";
     if (sit.length) {
-      h += '<div class="card" id="situations"><h2>' + t("sit.title") + '</h2><p class="small">' + t("sit.lead") + "</p>" + sit.map((x) => {
+      situations = '<p class="small">' + t("sit.lead") + "</p>" + sit.map((x) => {
         const R = x.R, lv = R.verdict.level, hm = SR.hm;
         const home = R.home && R.home.ok ? t("sit.home_ok", { t: hm(R.home.leave) }) : t("sit.home_no", { e: hm(R.endT) });
         const hh = (v) => hm(+v.split(":")[0] * 60 + +v.split(":")[1]);
         return '<div class="sit"><b>' + t(x.k) + "</b> · " + t("sit.row", { a: esc(x.from), b: esc(x.to), s: hh(x.T), e: hh(x.end) }) +
           '<br><span class="badge ' + (lv === "yes" ? "ok" : lv === "maybe" ? "warn" : "bad") + '">' + t("v." + lv) + "</span> " + esc(R.verdict.reasons[0] || "") + " " + home + "</div>";
-      }).join("") + "<h3>" + t("sit.forum") + '</h3><ul class="small">' + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("sit.f." + i) + "</li>").join("") + '</ul><p class="small">' + t("sit.forum_note") + "</p></div>";
+      }).join("") + "<h3>" + t("sit.forum") + '</h3><ul class="small">' + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("sit.f." + i) + "</li>").join("") + '</ul><p class="small">' + t("sit.forum_note") + "</p>";
     }
-    h += '<div class="card"><h2>' + t("diff.title") + "</h2><ul>" + [1, 2, 3, 4, 5].map((i) => "<li>" + t("diff." + i) + "</li>").join("") + "</ul></div>";
-    h += '<div class="card empabout" id="about-emp"></div>';
-    h += '<div class="card"><h2>' + t("about.how") + "</h2><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul></div>";
-    h += '<div class="card"><h2>' + t("build.title") + "</h2><p>" + t("build.txt") + "</p></div>";
-    h += '<div class="card"><h2>' + t("src.title") + "</h2>" + sourcesHtml() + "</div>";
-    h += '<div class="card"><h2>' + t("about.data") + "</h2><table><tbody>" + src.map((s) => "<tr><th>" + s[0] + "</th><td>" + s[1] + "</td></tr>").join("") + "</tbody></table>" +
-      '<p class="small">' + t("about.feed", { v: esc(SR.d.transit.agency) }) +
-      (SR.cfg.feed_start ? " " + t("about.valid", { a: fmtDate(SR.cfg.feed_start), b: fmtDate(SR.cfg.feed_end) }) : "") + "</p></div>";
-    h += '<div class="card"><h2>' + t("about.model") + "</h2>" + (rr ? modelHtml(rr) : "<p>" + t("about.model_none") + "</p>") + "</div>";
-    h += '<div class="card"><h2>' + t("about.limits") + "</h2><ul>" + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("about.lim" + i, { agency: SR.cfg.agency }) + "</li>").join("") + "</ul></div>";
-    h += '<div class="card"><h2>' + t("about.privacy") + "</h2><p>" + t("about.privacy_txt") + " " + t("about.weather_txt") + "</p></div>";
-    h += '<div class="card"><h2>' + t("faq.title") + "</h2>" + [1, 2, 3, 4, 5].map((n) => '<details class="faq"><summary>' + t("faq.q" + n) + "</summary><p>" + t("faq.a" + n) + "</p></details>").join("") + "</div>";
-    h += '<div class="card"><h2>' + t("about.origin") + "</h2><p>" + t("about.origin_txt") + "</p></div>";
-    h += '<div class="logo-card"><img src="logo.svg" width="96" height="96" alt="Shift Ready logo"><div><h2>' + t("logo.title") + '</h2><p class="small">' + t("logo.txt") + '</p><div class="row gap wrap"><button type="button" id="logo-copy" class="btn ghost sm">' + t("logo.copy") + '</button><a class="btn ghost sm" href="logo.svg" download>' + t("logo.dl") + "</a></div></div></div>";
-    h += '<div class="card"><h2>' + t("about.ai") + "</h2><p>" + t("about.ai_txt") + "</p><p class=\"small\">" + t("about.es_note") + "</p></div>";
-    $("#about").innerHTML = h;
+    const how = '<ul>' + [1, 2, 3, 4, 5].map((i) => "<li>" + t("diff." + i) + "</li>").join("") + "</ul><h3>" + t("about.how") + "</h3><ul><li>" + t("about.how1") + "</li><li>" + t("about.how2") + "</li><li>" + t("about.how3") + "</li></ul>" +
+      "<h3>" + t("build.title") + "</h3><p>" + t("build.txt") + "</p>";
+    const checks = checksHtml() + "<h3>" + t("about.model") + "</h3>" + (rr ? modelHtml(rr) : "<p>" + t("about.model_none") + "</p>");
+    const limits = '<ul class="lims">' + [1, 2, 3, 4, 5, 6].map((i) => "<li>" + t("about.lim" + i, { agency: SR.cfg.agencies || SR.cfg.agency }) + "</li>").join("") + "</ul>" +
+      "<h3>" + t("about.privacy") + "</h3><p>" + t("about.privacy_txt") + " " + t("about.weather_txt") + "</p>" +
+      "<h3>" + t("faq.title") + "</h3>" + [1, 2, 3, 4, 5].map((n) => '<details class="faq"><summary>' + t("faq.q" + n) + "</summary><p>" + t("faq.a" + n) + "</p></details>").join("");
+    const credits = "<p>" + t("about.origin_txt") + "</p><h3>" + t("about.ai") + "</h3><p>" + t("about.ai_txt") + '</p><p class="small">' + t("about.es_note") + "</p>" +
+      '<div class="logo-card"><img src="logo.svg" width="96" height="96" alt="Shift Ready logo"><div><h4>' + t("logo.title") + '</h4><p class="small">' + t("logo.txt") + '</p><div class="row gap wrap"><button type="button" id="logo-copy" class="btn ghost sm">' + t("logo.copy") + '</button><a class="btn ghost sm" href="logo.svg" download>' + t("logo.dl") + "</a></div></div></div>";
+    const parts = [["problem", problem], ["situations", situations], ["evidence", evidenceHtml()], ["how", how], ["data", dataHtml()], ["checks", checks], ["limits", limits], ["credits", credits]].filter((x) => x[1]);
+    const toc = '<nav class="ab-toc" aria-label="' + t("ab.toc") + '"><span class="ab-toc-l">' + t("ab.toc") + "</span>" + parts.map((x) => '<a href="#a-' + x[0] + '" data-go="a-' + x[0] + '">' + t("ab.n." + x[0]) + "</a>").join("") + "</nav>";
+    const evTitle = '<p class="ab-lead ev-lead">' + t("ev.lead") + "</p>";
+    $("#about").innerHTML = '<header class="ab-head"><p class="ab-intro">' + t("ab.intro") + "</p></header>" + toc +
+      parts.map((x) => sec(x[0], (x[0] === "evidence" ? evTitle : "") + x[1])).join("");
     fillFindings();
     fillNumbers();
     fillEmployersAbout();
+    document.querySelectorAll(".ab-toc a").forEach((a) => {
+      a.onclick = (e) => {
+        e.preventDefault();
+        const el = document.getElementById(a.dataset.go);
+        if (el) el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      };
+    });
     const lb = $("#logo-copy"); if (lb) lb.onclick = async () => { try { const s = await (await fetch("logo.svg")).text(); await navigator.clipboard.writeText(s); lb.textContent = t("req.copied"); } catch (e) { lb.textContent = "logo.svg"; } };
-  }
-
-  function sourcesHtml() {
-    const X = (en, es) => (SR.lang === "es" ? es : en);
-    const L = (u, s) => '<li><a href="' + u + '" target="_blank" rel="noopener">' + s + "</a></li>";
-    return '<ul class="srcs">' +
-      L(SR.cfg.id === "ca33" || SR.cfg.id === "ca23" ? "https://mobilitydatabase.org/feeds/gtfs/mdb-97" : "https://mobilitydatabase.org/", esc(SR.cfg.agencies || SR.cfg.agency) + X(" GTFS schedules (the bus and train times and stops)", " horarios GTFS (horas y paradas de autobús y tren)")) +
-      L("https://lehd.ces.census.gov/data/lodes/LODES8/", X("Census LODES 2022 (where people work and live)", "Census LODES 2022 (dónde trabaja y vive la gente)")) +
-      L("https://censusreporter.org/", X("Census ACS 5-year, via Census Reporter (people, homes without a vehicle, commute mode)", "Census ACS de 5 años, vía Census Reporter (población, hogares sin vehículo, cómo van al trabajo)")) +
-      L("https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html", X("Census cartographic boundaries (district and tract shapes)", "Límites cartográficos del Census (formas de distritos y sectores censales)")) +
-      L("https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars", X("NHTSA FARS 2019–2023 (every fatal crash, with location and light)", "NHTSA FARS 2019–2023 (cada choque mortal, con lugar y luz)")) +
-      (SR.d.employers ? L("https://labormarketinfo.edd.ca.gov/majorer/countymajorer.asp?CountyCode=000071", X("California EDD Major Employers, 2026 2nd edition (employer names, addresses, size classes)", "California EDD, grandes empleadores, 2.ª edición 2026 (nombres, direcciones, tamaños)")) : "") +
-      L("https://www.openstreetmap.org/copyright", X("OpenStreetMap (roads, map tiles) and Nominatim (address search)", "OpenStreetMap (calles, mapa) y Nominatim (búsqueda de direcciones)")) +
-      ((SR.d.pois || []).length ? L("https://data.chhs.ca.gov/", X("California CDPH facility list (hospitals, clinics, dialysis)", "Lista de centros de CDPH California (hospitales, clínicas, diálisis)")) : "") +
-      L("https://www.riderta.com/", X("GCRTA schedule (Cleveland)", "Horario de GCRTA (Cleveland)")) + L("https://www.miamidade.gov/transit/", X("Miami-Dade Transit schedule (Miami)", "Horario de Miami-Dade Transit (Miami)")) + L("https://www.sacrt.com/", X("SacRT schedule (Sacramento)", "Horario de SacRT (Sacramento)")) +
-      L("https://www.rtd-denver.com/", X("RTD schedule (Denver)", "Horario de RTD (Denver)")) + L("https://www.itsmarta.com/", X("MARTA schedule (Atlanta)", "Horario de MARTA (Atlanta)")) +
-      L("https://kingcounty.gov/en/dept/metro", X("King County Metro schedule (Seattle)", "Horario de King County Metro (Seattle)")) + L("https://www.mbta.com/", X("MBTA schedule (Boston)", "Horario de MBTA (Boston)")) +
-      L("https://leafletjs.com/", X("Leaflet (map library)", "Leaflet (biblioteca de mapas)")) + L("https://github.com/uswds/public-sans", X("Public Sans typeface", "Tipografía Public Sans")) + "</ul>";
   }
 
   /** The problem at named workplaces: which of the biggest employers have a bus when shifts change. */
