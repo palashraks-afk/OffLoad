@@ -142,10 +142,118 @@
       $("#fit-out").innerHTML = o;
       renderVan(f, day);
       renderActions();
+      renderSwap();
     };
     sel.onchange = run;
     box.querySelectorAll("input[name=fday]").forEach((r) => (r.onchange = run));
     run();
+  }
+
+
+  // ---------------------------------------------------------------- swap the start time: both ways, by half hour
+  const tick = () => new Promise((r) => setTimeout(r, 0));
+  const swapCache = {};
+  const homesOf = (id) => SR.d.sheds[id].homes.map(([i, n]) => ({ tr: SR.tractById[i], n })).filter((h) => h.tr);
+  /** Which of this job area's worker home tracts can arrive by T, and which can get home after finishing at E (800 m walk limit, 2-hour cap). */
+  function thereFlags(id, day, T) {
+    const k = id + "|" + day + "|t|" + T;
+    if (swapCache[k]) return swapCache[k];
+    const wp = SR.tractById[id], ld = Planner.latestDepartures(SR.net, wp, T, day, 800);
+    return (swapCache[k] = homesOf(id).map((h) => Planner.canReachFrom(SR.net, ld, h.tr.lat, h.tr.lon, T, 800, 120)));
+  }
+  function homeFlags(id, day, E) {
+    const k = id + "|" + day + "|h|" + E;
+    if (swapCache[k]) return swapCache[k];
+    const wp = SR.tractById[id], arr = Planner.earliestArrivals(SR.net, wp, day, E, 800, 120);
+    return (swapCache[k] = homesOf(id).map((h) => SR.net.near(h.tr.lat, h.tr.lon, 800).some((x) => arr[x.s] + Planner.walkMinutes(x.d) <= E + 120)));
+  }
+  async function swapRows(id, day, lenH, progress) {
+    const homes = homesOf(id), total = homes.reduce((a, h) => a + h.n, 0), rows = [];
+    for (let S = 180; S <= 1410; S += 30) {
+      const E = S + lenH * 60, a = thereFlags(id, day, S), b = homeFlags(id, day, E);
+      let th = 0, ho = 0, bo = 0;
+      homes.forEach((h, i) => { if (a[i]) th += h.n; if (b[i]) ho += h.n; if (a[i] && b[i]) bo += h.n; });
+      rows.push({ S, E, there: total ? th / total : 0, home: total ? ho / total : 0, both: total ? bo / total : 0 });
+      if (progress && (S / 30) % 3 === 0) { progress(rows.length / 42); await tick(); }
+    }
+    return { rows, total };
+  }
+  /** The rule, stated on the page: the best start time, then every connected start time within 80% of its both-ways share. */
+  function swapPattern(rows) {
+    const best = rows.reduce((a, b) => (b.both > a.both ? b : a));
+    if (best.both < 0.05) return { best, none: true };
+    const thr = best.both * 0.8, i = rows.indexOf(best);
+    let a = i, z = i;
+    while (a > 0 && rows[a - 1].both >= thr) a--;
+    while (z < rows.length - 1 && rows[z + 1].both >= thr) z++;
+    const late = rows.filter((r) => r.home >= 0.5).reduce((m, r) => Math.max(m, r.E), -1);
+    return { best, from: rows[a], to: rows[z], lateEnd: late >= 0 ? late : null };
+  }
+  const swapAnswer = (P, n) => (P.from.S === P.to.S
+    ? t("swap.answer_one", { a: SR.hm(P.from.S), c: SR.hm(P.from.E), p: SR.pct(P.best.both), n: SR.num(n) })
+    : t("swap.answer", { a: SR.hm(P.from.S), b: SR.hm(P.to.S), c: SR.hm(P.from.E), d: SR.hm(P.to.E), p: SR.pct(P.best.both), n: SR.num(n) }));
+  function renderSwap() {
+    const box = $("#startswap"), st = SR.cityState, fit = st.fit;
+    if (!box) return;
+    if (!fit) { box.innerHTML = ""; return; }
+    const sw = (st.swap = st.swap || { len: 8 });
+    const area = lab(fit.f.wp);
+    const lenOpts = [6, 8, 10, 12].map((n) => '<option value="' + n + '"' + (n === sw.len ? " selected" : "") + ">" + t("swap.hours", { n }) + "</option>").join("");
+    box.innerHTML = "<h2>" + t("swap.title") + '</h2><p class="small">' + t("swap.lead", { a: esc(area) }) + '</p><div class="ctl-row"><label class="small" for="sw-len">' + t("swap.len") + '</label><select id="sw-len">' + lenOpts + "</select>" +
+      '<button type="button" class="btn primary" id="sw-run">' + t("swap.run") + '</button></div><div id="sw-out" aria-live="polite"></div>';
+    const out = $("#sw-out");
+    const show = (res, d) => {
+      const P = swapPattern(res.rows);
+      st.swapRes = { id: fit.id, day: d, len: sw.len, res, P, area };
+      st.swapDays = null;
+      let o = P.none ? '<p class="answer">' + t("swap.none") + "</p>"
+        : '<p class="answer">' + swapAnswer(P, res.total) + "</p>";
+      if (!P.none) o += "<p>" + t("swap.best", { t: SR.hm(P.best.S), e: SR.hm(P.best.E), p: SR.pct(P.best.both), a: SR.pct(P.best.there), h: SR.pct(P.best.home) }) + "</p>";
+      if (P.lateEnd != null) o += "<p>" + t("swap.latest", { t: SR.hm(P.lateEnd) }) + "</p>";
+      o += meaning("swap.mean");
+      o += '<details class="sub"><summary>' + t("swap.table") + "</summary>" + table(res.rows.filter((r) => r.S >= 240).map((r) => [SR.hm(r.S) + (r === P.best ? ' <span class="tag">' + t("swap.bestTag") + "</span>" : ""), SR.hm(r.E), SR.pct(r.there), SR.pct(r.home), "<b>" + SR.pct(r.both) + "</b>"]),
+        [t("swap.col_start"), t("swap.col_end"), t("swap.col_there"), t("swap.col_home"), t("swap.col_both")]) + "</details>";
+      o += '<p class="small">' + t("swap.assume", { n: SR.num(res.total), all: SR.num(SR.d.sheds[fit.id].workers), d: t("day." + d).toLowerCase(), l: sw.len }) + "</p>";
+      o += '<div class="row gap wrap"><button type="button" class="btn ghost" id="sw-print">' + t("swap.print") + '</button><button type="button" class="btn ghost" id="sw-all">' + t("swap.alldays") + '</button></div><div id="sw-days"></div>';
+      out.innerHTML = o;
+      $("#sw-print").onclick = printSwap;
+      $("#sw-all").onclick = allDays;
+    };
+    const run = async () => {
+      const btn = $("#sw-run"); btn.disabled = true;
+      sw.len = +$("#sw-len").value;
+      out.innerHTML = '<p class="small" id="sw-prog">' + t("swap.working") + "</p>";
+      const cur = SR.cityState.fit;      // the area may change while this runs: only draw if it did not
+      const res = await swapRows(cur.id, cur.day, sw.len, (f) => { const p = $("#sw-prog"); if (p) p.textContent = t("swap.working") + " " + Math.round(f * 100) + "%"; });
+      btn.disabled = false;
+      if (SR.cityState.fit && SR.cityState.fit.id === cur.id && SR.cityState.fit.day === cur.day) show(res, cur.day);
+    };
+    async function allDays() {
+      const cont = $("#sw-days"); cont.innerHTML = '<p class="small">' + t("swap.working") + "</p>";
+      const lines = [];
+      for (const d of DAYS) {
+        const res = await swapRows(fit.id, d, sw.len, null); await tick();
+        const P = swapPattern(res.rows);
+        lines.push("<li><b>" + t("day." + d) + ":</b> " + (P.none ? t("swap.none_short") : P.from.S === P.to.S ? t("swap.day_one", { a: SR.hm(P.from.S), p: SR.pct(P.best.both) }) : t("swap.day_row", { a: SR.hm(P.from.S), b: SR.hm(P.to.S), p: SR.pct(P.best.both) })) + "</li>");
+      }
+      cont.innerHTML = '<ul class="dayrows">' + lines.join("") + "</ul>";
+      st.swapDays = lines;
+    }
+    $("#sw-run").onclick = run;
+    $("#sw-len").onchange = run;
+    run();
+  }
+  function printSwap() {
+    const st = SR.cityState, r = st.swapRes; if (!r) return;
+    const P = r.P, res = r.res;
+    let h = "<h1>" + t("swap.print_title", { a: esc(r.area) }) + "</h1><p>" + t("brief.scope", { c: SR.area() }) + " " + t("brief.sub", { a: agencies() }) + "</p>";
+    h += P.none ? "<p><b>" + t("swap.none") + "</b></p>" : "<p><b>" + swapAnswer(P, res.total) + "</b></p>";
+    if (P.lateEnd != null) h += "<p>" + t("swap.latest", { t: SR.hm(P.lateEnd) }) + "</p>";
+    h += table(res.rows.filter((x) => x.S >= 240).map((x) => [SR.hm(x.S), SR.hm(x.E), SR.pct(x.there), SR.pct(x.home), SR.pct(x.both)]), [t("swap.col_start"), t("swap.col_end"), t("swap.col_there"), t("swap.col_home"), t("swap.col_both")]);
+    if (st.swapDays) h += "<ul>" + st.swapDays.join("") + "</ul>";
+    h += '<p class="small">' + t("swap.assume", { n: SR.num(res.total), all: SR.num(SR.d.sheds[r.id].workers), d: t("day." + r.day).toLowerCase(), l: r.len }) + "</p>";
+    h += '<p class="small">' + t("swap.rule") + '</p><p class="small">' + t("brief.method") + "</p>";
+    SR.printHtml(h);
   }
 
   // ---------------------------------------------------------------- what you can do
@@ -176,6 +284,7 @@
     $("#print-brief").onclick = printBrief;
     $("#req-city").onclick = () => SR.openRequest(null);
     $("#csv-cov").onclick = downloadCoverage;
+    box.insertAdjacentHTML("beforeend", '<p class="small">' + t("agency.open") + ' <a href="data/open/' + SR.region + '_coverage_by_hour.csv" download>CSV</a> · <a href="data/open/' + SR.region + '_coverage_by_hour.json" download>JSON</a> · <a href="data/open/all_regions_coverage_by_hour.csv" download>' + t("ds.own.open_all") + '</a> · <a href="data/open/README.md" target="_blank" rel="noopener">README</a></p>');
   }
 
   // ---------------------------------------------------------------- evidence: employers
@@ -353,26 +462,54 @@
     $("#c-hour").onchange = run; $("#c-day").onchange = run; run();
   }
 
-  // ---------------------------------------------------------------- evidence: compare regions
+  // ---------------------------------------------------------------- evidence: compare regions (one small file, sortable)
+  const CMP_COLS = [
+    { key: "label", head: "cmp.region" }, { key: "people_noon", head: "cmp.p12" }, { key: "people_11pm", head: "cmp.p23" },
+    { key: "wh_11pm", head: "cmp.w23" }, { key: "last", head: "cmp.col_last" }, { key: "hh_nocar_share", head: "cmp.col_nocar" }, { key: "feed_end", head: "cmp.col_valid" },
+  ];
+  const lastKey = (r) => (r.last_hour_weekday == null ? -1 : r.last_hour_weekday < 4 ? r.last_hour_weekday + 24 : r.last_hour_weekday);
+  function lastText(r) {
+    const h = r.last_hour_weekday;
+    if (h == null) return t("cmp.never");
+    if (h === 3) return t("cmp.allnight");
+    if (h < 3) return t("cmp.until_after", { h: SR.hourLabel(h + 1) });
+    return t("cmp.until", { h: SR.hourLabel((h + 1) % 24) });
+  }
+  const cmpVal = (r, k) => (k === "last" ? lastKey(r) : k === "label" ? r.label.toLowerCase() : k === "feed_end" ? r.feed_end || "" : r[k] == null ? -1 : r[k]);
   async function renderCompare() {
-    const box = $("#compare"), wrap = $("#ev-compare");
-    let regs = [];
-    regs = await SR.getRegions();
-    if (regs.length < 2) { wrap.hidden = true; return; }
+    const box = $("#compare"), wrap = $("#ev-compare"), st = SR.cityState;
+    let C = null;
+    try { const r = await fetch("data/open/comparison.json"); if (r.ok) C = await r.json(); } catch (e) { /* offline: no comparison */ }
+    if (!C || !C.regions || C.regions.length < 2) { wrap.hidden = true; return; }
     wrap.hidden = false;
-    const rows = [];
-    for (const r of regs) {
-      try {
-        const x = await SR.getReach(r.id);
-        const w = x.weekday;
-        rows.push([esc(r.label) + " (" + esc(r.short) + ")" + (r.id === SR.region ? ' <span class="tag">' + t("cmp.here") + "</span>" : ""), SR.pct(w.pop_share[12]), SR.pct(w.pop_share[23], 0),
-          SR.pct(w.trans_jobs_share_district[12]), SR.pct(w.trans_jobs_share_district[23], 0)]);
-      } catch (e) { /* region without data */ }
-    }
-    SR.cityState.compare = rows.map((r) => r.map((c, i) => (i ? c : String(c).replace(/<[^>]+>/g, ""))));
-    evSum("compare", t("cmp.title"), t("ev.cmp_h", { n: rows.length }));
-    box.innerHTML = meaning("cmp.mean") + '<p class="small">' + t("cmp.lead", { n: rows.length }) + "</p>" +
-      table(rows, [t("cmp.region"), t("cmp.p12"), t("cmp.p23"), t("cmp.w12"), t("cmp.w23")]) + '<p class="small">' + t("cmp.note") + "</p>";
+    const R = C.regions;
+    st.compare = R.map((r) => [r.label + " (" + r.short + ")", SR.pct(r.people_noon), SR.pct(r.people_11pm, 0), SR.pct(r.wh_noon), SR.pct(r.wh_11pm, 0)]);
+    evSum("compare", t("cmp.title"), t("ev.cmp_h", { n: R.length }));
+    const sort = (st.cmpSort = st.cmpSort || { key: "people_11pm", dir: -1 });
+    const draw = () => {
+      const rows = R.slice().sort((x, y) => {
+        const a = cmpVal(x, sort.key), b = cmpVal(y, sort.key);
+        return (a < b ? -1 : a > b ? 1 : 0) * sort.dir;
+      });
+      const plain = CMP_COLS.map((c) => t(c.head));
+      const head = CMP_COLS.map((c, i) => '<th scope="col" class="' + (i ? "r" : "") + '" aria-sort="' + (sort.key === c.key ? (sort.dir > 0 ? "ascending" : "descending") : "none") + '"><button type="button" class="th-sort" data-k="' + c.key + '">' + esc(plain[i]) +
+        (sort.key === c.key ? (sort.dir > 0 ? " ▲" : " ▼") : "") + "</button></th>").join("");
+      const body = rows.map((r) => {
+        const cells = [
+          '<div><b>' + esc(r.label) + "</b> (" + esc(r.short) + ")" + (r.id === SR.region ? ' <span class="tag">' + t("cmp.here") + "</span>" : "") + '<span class="small scopeline">' + esc(r.scope) + "</span></div>",
+          SR.pct(r.people_noon), SR.pct(r.people_11pm, 0), SR.pct(r.wh_11pm, 0), esc(lastText(r)), r.hh_nocar_share == null ? "–" : SR.pct(r.hh_nocar_share, 1), r.feed_end ? esc(fmtDate(r.feed_end)) : "–",
+        ];
+        return "<tr>" + cells.map((c, i) => '<td class="' + (i ? "r" : "") + '" data-label="' + esc(plain[i]) + '">' + c + "</td>").join("") + "</tr>";
+      }).join("");
+      const opts = CMP_COLS.map((c, i) => '<option value="' + c.key + '"' + (sort.key === c.key ? " selected" : "") + ">" + esc(plain[i]) + "</option>").join("");
+      box.innerHTML = meaning("cmp.mean") + '<p class="small">' + t("cmp.lead", { n: R.length }) + '</p><div class="ctl-row cmp-sort"><label class="small" for="cmp-by">' + t("cmp.sort") + '</label><select id="cmp-by">' + opts +
+        '</select><button type="button" class="btn ghost" id="cmp-dir">' + (sort.dir > 0 ? "▲ " + t("cmp.asc") : "▼ " + t("cmp.desc")) + '</button></div><div class="tablewrap"><table class="stack cmp"><thead><tr>' + head + "</tr></thead><tbody>" + body + "</tbody></table></div>" +
+        '<p class="small">' + t("cmp.scope_note") + '</p><p class="small">' + t("cmp.how") + '</p><p class="small">' + t("cmp.open") + ': <a href="data/open/comparison.json" download>comparison.json</a> · <a href="data/open/all_regions_coverage_by_hour.csv" download>CSV</a> · <a href="data/open/README.md" target="_blank" rel="noopener">README</a></p>';
+      box.querySelectorAll(".th-sort").forEach((b) => (b.onclick = () => { sort.dir = sort.key === b.dataset.k ? -sort.dir : (b.dataset.k === "label" || b.dataset.k === "feed_end" ? 1 : -1); sort.key = b.dataset.k; draw(); }));
+      $("#cmp-by").onchange = (e) => { sort.key = e.target.value; sort.dir = sort.key === "label" || sort.key === "feed_end" ? 1 : -1; draw(); };
+      $("#cmp-dir").onclick = () => { sort.dir = -sort.dir; draw(); };
+    };
+    draw();
   }
 
   // ---------------------------------------------------------------- evidence: vanpool pickup areas

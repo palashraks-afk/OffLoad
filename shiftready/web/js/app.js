@@ -106,6 +106,7 @@
         '<span class="dsm"><b>' + t("ds.vintage") + ":</b> " + t("ds." + r[0] + ".v") + " · <b>" + t("ds.terms") + ":</b> " + t("ds." + r[0] + ".t") + "</span></dd></div>").join("") + "</dl>" +
       "<h3>" + t("ds.own") + '</h3><p class="small">' + t("ds.own_note") + '</p><ul class="own">' +
       "<li>" + link(GH + "/tree/main/shiftready/web/data/" + SR.cfg.id, t("ds.own.data")) + "</li>" +
+      '<li><a href="data/open/' + SR.cfg.id + '_coverage_by_hour.csv" download>' + t("ds.own.open") + '</a> · <a href="data/open/' + SR.cfg.id + '_coverage_by_hour.json" download>' + t("ds.own.open_json") + '</a> · <a href="data/open/all_regions_coverage_by_hour.csv" download>' + t("ds.own.open_all") + '</a> · <a href="data/open/README.md" target="_blank" rel="noopener">' + t("ds.own.open_readme") + "</a></li>" +
       "<li>" + link(GH + "/tree/main/shiftready/prep", t("ds.own.prep")) + "</li>" +
       "<li>" + link(GH + "/tree/main/shiftready/tests", t("ds.own.tests")) + "</li>" +
       "<li>" + link(GH + "/blob/main/docs/AI_USE_LOG.md", t("ds.own.ai")) + "</li>" +

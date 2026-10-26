@@ -17,3 +17,4 @@ for rid in regions:
         subprocess.run([sys.executable, "-I", str(HERE / f"{step}.py"), rid], check=True)
 subprocess.run([sys.executable, "-I", str(HERE / "second_region.py")], check=True)
 subprocess.run([sys.executable, "-I", str(HERE / "build_site.py")], check=True)
+subprocess.run([sys.executable, "-I", str(HERE / "open_data.py")], check=True)   # open CSV/JSON tables and the comparison table

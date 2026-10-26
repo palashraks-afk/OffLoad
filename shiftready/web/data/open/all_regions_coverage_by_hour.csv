@@ -1,0 +1,649 @@
+region,scope,agencies,day,hour,people_share_near_bus,jobs_share_near_bus,warehouse_transport_jobs_share_near_bus,health_jobs_share_near_bus
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,0,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,1,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,2,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,3,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,4,0.0046,0.2227,0.055,0.4001
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,5,0.0046,0.2656,0.0921,0.4278
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,6,0.1867,0.5881,0.3188,0.7321
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,7,0.2113,0.591,0.3224,0.7383
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,8,0.1841,0.5853,0.3252,0.7346
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,9,0.1896,0.5821,0.2997,0.7274
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,10,0.2145,0.5888,0.295,0.7429
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,11,0.2038,0.5962,0.3003,0.7446
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,12,0.1973,0.5946,0.3351,0.7455
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,13,0.2059,0.5952,0.3199,0.7426
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,14,0.2069,0.5911,0.3202,0.7443
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,15,0.1869,0.5916,0.3265,0.7342
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,16,0.2006,0.5888,0.3008,0.7282
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,17,0.2145,0.582,0.2851,0.7381
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,18,0.1888,0.5903,0.3003,0.7359
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,19,0.187,0.5831,0.3332,0.7301
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,20,0.178,0.58,0.3119,0.7252
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,21,0.1338,0.5134,0.2326,0.6851
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,22,0.0175,0.2609,0.102,0.4386
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",weekday,23,0.0,0.0903,0.0,0.2489
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,0,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,1,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,2,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,3,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,4,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,5,0.0046,0.1709,0.0182,0.384
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,6,0.0102,0.2623,0.0446,0.4255
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,7,0.1511,0.5435,0.3141,0.6949
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,8,0.1665,0.5638,0.3038,0.7157
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,9,0.1567,0.5652,0.3049,0.7173
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,10,0.1842,0.5621,0.3091,0.7176
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,11,0.1897,0.5737,0.2541,0.7243
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,12,0.1538,0.5806,0.3281,0.7299
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,13,0.183,0.568,0.3047,0.7235
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,14,0.1803,0.5776,0.3274,0.7272
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,15,0.176,0.5754,0.3077,0.7232
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,16,0.1598,0.5546,0.2966,0.7132
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,17,0.1878,0.5682,0.3143,0.7214
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,18,0.1897,0.5656,0.2541,0.718
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,19,0.1392,0.4867,0.3016,0.6774
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,20,0.0419,0.2955,0.0663,0.523
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,21,0.0165,0.1813,0.0348,0.3136
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,22,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",saturday,23,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,0,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,1,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,2,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,3,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,4,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,5,0.0,0.0055,0.0,0.0041
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,6,0.0102,0.17,0.013,0.3785
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,7,0.0293,0.2826,0.073,0.4454
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,8,0.1746,0.5389,0.3003,0.7003
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,9,0.1829,0.5514,0.319,0.7138
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,10,0.1504,0.5637,0.306,0.7156
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,11,0.1746,0.5551,0.2964,0.7122
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,12,0.1731,0.5464,0.2641,0.6997
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,13,0.1644,0.5574,0.2859,0.7091
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,14,0.1781,0.5629,0.3121,0.7209
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,15,0.1911,0.5712,0.3086,0.7209
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,16,0.1897,0.5605,0.3199,0.7112
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,17,0.1347,0.5359,0.2789,0.6956
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,18,0.0801,0.3737,0.1275,0.5328
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,19,0.0102,0.1463,0.0147,0.2874
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,20,0.0055,0.124,0.0114,0.2656
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,21,0.0055,0.0275,0.0114,0.009
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,22,0.0,0.0,0.0,0.0
+ca23,the San Bernardino County part of CA-23,"Omnitrans, Metrolink, Victor Valley Transit, Morongo Basin Transit and Mountain Transit",sunday,23,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,0,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,1,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,2,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,3,0.0099,0.0434,0.0078,0.0408
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,4,0.1741,0.3104,0.0223,0.5069
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,5,0.3357,0.5216,0.0928,0.772
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,6,0.3691,0.5492,0.0958,0.8111
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,7,0.3739,0.5503,0.1012,0.8114
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,8,0.3739,0.5508,0.1014,0.8113
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,9,0.3739,0.5466,0.0984,0.8115
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,10,0.3739,0.5512,0.1014,0.8112
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,11,0.3739,0.5488,0.1014,0.8117
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,12,0.3739,0.5513,0.1014,0.8118
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,13,0.3685,0.5511,0.1014,0.8113
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,14,0.3739,0.5465,0.0984,0.8108
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,15,0.3739,0.5489,0.1014,0.8116
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,16,0.3739,0.5503,0.1013,0.8098
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,17,0.3739,0.5516,0.1024,0.8118
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,18,0.3685,0.5515,0.1025,0.8116
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,19,0.3739,0.5459,0.0981,0.8098
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,20,0.362,0.538,0.1006,0.8055
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,21,0.3233,0.5041,0.0894,0.7413
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,22,0.1961,0.3935,0.0639,0.5188
+ca33,California's 33rd District,Omnitrans and Metrolink,weekday,23,0.0417,0.138,0.0108,0.1838
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,0,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,1,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,2,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,3,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,4,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,5,0.0461,0.1675,0.0234,0.2811
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,6,0.2891,0.4853,0.0921,0.7502
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,7,0.3402,0.5205,0.0985,0.7873
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,8,0.3478,0.5224,0.0962,0.7902
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,9,0.3478,0.5228,0.0991,0.7604
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,10,0.3478,0.5265,0.0991,0.7904
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,11,0.3478,0.5258,0.0988,0.7905
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,12,0.3478,0.5271,0.0991,0.7905
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,13,0.3478,0.5214,0.0962,0.7895
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,14,0.3398,0.5253,0.0989,0.7891
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,15,0.3478,0.5263,0.0991,0.7905
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,16,0.3478,0.5248,0.0991,0.7904
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,17,0.3478,0.5264,0.0991,0.7902
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,18,0.3478,0.5167,0.0813,0.7892
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,19,0.2674,0.4518,0.0579,0.7046
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,20,0.1569,0.3492,0.0224,0.5974
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,21,0.1238,0.302,0.0272,0.458
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,22,0.0197,0.0461,0.0072,0.0319
+ca33,California's 33rd District,Omnitrans and Metrolink,saturday,23,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,0,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,1,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,2,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,3,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,4,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,5,0.0199,0.1231,0.022,0.0842
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,6,0.2353,0.4388,0.0721,0.6942
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,7,0.3009,0.5056,0.0974,0.7534
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,8,0.3231,0.5136,0.098,0.7657
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,9,0.3277,0.5111,0.0982,0.7383
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,10,0.3277,0.5165,0.0985,0.7681
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,11,0.3277,0.516,0.0982,0.768
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,12,0.3277,0.5165,0.0985,0.7681
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,13,0.3277,0.5162,0.0985,0.7681
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,14,0.3277,0.5144,0.0983,0.767
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,15,0.3196,0.5159,0.0985,0.7675
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,16,0.3277,0.5165,0.0985,0.7681
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,17,0.3277,0.5099,0.0985,0.7382
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,18,0.2896,0.4904,0.0724,0.7419
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,19,0.1699,0.383,0.0302,0.5866
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,20,0.0516,0.193,0.0164,0.1131
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,21,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,22,0.0,0.0,0.0,0.0
+ca33,California's 33rd District,Omnitrans and Metrolink,sunday,23,0.0,0.0,0.0,0.0
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,0,0.5096,0.7314,0.4515,0.9012
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,1,0.3938,0.6419,0.4251,0.8146
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,2,0.2914,0.5532,0.3636,0.767
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,3,0.2954,0.5589,0.3686,0.7776
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,4,0.5022,0.6978,0.4618,0.8767
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,5,0.648,0.8243,0.7893,0.9379
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,6,0.651,0.8306,0.7916,0.9391
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,7,0.651,0.8306,0.7916,0.9391
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,8,0.651,0.8248,0.7901,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,9,0.6491,0.824,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,10,0.6491,0.824,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,11,0.6491,0.824,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,12,0.6491,0.824,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,13,0.6491,0.824,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,14,0.6491,0.824,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,15,0.651,0.8245,0.7899,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,16,0.651,0.8382,0.7917,0.9391
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,17,0.651,0.8382,0.7917,0.9391
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,18,0.651,0.8323,0.7902,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,19,0.6461,0.8312,0.7891,0.9381
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,20,0.6257,0.7918,0.7848,0.9317
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,21,0.579,0.7781,0.7791,0.9207
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,22,0.5723,0.7739,0.7761,0.9201
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),weekday,23,0.5455,0.7429,0.4584,0.9085
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,0,0.4863,0.7025,0.446,0.8885
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,1,0.354,0.6224,0.4159,0.807
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,2,0.2914,0.5525,0.3636,0.7663
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,3,0.2954,0.5536,0.3688,0.7614
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,4,0.3729,0.6186,0.4282,0.7944
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,5,0.5633,0.7274,0.4526,0.9014
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,6,0.6233,0.7785,0.7834,0.9263
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,7,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,8,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,9,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,10,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,11,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,12,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,13,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,14,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,15,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,16,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,17,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,18,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,19,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,20,0.5945,0.772,0.783,0.9257
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,21,0.5664,0.7431,0.4809,0.9131
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,22,0.5498,0.7396,0.4809,0.9112
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),saturday,23,0.529,0.7322,0.4583,0.9065
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,0,0.4863,0.7025,0.446,0.8884
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,1,0.354,0.6221,0.4159,0.8069
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,2,0.2914,0.5533,0.3637,0.7683
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,3,0.2954,0.5536,0.3688,0.7614
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,4,0.3729,0.6226,0.4282,0.7961
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,5,0.5633,0.7279,0.4526,0.9064
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,6,0.6205,0.7765,0.7828,0.9261
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,7,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,8,0.6271,0.7806,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,9,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,10,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,11,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,12,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,13,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,14,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,15,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,16,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,17,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,18,0.6271,0.7882,0.7861,0.9283
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,19,0.6243,0.7783,0.7855,0.9281
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,20,0.5847,0.748,0.4855,0.9187
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,21,0.5664,0.7431,0.4809,0.9131
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,22,0.5498,0.7395,0.4809,0.911
+cle,Cleveland (Ohio's 11th District),GCRTA (RTA),sunday,23,0.5224,0.7212,0.4555,0.9034
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,0,0.5202,0.7658,0.3121,0.7732
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,1,0.3598,0.6362,0.2753,0.4348
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,2,0.2739,0.5903,0.2015,0.3631
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,3,0.3126,0.6276,0.2455,0.3917
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,4,0.5066,0.7413,0.3098,0.7493
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,5,0.6342,0.8225,0.3932,0.8409
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,6,0.6939,0.8424,0.3979,0.855
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,7,0.7545,0.8701,0.4091,0.9379
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,8,0.7526,0.8698,0.4091,0.9378
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,9,0.7552,0.8701,0.4091,0.9378
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,10,0.7526,0.8698,0.4091,0.9378
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,11,0.7552,0.8701,0.4091,0.9378
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,12,0.7526,0.8663,0.4085,0.9355
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,13,0.7298,0.8483,0.4032,0.8577
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,14,0.7526,0.8776,0.4091,0.938
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,15,0.7552,0.8779,0.4091,0.938
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,16,0.7526,0.8699,0.4091,0.9379
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,17,0.7607,0.878,0.4091,0.9381
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,18,0.7607,0.8702,0.4091,0.938
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,19,0.7251,0.863,0.404,0.9335
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,20,0.6804,0.84,0.402,0.8489
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,21,0.6558,0.8358,0.4016,0.8461
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,22,0.6382,0.8248,0.3934,0.8421
+mia,Miami (Florida's 24th District),Miami-Dade Transit,weekday,23,0.6012,0.787,0.3789,0.7482
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,0,0.5436,0.7696,0.3127,0.774
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,1,0.3841,0.65,0.2782,0.4517
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,2,0.2739,0.5872,0.2015,0.3519
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,3,0.2919,0.5935,0.2026,0.3632
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,4,0.3259,0.6059,0.2034,0.3834
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,5,0.6182,0.8169,0.3917,0.8398
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,6,0.6516,0.8317,0.395,0.8511
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,7,0.6952,0.8593,0.406,0.9345
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,8,0.7118,0.8594,0.4063,0.9346
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,9,0.7118,0.8596,0.4063,0.9346
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,10,0.7118,0.8596,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,11,0.7118,0.8596,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,12,0.7118,0.8561,0.4056,0.9324
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,13,0.6864,0.8378,0.4003,0.8546
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,14,0.7118,0.8596,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,15,0.7118,0.8596,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,16,0.7118,0.8596,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,17,0.7118,0.8596,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,18,0.7118,0.8594,0.4063,0.9347
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,19,0.6909,0.8562,0.4019,0.9327
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,20,0.6909,0.856,0.4015,0.9326
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,21,0.6846,0.8515,0.4009,0.9302
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,22,0.6411,0.8233,0.3934,0.8423
+mia,Miami (Florida's 24th District),Miami-Dade Transit,saturday,23,0.6291,0.8168,0.3847,0.8273
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,0,0.4748,0.7327,0.2989,0.7371
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,1,0.3472,0.6409,0.2584,0.4054
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,2,0.2739,0.5895,0.2014,0.363
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,3,0.2739,0.5902,0.2015,0.3629
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,4,0.3932,0.6461,0.2267,0.4752
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,5,0.6252,0.8054,0.3726,0.8391
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,6,0.6461,0.8186,0.3744,0.8417
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,7,0.6461,0.8189,0.372,0.8423
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,8,0.6524,0.8199,0.3746,0.8425
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,9,0.655,0.8208,0.375,0.8426
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,10,0.6524,0.8199,0.3746,0.8425
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,11,0.655,0.8208,0.375,0.8426
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,12,0.6524,0.8199,0.3746,0.8425
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,13,0.655,0.8208,0.375,0.8426
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,14,0.6524,0.8199,0.3746,0.8425
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,15,0.655,0.8208,0.375,0.8426
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,16,0.6524,0.8195,0.3746,0.8424
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,17,0.655,0.8208,0.375,0.8426
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,18,0.6524,0.8199,0.3746,0.8425
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,19,0.655,0.8208,0.375,0.8426
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,20,0.6461,0.8186,0.3744,0.842
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,21,0.6329,0.8136,0.3734,0.8373
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,22,0.6241,0.805,0.3731,0.8042
+mia,Miami (Florida's 24th District),Miami-Dade Transit,sunday,23,0.5009,0.7435,0.3187,0.6845
+sac,Sacramento (California's 7th District),SacRT,weekday,0,0.0097,0.2537,0.0575,0.0459
+sac,Sacramento (California's 7th District),SacRT,weekday,1,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,weekday,2,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,weekday,3,0.0069,0.1884,0.0562,0.025
+sac,Sacramento (California's 7th District),SacRT,weekday,4,0.0174,0.2753,0.0622,0.0672
+sac,Sacramento (California's 7th District),SacRT,weekday,5,0.181,0.6062,0.3472,0.6676
+sac,Sacramento (California's 7th District),SacRT,weekday,6,0.2661,0.6813,0.3663,0.7585
+sac,Sacramento (California's 7th District),SacRT,weekday,7,0.3211,0.709,0.3755,0.7975
+sac,Sacramento (California's 7th District),SacRT,weekday,8,0.2664,0.6905,0.382,0.7658
+sac,Sacramento (California's 7th District),SacRT,weekday,9,0.2369,0.66,0.3444,0.7413
+sac,Sacramento (California's 7th District),SacRT,weekday,10,0.2369,0.66,0.3444,0.7413
+sac,Sacramento (California's 7th District),SacRT,weekday,11,0.2369,0.66,0.3444,0.7413
+sac,Sacramento (California's 7th District),SacRT,weekday,12,0.2369,0.66,0.3444,0.7413
+sac,Sacramento (California's 7th District),SacRT,weekday,13,0.2369,0.66,0.3444,0.7413
+sac,Sacramento (California's 7th District),SacRT,weekday,14,0.2791,0.6749,0.3452,0.7622
+sac,Sacramento (California's 7th District),SacRT,weekday,15,0.3036,0.6829,0.3598,0.7665
+sac,Sacramento (California's 7th District),SacRT,weekday,16,0.2846,0.6932,0.3686,0.7729
+sac,Sacramento (California's 7th District),SacRT,weekday,17,0.2708,0.6851,0.3664,0.7625
+sac,Sacramento (California's 7th District),SacRT,weekday,18,0.256,0.6802,0.3624,0.7566
+sac,Sacramento (California's 7th District),SacRT,weekday,19,0.2369,0.6778,0.3624,0.7555
+sac,Sacramento (California's 7th District),SacRT,weekday,20,0.224,0.656,0.3462,0.7426
+sac,Sacramento (California's 7th District),SacRT,weekday,21,0.1812,0.6262,0.3117,0.722
+sac,Sacramento (California's 7th District),SacRT,weekday,22,0.144,0.5836,0.3094,0.6584
+sac,Sacramento (California's 7th District),SacRT,weekday,23,0.0233,0.3172,0.0592,0.2037
+sac,Sacramento (California's 7th District),SacRT,saturday,0,0.0097,0.2537,0.0575,0.0459
+sac,Sacramento (California's 7th District),SacRT,saturday,1,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,saturday,2,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,saturday,3,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,saturday,4,0.0174,0.2372,0.0605,0.0395
+sac,Sacramento (California's 7th District),SacRT,saturday,5,0.0174,0.3039,0.0622,0.0708
+sac,Sacramento (California's 7th District),SacRT,saturday,6,0.0674,0.522,0.2684,0.4976
+sac,Sacramento (California's 7th District),SacRT,saturday,7,0.2253,0.6389,0.3348,0.7186
+sac,Sacramento (California's 7th District),SacRT,saturday,8,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,9,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,10,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,11,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,12,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,13,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,14,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,15,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,16,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,17,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,18,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,19,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,saturday,20,0.224,0.6493,0.3444,0.7404
+sac,Sacramento (California's 7th District),SacRT,saturday,21,0.1749,0.6162,0.3012,0.7063
+sac,Sacramento (California's 7th District),SacRT,saturday,22,0.0752,0.4315,0.1041,0.2906
+sac,Sacramento (California's 7th District),SacRT,saturday,23,0.0174,0.2891,0.0592,0.0711
+sac,Sacramento (California's 7th District),SacRT,sunday,0,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,sunday,1,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,sunday,2,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,sunday,3,0.0,0.0,0.0,0.0
+sac,Sacramento (California's 7th District),SacRT,sunday,4,0.0069,0.1884,0.0562,0.025
+sac,Sacramento (California's 7th District),SacRT,sunday,5,0.0174,0.3004,0.0622,0.0697
+sac,Sacramento (California's 7th District),SacRT,sunday,6,0.0748,0.5217,0.2684,0.498
+sac,Sacramento (California's 7th District),SacRT,sunday,7,0.2261,0.6459,0.3351,0.729
+sac,Sacramento (California's 7th District),SacRT,sunday,8,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,9,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,10,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,11,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,12,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,13,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,14,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,15,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,16,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,17,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,18,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,19,0.2369,0.66,0.3444,0.7412
+sac,Sacramento (California's 7th District),SacRT,sunday,20,0.1827,0.6394,0.3372,0.7278
+sac,Sacramento (California's 7th District),SacRT,sunday,21,0.1515,0.5815,0.2675,0.6745
+sac,Sacramento (California's 7th District),SacRT,sunday,22,0.0353,0.3274,0.0594,0.2068
+sac,Sacramento (California's 7th District),SacRT,sunday,23,0.006,0.1276,0.0474,0.0237
+den,Denver (Colorado's 1st District),RTD,weekday,0,0.4031,0.7696,0.7687,0.8083
+den,Denver (Colorado's 1st District),RTD,weekday,1,0.1366,0.4004,0.654,0.2079
+den,Denver (Colorado's 1st District),RTD,weekday,2,0.0585,0.0333,0.0676,0.0438
+den,Denver (Colorado's 1st District),RTD,weekday,3,0.1453,0.4336,0.6531,0.1928
+den,Denver (Colorado's 1st District),RTD,weekday,4,0.3273,0.6584,0.73,0.5864
+den,Denver (Colorado's 1st District),RTD,weekday,5,0.654,0.8848,0.8234,0.9449
+den,Denver (Colorado's 1st District),RTD,weekday,6,0.6921,0.8964,0.8386,0.9547
+den,Denver (Colorado's 1st District),RTD,weekday,7,0.6953,0.8973,0.8386,0.9617
+den,Denver (Colorado's 1st District),RTD,weekday,8,0.6897,0.8951,0.8238,0.962
+den,Denver (Colorado's 1st District),RTD,weekday,9,0.6897,0.8956,0.8242,0.9617
+den,Denver (Colorado's 1st District),RTD,weekday,10,0.6897,0.8953,0.8242,0.9615
+den,Denver (Colorado's 1st District),RTD,weekday,11,0.6897,0.8953,0.8242,0.9615
+den,Denver (Colorado's 1st District),RTD,weekday,12,0.6953,0.8977,0.8391,0.9616
+den,Denver (Colorado's 1st District),RTD,weekday,13,0.6953,0.898,0.839,0.9616
+den,Denver (Colorado's 1st District),RTD,weekday,14,0.6953,0.898,0.839,0.9616
+den,Denver (Colorado's 1st District),RTD,weekday,15,0.698,0.8985,0.8391,0.962
+den,Denver (Colorado's 1st District),RTD,weekday,16,0.6897,0.8957,0.8243,0.962
+den,Denver (Colorado's 1st District),RTD,weekday,17,0.6953,0.8976,0.8385,0.9617
+den,Denver (Colorado's 1st District),RTD,weekday,18,0.6897,0.8949,0.8237,0.9617
+den,Denver (Colorado's 1st District),RTD,weekday,19,0.6677,0.8835,0.8041,0.9575
+den,Denver (Colorado's 1st District),RTD,weekday,20,0.6431,0.8764,0.7953,0.9559
+den,Denver (Colorado's 1st District),RTD,weekday,21,0.6306,0.8753,0.7953,0.9528
+den,Denver (Colorado's 1st District),RTD,weekday,22,0.6157,0.874,0.81,0.9469
+den,Denver (Colorado's 1st District),RTD,weekday,23,0.5433,0.8514,0.794,0.8889
+den,Denver (Colorado's 1st District),RTD,saturday,0,0.3702,0.7296,0.7557,0.7402
+den,Denver (Colorado's 1st District),RTD,saturday,1,0.1913,0.5329,0.7078,0.3667
+den,Denver (Colorado's 1st District),RTD,saturday,2,0.0733,0.0712,0.0235,0.0785
+den,Denver (Colorado's 1st District),RTD,saturday,3,0.1282,0.3653,0.6416,0.1328
+den,Denver (Colorado's 1st District),RTD,saturday,4,0.277,0.5755,0.7121,0.3368
+den,Denver (Colorado's 1st District),RTD,saturday,5,0.5705,0.8445,0.8075,0.9191
+den,Denver (Colorado's 1st District),RTD,saturday,6,0.6507,0.8778,0.8101,0.9466
+den,Denver (Colorado's 1st District),RTD,saturday,7,0.67,0.8848,0.8226,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,8,0.6644,0.8824,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,9,0.6644,0.8824,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,10,0.6644,0.8824,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,11,0.6644,0.8824,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,12,0.67,0.8848,0.8226,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,13,0.67,0.8851,0.8226,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,14,0.67,0.8851,0.8226,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,15,0.67,0.8851,0.8226,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,16,0.6644,0.8824,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,17,0.6644,0.8824,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,18,0.6644,0.8823,0.8078,0.956
+den,Denver (Colorado's 1st District),RTD,saturday,19,0.6617,0.8806,0.8009,0.9546
+den,Denver (Colorado's 1st District),RTD,saturday,20,0.6246,0.8746,0.7953,0.9507
+den,Denver (Colorado's 1st District),RTD,saturday,21,0.6246,0.8739,0.7952,0.9507
+den,Denver (Colorado's 1st District),RTD,saturday,22,0.5919,0.8665,0.8091,0.9425
+den,Denver (Colorado's 1st District),RTD,saturday,23,0.5433,0.8548,0.7937,0.8933
+den,Denver (Colorado's 1st District),RTD,sunday,0,0.3156,0.6854,0.7374,0.7085
+den,Denver (Colorado's 1st District),RTD,sunday,1,0.1346,0.4243,0.6505,0.1946
+den,Denver (Colorado's 1st District),RTD,sunday,2,0.049,0.0258,0.0115,0.041
+den,Denver (Colorado's 1st District),RTD,sunday,3,0.1282,0.3653,0.6416,0.1328
+den,Denver (Colorado's 1st District),RTD,sunday,4,0.2596,0.575,0.6951,0.3262
+den,Denver (Colorado's 1st District),RTD,sunday,5,0.4614,0.7874,0.7716,0.8343
+den,Denver (Colorado's 1st District),RTD,sunday,6,0.5804,0.8637,0.8076,0.9353
+den,Denver (Colorado's 1st District),RTD,sunday,7,0.6011,0.8686,0.8081,0.9462
+den,Denver (Colorado's 1st District),RTD,sunday,8,0.6302,0.874,0.8008,0.9528
+den,Denver (Colorado's 1st District),RTD,sunday,9,0.6584,0.8821,0.8078,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,10,0.6584,0.8821,0.8078,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,11,0.6584,0.8821,0.8078,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,12,0.664,0.8845,0.8226,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,13,0.664,0.8848,0.8226,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,14,0.664,0.8848,0.8226,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,15,0.664,0.8848,0.8226,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,16,0.6584,0.8821,0.8078,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,17,0.6584,0.8821,0.8078,0.9557
+den,Denver (Colorado's 1st District),RTD,sunday,18,0.6584,0.8819,0.8078,0.9554
+den,Denver (Colorado's 1st District),RTD,sunday,19,0.6495,0.8761,0.7953,0.9533
+den,Denver (Colorado's 1st District),RTD,sunday,20,0.6021,0.8672,0.7932,0.9491
+den,Denver (Colorado's 1st District),RTD,sunday,21,0.5607,0.8548,0.793,0.9429
+den,Denver (Colorado's 1st District),RTD,sunday,22,0.5103,0.8361,0.7942,0.9343
+den,Denver (Colorado's 1st District),RTD,sunday,23,0.4888,0.8286,0.7789,0.9308
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,0,0.7666,0.9024,0.8727,0.9345
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,1,0.3616,0.6099,0.3227,0.4376
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,2,0.0,0.0033,0.004,0.002
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,3,0.0,0.0,0.0,0.0
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,4,0.5018,0.7312,0.6305,0.7167
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,5,0.7666,0.9024,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,6,0.7666,0.9026,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,7,0.7666,0.9026,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,8,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,9,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,10,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,11,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,12,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,13,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,14,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,15,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,16,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,17,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,18,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,19,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,20,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,21,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,22,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,weekday,23,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,0,0.74,0.8844,0.6146,0.922
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,1,0.3129,0.5722,0.3156,0.4248
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,2,0.0,0.0005,0.0014,0.0001
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,3,0.0,0.0,0.0,0.0
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,4,0.0619,0.1572,0.0533,0.2102
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,5,0.7544,0.8929,0.8119,0.932
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,6,0.7666,0.9026,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,7,0.7666,0.9026,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,8,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,9,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,10,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,11,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,12,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,13,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,14,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,15,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,16,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,17,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,18,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,19,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,20,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,21,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,22,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,saturday,23,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,0,0.74,0.8821,0.6129,0.9219
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,1,0.3129,0.5722,0.3156,0.4248
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,2,0.0,0.0005,0.0014,0.0001
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,3,0.0,0.0,0.0,0.0
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,4,0.0619,0.1572,0.0533,0.2102
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,5,0.7544,0.8912,0.8102,0.9318
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,6,0.7666,0.9005,0.8729,0.9351
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,7,0.7666,0.9026,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,8,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,9,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,10,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,11,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,12,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,13,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,14,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,15,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,16,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,17,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,18,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,19,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,20,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,21,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,22,0.7666,0.9028,0.8729,0.9352
+atl,Atlanta (Georgia's 5th District),MARTA,sunday,23,0.7666,0.9028,0.8729,0.9352
+sea,Seattle (Washington's 7th District),King County Metro,weekday,0,0.7107,0.9445,0.8802,0.9538
+sea,Seattle (Washington's 7th District),King County Metro,weekday,1,0.6082,0.9107,0.8668,0.8809
+sea,Seattle (Washington's 7th District),King County Metro,weekday,2,0.4403,0.7791,0.7296,0.7821
+sea,Seattle (Washington's 7th District),King County Metro,weekday,3,0.3631,0.7376,0.6719,0.7344
+sea,Seattle (Washington's 7th District),King County Metro,weekday,4,0.5204,0.8369,0.8062,0.6725
+sea,Seattle (Washington's 7th District),King County Metro,weekday,5,0.7484,0.96,0.9244,0.9629
+sea,Seattle (Washington's 7th District),King County Metro,weekday,6,0.8003,0.9693,0.9282,0.9855
+sea,Seattle (Washington's 7th District),King County Metro,weekday,7,0.8003,0.9736,0.9307,0.9866
+sea,Seattle (Washington's 7th District),King County Metro,weekday,8,0.7846,0.9732,0.9301,0.986
+sea,Seattle (Washington's 7th District),King County Metro,weekday,9,0.7643,0.9685,0.9286,0.985
+sea,Seattle (Washington's 7th District),King County Metro,weekday,10,0.7643,0.9679,0.9266,0.9841
+sea,Seattle (Washington's 7th District),King County Metro,weekday,11,0.758,0.9675,0.9265,0.9841
+sea,Seattle (Washington's 7th District),King County Metro,weekday,12,0.7643,0.9685,0.9286,0.985
+sea,Seattle (Washington's 7th District),King County Metro,weekday,13,0.7643,0.9679,0.9266,0.9841
+sea,Seattle (Washington's 7th District),King County Metro,weekday,14,0.7643,0.9679,0.9266,0.9841
+sea,Seattle (Washington's 7th District),King County Metro,weekday,15,0.778,0.9686,0.9287,0.9852
+sea,Seattle (Washington's 7th District),King County Metro,weekday,16,0.8003,0.9729,0.9288,0.9857
+sea,Seattle (Washington's 7th District),King County Metro,weekday,17,0.7942,0.9695,0.9282,0.9857
+sea,Seattle (Washington's 7th District),King County Metro,weekday,18,0.7942,0.9695,0.9282,0.9857
+sea,Seattle (Washington's 7th District),King County Metro,weekday,19,0.7704,0.9651,0.9282,0.9846
+sea,Seattle (Washington's 7th District),King County Metro,weekday,20,0.7589,0.9608,0.9261,0.9687
+sea,Seattle (Washington's 7th District),King County Metro,weekday,21,0.7385,0.9597,0.926,0.9665
+sea,Seattle (Washington's 7th District),King County Metro,weekday,22,0.7307,0.9557,0.9142,0.9611
+sea,Seattle (Washington's 7th District),King County Metro,weekday,23,0.7226,0.9515,0.9132,0.9597
+sea,Seattle (Washington's 7th District),King County Metro,saturday,0,0.6895,0.9391,0.8709,0.9184
+sea,Seattle (Washington's 7th District),King County Metro,saturday,1,0.5681,0.8892,0.8553,0.8723
+sea,Seattle (Washington's 7th District),King County Metro,saturday,2,0.4261,0.7802,0.728,0.7686
+sea,Seattle (Washington's 7th District),King County Metro,saturday,3,0.3691,0.7293,0.6674,0.7375
+sea,Seattle (Washington's 7th District),King County Metro,saturday,4,0.3589,0.733,0.6369,0.5534
+sea,Seattle (Washington's 7th District),King County Metro,saturday,5,0.6166,0.8521,0.6743,0.9005
+sea,Seattle (Washington's 7th District),King County Metro,saturday,6,0.746,0.9602,0.9223,0.9798
+sea,Seattle (Washington's 7th District),King County Metro,saturday,7,0.7537,0.9609,0.9223,0.9821
+sea,Seattle (Washington's 7th District),King County Metro,saturday,8,0.7537,0.9617,0.9223,0.9826
+sea,Seattle (Washington's 7th District),King County Metro,saturday,9,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,10,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,11,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,12,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,13,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,14,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,15,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,16,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,17,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,18,0.7537,0.9627,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,saturday,19,0.7537,0.9612,0.9223,0.9822
+sea,Seattle (Washington's 7th District),King County Metro,saturday,20,0.7418,0.959,0.9131,0.9683
+sea,Seattle (Washington's 7th District),King County Metro,saturday,21,0.7241,0.9578,0.913,0.966
+sea,Seattle (Washington's 7th District),King County Metro,saturday,22,0.7241,0.9555,0.9051,0.9613
+sea,Seattle (Washington's 7th District),King County Metro,saturday,23,0.7161,0.9513,0.9019,0.9597
+sea,Seattle (Washington's 7th District),King County Metro,sunday,0,0.6847,0.9386,0.8708,0.9184
+sea,Seattle (Washington's 7th District),King County Metro,sunday,1,0.5795,0.8842,0.8116,0.8528
+sea,Seattle (Washington's 7th District),King County Metro,sunday,2,0.4301,0.7817,0.7319,0.7719
+sea,Seattle (Washington's 7th District),King County Metro,sunday,3,0.3631,0.726,0.6696,0.7327
+sea,Seattle (Washington's 7th District),King County Metro,sunday,4,0.3618,0.7297,0.6396,0.5426
+sea,Seattle (Washington's 7th District),King County Metro,sunday,5,0.608,0.8617,0.6784,0.8944
+sea,Seattle (Washington's 7th District),King County Metro,sunday,6,0.746,0.9602,0.9223,0.9798
+sea,Seattle (Washington's 7th District),King County Metro,sunday,7,0.7537,0.9609,0.9223,0.9821
+sea,Seattle (Washington's 7th District),King County Metro,sunday,8,0.7537,0.9616,0.9223,0.9826
+sea,Seattle (Washington's 7th District),King County Metro,sunday,9,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,10,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,11,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,12,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,13,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,14,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,15,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,16,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,17,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,18,0.7537,0.9626,0.9223,0.9831
+sea,Seattle (Washington's 7th District),King County Metro,sunday,19,0.7537,0.9613,0.9223,0.9824
+sea,Seattle (Washington's 7th District),King County Metro,sunday,20,0.7418,0.9581,0.9131,0.9677
+sea,Seattle (Washington's 7th District),King County Metro,sunday,21,0.7241,0.957,0.913,0.9655
+sea,Seattle (Washington's 7th District),King County Metro,sunday,22,0.7241,0.9547,0.9051,0.9608
+sea,Seattle (Washington's 7th District),King County Metro,sunday,23,0.7161,0.9505,0.9019,0.9592
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,0,0.7678,0.923,0.6068,0.8902
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,1,0.6083,0.7167,0.4363,0.2986
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,2,0.0881,0.1191,0.0217,0.0725
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,3,0.043,0.0111,0.009,0.0047
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,4,0.4838,0.4566,0.2214,0.2448
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,5,0.8547,0.9764,0.813,0.9778
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,6,0.9239,0.9812,0.8146,0.9803
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,7,0.9239,0.9834,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,8,0.9239,0.9834,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,9,0.9239,0.9834,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,10,0.9116,0.9834,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,11,0.9116,0.9834,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,12,0.9116,0.9823,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,13,0.9116,0.9834,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,14,0.9116,0.9834,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,15,0.9239,0.9852,0.8146,0.9924
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,16,0.9239,0.9834,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,17,0.9239,0.9834,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,18,0.9239,0.9834,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,19,0.9239,0.9833,0.8146,0.9923
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,20,0.8385,0.9756,0.814,0.9766
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,21,0.8385,0.9756,0.814,0.9766
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,22,0.815,0.9753,0.8133,0.971
+bos,Boston (Massachusetts's 8th District),MBTA,weekday,23,0.8196,0.9394,0.6211,0.9691
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,0,0.6619,0.909,0.5963,0.8801
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,1,0.6894,0.8987,0.5184,0.8884
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,2,0.256,0.5429,0.3104,0.2139
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,3,0.043,0.0111,0.009,0.0047
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,4,0.3116,0.4359,0.196,0.1979
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,5,0.6992,0.9422,0.8006,0.9635
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,6,0.8711,0.9754,0.814,0.9792
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,7,0.8711,0.9754,0.814,0.9792
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,8,0.8855,0.9777,0.814,0.9795
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,9,0.9116,0.9815,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,10,0.9116,0.9815,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,11,0.9116,0.9815,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,12,0.9116,0.9815,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,13,0.9116,0.9808,0.8143,0.9921
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,14,0.9116,0.9808,0.8143,0.9921
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,15,0.9116,0.9815,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,16,0.9116,0.9814,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,17,0.9116,0.9814,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,18,0.9116,0.9814,0.8143,0.9922
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,19,0.8711,0.9761,0.814,0.9792
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,20,0.8149,0.9677,0.814,0.9295
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,21,0.8149,0.9668,0.814,0.9294
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,22,0.7162,0.9591,0.8019,0.9602
+bos,Boston (Massachusetts's 8th District),MBTA,saturday,23,0.7137,0.9239,0.6105,0.9593
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,0,0.6619,0.909,0.5963,0.88
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,1,0.6435,0.7752,0.4828,0.3021
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,2,0.0681,0.3146,0.1814,0.1009
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,3,0.0328,0.0049,0.0022,0.0041
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,4,0.0695,0.0523,0.0121,0.0074
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,5,0.3792,0.7228,0.378,0.2688
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,6,0.7678,0.923,0.6068,0.8902
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,7,0.7678,0.923,0.6068,0.8902
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,8,0.7678,0.9252,0.6068,0.8904
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,9,0.7678,0.927,0.6074,0.8958
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,10,0.7678,0.927,0.6074,0.8958
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,11,0.7678,0.9585,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,12,0.7678,0.9585,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,13,0.7678,0.9578,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,14,0.7678,0.9578,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,15,0.7678,0.9585,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,16,0.7678,0.9585,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,17,0.7678,0.9585,0.6074,0.8963
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,18,0.7678,0.927,0.6074,0.8958
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,19,0.7678,0.9248,0.6074,0.8956
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,20,0.7678,0.9248,0.6074,0.8956
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,21,0.7678,0.9228,0.6068,0.8901
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,22,0.6619,0.9096,0.5963,0.8803
+bos,Boston (Massachusetts's 8th District),MBTA,sunday,23,0.6619,0.9093,0.5963,0.8802
