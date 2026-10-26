@@ -1,5 +1,19 @@
 # AI use log (needed for the contest disclosure)
 
+## What the student did (student's own account, updated 2026-10-26)
+This section records the student's contributions in his own words. Earlier rows in the table below were written by the AI assistant during the work and describe what the assistant did in detail; they say little about the student's own work, so they understate it. Where this section and a table row differ, this section is the student's statement and the table is the assistant's record of its own work. Items marked "(lost)" cannot be shown because the files no longer exist.
+- **The idea and the plan.** He came up with the idea of matching people to places they can reach by bus, and wrote the project plan. It started from what he saw riding home from soccer practice: workers waiting at bus stops, and later a memorial near his house for a person who died in a hit-and-run at night.
+- **Early code (lost).** He wrote early code for the original mapping and matching idea before using AI. Those files are lost. Parts of that work were rebuilt with Claude Code.
+- **The problem and the district.** He chose the problem, the district (California's 23rd), and the question the app answers: can you get there, and can you get home.
+- **The data intake system.** He found the public bus timetable data for some of the cities, and built the intake system (the step that downloads each agency's timetable and related data through its download links and APIs) together with Claude Code. Claude Code wrote the scripts under his direction (shiftready/prep/fetch_region.py, transit.py and related files).
+- **What the app says.** He decided which data to use, which numbers to show, and what the app must not claim (for example, that it saves lives); he dropped a cost figure that could not be traced to a real study.
+- **Directing and reviewing.** He told Claude Code what to build, read the results, asked for changes when something looked wrong, and decided what shipped.
+- **Written answers and video.** He is writing his own answers and recording the video. Claude Code helped draft and edit the written answers; they are disclosed as such.
+- **More to add (student):** anything else he did himself, such as testing on his phone, showing it to people, or editing files (see docs/FIRST_EDITS.md). Add the date and what you did, and only what is true.
+
+What Claude Code did: wrote most of the current code under his direction (data preparation, trip planner, road-risk model, web pages, English and Spanish text, tests), found and read sources, ran tests, and fixed bugs. The table below is the detailed record.
+
+
 The 2026 rules require every use of AI to be fully disclosed in the submission, and AI may only support specific aspects of the project. Fill one row each time an AI assistant helps. Be exact. The student writes the core code.
 
 | Date | Tool / model | What I asked | What the AI did (explained / reviewed / suggested / wrote N lines of ...) | What I wrote myself | Did I understand it? |
@@ -23,8 +37,8 @@ The 2026 rules require every use of AI to be fully disclosed in the submission, 
 
 | 2026-10-26 | Student statement (recorded by Claude Code) | Student said he also found the bus timetable data for some of the cities and helped build the data intake system (the download and API step) together with the AI assistant. | Recorded as the student's account. The log shows the AI assistant wrote the fetch and build scripts (`shiftready/prep/fetch_region.py`, `transit.py`, etc.). The student named the Washington DC bus feed link on WMATA's developer site; DC is not in the app because no API key was set. **The student should name which cities' data he found himself so he can say it to judges.** | Finding timetable sources for some cities; directing the intake design | |
 
-## Disclosure paragraph (draft that matches the log above; the student must edit the bracketed part to say exactly what he personally did)
-"I directed this project, chose the idea, the data sources and what to measure, and I am responsible for it. An AI assistant (Claude Code by Anthropic) wrote most of the code and analysis under my direction, including the data pipeline, the trip planner, the risk model and the web interface, and helped with research. I personally [describe exactly what you wrote, ran, tested and can explain]. Open-source libraries and data sources: Leaflet, OpenStreetMap, osmnx, pandas, scikit-learn, shapely, GeoPandas, pyshp, Python, JavaScript, Inter; Omnitrans, GCRTA and Miami-Dade Transit GTFS; Census ACS, LODES and TIGER; NHTSA FARS; CDPH facilities."
+## Disclosure paragraph (matches the final application answer)
+"Yes. I used Claude Code, an AI tool from Anthropic. It wrote most of the current code, but the project started with me and a lot of the thinking is mine. I wrote the original plan and some early code for matching people to places they could reach by bus (those files were lost, and Claude Code helped me rebuild those parts). I chose the problem and the district, found the public bus timetable data for some of the cities, and built the intake system that pulls it in together with Claude Code. I decided what the app can say and what it must not claim, read every result and asked for changes when something looked off. Every session with Claude Code is written down in this log."
 
 | 2026-10-24 | Claude Code | QA fix pass after a subagent click-through of the live site. Fixed: "arrive by" mode reported the wrong "no stop near start/end" reason; the sbX route had a blank name (badges, share text, calendar title); the cost card ignored the $6 day pass cap; the health card now only shows for night or non-"Yes" trips; sun/moon emoji replaced by inline icons; region picker no longer overflows on phones; Spanish " of " leftover; copy button handles a blocked clipboard; typeface credit corrected to Public Sans; CDC/PNAS citation years corrected. Tests re-run (all pass). |
 
