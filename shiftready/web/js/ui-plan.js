@@ -419,6 +419,15 @@
     return out;
   }
 
+  /** The trip drawn on a small map, right under the leave/arrive line. Filled in by SR.renderTripMap after the result is shown. */
+  function tripMapHtml(R) {
+    const n = R.main.legs.filter((l) => l.k === "bus").length, hasHome = R.wantHome && R.home && R.home.ok;
+    return '<div class="trip-map-card"><div class="tm-head"><b>' + t("tm.title") + '</b><span class="tm-actions">' +
+      (hasHome ? '<button type="button" id="tm-home" class="tog sm" aria-pressed="true">' + t("tm.home") + "</button>" : "") +
+      '<button type="button" id="tm-fit" class="tog sm">' + t("tm.fit") + "</button></span></div>" +
+      '<div id="trip-map" role="img" aria-label="' + esc(t("tm.alt", { n })) + '"></div><p id="tm-note" class="small" hidden>' + t("map.noroom") + "</p></div>";
+  }
+
   function render(R) {
     const v = R.verdict, mn = R.main;
     const icon = { yes: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>', maybe: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v8M12 18.2v.1"/></svg>', no: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>' }[v.level];
@@ -432,7 +441,7 @@
         '<div class="trip-line"><span class="tl"><small>' + t("res.leave") + "</small><b>" + SR.hm(mn.leave) + '</b></span><span class="tl-arrow" aria-hidden="true">&#8594;</span><span class="tl"><small>' + t("res.arrive") + "</small><b>" + SR.hm(mn.arrive) + "</b></span></div>" +
         '<p class="trip-meta">' + Math.round(mn.minutes) + " min " + t("res.door").toLowerCase() +
         (SR.d.transit.fares && mn.boardings > railCount(mn) ? " · " + t(railCount(mn) ? "res.fare_line_bus" : "res.fare_line", { a: esc(SR.cfg.agency), p: ((mn.boardings - railCount(mn)) * SR.d.transit.fares.adult.single).toFixed(2) }) : "") + "</p>" +
-        legsHtml(mn) + riskHtml(mn, R);
+        tripMapHtml(R) + legsHtml(mn) + riskHtml(mn, R);
       if (R.backup && R.backup.ok) {
         const late = R.m === "arrive" ? R.backup.arrive - R.T : null;
         h += '<h3>' + t("res.miss") + "</h3><p>" + t("res.miss_txt", { l: SR.hm(R.backup.leave), a: SR.hm(R.backup.arrive) }) +
@@ -584,6 +593,7 @@
     });
     const o = $("#req-open"); if (o) o.onclick = () => SR.openRequest(R);
     const pm = $("#plan-map"); if (pm) pm.onclick = () => SR.showPlanOnMap(R);
+    if (SR.renderTripMap) setTimeout(() => SR.renderTripMap(R), 0);
     const sh = $("#plan-share");
     if (sh) sh.onclick = async () => {
       const txt = shareText(R);
@@ -596,7 +606,7 @@
       try { if (navigator.share) { await navigator.share({ text: txt }); return; } } catch (e) { return; }
       try { await navigator.clipboard.writeText(txt); bo.textContent = t("req.copied"); } catch (e) { try { window.prompt(t("boss.btn"), txt); } catch (e2) { /* no clipboard and no prompt: nothing more to offer */ } }
     };
-    const p = $("#plan-print"); if (p) p.onclick = () => SR.printHtml("<h1>" + SR.t("plan.title") + "</h1>" + $("#plan-result").innerHTML.replace(/<button[^>]*>.*?<\/button>/g, ""));
+    const p = $("#plan-print"); if (p) p.onclick = () => SR.printHtml("<h1>" + SR.t("plan.title") + "</h1>" + (() => { const c = $("#plan-result").cloneNode(true); c.querySelectorAll(".trip-map-card").forEach((x) => x.remove()); return c.innerHTML; })().replace(/<button[^>]*>.*?<\/button>/g, ""));
     document.querySelectorAll("[data-alt]").forEach((b) => {
       b.onclick = () => { $("#time").value = String(Math.floor(+b.dataset.alt / 60) % 24).padStart(2, "0") + ":" + String(Math.round(+b.dataset.alt % 60)).padStart(2, "0"); runPlan(); };
     });

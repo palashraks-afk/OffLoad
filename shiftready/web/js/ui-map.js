@@ -18,8 +18,11 @@
   const mday = () => document.querySelector("input[name=mday]:checked").value;
 
   // OpenStreetMap's own tiles (no key needed), calmed to grey with CSS so the data layers carry the colour.
-  SR.addTiles = function (m) {
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap contributors" }).addTo(m);
+  SR.addTiles = function (m, onFail) {
+    let failed = 0;
+    const tl = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap contributors" });
+    tl.on("tileerror", () => { if (++failed === 4 && onFail) onFail(); });   // offline or blocked: routes and stops still draw
+    return tl.addTo(m);
   };
 
   SR.initMap = function () {
@@ -28,7 +31,11 @@
     map = L.map("map", { zoomControl: false, preferCanvas: true, zoomSnap: 0.25, zoomDelta: 0.5 }).setView(SR.cfg.center || [34.09, -117.3], SR.cfg.zoom || 11);
     SR._map = map;
     L.control.zoom({ position: "bottomright" }).addTo(map);
-    SR.addTiles(map);
+    const ld = $("#map-loading");
+    const doneLoading = () => { if (ld) ld.hidden = true; };
+    const tl0 = SR.addTiles(map, () => toast(t("map.noroom")));
+    tl0.once("load", doneLoading); setTimeout(doneLoading, 6000);
+    $("#map").setAttribute("aria-label", t("map.map_label"));
     bnd = L.geoJSON(SR.d.boundary, { style: { color: SR.C("--map"), weight: 2.5, fill: false, dashArray: "7 5" }, interactive: false }).addTo(map);
     SR.fitDistrict = function () {
       const wide = window.innerWidth >= 900;
@@ -38,7 +45,7 @@
 
     layers.halo = L.layerGroup().addTo(map);
     layers.stops = L.layerGroup().addTo(map);
-    layers.people = L.layerGroup();
+    layers.people = L.layerGroup().addTo(map);   // neighbourhoods are the layer that is readable at district scale
     layers.deaths = L.layerGroup();
     layers.corridors = L.layerGroup();
     layers.jobs = L.layerGroup();
@@ -81,13 +88,21 @@
       if (show) { halo[i].addTo(layers.halo); dots[i].addTo(layers.stops); shown.push([s[1], s[2]]); }
     });
     if (shown.length > 20) {
-      const sb = L.latLngBounds(shown);
+      // Open on the part of the district where the buses are: the middle 94% of stops by latitude and longitude, so a few far-off
+      // stops (desert towns, a distant rail station) do not push the busy area into a corner.
+      const q = (a, f) => a.slice().sort((x, y) => x - y)[Math.max(0, Math.min(a.length - 1, Math.round(f * (a.length - 1))))];
+      const la = shown.map((x) => x[0]), lo = shown.map((x) => x[1]);
+      const sb = L.latLngBounds([q(la, 0.03), q(lo, 0.03)], [q(la, 0.97), q(lo, 0.97)]);
       SR.fitDistrict = function () {
         const wide = window.innerWidth >= 900;
         map.fitBounds(sb, { paddingTopLeft: wide ? [430, 70] : [10, 70], paddingBottomRight: [10, 10] });
       };
       SR.fitDistrict();
     }
+    SR.fitWhole = function () {
+      const wide = window.innerWidth >= 900;
+      map.fitBounds(bnd.getBounds(), { paddingTopLeft: wide ? [430, 70] : [10, 70], paddingBottomRight: [10, 10] });
+    };
     SR.d.tracts.forEach((tr, i) => {
       tractC[i] = L.circleMarker([tr.lat, tr.lon], { radius: 3 + Math.sqrt(tr.pop) / 14 }).bindPopup(() => tractPopup(tr)).addTo(layers.people);
     });
@@ -126,6 +141,9 @@
       spotReport(e.latlng);
     });
     update();
+    const bb = $("#m-busy"); if (bb) bb.onclick = () => SR.fitDistrict();
+    const bw = $("#m-whole"); if (bw) bw.onclick = () => SR.fitWhole();
+    const ld2 = $("#layers-d"); if (ld2 && window.innerWidth >= 900) ld2.open = true;
     setTimeout(() => { map.invalidateSize(); SR.fitDistrict(); }, 60);
   };
 
@@ -135,7 +153,7 @@
   }
 
   function layerChips() {
-    const items = [["halo", t("map.l_halo"), true], ["stops", t("map.l_stops"), true], ["employers", SR.d.employers ? t("map.l_emp") : null, false], ["people", t("map.l_people"), false],
+    const items = [["halo", t("map.l_halo"), true], ["stops", t("map.l_stops"), true], ["employers", SR.d.employers ? t("map.l_emp") : null, false], ["people", t("map.l_people"), true],
       ["jobs", t("map.l_jobs"), false], ["corridors", SR.d.risk_lines ? t("map.l_corridors") : null, false],
       ["deaths", SR.d.deaths && SR.d.deaths.length ? t("map.l_deaths") : null, false], ["health", SR.d.pois.length ? t("map.l_health") : null, false]].filter((x) => x[1]);
     const box = $("#layers");
@@ -170,10 +188,12 @@
       dots[i].setRadius(on ? 2.4 : 1.5);
     });
     SR.d.tracts.forEach((tr, i) => {
-      const on = tr.cov[day][h] === "1";
+      const on = tr.cov[day][h] === "1", noon = tr.cov[day][12] === "1";
       tractC[i].setStyle(on
         ? { color: SR.C("--map"), weight: 1, dashArray: null, fillColor: SR.C("--map"), fillOpacity: tr.in_district ? 0.75 : 0.35 }
-        : { color: SR.C("--bad"), weight: 2, dashArray: "3 3", fillColor: SR.C("--surface"), fillOpacity: tr.in_district ? 0.6 : 0.2 });
+        : noon
+          ? { color: SR.C("--maybe"), weight: 2, dashArray: null, fillColor: SR.C("--maybe"), fillOpacity: tr.in_district ? 0.85 : 0.45 }   // had a bus at noon, none now
+          : { color: SR.C("--bad"), weight: 2, dashArray: "3 3", fillColor: SR.C("--surface"), fillOpacity: tr.in_district ? 0.6 : 0.2 });
     });
     if (!jobStops) jobStops = SR.d.blocks.map((x) => SR.net.near(x[0], x[1], 400).map((y) => y.s));
     jobC.forEach((c) => {
@@ -272,7 +292,10 @@
     const r = SR.d.reach[day], noon = 12;
     const tile = (v, label) => '<div class="stat"><b>' + SR.pct(v, v < 0.1 ? 1 : 0) + "</b><span>" + label + "</span></div>";
     $("#map-stats").innerHTML = tile(r.pop_share[h], t("map.s_people")) + tile(r.jobs_share[h], t("map.s_jobs")) + tile(r.trans_jobs_share_district[h], t("map.s_wh")) +
-      '<p class="small wide">' + t("map.vs_noon", { n: SR.pct(r.pop_share[noon]) }) + "</p>"; 
+"";
+    const sub = $("#hour-sub");
+    if (sub) sub.textContent = t(h === noon ? "map.hour_sub0" : "map.hour_sub", { p: SR.pct(r.pop_share[h], r.pop_share[h] < 0.1 ? 1 : 0), h: SR.hourLabel(h), n: SR.pct(r.pop_share[noon]) });
+    $("#hour").setAttribute("aria-valuetext", t("map.slider_text", { h: SR.hourLabel(h), p: SR.pct(r.pop_share[h], r.pop_share[h] < 0.1 ? 1 : 0) }));
     $("#health").innerHTML = healthStats(day, h);
     curve(day, h);
   }
@@ -301,31 +324,102 @@
     $(".map-shell").append(b);
   };
 
-  /** Draw a plan: dashed walking lines, solid bus lines along the trip's own stops, pins at both ends. */
+  // ---------- a trip on a map: shared by the inline map in the Plan result and the large Map tab ----------
+  const WALK = { color: "#59616c", weight: 3, dashArray: "1 7", lineCap: "round", opacity: 0.95 };
+
+  /** The next few departures of one route from one stop, so a tapped stop answers "and if I miss it?". */
+  function nextDeparts(stop, route, day, after, n) {
+    const bit = { weekday: 1, saturday: 2, sunday: 4 }[day] || 1, out = [];
+    SR.d.transit.trips.forEach((tr) => {
+      if (tr[0] !== route || !(tr[1] & bit)) return;
+      const k = tr[2].indexOf(stop);
+      if (k >= 0 && k < tr[2].length - 1 && tr[3][k] > after) out.push(tr[3][k]);
+    });
+    return out.sort((a, b) => a - b).slice(0, n);
+  }
+
+  function boardPopup(l, day) {
+    const nx = nextDeparts(l.fromStop, l.route, day, l.dep + 0.01, 3);
+    return "<b>" + esc(SR.stopName(l.fromStop)) + "</b><div class=\"pop-routes\"><span class=\"route sm\" style=\"" + SR.routeStyle(l.route) + "\">" + esc(SR.routeName(l.route)) + "</span></div>" +
+      t("tm.board", { r: esc(SR.routeName(l.route)), t: SR.hm(l.dep) }) + "<br><span class=\"small\">" + t("tm.next") + ": " + (nx.length ? nx.map((x) => SR.hm(x)).join(", ") : t("tm.none")) + "</span>";
+  }
+
+  function pinIcon(html, cls, up) { return L.divIcon({ className: "tm-pin-wrap", html: '<span class="' + cls + '">' + html + "</span>", iconSize: [26, 26], iconAnchor: [13, up ? 34 : 13], popupAnchor: [0, up ? -30 : -12] }); }   // start and end pins sit above their point so they do not hide the boarding pin
+
+  /** Draws R's trip (and the ride home when there is one) on map `mp`. Returns the layers and the bounds to fit. */
+  function drawTrip(mp, R) {
+    const A = [R.from.lat, R.from.lon], B = [R.to.lat, R.to.lon], all = [A, B];
+    const stopLL = (i) => [SR.net.stops[i][1], SR.net.stops[i][2]];
+    const leg = (plan, day, home) => {
+      const g = L.layerGroup(); let prev = home ? B : A, n = 0;
+      const end = home ? A : B;
+      (plan.legs || []).forEach((l) => {
+        if (l.k !== "bus") return;
+        n++;
+        const seq = SR.d.transit.trips[l.trip % SR.d.transit.trips.length][2];
+        const a = seq.indexOf(l.fromStop), b = a >= 0 ? seq.indexOf(l.toStop, a) : -1;
+        const line = (b >= a && a >= 0 ? seq.slice(a, b + 1) : [l.fromStop, l.toStop]).map(stopLL);
+        const col = SR.d.transit.routes[l.route][2] || SR.C("--map");
+        L.polyline([prev, line[0]], WALK).addTo(g);
+        L.polyline(line, { color: "#ffffff", weight: home ? 7 : 10, opacity: 0.92, interactive: false }).addTo(g);
+        L.polyline(line, { color: col, weight: home ? 4 : 6, opacity: 1, dashArray: home ? "9 6" : null }).bindPopup(() => boardPopup(l, day)).addTo(g);
+        L.circleMarker(line[line.length - 1], { radius: 4, weight: 2, color: col, fillColor: "#ffffff", fillOpacity: 1 }).bindPopup(esc(SR.stopName(l.toStop))).addTo(g);
+        L.marker(line[0], { icon: pinIcon((home ? "H" : "") + n, "tm-pin" + (home ? " home" : "") + " route\" style=\"" + SR.routeStyle(l.route)), title: SR.stopName(l.fromStop), keyboard: false })
+          .bindPopup(() => boardPopup(l, day)).addTo(g);
+        prev = line[line.length - 1];
+        all.push(...line);
+      });
+      L.polyline([prev, end], WALK).addTo(g);
+      return g;
+    };
+    const main = leg(R.main, R.d, false).addTo(mp);
+    const home = R.wantHome && R.home && R.home.ok ? leg(R.home, R.homeDay || R.d, true) : null;
+    const ends = L.layerGroup().addTo(mp);
+    L.marker(A, { icon: pinIcon("A", "tm-end start", true), title: t("tm.start"), keyboard: false }).bindPopup("<b>" + t("tm.start") + "</b><br>" + esc(R.from.label || "")).addTo(ends);
+    L.marker(B, { icon: pinIcon("B", "tm-end", true), title: t("tm.end"), keyboard: false }).bindPopup("<b>" + t("tm.end") + "</b><br>" + esc(R.to.label || "")).addTo(ends);
+    return { main, home, ends, bounds: L.latLngBounds(all) };
+  }
+
+  /** The small map inside the Plan result. Draws even with no map pictures (offline): the lines do not need tiles. */
+  let tripMap = null;
+  SR.renderTripMap = function (R) {
+    if (tripMap) { try { tripMap.remove(); } catch (e) { /* already gone */ } tripMap = null; }
+    const el = document.getElementById("trip-map");
+    if (!el || !R || !R.main || !R.main.ok || !window.L) return;
+    tripMap = L.map(el, { zoomControl: false, preferCanvas: true, scrollWheelZoom: false, dragging: !L.Browser.mobile, tapHold: false });
+    const note = () => { const n = document.getElementById("tm-note"); if (n) n.hidden = false; el.classList.add("no-tiles"); };
+    SR.addTiles(tripMap, note);
+    L.control.zoom({ position: "bottomright" }).addTo(tripMap);
+    const d = drawTrip(tripMap, R), m = tripMap;
+    const fit = () => { m.invalidateSize(); m.fitBounds(d.bounds, { padding: [26, 26], maxZoom: 16 }); };
+    fit(); setTimeout(fit, 120);
+    const fb = document.getElementById("tm-fit"); if (fb) fb.onclick = fit;
+    const hb = document.getElementById("tm-home");
+    if (hb && d.home) {
+      d.home.addTo(m);
+      hb.onclick = () => {
+        const on = hb.getAttribute("aria-pressed") !== "true";
+        hb.setAttribute("aria-pressed", on);
+        on ? d.home.addTo(m) : m.removeLayer(d.home);
+      };
+    }
+  };
+
+  /** Draw a plan on the large map: the same drawing, plus a "back to my trip" button. */
   SR.showPlanOnMap = function (R) {
     SR.showTab("map");
     if (layers.plan) map.removeLayer(layers.plan);
-    layers.plan = L.layerGroup().addTo(map);
     const P = R.main;
     if (!P || !P.ok) return;
-    const pts = [[R.from.lat, R.from.lon], [R.to.lat, R.to.lon]];
-    L.marker(pts[0], { title: t("plan.from") }).addTo(layers.plan).bindPopup(t("plan.from") + ": " + esc(R.from.label || ""));
-    L.marker(pts[1], { title: t("plan.to") }).addTo(layers.plan).bindPopup(t("plan.to") + ": " + esc(R.to.label || ""));
-    const stop = (i) => [SR.net.stops[i][1], SR.net.stops[i][2]];
-    let prev = pts[0];
-    P.legs.forEach((l) => {
-      if (l.k !== "bus") return;
-      const seq = SR.d.transit.trips[l.trip][2];
-      const a = seq.indexOf(l.fromStop), b = seq.indexOf(l.toStop, a);
-      const line = (b >= a ? seq.slice(a, b + 1) : [l.fromStop, l.toStop]).map(stop);
-      const col = (SR.d.transit.routes[l.route][2] || SR.C("--map"));
-      L.polyline([prev, line[0]], { color: SR.C("--map-off"), weight: 3, dashArray: "4 6" }).addTo(layers.plan);
-      L.polyline(line, { color: col, weight: 7, opacity: 0.95 }).bindPopup(t("leg.bus", { r: esc(SR.routeName(l.route)) }) + " " + SR.hm(l.dep)).addTo(layers.plan);
-      prev = line[line.length - 1];
-    });
-    L.polyline([prev, pts[1]], { color: SR.C("--map-off"), weight: 3, dashArray: "4 6" }).addTo(layers.plan);
-    map.fitBounds(L.latLngBounds(pts.concat([prev])).pad(0.3));
+    const d = drawTrip(map, R);
+    layers.plan = L.layerGroup([d.main, d.ends].concat(d.home ? [d.home] : [])).addTo(map);
+    setTimeout(() => {
+      const wide = window.innerWidth >= 900;
+      map.invalidateSize();
+      map.fitBounds(d.bounds, { paddingTopLeft: wide ? [430, 80] : [24, 80], paddingBottomRight: [24, 24], maxZoom: 15 });
+    }, 80);
     $("#m-back").hidden = false;
+    const lg = $("#lg-trip"); if (lg) lg.hidden = false;
   };
 
   SR.flyTo = function (lat, lon, z) { SR.showTab("map"); setTimeout(() => map.flyTo([lat, lon], z || 14), 80); };

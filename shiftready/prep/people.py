@@ -131,8 +131,9 @@ def sheds(cfg, t, cov):
     pairs = pd.DataFrame([(w, h, n) for (w, h), n in agg.items()], columns=["w", "h", "n"])
     pairs.to_csv(ROOT / "data/processed/od_tract_pairs.csv", index=False)
     top = t.sort_values("jobs_trans", ascending=False).head(25).id.tolist() + \
-        t.sort_values("jobs", ascending=False).head(25).id.tolist()
-    night = {i: bool(cov["weekday"][23][k]) for k, i in enumerate(t.id)}
+        t.sort_values("jobs", ascending=False).head(25).id.tolist() + \
+        t[t.in_district].sort_values("jobs", ascending=False).head(20).id.tolist()   # the district's own biggest job areas (hospitals, campuses), so its employers can pick their area
+    night ={i: bool(cov["weekday"][23][k]) for k, i in enumerate(t.id)}
     meta = t.set_index("id")
     out = {}
     for w in dict.fromkeys(top):
