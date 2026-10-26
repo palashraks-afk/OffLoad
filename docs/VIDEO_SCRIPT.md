@@ -18,7 +18,7 @@ The rules ask for 1 to 3 minutes, public on YouTube or Vimeo, and the video must
 > Shift Ready is a free web app that checks whether a worker can get to a shift and back home by bus or train, and helps workers, managers and cities ask for better service when they can't.
 
 **0:22  Point at the 0% and the 11 PM tick**
-> I used to ride home from soccer practice and pass bus stops with workers waiting at them. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home once the buses stop. In the San Bernardino County part of our district, about one in five people live near a bus at noon. By 11 PM, no neighborhood has a bus within a five minute walk.
+> I used to ride home from soccer practice and pass bus stops with workers waiting at them. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home once the buses stop. In the San Bernardino County part of our district, about one in five people live near a bus at noon. By 11 PM, no neighborhood has a bus within a five minute walk. And in my district, 84 percent of the 201 people walking or biking who were killed in the last five years died in the dark.
 
 **0:46  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
 > Here's a night shift. I live in Yucaipa, start at Loma Linda University Health at 10 PM and finish at 6:30 in the morning. The app checks the real timetables and says Partly: there's a bus, but the walk is long. It shows the weather where I'd wait, the whole trip on a map, the ride home, and the next bus if I miss one.
