@@ -65,19 +65,11 @@ Agencies should be able to see how many people asked for the same later bus, wit
 Last, I would keep the design simple. Everyone should be able to use it on the first try on any phone in a few seconds, in English or Spanish, whether they are a nurse finishing a night shift, a student with a part-time job or a manager making next week's schedule.
 
 ## 5. Did you use AI? (answer Yes, then paste this)
-Yes. I used Claude Code, an AI tool from Anthropic, for part of this project. I did a good share of the work myself and I am glad to explain how it split.
+Yes. I used Claude Code, an AI tool from Anthropic, and I did a good share of the work myself.
 
-I came up with the idea and the plan. I wrote early code for the mapping and matching idea. I chose the problem, my district and the questions the app answers. I found the public bus timetable data for some of the cities, and Claude Code and I built the intake system that pulls it in through the agencies' download links and APIs. I decided which data to use and what the app should say and not say. For example it never claims to save lives, and I dropped a cost figure that could not be traced to a real study. I read every result, asked for changes when something looked wrong and decided which numbers to show.
+I came up with the idea and the plan and wrote early code for the mapping and matching idea. I chose the problem and my district. I found the public bus timetable data for some of the cities, and Claude Code and I built the intake system that pulls it in. I decided which data to use and what the app should say and not say. It never claims to save lives, and I dropped a cost figure I could not trace. I read every result and asked for changes when something looked wrong.
 
-Claude Code wrote most of the current code under my direction: the trip planner, the road-risk model, the web pages, the English and Spanish text and the tests. It also helped me find sources and draft and edit these answers.
-
-I checked the work in several ways. Every number in the app comes from a public source I can link to. There are automated tests: a second program that agrees with the planner on 720 of 720 checks, 138 random real trips run in both directions and a click-through test in a real browser. When a test failed or a result looked off it was fixed or I changed what the page says.
-
-Every session with Claude Code is written down in a public log in the project (docs/AI_USE_LOG.md) with the date, what I asked for and what it did. I can show the code and walk through how the planner works if the judges ask.
-
-The app says what it cannot do yet. It cannot see live delays, its Spanish still needs a native speaker's review and the road model ranks roads but does not predict any person.
-
-I know the contest rules say AI can support a project but cannot be all of the technical work. The idea, the direction and the decisions about what to say are mine. Some of my original code from the first version was lost, so I rebuilt those parts with Claude Code.
+Claude Code wrote most of the current code under my direction: the trip planner, the road-risk model, the web pages and the tests. It also helped me find sources and draft and edit these answers. Every session is written down in a public log (docs/AI_USE_LOG.md). Some of my original code from the first version was lost, so I rebuilt those parts with Claude Code. I can show all the code and explain how the planner works.
 
 ## 6. What did you learn or take away from participating in the Congressional App Challenge?
 Before this project I had ridden past bus stops for years without thinking about the people waiting at them. A bus timetable is public. Anyone can look it up and see whether a job is reachable before taking it. Once I put the numbers by the hour, the drop at night was hard to ignore. At noon about one in five people live near a bus. By 10 PM it is almost no one.
