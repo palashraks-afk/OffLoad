@@ -172,19 +172,22 @@
 
   <!-- CITY / EMPLOYERS -->
   <section id="tab-city" class="tab" hidden aria-labelledby="h-city">
-    <h1 id="h-city" data-i18n="city.title">For employers and city staff</h1>
-    
-
-    <div class="card" id="employers"></div>
-    <div class="cols">
-    <div class="card" id="cities"></div>
-    <div class="card" id="compare"></div>
-    <div class="card" id="gaps"></div>
-    <div class="card" id="whatif"></div>
-    <div class="card" id="fit"></div>
-    <div class="card" id="vanpool"></div>
+    <h1 id="h-city" data-i18n="city.title">For employers and cities</h1>
+    <p class="scope small" id="city-scope"></p>
+    <div class="dec-grid">
+      <div class="decision" id="decision"></div>
+      <div class="acts-block" id="actions"></div>
     </div>
-    <div class="row gap wrap"><button id="print-brief" class="btn ghost" data-i18n="city.print">Print the one-page brief</button><button id="csv-cov" class="btn ghost" data-i18n="city.csv">Download coverage by hour (CSV)</button></div>
+    <div class="agency-block" id="agency"></div>
+    <h2 class="ev-h2" data-i18n="city.more">More evidence</h2>
+    <div class="evidence">
+      <details class="ev" id="ev-employers"><summary></summary><div class="ev-body" id="employers"></div></details>
+      <details class="ev" id="ev-gaps"><summary></summary><div class="ev-body" id="gaps"></div></details>
+      <details class="ev" id="ev-whatif"><summary></summary><div class="ev-body" id="whatif"></div></details>
+      <details class="ev" id="ev-cities"><summary></summary><div class="ev-body" id="cities"></div></details>
+      <details class="ev" id="ev-compare"><summary></summary><div class="ev-body" id="compare"></div></details>
+      <details class="ev" id="ev-van"><summary></summary><div class="ev-body" id="vanpool"></div></details>
+    </div>
   </section>
 
   <!-- ABOUT -->
