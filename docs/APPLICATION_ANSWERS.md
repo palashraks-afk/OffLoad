@@ -67,17 +67,17 @@ Last, I would keep the design simple. Everyone should be able to use it on the f
 ## 5. Did you use AI? (answer Yes, then paste this)
 Yes. I used Claude Code, an AI tool from Anthropic. It wrote most of the current code, but the project started with me and a lot of the thinking is mine.
 
-The idea came from watching workers wait at bus stops on the ride home from soccer practice. I wrote the original plan and some early code for matching people to places they could reach by bus. That code got lost, so Claude Code helped me rebuild those parts. Picking the problem and the district was my call. So was the question the app answers: can you get there, and can you get home? I also tracked down the public bus timetable data for some of the cities, and Claude Code and I built the part that pulls it in.
+The idea came from watching workers wait at bus stops on the ride home from soccer practice. I wrote the original plan and some early code for matching people to places they could reach by bus. Picking the problem and the district was my call. So was the question the app answers: can you get there, and can you get home? I also tracked down the public bus timetable data for some of the cities, and Claude Code and I built the part that pulls it in.
 
-Most of my time went into deciding what the app can say. It never claims to save lives. I dropped a cost number when we couldn't trace it to a real study. I read every result Claude Code gave me, and when something looked off I asked for a change. The trip planner, the road-risk model, the web pages, the English and Spanish text and the tests were written by Claude Code while I told it what to build. It helped me find sources and edit these answers.
+Most of my time went into deciding what the app can say. It never claims to save lives. I dropped a cost number when we couldn't trace it to a real study. I read every result, and when something looked off I asked for a change. The trip planner, the road-risk model, the web pages, the English and Spanish text and the tests were written by Claude Code while I told it what to build. It helped me find sources and edit these answers.
 
-I didn't want to just trust it, so I checked. Every number in the app comes from a public source I can link to. A second program, written separately, agrees with the planner on 720 out of 720 checks. A hundred and thirty-eight random real trips work in both directions, and a browser test clicks through the app like a person would. When something failed, it got fixed or I changed what the page says.
+I didn't want to just trust it, so I checked. Every number in the app comes from a public source I can link to. A second program, written separately, agrees with the planner on 720 out of 720 checks. 138 random real trips work in both directions, and a browser test clicks through the app like a person would. When something failed, it got fixed or I changed what the page says.
 
 Everything Claude Code did is written down in a public log (docs/AI_USE_LOG.md), with dates and what I asked for. Judges can ask to see the code or hear how the planner works.
 
 The app has limits and says so. It can't see live delays. The Spanish still needs a native speaker to check it. And the road model ranks roads, it doesn't predict what will happen to any person.
 
-I know the contest rules say AI can support a project but can't be the whole thing. The idea, the direction and what the app says are mine.
+The first version of this project had code I wrote myself for the mapping and matching idea. Some of it was lost, so Claude Code helped me rebuild those parts. The plan behind them is still mine, and so is every single decision about what gets built.
 
 ## 6. What did you learn or take away from participating in the Congressional App Challenge?
 Before this project I had ridden past bus stops for years without thinking about the people waiting at them. A bus timetable is public. Anyone can look it up and see whether a job is reachable before taking it. Once I put the numbers by the hour, the drop at night was hard to ignore. At noon about one in five people live near a bus. By 10 PM it is almost no one.
