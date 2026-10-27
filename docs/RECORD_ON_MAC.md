@@ -72,21 +72,21 @@ open -na "Google Chrome" --args --app=https://palashraks-afk.github.io/ShiftRead
 > So let's try a night shift. I live in Yucaipa, I start at Loma Linda University Health at 10 PM, and I finish at 6:30 in the morning. The app checks the real timetables and says Partly: there's a bus, but the walk is long. It shows the weather where I'd be waiting, the whole trip on a map, the ride home, and the next bus if I miss one.
 
 **1:22  Tap Message my boss, then Ask for better service**
-> One tap writes a note to my boss. Another writes a request to the transit agency, using these same numbers, so a worker doesn't have to figure out what to say.
+> One tap writes a note to my boss. Another writes a request to the transit agency, using these same numbers.
 
-**1:38  Go back and tap Early hospital shift, then switch the language to Spanish**
+**1:32  Stay on the request screen, or go back to the first screen**
+> Google Maps and Transit are made for leaving now. Shift Ready starts from the end of your shift. It checks the ride home, shows the last bus, and writes the request for better service. I did not find a free tool that does all of that.
+
+**1:46  Tap Early hospital shift (it says Yes), then switch the language to Spanish**
 > An early hospital shift says Yes, you can. And the whole app works in Spanish.
 
-**1:50  Open the Map tab and drag the hour slider to 11 PM**
-> The Map tab shows where service disappears, hour by hour.
+**1:56  Open the Map tab, drag the hour slider to 11 PM, then change the region to Denver or Seattle**
+> The Map tab shows where service disappears, hour by hour. And the same method works in twelve places, from Sacramento to Seattle.
 
-**1:58  Change the region to Denver or Seattle**
-> The same method works in twelve places, from Sacramento to Seattle.
-
-**2:05  Back to the first screen**
+**2:08  Back to the first screen**
 > It's built in JavaScript and Python, with public timetables, Census data, crash data and OpenStreetMap. It's for shift workers who don't drive or don't want to drive tired, the managers who schedule them, and city and transit staff. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, the plan, the data and the decisions are mine, and every session is logged publicly.
 
-**2:28  Stay on the 0% and 11 PM screen**
+**2:30  Stay on the 0% and 11 PM screen**
 > Right now, a worker in my district can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready puts the same real numbers in front of both. Next I want to add live delays and test it with real workers. If enough people ask for better service with real numbers behind them, the buses can start running later. Thank you for watching.
 
 *(Optional, only if you are under 2:50 when you rehearse: open the Employers tab after the Map tab and say "The Employers tab helps managers see which shift start times their workers can reach.")*

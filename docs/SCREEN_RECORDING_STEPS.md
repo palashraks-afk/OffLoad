@@ -30,12 +30,12 @@ Pause 1 second after every tap so viewers can see what changed.
 | 0:24 | Point the cursor at the 0% and the 11 PM tick. |
 | 0:55 | Tap the **Night shift** example (Yucaipa to Loma Linda University Health). Let the result show: Partly, weather, map, ride home, next bus. |
 | 1:22 | Tap **Message my boss**, then **Ask for better service**. |
-| 1:38 | Go back. Tap **Early hospital shift** (it says Yes). Then switch the language to **Spanish**. |
-| 1:50 | Open the **Map** tab. Drag the hour slider to **11 PM**. |
-| 1:58 | Change the region to **Denver** or **Seattle**. |
-| 2:05 | Go back to the first screen. |
-| 2:28 | Stay on the 0% and 11 PM screen until the end. |
-| about 2:45 | Stop recording. |
+| 1:32 | Stay on the request screen (or go back to the first screen) while you say the Google Maps line. |
+| 1:46 | Tap **Early hospital shift** (it says Yes). Then switch the language to **Spanish**. |
+| 1:56 | Open the **Map** tab. Drag the hour slider to **11 PM**. Then change the region to **Denver** or **Seattle**. |
+| 2:08 | Go back to the first screen. |
+| 2:30 | Stay on the 0% and 11 PM screen until the end. |
+| about 2:50 | Stop recording. |
 
 ## Then
 - **Voice added later (recommended):** open iMovie, Create New, Movie. Drag the recording in. Click the microphone icon, pick the MacBook microphone, and read the script while the video plays. If you flub a sentence, move the playhead back, delete that voice part, and record it again. Trim the end. File, Share, File, 1080p, High.
