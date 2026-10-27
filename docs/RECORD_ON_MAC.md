@@ -65,31 +65,28 @@ open -na "Google Chrome" --args --app=https://palashraks-afk.github.io/ShiftRead
 **0:08  Still on the first screen**
 > Shift Ready is a free app that checks if a worker can get to work and back home by bus or train, and helps them ask for better service if they can't.
 
-**0:21  Stay on the first screen**
-> I used to pass workers waiting at bus stops after soccer practice. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home after the buses stop.
+**0:21  Point at the 0% and the 11 PM tick**
+> I used to pass workers waiting at bus stops after soccer practice. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home after the buses stop. Here is the problem. In the San Bernardino County part of my district, 729,052 people live. On a weekday at noon, about 144,000 of them live within a five minute walk of a bus. At 10 PM, only about 13,000. At 11 PM, none. Of our 6,383 warehouse and transport jobs, 34 percent are near a bus at noon, and none are at 11 PM. So a worker can take a job and find out the last bus is gone. And 84 percent of the 201 people walking or biking who were killed here in the last five years died in the dark.
 
-**0:37  Point at the 0% and the 11 PM tick**
-> Here is the problem. In the San Bernardino County part of my district, 729,052 people live. On a weekday at noon, about 144,000 of them live within a five minute walk of a bus. At 10 PM, only about 13,000. At 11 PM, none. Of our 6,383 warehouse and transport jobs, 34 percent are near a bus at noon, and none are at 11 PM. So a worker can take a job and find out the last bus is gone. And 84 percent of the 201 people walking or biking who were killed here in the last five years died in the dark.
-
-**1:17  Point at the From, To and time boxes**
+**1:16  Point at the From, To and time boxes**
 > You type where you start, where you work, and when your shift starts and ends. The app checks real bus and train timetables and says Yes, Partly, or No, there and back. Google Maps plans a trip for right now. Shift Ready starts from your shift.
 
-**1:35  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
+**1:34  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
 > Try a night shift. A worker in Yucaipa starts at Loma Linda University Health at 10 PM. It says Partly: there is a bus, but the walk is long. It also shows the map and the ride home.
 
-**1:50  Tap Message my boss, then Ask for better service**
+**1:49  Tap Message my boss, then Ask for better service**
 > One tap copies a note to my boss. Another writes a request to the bus agency.
 
-**1:57  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
+**1:56  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
 > Time matters. At 5 AM, an early hospital shift says No. At 8 AM, it says Yes. It also works in Spanish.
 
-**2:07  Open the Map tab and drag the hour slider to 11 PM, then tap the Employers tab**
+**2:06  Open the Map tab and drag the hour slider to 11 PM, then tap the Employers tab**
 > The Map tab shows where buses disappear, hour by hour. The Employers tab shows managers which start times work.
 
-**2:15  Back to the first screen**
+**2:14  Back to the first screen**
 > It's for shift workers who don't drive, their managers, and city and transit staff. It's built with JavaScript and Python, using public timetables, Census data, crash data and OpenStreetMap. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, plan, data and decisions are mine, and every session is logged publicly.
 
-**2:38  Stay on the 0% and 11 PM screen**
+**2:37  Stay on the 0% and 11 PM screen**
 > Next, I want to add live delays, and test it with real workers and managers. I also want to send agencies the requests with real numbers behind them, so a worker can know they will get home, and a city can see who it is leaving behind. Thank you for watching.
 
 
