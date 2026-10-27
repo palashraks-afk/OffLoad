@@ -68,32 +68,29 @@ open -na "Google Chrome" --args --app=https://palashraks-afk.github.io/ShiftRead
 **0:22  Point at the 0% and the 11 PM tick**
 > I used to pass workers waiting at bus stops after soccer practice. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home after the buses stop. Night shifts are most common in warehouses and hospitals. In my district, about one in five people live near a bus at noon. At 11 PM, none live within a five minute walk. And 84 percent of the 201 people walking or biking who were killed in the last five years died in the dark.
 
-**1:00  Stay on the first screen and point at the From, To and time boxes**
-> You type where you start, where you work, and when your shift begins and ends. The app checks real bus and train timetables and says Yes, Partly, or No, there and back. Google Maps plans a trip for right now. Shift Ready starts from your shift.
+**0:59  Stay on the first screen and point at the From, To and time boxes**
+> So I built an app to check it. You type where you start, where you work, and when your shift begins and ends. The app checks real bus and train timetables and says Yes, Partly, or No, there and back. Google Maps plans a trip for right now. Shift Ready starts from your shift.
 
-**1:19  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
+**1:20  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
 > Try a night shift. A worker in Yucaipa starts at Loma Linda University Health at 10 PM and ends at 6:30 AM. It says Partly: there is a bus, but the walk is long. It also shows the map and the ride home.
 
-**1:36  Tap Message my boss, then Ask for better service**
-> One tap copies a note to my boss. Another writes a request to the bus agency.
+**1:38  Tap Message my boss, then Ask for better service**
+> If it's not good, the app helps. One tap copies a note to my boss. Another writes a request to the bus agency.
 
-**1:44  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
-> Now an early hospital shift. At 5 AM it says No. At 8 AM it says Yes. It also works in Spanish.
+**1:47  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
+> Time matters. Take an early hospital shift. At 5 AM it says No. At 8 AM it says Yes. It also works in Spanish.
 
-**1:53  Open the Map tab and drag the hour slider to 11 PM**
-> The Map tab shows where buses disappear, hour by hour.
+**1:58  Open the Map tab and drag the hour slider to 11 PM**
+> Next, the Map tab shows where buses disappear, hour by hour.
 
-**1:58  Open the Employers tab**
-> The Employers tab shows managers which start times workers can reach.
+**2:03  Open the Employers tab**
+> For managers, the Employers tab shows which start times workers can reach.
 
-**2:04  Change the region to Denver or Seattle**
-> It works in twelve places.
-
-**2:07  Back to the first screen**
+**2:09  Back to the first screen**
 > It's for shift workers who don't drive, their managers, and city and transit staff. It's built with JavaScript and Python, using public timetables, Census data, crash data and OpenStreetMap. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, plan, data and decisions are mine, and every session is logged publicly.
 
-**2:30  Stay on the 0% and 11 PM screen**
-> Right now, a worker can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready shows both the same real numbers, so people can ask for better service. Next, I want to add live delays and test it with real workers. Thank you for watching.
+**2:32  Stay on the 0% and 11 PM screen**
+> So right now, a worker can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready shows both the same real numbers, so people can ask for better service. Next, I want to add live delays and test it with real workers. Thank you for watching.
 
 
 ## Submit
