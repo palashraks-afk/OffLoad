@@ -16,42 +16,45 @@ The rules ask for 1 to 3 minutes, public on YouTube or Vimeo, and the video must
 > Hi, I'm Palash Rakshit, a student at Redlands High School in California's 23rd district, and this is Shift Ready.
 
 **0:08  Still on the first screen**
-> Shift Ready is a free web app that checks whether a worker can get to a shift and back home by bus or train, and helps workers, managers and cities ask for better service when they can't.
+> Shift Ready is a free app. It checks if a worker can get to work and back home by bus or train. If they can't, it helps them ask for better bus service.
 
-**0:24  Point at the 0% and the 11 PM tick**
-> I used to ride home from soccer practice and pass bus stops with workers waiting at them. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home once the buses stop. In the San Bernardino County part of our district, about one in five people live near a bus at noon. By 11 PM, no neighborhood has a bus within a five minute walk. And in my district, 84 percent of the 201 people walking or biking who were killed in the last five years died in the dark.
+**0:22  Point at the 0% and the 11 PM tick**
+> I used to pass workers waiting at bus stops after soccer practice. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home after the buses stop. Night shifts are most common in warehouses and hospitals. In my district, about one in five people live near a bus at noon. At 11 PM, none live within a five minute walk. And 84 percent of the 201 people walking or biking who were killed in the last five years died in the dark.
 
-**0:55  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
-> So let's try a night shift. Say a worker lives in Yucaipa, starts at Loma Linda University Health at 10 PM, and finishes at 6:30 in the morning. The app checks the real timetables and says Partly: there's a bus, but the walk is long. It shows the weather where they'd be waiting, the whole trip on a map, the ride home, and the next bus if I miss one.
+**1:00  Stay on the first screen and point at the From, To and time boxes**
+> You type where you start, where you work, and when your shift begins and ends. The app checks real bus and train timetables and says Yes, Partly, or No, there and back. Google Maps plans a trip for right now. Shift Ready starts from your shift.
 
-**1:22  Tap Message my boss, then Ask for better service**
-> One tap writes a note to my boss. Another writes a request to the transit agency, using these same numbers.
+**1:19  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
+> Try a night shift. A worker in Yucaipa starts at Loma Linda University Health at 10 PM and ends at 6:30 AM. It says Partly: there is a bus, but the walk is long. It also shows the map and the ride home.
 
-**1:32  Stay on the request screen, or go back to the first screen**
-> Google Maps and Transit are made for leaving now. Shift Ready starts from the end of your shift. It checks the ride home, shows the last bus, and writes the request for better service. I did not find a free tool that does all of that.
+**1:36  Tap Message my boss, then Ask for better service**
+> One tap copies a note to my boss. Another writes a request to the bus agency.
 
-**1:46  Tap Early hospital shift, change the "be there by" time to 5:00 AM, tap Check my trip (No), change it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
-> Now an early hospital shift starting at 5 AM. This time it says no: no bus runs at that hour. But an 8 AM start says yes: a bus gets you there on time, and back. And the whole app works in Spanish.
+**1:44  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
+> Now an early hospital shift. At 5 AM it says No. At 8 AM it says Yes. It also works in Spanish.
 
-**1:56  Open the Map tab and drag the hour slider to 11 PM**
-> The Map tab shows where service disappears, hour by hour.
+**1:53  Open the Map tab and drag the hour slider to 11 PM**
+> The Map tab shows where buses disappear, hour by hour.
 
-**2:03  Open the Employers tab**
-> The Employers tab shows managers which shift start times their workers can reach by bus or train.
+**1:58  Open the Employers tab**
+> The Employers tab shows managers which start times workers can reach.
 
-**2:10  Change the region to Denver or Seattle**
-> And the same method works in twelve places.
+**2:04  Change the region to Denver or Seattle**
+> It works in twelve places.
 
-**2:15  Back to the first screen**
-> It's built in JavaScript and Python, with public timetables, Census data, crash data and OpenStreetMap. It's for shift workers who don't drive or don't want to drive tired, the managers who schedule them, and city and transit staff. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, the plan, the data and the decisions are mine, and every session is logged publicly.
+**2:07  Back to the first screen**
+> It's for shift workers who don't drive, their managers, and city and transit staff. It's built with JavaScript and Python, using public timetables, Census data, crash data and OpenStreetMap. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, plan, data and decisions are mine, and every session is logged publicly.
 
-**2:37  Stay on the 0% and 11 PM screen**
-> Right now, a worker in my district can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready puts the same real numbers in front of both. Next I want to add live delays and test it with real workers. If enough people ask for better service with real numbers behind them, the buses can start running later. Thank you for watching.
+**2:30  Stay on the 0% and 11 PM screen**
+> Right now, a worker can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready shows both the same real numbers, so people can ask for better service. Next, I want to add live delays and test it with real workers. Thank you for watching.
+
 
 ## Facts you are saying (check them on the live app the day you record)
 - About one in five people near a bus at noon, under 2% at 10 PM, none within a five minute walk at 11 PM (San Bernardino County part of CA-23, 729,052 people).
 - Twelve places work in the app.
 - The Night shift example says Partly; the Early hospital shift at 5:00 AM says No bus works, and at 8:00 AM says Yes, a bus gets you there on time and back (checked 2026-10-26; re-check on the day you record).
+
+- "Night shifts are most common in warehouses and hospitals": CDC survey (2010 NHIS) shows night work is most common in transportation and warehousing and in health care (docs/research/13_shift_work_health.md). It is not a count of night workers in CA-23; do not say how many there are.
 
 ## Do not say
 - "Saves lives," "prevents crashes," "the first," "nobody has done this."
