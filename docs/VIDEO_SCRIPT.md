@@ -22,7 +22,7 @@ The rules ask for 1 to 3 minutes, public on YouTube or Vimeo, and the video must
 > I used to ride home from soccer practice and pass bus stops with workers waiting at them. Later I passed a memorial near my house for a person who died in a hit-and-run at night. I wondered how people get home once the buses stop. In the San Bernardino County part of our district, about one in five people live near a bus at noon. By 11 PM, no neighborhood has a bus within a five minute walk. And in my district, 84 percent of the 201 people walking or biking who were killed in the last five years died in the dark.
 
 **0:55  Tap the example called Night shift (Yucaipa to Loma Linda University Health)**
-> So let's try a night shift. I live in Yucaipa, I start at Loma Linda University Health at 10 PM, and I finish at 6:30 in the morning. The app checks the real timetables and says Partly: there's a bus, but the walk is long. It shows the weather where I'd be waiting, the whole trip on a map, the ride home, and the next bus if I miss one.
+> So let's try a night shift. Say a worker lives in Yucaipa, starts at Loma Linda University Health at 10 PM, and finishes at 6:30 in the morning. The app checks the real timetables and says Partly: there's a bus, but the walk is long. It shows the weather where they'd be waiting, the whole trip on a map, the ride home, and the next bus if I miss one.
 
 **1:22  Tap Message my boss, then Ask for better service**
 > One tap writes a note to my boss. Another writes a request to the transit agency, using these same numbers.
