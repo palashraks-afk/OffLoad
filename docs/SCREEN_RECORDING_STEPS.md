@@ -28,13 +28,13 @@ Pause 1 second after every tap so viewers can see what changed.
 | 0:00 | Stay on the first screen (dark banner with 0%). |
 | 0:08 | Stay on the same screen. |
 | 0:21 | Point the cursor at the 0% and the 11 PM tick. This is the longest part. |
-| 1:12 | Tap the **Night shift** example. Let the result show. |
-| 1:37 | Scroll down. Tap **Message my boss**, then **Ask for better service**. |
-| 1:44 | Tap **Early hospital shift**. Set 5:00 AM, **Check my trip** (No). Set 8:00 AM, **Check my trip** (Yes). Switch to **Spanish**. |
-| 1:53 | Open **Map**, drag the slider to 11 PM, then tap **Employers**. |
-| 2:02 | Go back to the first screen. |
-| 2:24 | Stay on the 0% and 11 PM screen to the end. |
-| about 2:45 | Stop recording. Must be under 3:00. |
+| 1:20 | Tap the **Night shift** example. Let the result show. |
+| 1:48 | Scroll down. Tap **Message my boss**, then **Ask for better service**. |
+| 1:56 | Tap **Early hospital shift**. Set 5:00 AM, **Check my trip** (No). Set 8:00 AM, **Check my trip** (Yes). Switch to **Spanish**. |
+| 2:07 | Open **Map**, drag the slider to 11 PM, then tap **Employers**. |
+| 2:16 | Go back to the first screen. |
+| 2:38 | Stay on the 0% and 11 PM screen to the end. |
+| about 2:59 | Stop recording. Must be under 3:00. |
 
 ## Then
 - **Voice added later (recommended):** open iMovie, Create New, Movie. Drag the recording in. Click the microphone icon, pick the MacBook microphone, and read the script while the video plays. If you flub a sentence, move the playhead back, delete that voice part, and record it again. Trim the end. File, Share, File, 1080p, High.
@@ -42,4 +42,4 @@ Pause 1 second after every tap so viewers can see what changed.
 - Upload to YouTube as **Public** (not Unlisted), "No" to made for kids. Open the link in a private window to check the sound.
 
 ## If you re-record only part of the voice
-The third paragraph (0:21 to about 1:12, story and worker numbers) and the last paragraph (the closing, "Next, I want to add live delays...") can be re-recorded alone. Record just that part in Voice Memos, then in iMovie split the voice track at 0:21 and at 1:16 (move the playhead, press Cmd + B), delete the old piece, and drop the new clip in its place. Do the same at 2:37 for the last part. Keep the screen video as it is.
+The third paragraph (0:21 to about 1:20, story and worker numbers) and the last paragraph (the closing, "Next, I want to add live delays...") can be re-recorded alone. Record just that part in Voice Memos, then in iMovie split the voice track at 0:21 and at 1:16 (move the playhead, press Cmd + B), delete the old piece, and drop the new clip in its place. Do the same at 2:37 for the last part. Keep the screen video as it is.
