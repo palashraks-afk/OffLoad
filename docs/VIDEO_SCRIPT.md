@@ -33,16 +33,20 @@ The rules ask for 1 to 3 minutes, public on YouTube or Vimeo, and the video must
 **1:46  Tap Early hospital shift (it says Yes), then switch the language to Spanish**
 > An early hospital shift says Yes, you can. And the whole app works in Spanish.
 
-**1:56  Open the Map tab, drag the hour slider to 11 PM, then change the region to Denver or Seattle**
-> The Map tab shows where service disappears, hour by hour. And the same method works in twelve places, from Sacramento to Seattle.
+**1:56  Open the Map tab and drag the hour slider to 11 PM**
+> The Map tab shows where service disappears, hour by hour.
 
-**2:08  Back to the first screen**
+**2:03  Open the Employers tab**
+> The Employers tab shows managers which shift start times their workers can reach by bus or train.
+
+**2:10  Change the region to Denver or Seattle**
+> And the same method works in twelve places.
+
+**2:15  Back to the first screen**
 > It's built in JavaScript and Python, with public timetables, Census data, crash data and OpenStreetMap. It's for shift workers who don't drive or don't want to drive tired, the managers who schedule them, and city and transit staff. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, the plan, the data and the decisions are mine, and every session is logged publicly.
 
-**2:30  Stay on the 0% and 11 PM screen**
+**2:37  Stay on the 0% and 11 PM screen**
 > Right now, a worker in my district can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready puts the same real numbers in front of both. Next I want to add live delays and test it with real workers. If enough people ask for better service with real numbers behind them, the buses can start running later. Thank you for watching.
-
-*(Optional, only if you are under 2:50 when you rehearse: open the Employers tab after the Map tab and say "The Employers tab helps managers see which shift start times their workers can reach.")*
 
 ## Facts you are saying (check them on the live app the day you record)
 - About one in five people near a bus at noon, under 2% at 10 PM, none within a five minute walk at 11 PM (San Bernardino County part of CA-23, 729,052 people).
