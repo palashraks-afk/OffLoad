@@ -31,7 +31,7 @@ Pause 1 second after every tap so viewers can see what changed.
 | 0:55 | Tap the **Night shift** example (Yucaipa to Loma Linda University Health). Let the result show: Partly, weather, map, ride home, next bus. |
 | 1:22 | Tap **Message my boss**, then **Ask for better service**. |
 | 1:32 | Stay on the request screen (or go back to the first screen) while you say the Google Maps line. |
-| 1:46 | Tap **Early hospital shift** (it says Yes). Then switch the language to **Spanish**. |
+| 1:46 | Tap **Early hospital shift**. Change the time to **5:00 AM** and tap **Check my trip**. It says **No bus works** and shows the 5:15 AM option. Then switch the language to **Spanish**. |
 | 1:56 | Open the **Map** tab. Drag the hour slider to **11 PM**. |
 | 2:03 | Open the **Employers** tab. |
 | 2:10 | Change the region to **Denver** or **Seattle**. |
