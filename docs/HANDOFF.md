@@ -120,3 +120,6 @@ Cut order if behind: second city, hazard report, routing, Spanish polish, brief 
 
 ## Authorship note (2026-10-25, student's account)
 The student says he had the original plan and the original code for the original mapping-and-matching idea before AI was used, then used AI to polish it and to do background research, and that the original files are now lost. This is recorded as his statement, not as verified fact. The current app code was written by an AI assistant under his direction (see docs/AI_USE_LOG.md). Do not describe any file in this repository as written by the student unless he points to it and can explain it.
+
+## Next steps (2026-10-26)
+Record the video and submit the form using docs/RECORD_ON_MAC.md (script, Mac steps, upload and submit checklist) and docs/APPLICATION_ANSWERS.md. Live app: https://palashraks-afk.github.io/ShiftReady/
