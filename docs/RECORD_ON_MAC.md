@@ -13,6 +13,7 @@ open docs
 - `RECORD_ON_MAC.md` (this guide, with the script below)
 - `APPLICATION_ANSWERS.md` (the six answers to paste into the form)
 - `cover/cover_final_600x800.jpg` (the cover photo for the form)
+- `SCREEN_RECORDING_STEPS.md` (screen recording steps and timestamps)
 - `JUDGE_QA.md` (practice questions) and `CODE_WALKTHROUGH.md` (how the code works)
 
 You can also read them on GitHub: https://github.com/palashraks-afk/ShiftReady/tree/main/docs
