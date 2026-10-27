@@ -75,22 +75,19 @@ open -na "Google Chrome" --args --app=https://palashraks-afk.github.io/ShiftRead
 > Try a night shift. A worker in Yucaipa starts at Loma Linda University Health at 10 PM and ends at 6:30 AM. It says Partly: there is a bus, but the walk is long. It also shows the map and the ride home.
 
 **1:38  Tap Message my boss, then Ask for better service**
-> If it's not good, the app helps. One tap copies a note to my boss. Another writes a request to the bus agency.
+> One tap copies a note to my boss. Another writes a request to the bus agency.
 
-**1:47  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
+**1:45  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
 > Time matters. Take an early hospital shift. At 5 AM it says No. At 8 AM it says Yes. It also works in Spanish.
 
-**1:58  Open the Map tab and drag the hour slider to 11 PM**
-> Next, the Map tab shows where buses disappear, hour by hour.
+**1:55  Open the Map tab and drag the hour slider to 11 PM**
+> Next, the Map tab shows where buses disappear, hour by hour. The Employers tab shows managers which start times work.
 
-**2:03  Open the Employers tab**
-> For managers, the Employers tab shows which start times workers can reach.
-
-**2:09  Back to the first screen**
+**2:04  Back to the first screen**
 > It's for shift workers who don't drive, their managers, and city and transit staff. It's built with JavaScript and Python, using public timetables, Census data, crash data and OpenStreetMap. I used an AI tool, Claude Code, and it wrote most of the current code. The idea, plan, data and decisions are mine, and every session is logged publicly.
 
-**2:32  Stay on the 0% and 11 PM screen**
-> So right now, a worker can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready shows both the same real numbers, so people can ask for better service. Next, I want to add live delays and test it with real workers. Thank you for watching.
+**2:27  Stay on the 0% and 11 PM screen**
+> Of the 6,383 warehouse and transport jobs in my district, 34 percent are near a bus at noon, and none are at 11 PM. So right now, a worker can't tell if they can get home, and a transit agency can't see who it's leaving behind. Shift Ready shows both the same real numbers, so people can ask for better service. Next: live delays, and tests with real workers. Thank you for watching.
 
 
 ## Submit
