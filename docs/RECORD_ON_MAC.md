@@ -77,8 +77,8 @@ open -na "Google Chrome" --args --app=https://palashraks-afk.github.io/ShiftRead
 **1:32  Stay on the request screen, or go back to the first screen**
 > Google Maps and Transit are made for leaving now. Shift Ready starts from the end of your shift. It checks the ride home, shows the last bus, and writes the request for better service. I did not find a free tool that does all of that.
 
-**1:46  Tap Early hospital shift, change the "be there by" time to 5:00 AM, tap Check my trip (No), change it to 6:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
-> Now an early hospital shift starting at 5 AM. This time it says no: no bus runs at that hour. But a 6 AM start says yes: a bus leaves at 5:09 and gets there at 5:27. And the whole app works in Spanish.
+**1:46  Tap Early hospital shift, change the "be there by" time to 5:00 AM, tap Check my trip (No), change it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
+> Now an early hospital shift starting at 5 AM. This time it says no: no bus runs at that hour. But an 8 AM start says yes: a bus gets you there on time, and back. And the whole app works in Spanish.
 
 **1:56  Open the Map tab and drag the hour slider to 11 PM**
 > The Map tab shows where service disappears, hour by hour.

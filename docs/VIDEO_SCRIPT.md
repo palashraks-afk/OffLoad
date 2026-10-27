@@ -30,8 +30,8 @@ The rules ask for 1 to 3 minutes, public on YouTube or Vimeo, and the video must
 **1:32  Stay on the request screen, or go back to the first screen**
 > Google Maps and Transit are made for leaving now. Shift Ready starts from the end of your shift. It checks the ride home, shows the last bus, and writes the request for better service. I did not find a free tool that does all of that.
 
-**1:46  Tap Early hospital shift, change the "be there by" time to 5:00 AM, tap Check my trip (No), change it to 6:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
-> Now an early hospital shift starting at 5 AM. This time it says no: no bus runs at that hour. But a 6 AM start says yes: a bus leaves at 5:09 and gets there at 5:27. And the whole app works in Spanish.
+**1:46  Tap Early hospital shift, change the "be there by" time to 5:00 AM, tap Check my trip (No), change it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
+> Now an early hospital shift starting at 5 AM. This time it says no: no bus runs at that hour. But an 8 AM start says yes: a bus gets you there on time, and back. And the whole app works in Spanish.
 
 **1:56  Open the Map tab and drag the hour slider to 11 PM**
 > The Map tab shows where service disappears, hour by hour.
@@ -51,7 +51,7 @@ The rules ask for 1 to 3 minutes, public on YouTube or Vimeo, and the video must
 ## Facts you are saying (check them on the live app the day you record)
 - About one in five people near a bus at noon, under 2% at 10 PM, none within a five minute walk at 11 PM (San Bernardino County part of CA-23, 729,052 people).
 - Twelve places work in the app.
-- The Night shift example says Partly; the Early hospital shift at 5:00 AM says No bus works, and at 6:00 AM (the example's own time) says Yes, bus leaves 5:09 and arrives 5:27 (checked 2026-10-26; re-check on the day you record).
+- The Night shift example says Partly; the Early hospital shift at 5:00 AM says No bus works, and at 8:00 AM says Yes, a bus gets you there on time and back (checked 2026-10-26; re-check on the day you record).
 
 ## Do not say
 - "Saves lives," "prevents crashes," "the first," "nobody has done this."
