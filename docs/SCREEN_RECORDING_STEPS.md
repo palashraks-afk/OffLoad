@@ -31,10 +31,10 @@ Pause 1 second after every tap so viewers can see what changed.
 | 0:59 | Point at the From, To and time boxes. |
 | 1:20 | Tap the **Night shift** example. Let the result show. |
 | 1:38 | Scroll down. Tap **Message my boss**, then **Ask for better service**. |
-| 1:47 | Tap **Early hospital shift**. Set 5:00 AM, **Check my trip** (No). Set 8:00 AM, **Check my trip** (Yes). Switch to **Spanish**. |
-| 1:58 | Open **Map**. Drag the slider to 11 PM. Then tap **Employers**. |
-| 2:07 | Open **Employers**. |
-| 2:30 | Go back to the first screen. |
+| 1:45 | Tap **Early hospital shift**. Set 5:00 AM, **Check my trip** (No). Set 8:00 AM, **Check my trip** (Yes). Switch to **Spanish**. |
+| 1:55 | Open **Map**. Drag the slider to 11 PM. Then tap **Employers**. |
+| 2:04 | Open **Employers**. |
+| 2:27 | Go back to the first screen. |
 | 2:32 | Stay on the 0% and 11 PM screen to the end. |
 | about 2:55 | Stop recording. Must be under 3:00. |
 

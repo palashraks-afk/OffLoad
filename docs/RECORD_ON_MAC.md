@@ -80,7 +80,7 @@ open -na "Google Chrome" --args --app=https://palashraks-afk.github.io/ShiftRead
 **1:45  Tap Early hospital shift, set the time to 5:00 AM and tap Check my trip (No), set it to 8:00 AM and tap Check my trip again (Yes), then switch the language to Spanish**
 > Time matters. Take an early hospital shift. At 5 AM it says No. At 8 AM it says Yes. It also works in Spanish.
 
-**1:55  Open the Map tab and drag the hour slider to 11 PM**
+**1:55  Open the Map tab and drag the hour slider to 11 PM, then tap the Employers tab**
 > Next, the Map tab shows where buses disappear, hour by hour. The Employers tab shows managers which start times work.
 
 **2:04  Back to the first screen**
